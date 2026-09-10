@@ -14,8 +14,8 @@ This is an unofficial, non-commercial fan-made simulation project. It is not
 affiliated with, sponsored by, endorsed by, or approved by Games Workshop.
 Warhammer 40,000, Kill Team, faction names, and related marks and game
 materials are the property of their respective owners. The project uses
-original interface artwork and does not reproduce official miniature
-photography or illustrations. Rules references and compatibility information
+original interface artwork and machine-generated operative portraits, and
+does not reproduce official miniature photography or illustrations. Rules references and compatibility information
 are provided for identification and educational/simulation purposes only.
 Where official rules data is required, users should consult the current
 official Games Workshop sources.
@@ -29,6 +29,33 @@ Those are reproduced for simulation and reference only; Games Workshop holds
 the rights, and the official downloads are authoritative for actual play. This
 goes further than the repository policy in `plan.md` §3, which anticipated that
 real rule data would be loaded locally rather than committed.
+
+## Operative art
+
+Each operative's character sheet shows a generated coloured-pencil portrait from
+`assets/portraits/<team-id>/<operative-id>.webp`. The art is **generated, not
+official** — no miniature photography or published illustration is reproduced.
+
+It is loaded lazily and only there. Nothing fetches a portrait until a sheet is
+actually opened: the roster panels that are on screen for the whole battle show
+no art at all, and `assets/portraits/manifest.json` — the index of which
+operatives have been drawn — is fetched once, on the first sheet opened, so a
+portrait that doesn't exist yet costs no request. See `src/ui/portraits.js`;
+`npm test` asserts the laziness, since it is otherwise invisible until someone
+loads the site on a phone.
+
+The portraits are produced by a separate pipeline that lives outside this repo,
+`image_gen_pipeline/generate_killteam_art.py` (see its
+`killteam_art/README.md`). To redraw one, drag it in from Finder and say what to
+change:
+
+```bash
+python3 generate_killteam_art.py regen \
+  ~/Programming/40k-sim/assets/portraits/kommandos/kommando-boy.webp \
+  give him a much bigger hat and less green
+```
+
+The app works fine with the directory empty or partly filled.
 
 ## Run it
 

@@ -384,3 +384,39 @@ body.no-motion * { transition: none !important; animation: none !important; }
   font-size: 12px;
   color: var(--muted, #9aa4b8);
 }
+
+/* Operative sheet portrait ------------------------------------------------ */
+/* Art is only ever built when a sheet opens (src/ui/portraits.js), so these
+   rules never apply to anything on the battle screen itself. */
+.sheet-head { margin-bottom: 4px; }
+.sheet-head.with-portrait {
+  display: grid; grid-template-columns: 190px 1fr; gap: 16px; align-items: start;
+}
+.sheet-head .sheet-heading { min-width: 0; }
+.sheet-head h2 { margin-top: 0; }
+
+.portrait { margin: 0; }
+.portrait img {
+  display: block; width: 100%; border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  /* Reserved before the bytes arrive so opening a sheet never jumps. */
+  aspect-ratio: 2 / 3; object-fit: cover;
+  opacity: 0; transition: opacity .18s ease;
+}
+.portrait.loaded img { opacity: 1; }
+.portrait figcaption {
+  margin-top: 5px; font-size: 10px; line-height: 1.4;
+  color: var(--text-dim); text-align: center;
+}
+
+@media (max-width: 620px) {
+  .sheet-head.with-portrait { grid-template-columns: 1fr; }
+  .portrait img { max-width: 240px; margin: 0 auto; }
+}
+
+/* The reveal transition is animation; honour both reduce-motion switches. */
+body.no-motion .portrait img { transition: none; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .portrait img { transition: none; opacity: 1; }
+}

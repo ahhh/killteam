@@ -8,6 +8,7 @@
 import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
 import { tokensOf } from '../rules/tokens.js';
 import { SUPPORT_LEVELS } from '../data/schema.js';
+import { createPortrait } from './portraits.js';
 
 /** Build an element with text set safely — never innerHTML for pack content. */
 function h(tag, className, text) {
@@ -127,9 +128,17 @@ export function renderOperativeDetail(container, state, operativeId) {
 
   const title = h('h2', null, op.name);
   title.id = 'inspectTitle';
-  container.append(title);
-  container.append(h('p', 'muted',
+
+  // The portrait is fetched here and nowhere else — opening a sheet is the only
+  // thing in the app that loads art (see ui/portraits.js).
+  const portrait = createPortrait(pack, profile);
+  const sheetHead = h('div', portrait ? 'sheet-head with-portrait' : 'sheet-head');
+  const heading = h('div', 'sheet-heading');
+  heading.append(title, h('p', 'muted',
     `${pack.displayName} · role: ${op.role} · ${op.alive ? 'active' : 'incapacitated'}`));
+  if (portrait) sheetHead.append(portrait);
+  sheetHead.append(heading);
+  container.append(sheetHead);
 
   const stats = document.createElement('table');
   stats.className = 'stats';

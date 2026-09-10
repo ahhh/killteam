@@ -102,6 +102,56 @@ export function exposureAt(state, op, x, y, enemies) {
   return exposure;
 }
 
+/**
+ * The enemies with a clear sight line to a position.
+ *
+ * Shooting needs a sight line, so this is the cheap test for "could anything
+ * be shot from here" — used to pick which destinations are worth the full
+ * target-selection pass. It deliberately ignores weapon ranges, unlike
+ * `exposureAt`: a position can be a firing position without being a dangerous
+ * one, and vice versa.
+ */
+export function visibleEnemiesAt(state, op, x, y, enemies) {
+  const ghost = { ...op, x, y };
+  return enemies.filter(
+    (enemy) => traceSight(enemy, ghost, state.map.terrain || [], [], { samples: QUICK_SAMPLES }).visible
+  );
+}
+
+/** How many enemies have a clear sight line to a position. */
+export function sightLinesAt(state, op, x, y, enemies) {
+  return visibleEnemiesAt(state, op, x, y, enemies).length;
+}
+
+/**
+ * The most operatives an area weapon fired from this position could catch:
+ * the best crowd standing around any enemy we can actually see from here.
+ *
+ * Blast and Torrent measure their radius from the *target*, not the shooter,
+ * so a flamer looking for a crowd is looking for a clustered target — which is
+ * a different question from "where are the enemies thickest".
+ */
+export function splashOpportunityAt(state, op, x, y, enemies, radius) {
+  const visible = visibleEnemiesAt(state, op, x, y, enemies);
+  let best = 0;
+  for (const centre of visible) {
+    const caught = enemies.filter((e) => baseDistance(e, centre) <= radius).length;
+    if (caught > best) best = caught;
+  }
+  return best;
+}
+
+/**
+ * How many enemies a blast centred on the *operative itself* would catch.
+ *
+ * This is the bomb squig's question: an Explosive weapon needs no sight line
+ * and no target, only a crowd to walk into.
+ */
+export function detonationOpportunityAt(state, op, x, y, enemies, radius) {
+  const ghost = { ...op, x, y };
+  return enemies.filter((e) => baseDistance(ghost, e) <= radius).length;
+}
+
 /** Does a position benefit from cover against the current enemy positions? */
 export function coverQualityAt(state, op, x, y, enemies) {
   if (!enemies.length) return 0;

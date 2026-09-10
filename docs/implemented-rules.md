@@ -339,6 +339,22 @@ Annihilation is not a published mission. It is a variant this simulator
 provides for comparing team match-ups without objective play, and its data file
 says so.
 
+### AI tactics
+
+The AI scores candidate plans with per-role weights, then two layers on top
+(`src/ai/tactics.js`):
+
+- a **disposition** per kill team, inherited from its faction and overridable by
+  the pack (see `aiDisposition` in the rule-pack format). It scales the role
+  weights: `aggressive` closes and discounts exposure, `patient` holds firing
+  positions, `skirmish` works cover, `relentless` walks through fire.
+- **unit tactics** read off the profile: Blast and Torrent carriers steer toward
+  clustered targets and score what the splash catches, `selfPrimaryTarget`
+  weapons (Explosive — the bomb squigs) walk into a crowd and detonate, and
+  psykers value getting a `psychic` weapon off over a safer sidearm shot.
+
+Both show up in the combat log's plan rationale, alongside the score breakdown.
+
 ## Not implemented
 
 These are recognised and reported, not simulated:

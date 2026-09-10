@@ -11,6 +11,7 @@ import { WEAPON_RULES, parseRule } from '../rules/dice.js';
 import { describeHook } from '../rules/hooks.js';
 import { describeTeamRule, TEAM_RULE_EFFECTS } from '../rules/team-rules.js';
 import { TERRAIN_TRAITS } from '../rules/terrain.js';
+import { DISPOSITIONS } from '../ai/tactics.js';
 
 class Report {
   constructor(subject) {
@@ -207,6 +208,16 @@ export function validateTeamPack(pack) {
   }
   if (level >= 3 && !operatives.some((o) => (o.abilities || []).length)) {
     report.warn('supportLevel claims operative abilities but the pack defines none');
+  }
+
+  // A misspelled disposition would silently fall back to the faction default,
+  // so say so rather than letting the pack think it took effect.
+  const disposition = pack.aiDisposition;
+  if (typeof disposition === 'string' && !(disposition in DISPOSITIONS)) {
+    report.warn(
+      `unknown aiDisposition "${disposition}" — expected one of ` +
+      `${Object.keys(DISPOSITIONS).join(', ')}, or an inline block of multipliers`
+    );
   }
 
   return report;

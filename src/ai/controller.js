@@ -18,10 +18,12 @@ import { generateDestinations, chargeDestination } from './movement.js';
 import { bestShotFrom, bestMeleeTarget } from './targeting.js';
 import {
   objectiveValueAt, exposureAt, coverQualityAt, expectedDamage,
-  killPressure, threatValue,
+  killPressure, threatValue, sightLinesAt, splashOpportunityAt,
+  detonationOpportunityAt,
 } from './utility.js';
+import { dispositionFor, unitTacticsFor, applyTactics } from './tactics.js';
 
-export const AI_VERSION = '0.1.0';
+export const AI_VERSION = '0.2.0';
 
 /**
  * Per-role weightings for the utility score.
@@ -44,7 +46,13 @@ export const ROLE_WEIGHTS = {
 const APPROACH_HORIZON = 24;
 
 /** How many destinations get the expensive "can I shoot from here" pass. */
-const SHOOT_EVAL_DESTINATIONS = 8;
+const SHOOT_EVAL_DESTINATIONS = 10;
+/** What a sight line is worth when choosing which of those to spend it on. */
+const SIGHT_LINE_BONUS = 3;
+/** Catching our own operatives in a blast is never worth the trade. */
+const FRIENDLY_FIRE_PENALTY = 4;
+/** How many shoot-and-scoot variants to plan; each one costs a move search. */
+const SCOOT_VARIANTS = 3;
 /** Fidelity the rules engine uses; the chosen plan is re-checked at this level. */
 const FULL_SAMPLES = 6;
 
@@ -58,15 +66,56 @@ const FULL_SAMPLES = 6;
  * every role has to be willing to close: the drive to approach gets a floor
  * and the fear of exposure is halved.
  */
-function weightsFor(state, op) {
-  const base = ROLE_WEIGHTS[op.role] || ROLE_WEIGHTS.flexible;
-  if (!isLastTeamStanding(state)) return base;
+function weightsFor(state, op, disposition, tactics) {
+  const role = ROLE_WEIGHTS[op.role] || ROLE_WEIGHTS.flexible;
+  const base = isLastTeamStanding(state)
+    ? {
+        ...role,
+        objective: 0,
+        approach: Math.max(role.approach, 2.5),
+        exposure: role.exposure * 0.5,
+      }
+    : role;
+  // Faction first, then what this particular operative carries: a bomb squig is
+  // reckless whichever kill team it belongs to.
+  return applyTactics(base, disposition.mods, tactics.mods);
+}
+
+/**
+ * One line of rationale for a shot, so the combat log reads as what the
+ * operative is actually doing — a detonation has no target to name.
+ */
+function shotLine(shot, suffix = '') {
+  if (shot.selfDirected) {
+    return `Detonates ${shot.weaponName} for an expected ` +
+      `${shot.splash.enemy.toFixed(1)} damage across the blast${suffix}`;
+  }
+  const splash = shot.splash?.enemy > 0
+    ? `, spilling ${shot.splash.enemy.toFixed(1)} more damage into the ` +
+      `${shot.splash.radius}" splash`
+    : '';
+  return `Shoots ${shot.targetName} with ${shot.weaponName}${splash}${suffix}`;
+}
+
+/** The estimate every shoot plan shares; a detonation's damage is all splash. */
+function shotEstimate(shot, extra = {}) {
   return {
-    ...base,
-    objective: 0,
-    approach: Math.max(base.approach, 2.5),
-    exposure: base.exposure * 0.5,
+    damage: shot.expected,
+    splash: shot.splash,
+    psychic: shot.psychic === true,
+    // Nothing is "killed" by an operative blowing itself up, so a self-directed
+    // shot names no target for the kill-pressure bonus to read.
+    target: shot.selfDirected ? null : shot.targetId,
+    ...extra,
   };
+}
+
+/** What the log says about why this operative plays the way it does. */
+function tacticNote(state, op, disposition, tactics) {
+  const team = state.teamPacks[op.playerId]?.displayName ?? op.teamId;
+  const parts = [`${team}: ${disposition.label} — ${disposition.note}`];
+  if (tactics.labels.length) parts.push(tactics.labels.join('; '));
+  return parts.join(' · ');
 }
 
 export class UtilityController {
@@ -93,6 +142,29 @@ export class UtilityController {
 
   _cover(state, op, x, y, enemies) {
     return this._memo('cov', op, x, y, () => coverQualityAt(state, op, x, y, enemies));
+  }
+
+  _sightLines(state, op, x, y, enemies) {
+    return this._memo('los', op, x, y, () => sightLinesAt(state, op, x, y, enemies));
+  }
+
+  /**
+   * How promising a destination looks to the thing that makes this operative
+   * special — the question the expensive shot search gets asked on its behalf.
+   */
+  _opportunity(state, op, dest, enemies, tactics) {
+    // Both multipliers count operatives rather than damage, so they are scaled
+    // to outweigh the ground and cover terms they are added to: a crowd is the
+    // whole reason these two profiles move at all.
+    if (tactics.detonator !== null) {
+      return this._memo('det', op, dest.x, dest.y, () =>
+        detonationOpportunityAt(state, op, dest.x, dest.y, enemies, tactics.detonator)) * 4;
+    }
+    if (tactics.multiHit !== null) {
+      return this._memo('spl', op, dest.x, dest.y, () =>
+        splashOpportunityAt(state, op, dest.x, dest.y, enemies, tactics.multiHit)) * 1.6;
+    }
+    return this._sightLines(state, op, dest.x, dest.y, enemies) > 0 ? SIGHT_LINE_BONUS : 0;
   }
 
   /**
@@ -128,6 +200,11 @@ export class UtilityController {
         (o) => baseDistance(op, { x: o.x, y: o.y, baseDiameter: 0 }) < effectiveMove(op) + 2
       )) urgency += 1;
       if (isInjured(op)) urgency -= 0.5;
+      // A demolition charge is spent the moment its carrier is shot, so a squig
+      // already standing in a crowd goes now rather than hoping to survive.
+      const tactics = unitTacticsFor(state, op);
+      if (tactics.detonator !== null && nearest <= tactics.detonator + effectiveMove(op)) urgency += 2;
+      if (tactics.psyker && nearest < 18) urgency += 1;
       if (!best || urgency > best.urgency) best = { id, urgency };
     }
     return best?.id ?? readyIds[0];
@@ -142,15 +219,17 @@ export class UtilityController {
     const ap = counteract ? 1 : (op.apRemaining || effectiveApl(op));
     const enemies = liveOperatives(state).filter((o) => o.playerId !== op.playerId);
     const engaged = enemiesInControlRange(op, liveOperatives(state));
-    const w = weightsFor(state, op);
+    const disposition = dispositionFor(state, op.playerId);
+    const tactics = unitTacticsFor(state, op);
+    const w = weightsFor(state, op, disposition, tactics);
 
     const plans = engaged.length
       ? this._engagedPlans(state, op, ap, enemies, engaged)
-      : this._freePlans(state, op, ap, enemies);
+      : this._freePlans(state, op, ap, enemies, tactics);
 
     plans.push({ actions: [], rationale: ['No useful action found; holds position.'], estimate: {} });
 
-    for (const plan of plans) this._score(state, op, plan, enemies, w, ap);
+    for (const plan of plans) this._score(state, op, plan, enemies, w, ap, tactics);
 
     plans.sort((a, b) => b.score - a.score);
 
@@ -159,12 +238,12 @@ export class UtilityController {
     // shot the rules engine is going to reject.
     let chosen = null;
     for (const plan of plans.slice(0, 6)) {
-      if (this._planIsValid(state, op, plan, enemies)) { chosen = plan; break; }
+      if (this._planIsValid(state, op, plan, enemies, tactics)) { chosen = plan; break; }
     }
     if (!chosen) chosen = plans[plans.length - 1];
 
     const tied = plans.filter(
-      (p) => Math.abs(p.score - chosen.score) < 1e-6 && this._planIsValid(state, op, p, enemies)
+      (p) => Math.abs(p.score - chosen.score) < 1e-6 && this._planIsValid(state, op, p, enemies, tactics)
     );
     if (tied.length > 1) {
       // Derived stream: deterministic, but doesn't disturb the battle dice.
@@ -175,7 +254,11 @@ export class UtilityController {
     return {
       operativeId,
       actions: chosen.actions,
-      rationale: [...chosen.rationale, this._explain(chosen)],
+      rationale: [
+        ...chosen.rationale,
+        tacticNote(state, op, disposition, tactics),
+        this._explain(chosen),
+      ],
       considered: plans.length,
       score: Number(chosen.score.toFixed(2)),
     };
@@ -185,13 +268,19 @@ export class UtilityController {
    * Re-check a plan's shoot action with the same LOS fidelity the engine uses.
    * Movement and melee are already checked exactly during enumeration.
    */
-  _planIsValid(state, op, plan, enemies) {
+  _planIsValid(state, op, plan, enemies, tactics) {
     const shoot = plan.actions.find((a) => a.type === 'shoot');
     if (!shoot) return true;
-    const at = plan.estimate?.endsAt || { x: op.x, y: op.y };
+    // Where the shot is taken from, which is not always where the plan ends: a
+    // "shoot, then break for cover" plan fires before it moves. Validating from
+    // `endsAt` confirmed a target visible from the *retreat* spot and wrote it
+    // into the shoot action, which the engine then rejected for no line of
+    // sight — the operative had not moved yet.
+    const at = plan.estimate?.shootsFrom || plan.estimate?.endsAt || { x: op.x, y: op.y };
     const confirmed = bestShotFrom(state, op, at, enemies, {
       samples: FULL_SAMPLES, moved: plan.estimate?.movedBefore ?? null,
       movedDistance: plan.estimate?.movedBefore ? (plan.estimate?.moved ?? 0) : 0,
+      tactics,
     });
     if (!confirmed) return false;
     // Keep the plan, but shoot at whatever is actually targetable from there.
@@ -252,12 +341,12 @@ export class UtilityController {
     return plans;
   }
 
-  _freePlans(state, op, ap, enemies) {
+  _freePlans(state, op, ap, enemies, tactics) {
     const plans = [];
     const melee = meleeWeapons(state, op)[0];
 
     // --- Shoot without moving -------------------------------------
-    const shotHere = bestShotFrom(state, op, op, enemies);
+    const shotHere = bestShotFrom(state, op, op, enemies, { tactics });
     if (shotHere) {
       const base = [
         this._orderForShot(shotHere),
@@ -266,10 +355,10 @@ export class UtilityController {
       plans.push({
         actions: base,
         rationale: [
-          `Shoots ${shotHere.targetName} with ${shotHere.weaponName} from cover of current position`,
+          shotLine(shotHere, ' from the current position'),
           ...(shotHere.silent ? ['Stays on Conceal — the weapon is Silent'] : []),
         ],
-        estimate: { damage: shotHere.expected, target: shotHere.targetId, apUsed: 1, endsAt: { x: op.x, y: op.y } },
+        estimate: shotEstimate(shotHere, { apUsed: 1, endsAt: { x: op.x, y: op.y } }),
       });
 
       // Shoot, then reposition into safety with the spare AP — unless the
@@ -290,13 +379,13 @@ export class UtilityController {
           plans.push({
             actions: [...base, { type: 'reposition', destination: { x: safest.x, y: safest.y } }],
             rationale: [
-              `Shoots ${shotHere.targetName} with ${shotHere.weaponName}`,
+              shotLine(shotHere),
               `Then breaks ${safest.length.toFixed(1)}" to a safer position`,
             ],
-            estimate: {
-              damage: shotHere.expected, target: shotHere.targetId,
+            estimate: shotEstimate(shotHere, {
               apUsed: 2, endsAt: safest, moved: safest.length,
-            },
+              shootsFrom: { x: op.x, y: op.y },
+            }),
           });
         }
       }
@@ -305,21 +394,32 @@ export class UtilityController {
     // --- Move, then shoot -----------------------------------------
     if (ap >= 2) {
       const destinations = generateDestinations(state, op, usableMoveAllowance(state, op, 'reposition'));
+      // Only a handful of destinations can afford the full target-selection
+      // pass, so the pre-filter decides what this branch is even able to find.
+      // It therefore has to rank by what *shooting* wants: a sight line first,
+      // then cover and ground, with exposure as a tie-breaker rather than a
+      // veto. Ranking on `-exposure` alone sorted every hidden position to the
+      // top — and a position nothing can see is a position nothing can be shot
+      // from, so the pass reliably came back empty and shooters spent whole
+      // games holding position in cover.
       const ranked = destinations
         .map((d) => ({
           d,
-          quick: this._groundValue(state, op, d.x, d.y, enemies) * 2 -
-            this._exposure(state, op, d.x, d.y, enemies),
+          quick: this._opportunity(state, op, d, enemies, tactics) +
+            this._groundValue(state, op, d.x, d.y, enemies) * 2 +
+            this._cover(state, op, d.x, d.y, enemies) * 1.5 -
+            this._exposure(state, op, d.x, d.y, enemies) * 0.25,
         }))
         .sort((a, b) => b.quick - a.quick)
         .slice(0, SHOOT_EVAL_DESTINATIONS)
         .map((r) => r.d);
 
+      let scootsPlanned = 0;
       for (const dest of ranked) {
         // A Heavy weapon cannot follow a Reposition, so ask for the best shot
         // that would still be legal after the move.
         const shot = bestShotFrom(state, op, dest, enemies,
-          { moved: 'reposition', movedDistance: dest.length });
+          { moved: 'reposition', movedDistance: dest.length, tactics });
         if (!shot) continue;
         plans.push({
           actions: [
@@ -329,13 +429,39 @@ export class UtilityController {
           ],
           rationale: [
             `Repositions ${dest.length.toFixed(1)}" (${dest.tag})`,
-            `Shoots ${shot.targetName} with ${shot.weaponName}${shot.inCover ? ' (in cover)' : ''}`,
+            shotLine(shot, shot.inCover ? ' (in cover)' : ''),
           ],
-          estimate: {
-            damage: shot.expected, target: shot.targetId,
+          estimate: shotEstimate(shot, {
             apUsed: 2, endsAt: dest, moved: dest.length, movedBefore: 'reposition',
-          },
+          }),
         });
+
+        // Move, shoot, and duck back: the only plan shape a three-AP operative
+        // can fill, and without it a Sorcerer cast its spell and then stood in
+        // the open holding an action it had no way to spend.
+        if (ap >= 3 && scootsPlanned < SCOOT_VARIANTS) {
+          const scoot = this._scootAfterShot(state, op, dest, shot, enemies);
+          if (scoot) {
+            scootsPlanned++;
+            plans.push({
+              actions: [
+                this._orderForShot(shot),
+                { type: 'reposition', destination: { x: dest.x, y: dest.y } },
+                { type: 'shoot', targetId: shot.targetId, weaponId: shot.weaponId },
+                { type: 'dash', destination: { x: scoot.x, y: scoot.y } },
+              ],
+              rationale: [
+                `Repositions ${dest.length.toFixed(1)}" (${dest.tag})`,
+                shotLine(shot, shot.inCover ? ' (in cover)' : ''),
+                `Dashes ${scoot.length.toFixed(1)}" back into cover`,
+              ],
+              estimate: shotEstimate(shot, {
+                apUsed: 3, endsAt: scoot, shootsFrom: dest,
+                moved: dest.length + scoot.length, movedBefore: 'reposition',
+              }),
+            });
+          }
+        }
       }
     }
 
@@ -371,7 +497,7 @@ export class UtilityController {
     const objectiveDest = this._bestBy(moveDests,
       (d) => this._groundValue(state, op, d.x, d.y, enemies));
     if (objectiveDest) {
-      const staysHidden = !bestShotFrom(state, op, objectiveDest, enemies);
+      const staysHidden = !bestShotFrom(state, op, objectiveDest, enemies, { tactics });
       const order = staysHidden ? ORDERS.CONCEAL : ORDERS.ENGAGE;
       const actions = [
         { type: 'change_order', order },
@@ -419,15 +545,49 @@ export class UtilityController {
     return plans;
   }
 
+  /**
+   * Somewhere to go with the third AP once the shot is away: a Dash that ends
+   * behind cover, measured from where the shot was fired.
+   *
+   * Returns null when the weapon pins the operative (Heavy), when the budget a
+   * capped profile leaves cannot pay for a step, or when the move is legal but
+   * buys nothing — an operative stepping 0.2" is pure noise in the log.
+   */
+  _scootAfterShot(state, op, from, shot, enemies) {
+    if (shot.heavyAllows !== undefined && shot.heavyAllows !== 'dash') return null;
+    // A Dash is illegal with an enemy within control range.
+    if (enemies.some((e) => withinControlRange({ ...op, x: from.x, y: from.y }, e))) return null;
+
+    const budget = Math.min(
+      DASH_DISTANCE,
+      Math.max(0, (shot.moveLimit ?? Infinity) - from.length)
+    );
+    if (budget < 0.5) return null;
+
+    const after = { ...op, x: from.x, y: from.y };
+    const candidates = generateDestinations(
+      { ...state, operatives: { ...state.operatives, [op.id]: after } },
+      after, budget, { towardEnemies: false }
+    );
+    const best = this._bestBy(candidates, (d) =>
+      this._cover(state, op, d.x, d.y, enemies) * 2 - this._exposure(state, op, d.x, d.y, enemies));
+    return best && best.length > 0.5 ? best : null;
+  }
+
   /* --------------------------------------------------------------- */
   /* Scoring                                                          */
   /* --------------------------------------------------------------- */
 
-  _score(state, op, plan, enemies, w, ap) {
+  _score(state, op, plan, enemies, w, ap, tactics) {
     const e = plan.estimate || {};
     const at = e.endsAt || { x: op.x, y: op.y };
 
     const damage = e.damage || 0;
+    // Splash used to be weighed only while picking a weapon and then dropped
+    // from the plan, so a flamer rated a crowd exactly as highly as one lone
+    // trooper and never moved to line two of them up.
+    const splash = e.splash?.enemy || 0;
+    const friendlyFire = e.splash?.friendly || 0;
     const target = e.target ? state.operatives[e.target] : null;
     const killBonus = target
       ? killPressure(damage, target) * threatValue(state, target) * 1.2
@@ -454,8 +614,14 @@ export class UtilityController {
       ? Math.max(0, 1 - nearestEnemy / APPROACH_HORIZON)
       : 0;
 
+    // The spell is what a psyker is on the board for; a small bonus for getting
+    // one off stops it trading the big cast away for a safer sidearm shot.
+    const spell = e.psychic ? (tactics?.spellBonus ?? 0) : 0;
+
     plan.score =
       w.damage * damage +
+      w.damage * splash * (tactics?.splashWeight ?? 1) +
+      spell +
       killBonus +
       w.objective * objective +
       w.cover * cover +
@@ -463,10 +629,13 @@ export class UtilityController {
       (w.approach ?? 0) * approach -
       w.exposure * exposure -
       w.waste * wasted -
+      FRIENDLY_FIRE_PENALTY * friendlyFire -
       chargeRisk;
 
     plan.breakdown = {
       damage: Number((w.damage * damage).toFixed(2)),
+      splash: Number((w.damage * splash * (tactics?.splashWeight ?? 1)).toFixed(2)),
+      spell: Number(spell.toFixed(2)),
       kill: Number(killBonus.toFixed(2)),
       objective: Number((w.objective * objective).toFixed(2)),
       cover: Number((w.cover * cover).toFixed(2)),
@@ -474,6 +643,7 @@ export class UtilityController {
       approach: Number(((w.approach ?? 0) * approach).toFixed(2)),
       exposure: Number((-w.exposure * exposure).toFixed(2)),
       waste: Number((-w.waste * wasted).toFixed(2)),
+      friendlyFire: Number((-FRIENDLY_FIRE_PENALTY * friendlyFire).toFixed(2)),
     };
     return plan.score;
   }

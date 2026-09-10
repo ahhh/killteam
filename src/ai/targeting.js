@@ -5,7 +5,7 @@
 import { baseDistance } from '../maps/geometry.js';
 import { canBeTargeted, withinControlRange, QUICK_SAMPLES } from '../rules/visibility.js';
 import { expectedDamage, killPressure, threatValue } from './utility.js';
-import { rangedWeapons } from '../rules/shooting.js';
+import { rangedWeapons, selfDirectedWeapon } from '../rules/shooting.js';
 import {
   heavyShootBlocker, heavyAllowedMove, limitedExhausted, isSilent, seekMode,
   blastRadius, torrentRadius,
@@ -15,16 +15,20 @@ import { liveOperatives } from '../state.js';
 
 /** Blast catches friends as readily as enemies; weight that heavily. */
 const FRIENDLY_FIRE_WEIGHT = 3;
+/** Blowing yourself up is a cost, but a cheap delivery system is the point. */
+const SELF_DETONATION_COST = 0.4;
 
 /**
  * Best ranged shot available from a hypothetical position.
  *
  * @param {string|null} options.moved the move action taken before shooting,
  *   so Heavy weapons drop out of the running for that plan.
+ * @param {object|null} options.tactics per-unit tactics, so an area weapon
+ *   values what it catches and a psyker values casting (see ai/tactics.js).
  * @returns {{weaponId,targetId,expected,score,inCover,range,silent,heavyAllows}|null}
  */
 export function bestShotFrom(state, op, position, enemies,
-  { samples = QUICK_SAMPLES, moved = null, movedDistance = 0 } = {}) {
+  { samples = QUICK_SAMPLES, moved = null, movedDistance = 0, tactics = null } = {}) {
   // The ghost stands where the plan would end, having walked that far — Aimed
   // reads the distance, not just which action was used.
   const ghost = {
@@ -32,8 +36,10 @@ export function bestShotFrom(state, op, position, enemies,
     distanceMovedThisActivation: (op.distanceMovedThisActivation || 0) + (movedDistance || 0),
   };
 
-  // Cannot shoot while an enemy is within control range.
-  if (enemies.some((e) => withinControlRange(ghost, e))) return null;
+  // Cannot shoot a target while an enemy is within control range — but an
+  // Explosive weapon is allowed to go off in exactly that situation, so this is
+  // a per-weapon question rather than an early exit.
+  const engaged = enemies.some((e) => withinControlRange(ghost, e));
 
   const terrain = state.map.terrain || [];
   // Friendly bodies grant cover too — the engine counts them, so we must.
@@ -50,6 +56,20 @@ export function bestShotFrom(state, op, position, enemies,
     // Aimed profile after the operative has already walked too far.
     if (teamRuleBlocker(state, ghost, weapon, { counteraction: op.inCounteraction === true })) continue;
 
+    // Explosive and Wreathed select no target: the bearer is the centre of the
+    // blast, so the only question is what is standing around it. Without this
+    // the AI could never reach for a demolition charge at all — every plan it
+    // builds asks for an enemy to aim at, and these weapons have none.
+    const directed = selfDirectedWeapon(state, op, weapon);
+    if (directed) {
+      if (directed.kind !== 'self') continue;  // fired through a friendly: not planned yet
+      if (engaged && directed.def?.effect?.allowWhileEngaged !== true) continue;
+      const blast = detonationShot(state, op, ghost, weapon, directed, tactics);
+      if (blast && (!best || blast.score > best.score)) best = blast;
+      continue;
+    }
+    if (engaged) continue;
+
     for (const enemy of enemies) {
       const range = baseDistance(ghost, enemy);
       if (weapon.range && range > weapon.range) continue;
@@ -64,14 +84,16 @@ export function bestShotFrom(state, op, position, enemies,
       const expected = expectedDamage(op, weapon, enemy, { inCover });
       const splash = splashEstimate(state, op, weapon, enemy, inCover);
       const score =
-        expected + splash.enemy * 0.9 +
+        expected + splash.enemy * 0.9 * (tactics?.splashWeight ?? 1) +
         killPressure(expected, enemy) * threatValue(state, enemy) * 0.8 -
-        splash.friendly * FRIENDLY_FIRE_WEIGHT;
+        splash.friendly * FRIENDLY_FIRE_WEIGHT +
+        (isPsychic(weapon) ? (tactics?.spellBonus ?? 0) : 0);
       if (!best || score > best.score) {
         best = {
           weaponId: weapon.id, weaponName: weapon.name, targetId: enemy.id,
           targetName: enemy.name, expected, score,
           inCover, range,
+          psychic: isPsychic(weapon),
           silent: isSilent(weapon),
           heavyAllows: heavyAllowedMove(weapon),
           // Aimed and its cousins cap any move made after this shot.
@@ -82,6 +104,52 @@ export function bestShotFrom(state, op, position, enemies,
     }
   }
   return best;
+}
+
+/** PSYCHIC weapons are the "big spell" a caster is on the board to cast. */
+export function isPsychic(weapon) {
+  return (weapon.rules || []).includes('psychic');
+}
+
+/**
+ * A self-directed detonation from a hypothetical position.
+ *
+ * The bearer is the primary target and takes the hit itself, so the trade is
+ * "what the blast catches" against "what we lose" — a bomb squig is a delivery
+ * system, and spending it on one lone trooper is a waste of the only charge it
+ * has (Explosive is always Limited).
+ *
+ * @returns {object|null} a shot shaped like `bestShotFrom`'s, or null when
+ *   nothing worth detonating on is in reach.
+ */
+function detonationShot(state, op, ghost, weapon, directed, tactics) {
+  // `splashEstimate` measures from the target outwards and skips the target
+  // itself, so centring it on the ghost counts exactly the bystanders.
+  const splash = splashEstimate(state, op, weapon, { ...op, x: ghost.x, y: ghost.y }, false);
+  if (splash.enemy <= 0) return null;
+
+  // Explosive wounds the bearer; Wreathed uses it only as the blast centre.
+  const harmsBearer = directed.def?.effect?.shootSelf !== false;
+  const selfDamage = harmsBearer ? expectedDamage(op, weapon, op, { inCover: false }) : 0;
+  const score =
+    splash.enemy * (tactics?.splashWeight ?? 1) -
+    splash.friendly * FRIENDLY_FIRE_WEIGHT -
+    selfDamage * SELF_DETONATION_COST;
+
+  return {
+    weaponId: weapon.id, weaponName: weapon.name,
+    targetId: op.id, targetName: op.name,
+    // The damage all lands as splash; keeping `expected` at zero stops the
+    // caller from crediting a kill against the operative blowing itself up.
+    expected: 0, score,
+    inCover: false, range: 0,
+    psychic: isPsychic(weapon),
+    silent: isSilent(weapon),
+    heavyAllows: heavyAllowedMove(weapon),
+    moveLimit: weaponMoveLimit(state, op, weapon),
+    selfDirected: true,
+    splash,
+  };
 }
 
 /**

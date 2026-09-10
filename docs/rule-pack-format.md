@@ -76,6 +76,37 @@ provenance note in `README.md` for where their data came from.
 Roles change how the AI weighs damage, objectives, cover, exposure and closing
 distance — they do not change what is legal.
 
+### Disposition (`aiDisposition`, optional)
+
+A role says how one operative plays; a disposition says how the whole kill team
+plays. Packs inherit one from their `factionId` (Orks press forward, Astra
+Militarum hold a firing line) and may override it:
+
+```jsonc
+"aiDisposition": "aggressive",      // balanced | aggressive | patient | skirmish | relentless
+```
+
+or inline a custom one, as multipliers over the role weights:
+
+```jsonc
+"aiDisposition": {
+  "label": "Fanatical",             // shown in the combat log
+  "note": "ignores the odds",
+  "mods": { "damage": 1.3, "exposure": 0.6, "approachFloor": 3.5 }
+}
+```
+
+Keys are the weights in `src/ai/controller.js` (`damage`, `objective`, `cover`,
+`exposure`, `waste`, `survival`, `approach`); unknown keys are ignored.
+`approachFloor` is the exception to the multipliers: it raises the drive to
+close to at least that value, whatever the role would otherwise have wanted.
+
+Per-unit tactics need no data: they are read off the profile's own weapons.
+Blast and Torrent make an operative hunt for clustered targets, a
+`selfPrimaryTarget` weapon (Explosive) makes it hunt for a crowd to stand in,
+and a `psychic` weapon makes it value getting the cast off. See
+`src/ai/tactics.js`.
+
 ### Rule hooks
 
 `factionRules` is prose for a reader. `ruleHooks` is the machine-readable half:

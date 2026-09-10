@@ -5,7 +5,7 @@
   "blurb": "Ravener kill teams are hyperadapted to such an extent that they are able to overcome all manner of a prey species' defences. Driven by alien synaptic imperatives, Raveners burrow with horrific speed to strike at prey from vulnerable angles, before using razor-sharp talons, chitinous claws and virulent biotoxins to enact the Hive Mind's will.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/raveners/",
@@ -447,13 +447,44 @@
       "id": "death-from-below",
       "name": "DEATH FROM BELOW",
       "description": "Whenever a friendly RAVENER operative is fighting: If it's performed the Burrow action during that activation/counteraction, its melee weapons have the Balanced weapon rule.If it's on your TUNNEL, its melee weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "ravener",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the Burrow / TUNNEL condition is not simulated"
+        }
+      ]
     },
     {
       "id": "whipcord-emergence",
       "name": "WHIPCORD EMERGENCE",
       "description": "Whenever an operative is shooting a friendly RAVENER operative: If that friendly operative has performed the Burrow action during that turning point, you can re-roll one of your defence dice.If that friendly operative is on your TUNNEL, you can re-roll any of your defence dice results of one result..",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "ravener"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the Burrow condition is not simulated"
+        }
+      ]
     },
     {
       "id": "writhe-out-of-sight",

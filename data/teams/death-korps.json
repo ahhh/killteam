@@ -5,7 +5,7 @@
   "blurb": "Grim, fatalistic and utterly uncompromising, the Death Korps of Krieg are famed for their endurance and ability to do battle in the most horrific conditions. Death Korps kill teams are made up of veteran specialists who have seen more fighting that many Astra Militarum soldiers will experience in their entire lifetime.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/death-korps/",
@@ -989,7 +989,22 @@
       "id": "siege-warfare",
       "name": "SIEGE WARFARE",
       "description": "Friendly DEATH KORPS operatives' ranged weapons have the Saturate and Accurate 1 weapon rules.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "saturate",
+              "accurate1"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "take-cover",
@@ -1001,7 +1016,21 @@
       "id": "clear-the-line",
       "name": "CLEAR THE LINE",
       "description": "Friendly DEATH KORPS operatives' melee weapons have the Accurate 1 weapon rule. Whenever a friendly DEATH KORPS operative is fighting wholly within your territory, or whenever it's retaliating, its melee weapons also have the Severe weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "regroup",

@@ -38,6 +38,48 @@ function checkRange(report, label, value, [min, max]) {
   }
 }
 
+/** The range every weapon gets when its datacard prints no Range rule. On a
+ *  30x22" board this is unlimited, so a shorter range is a real restriction. */
+export const UNLIMITED_RANGE = 48;
+
+/**
+ * A ranged weapon is only allowed to be short if its datacard says so.
+ *
+ * Six project-authored teams were once written against a different reading of
+ * `range` — main guns capped at 10-18" while all 49 transcribed packs leave
+ * theirs unlimited — and it cost them the game before they could fire: average
+ * roster range correlated +0.81 with win rate across a 3,960-battle sweep,
+ * far ahead of team size, APL or wounds. Short range is a legitimate design
+ * (pistols, flamers, breaching shotguns all keep theirs); silently short
+ * range is not. So a sub-48" weapon has to carry the printed rule that earns
+ * it, which also keeps the field and the rules text from drifting apart.
+ *
+ * `Rng n"` is the 2021 symbol notation, whose distances are doubled to this
+ * engine's scale — see the Catachan pack's source notes.
+ */
+function checkShortRangeIsPrinted(report, wl, w) {
+  if (typeof w.range !== 'number' || w.range >= UNLIMITED_RANGE) return;
+  const text = `${w.rulesText || ''} ${(w.rules || []).join(' ')}`;
+  const printed = /Range\s+(\d+)/i.exec(text);
+  if (printed) {
+    if (Number(printed[1]) !== w.range) {
+      report.error(`${wl} range ${w.range}" contradicts its printed Range ${printed[1]}"`);
+    }
+    return;
+  }
+  const legacy = /Rng\s+(\d+)/i.exec(text);
+  if (legacy) {
+    if (Number(legacy[1]) * 2 !== w.range) {
+      report.error(
+        `${wl} range ${w.range}" does not match its printed Rng ${legacy[1]}" doubled to this engine's scale`);
+    }
+    return;
+  }
+  report.error(
+    `${wl} is limited to ${w.range}" but prints no Range rule — either add the rule or ` +
+    `leave it at ${UNLIMITED_RANGE}" like every unlimited weapon`);
+}
+
 export function validateTeamPack(pack) {
   const report = new Report(`team:${pack?.id ?? 'unknown'}`);
   if (!pack || typeof pack !== 'object') return report.error('pack is not an object');
@@ -101,7 +143,10 @@ export function validateTeamPack(pack) {
       }
       checkRange(report, `${wl} atk`, w.atk, WEAPON_RANGES.atk);
       checkRange(report, `${wl} hit`, w.hit, WEAPON_RANGES.hit);
-      if (w.type === 'ranged') checkRange(report, `${wl} range`, w.range, WEAPON_RANGES.range);
+      if (w.type === 'ranged') {
+        checkRange(report, `${wl} range`, w.range, WEAPON_RANGES.range);
+        checkShortRangeIsPrinted(report, wl, w);
+      }
       if (!w.damage) {
         report.error(`${wl} missing damage profile`);
       } else {
@@ -168,6 +213,42 @@ export function validateTeamPack(pack) {
     seenHooks.add(key);
   }
 
+  // --- Ploys and equipment ------------------------------------------
+  // A ploy's `hooks` are ruleHooks in every respect except who pays for them,
+  // so they are held to the same standard. A ploy with no hooks is not an
+  // error: it is simply one the engine cannot play, and `rules/ploys.js`
+  // reports it at battle start rather than failing the pack.
+  const seenPloys = new Set();
+  for (const [field, label] of [['strategicPloys', 'strategic ploy'], ['firefightPloys', 'firefight ploy']]) {
+    for (const ploy of pack[field] || []) {
+      if (!ploy?.id) { report.error(`${label} is missing an id`); continue; }
+      if (seenPloys.has(ploy.id)) report.error(`duplicate ploy id "${ploy.id}"`);
+      seenPloys.add(ploy.id);
+      if (ploy.cost !== undefined && (!Number.isInteger(ploy.cost) || ploy.cost < 0)) {
+        report.error(`${label} "${ploy.id}" has invalid cost ${ploy.cost}`);
+      }
+      if (!ploy.description) report.warn(`${label} "${ploy.id}" has no printed wording to check against`);
+      if (!Array.isArray(ploy.hooks)) continue;
+      if (field === 'firefightPloys' && ploy.hooks.length) {
+        report.warn(`firefight ploy "${ploy.id}" declares hooks, but firefight ploys are reactive and are never used`);
+      }
+      for (const hook of ploy.hooks) {
+        if (typeof hook.effect === 'string' && /function|=>/.test(hook.effect)) {
+          report.error('ploy hooks must be declarative data — executable code is never run from a pack');
+        }
+        for (const problem of describeHook(hook)) {
+          report.warn(`${label} "${ploy.id}": ${problem}`);
+        }
+        if (hook.partial && !hook.notes) {
+          report.warn(`${label} "${ploy.id}" is marked partial but says nothing about what is missing`);
+        }
+      }
+    }
+  }
+  for (const item of pack.equipment || []) {
+    if (!item?.id) report.error('equipment entry is missing an id');
+  }
+
   // --- Team-specific weapon rules -----------------------------------
   const weaponRules = pack.weaponRules || {};
   if (typeof weaponRules !== 'object' || Array.isArray(weaponRules)) {
@@ -223,8 +304,10 @@ export function validateTeamPack(pack) {
   }
 
   // --- Declared level vs implemented content (§28) -------------------
-  if (level >= 4 && !(pack.strategicPloys?.length || pack.firefightPloys?.length)) {
-    report.warn('supportLevel claims ploys/equipment but the pack defines none');
+  // Level 4 means the ploys are *playable*, not merely transcribed — every
+  // pack carries the prose already, so listing it proves nothing.
+  if (level >= 4 && !(pack.strategicPloys || []).some((p) => p.hooks?.length)) {
+    report.warn('supportLevel claims ploys but no strategic ploy declares hooks the engine can play');
   }
   if (level >= 3 && !operatives.some((o) => (o.abilities || []).length)) {
     report.warn('supportLevel claims operative abilities but the pack defines none');

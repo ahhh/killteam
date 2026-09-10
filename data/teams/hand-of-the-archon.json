@@ -5,7 +5,7 @@
   "blurb": "The Archons of the Drukhari Kabals are forever plotting to expand their sprawling criminal empires. Should their schemes require a subtle touch, they may turn to Hand of the Archon kill teams. These bands of assassins, thieves, torturers and worse wield an array of esoteric and macabre weapons to aid them in their diabolical missions.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 3,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/hand-of-the-archon/",
@@ -716,7 +716,21 @@
       "id": "blade-artists",
       "name": "BLADE ARTISTS",
       "description": "Friendly HAND OF THE ARCHON operatives' melee weapons have the Rending weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "from-darkness-death",

@@ -5,7 +5,7 @@
   "blurb": "The operatives that comprise Murderwing kill teams are sadistic killers whose various obsessions are reflected in the mutations they possess, the armour they wear and the weapons they bear to battle. Relentless hunters all, they combine their skills to ensure that their chosen prey does not escape their clutches.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 3,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/murderwing/",
@@ -775,7 +775,22 @@
       "id": "cull-the-weak",
       "name": "CULL THE WEAK",
       "description": "Whenever a friendly MURDERWING operative is shooting or fighting, its weapons have the Punishing weapon rule if any of the following are true for the operative that friendly operative is shooting or fighting against: It's at least 2\" lower than that friendly operative.Its APL stat is less than normal.It was wounded at the start of the activation/counteraction.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "murderwing",
+            "targetWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "nightmare-on-high",

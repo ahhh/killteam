@@ -5,7 +5,7 @@
   "blurb": "New inductees into the ranks of the Adepta Sororitas, Sisters Novitiate who display great zeal and determination are often deployed together in kill teams to hunt down apostates or root out heretics. In performing such duties, they may one day rise to become full Sisters, spreading the Emperor's light ever further.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/novitiates/",
@@ -802,7 +802,22 @@
       "id": "ardent-vengeance",
       "name": "ARDENT VENGEANCE",
       "description": "Whenever a friendly NOVITIATE operative is shooting against, fighting against or retaliating against an expended enemy operative, that friendly operative's weapons have the Punishing weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "novitiate",
+            "targetReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "defenders-of-the-faith",

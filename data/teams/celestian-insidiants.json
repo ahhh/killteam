@@ -5,7 +5,7 @@
   "blurb": "Celestian Insidiant kill teams comprise a range of specialists, each one trained and outfitted to perform a specific role in the pursuit and destruction of sorcerous foes. Some utilise esoteric relic weapons and equipment drawn from the extensive armouries of their Orders Militant, the bearing of which is a great honour.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/celestian-insidiants/",
@@ -592,7 +592,21 @@
       "id": "suffering-sacrifice",
       "name": "SUFFERING & SACRIFICE",
       "description": "Whenever a wounded friendly CELESTIAN INSIDIANT operative is shooting against, fighting against or retaliating against an enemy operative, its weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "selfWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "wrathful-determination",

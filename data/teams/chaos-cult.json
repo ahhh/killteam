@@ -5,7 +5,7 @@
   "blurb": "Wherever bitterness and discontent fester, so does the worship of the Dark Gods take hold. Zealous bands of cultists throng to the banners of malefic powers. The most monstrous of these zealots are warped beyond recognition, sprouting chitinous claws, leathery wings and all manner of mutations with which to slaughter their enemies.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/chaos-cult/",
@@ -442,13 +442,41 @@
       "id": "exaltation-in-pain",
       "name": "EXALTATION IN PAIN",
       "description": "You can ignore any changes to the Hit stat of friendly CHAOS CULT operatives' weapons from being injured. Whenever an operative is shooting a friendly CHAOS CULT operative that's wounded, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "chaos-cult",
+            "selfWounded": true
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "fervent-onslaught",
       "name": "FERVENT ONSLAUGHT",
       "description": "Friendly CHAOS CULT operatives' melee weapons have the Accurate 1 weapon rule, or the Accurate 2 weapon rule if that friendly operative is a MUTANT or TORMENT operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "chaos-cult",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "creatures-of-nightmare",

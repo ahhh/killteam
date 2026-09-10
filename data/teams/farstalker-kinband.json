@@ -5,7 +5,7 @@
   "blurb": "Farstalker Kinbands operate as scouts for the Kroot species. They range far and wide throughout the galaxy, seeking new and valuable genetic material to return to their Shapers. Farstalker Kinbands contain expert trackers, hunters and guerrilla fighters who are capable of matching far more technologically advanced foes.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/farstalker-kinband/",
@@ -778,7 +778,27 @@
       "id": "prey",
       "name": "PREY",
       "description": "Whenever a friendly FARSTALKER KINBAND operative is shooting during an activation in which it hasn't performed the Charge, Fall Back or Reposition action, its ranged weapons have the Balanced and Severe weapon rules; if the weapon already has the Balanced weapon rule, it has the Ceaseless and Severe weapon rules instead. Note that operative isn't restricted from performing those actions after shooting.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "notPerformedThisActivation": [
+              "charge",
+              "fall_back",
+              "reposition"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced",
+              "severe"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "rogue",

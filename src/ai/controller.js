@@ -23,6 +23,7 @@ import {
 } from './utility.js';
 import { dispositionFor, unitTacticsFor, applyTactics } from './tactics.js';
 import { openingSpends, meleeSpends, postKillSpends, canHealItself } from './spending.js';
+import { chooseStrategicPloys } from './ploys.js';
 
 export const AI_VERSION = '0.2.0';
 
@@ -194,6 +195,14 @@ export class UtilityController {
     const ghost = { ...op, x, y };
     const nearest = Math.min(...enemies.map((e) => baseDistance(ghost, e)));
     return Math.max(0, 1 - nearest / APPROACH_HORIZON);
+  }
+
+  /**
+   * Which strategic ploys to buy this turning point. Called once per player
+   * in the strategy phase; the rules layer re-checks every pick (#3).
+   */
+  chooseStrategicPloys(state, playerId) {
+    return chooseStrategicPloys(state, playerId);
   }
 
   /** Cheap urgency heuristic — full planning for every operative is wasteful. */

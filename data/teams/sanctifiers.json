@@ -5,7 +5,7 @@
   "blurb": "Sanctifiers draw their strength from an unshakeable faith in the Emperor. When they are grouped together, they gain miraculous power that elevates them far beyond what a mere Human civilian should be capable of in the 41st Millennium.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/sanctifiers/",
@@ -781,13 +781,47 @@
       "id": "fervent-brawl",
       "name": "FERVENT BRAWL",
       "description": "Whenever a friendly SANCTIFIER operative that's benefitting from the SERMON is fighting or retaliating, its melee weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "action": "fight"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the SERMON condition is not simulated"
+        }
+      ]
     },
     {
       "id": "zealous-persecution",
       "name": "ZEALOUS PERSECUTION",
       "description": "Whenever a friendly SANCTIFIER operative is fighting during an activation in which it performed the Charge action, its melee weapons have the Lethal 5+ weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "lethal5"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "rally-the-flock",

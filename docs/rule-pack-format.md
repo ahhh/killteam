@@ -60,9 +60,10 @@ provenance note in `README.md` for where their data came from.
     }
   ],
 
-  // Ploys and equipment are [{id, name, description}]; ploys also carry `cost`
-  // in CP. `factionRules` is [{id, name, description}] — reference text.
-  // `ruleHooks` is what the engine actually acts on; see below.
+  // `factionRules` is [{id, name, description}] — reference text.
+  // Ploys are [{id, name, description, cost}]; a strategic ploy also carries
+  // `hooks`, which is what makes it playable. Equipment is [{id, name,
+  // description}]. `ruleHooks` is the always-on half. See below.
   "factionRules": [],
   "strategicPloys": [], "firefightPloys": [], "equipment": [],
   "ruleHooks": [],
@@ -149,9 +150,28 @@ trigger names with no effects wired to them yet.
 
 **Conditions** — all keys are ANDed, and all are optional:
 
-`keyword`, `notKeyword`, `role`, `orderIs`, `weaponType`, `weaponIdIn`,
-`weaponNameContains`, `weaponHasAnyRule`, `performedThisActivation`,
-`notPerformedThisActivation`, `withinShadow`.
+*About this operative:* `keyword`, `notKeyword`, `role`, `orderIs`,
+`selfWounded`, `selfReady`, `awayFromFriends`, `withinShadow`,
+`performedThisActivation`, `notPerformedThisActivation`.
+
+*About the weapon:* `weaponType`, `weaponIdIn`, `weaponNameContains`,
+`weaponHasAnyRule`.
+
+*About the sequence and the other operative in it:* `action` (`"shoot"` or
+`"fight"`), `targetWithin`, `targetBeyond`, `targetOrderIs`, `targetKeyword`,
+`targetNotKeyword`, `targetWounded`, `targetReady`.
+
+The sequence conditions exist because most printed ploys are not team-wide
+buffs but buffs that apply *in a situation* — "shooting an operative within
+6\"", "fighting a ready enemy operative", "more than 5\" from other friendly
+operatives". Without them a pack can only express the unconditional minority,
+and authoring the rest anyway would silently drop the condition and make every
+one of those rules stronger than printed.
+
+`targetReady` is `false` for an *expended* operative (one that has already
+activated this turning point). `awayFromFriends: 5` means more than 5" from
+every other friendly operative. `selfWounded`/`targetWounded` use the Injured
+threshold: half wounds or fewer.
 
 `withinShadow` is the Mandrakes' terrain state: within 1" of Heavy terrain, or
 a base underneath Vantage terrain. Heavy is every piece that is neither `light`
@@ -284,6 +304,50 @@ spends have no action layer to ask, so `rules/resources.js` applies one
 documented policy: re-roll the failing result the most dice are showing, when
 that is worth at least 0.6 of a success in expectation.
 
+### Ploys (`strategicPloys`, `firefightPloys`)
+
+Every ploy is `{id, name, description, cost}` — `cost` in CP, defaulting to 1.
+`description` is the printed wording, kept so a reader can check the engine
+against the page.
+
+A **strategic ploy** becomes playable by adding `hooks`, which are `ruleHooks`
+in every respect except who pays for them: same triggers, same conditions, same
+effects, same `partial`/`notes` discipline. The player buys the ploy in the
+strategy phase and its hooks are in force until the end of that turning point.
+
+```jsonc
+{
+  "id": "waaagh",
+  "name": "WAAAGH!",
+  "cost": 1,
+  "description": "Friendly KOMMANDO operatives' melee weapons have the Balanced weapon rule.",
+  "hooks": [{
+    "trigger": "beforeAttackRoll",
+    "condition": { "keyword": "kommando", "weaponType": "melee" },
+    "effect": { "type": "grantWeaponRule", "rules": ["balanced"] }
+  }],
+  "oncePerBattle": false          // optional; most ploys may recur each turning point
+}
+```
+
+A ploy with **no** `hooks` is not an error — it is one this engine cannot play.
+It stays in the catalogue, and `rules/ploys.js` reports it once at battle start
+so an absent rule is visible rather than silently missing.
+
+**Firefight ploys are not simulated.** Their printed timing is reactive ("use
+this when an attack dice inflicts Normal Dmg on a friendly operative"), which
+needs an interrupt the turn machine does not have. They are catalogued, costed
+and reported; declaring `hooks` on one raises a validator warning rather than
+quietly firing it at the wrong moment.
+
+**Equipment is not simulated** either: it is chosen before the battle, and the
+engine has no pre-battle selection step. Each item is reported at battle start.
+
+The AI values a ploy by what its hooks do, weighted by the share of the roster
+that can use them and the team's disposition (`src/ai/ploys.js`), so a melee
+buff is bought by a team that reaches melee and skipped by a gunline. Nothing
+there is tuned per team: a new ploy gets a sensible valuation from its data.
+
 ### Support levels (§10)
 
 | Level | Meaning | Badge |
@@ -292,7 +356,7 @@ that is worth at least 0.6 of a success in expectation.
 | 1 | Core stats and basic weapons | Core compatible |
 | 2 | Roster restrictions | Core compatible |
 | 3 | Faction rules (via `ruleHooks` or `resources`) and core operative abilities | Mostly supported |
-| 4 | Team ploys and equipment | Mostly supported |
+| 4 | Strategic ploys wired up via `hooks` | Mostly supported |
 | 5 | Full supported team behaviour | Full engine support |
 
 Declare the level you actually implement. The validator warns when a pack

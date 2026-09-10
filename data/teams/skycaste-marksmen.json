@@ -60,7 +60,8 @@
           "rules": [
             "balanced"
           ],
-          "range": 8
+          "range": 8,
+          "rulesText": "Range 8\""
         },
         {
           "id": "w-baton",
@@ -106,7 +107,7 @@
           "rules": [
             "ap1"
           ],
-          "range": 14
+          "range": 48
         },
         {
           "id": "w-baton",
@@ -151,7 +152,7 @@
           "rules": [
             "balanced"
           ],
-          "range": 12
+          "range": 48
         },
         {
           "id": "w-baton",

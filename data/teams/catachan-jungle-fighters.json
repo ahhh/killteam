@@ -11,7 +11,7 @@
     "publisher": "Fan-made kill team, transcribed from datasheet images supplied by the user",
     "url": "",
     "checkedAt": "2026-09-10",
-    "notes": "Transcribed from the Catachan Kill Team PDF screenshots in ~/Desktop/Catachan_Jungle_Fighters/. The sheets use the 2021 symbol notation (circle 1\", triangle 2\", pentagon 6\"). Distances are doubled here to the scale this engine’s other packs use, so the printed Move 3\" becomes 6\" and a printed Range 6\" weapon becomes 12\"; weapons with no printed Range keep the packs’ convention of 48\" (effectively unlimited). Weapon \"!\" entries are read as critical-hit rules: MW2 as Devastating 2, P2 as Piercing Crits 2. Not an official Games Workshop product."
+    "notes": "Transcribed from the Catachan Kill Team PDF screenshots in ~/Desktop/Catachan_Jungle_Fighters/. The sheets use the 2021 symbol notation (circle 1\", triangle 2\", pentagon 6\"). Distances are doubled here to the scale this engine’s other packs use, so the printed Move 3\" becomes 6\" and a printed Range 6\" weapon becomes 12\"; weapons with no printed Range keep the packs’ convention of 48\" (effectively unlimited). Weapon \"!\" entries are read as critical-hit rules: MW2 as Devastating 2, P2 as Piercing Crits 2. Not an official Games Workshop product. Sgt Harker's Payback prints no Rng symbol on its card, so it keeps the 48\" unlimited convention."
   },
   "colors": {
     "primary": "#4c6a35",
@@ -140,7 +140,7 @@
           "id": "payback",
           "name": "Payback",
           "type": "ranged",
-          "range": 12,
+          "range": 48,
           "atk": 5,
           "hit": 4,
           "damage": {

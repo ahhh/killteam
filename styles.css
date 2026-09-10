@@ -429,3 +429,15 @@ body.no-motion .portrait img { transition: none; opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .portrait img { transition: none; opacity: 1; }
 }
+
+/* Strategic ploys in force this turning point (see rules/ploys.js). */
+.ploy-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0 2px; }
+.ploy-label {
+  font-size: 10px; color: var(--text-faint);
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.ploy-tag {
+  font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 10px;
+  background: var(--bg-raised); border: 1px solid var(--line);
+  color: var(--text); cursor: help;
+}

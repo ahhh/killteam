@@ -5,7 +5,7 @@
   "blurb": "Corrupted by a gruesome techno-organic affliction, the Gellerpox Infected are nightmarish meldings of flesh, machinery and rampant disease. Most of these hideous beings began as loyal servants of the God-Emperor. Those origins are long gone, however, wiped away by supernatural sickness and a compulsion to spread their infection across the stars.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/gellerpox-infected/",
@@ -551,7 +551,20 @@
       "id": "plagueridden-determination",
       "name": "PLAGUERIDDEN DETERMINATION",
       "description": "Whenever an operative is shooting a friendly GELLERPOX INFECTED operative (excluding MUTOID VERMIN) that has an Engage order, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "engage",
+            "notKeyword": "mutoid-vermin"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "drawn-to-the-hum",
@@ -569,7 +582,24 @@
       "id": "rust-emanations",
       "name": "RUST EMANATIONS",
       "description": "Whenever a friendly GELLERPOX INFECTED operative (excluding MUTOID VERMIN) is fighting or retaliating, your opponent cannot retain results of 3 as successes.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "notKeyword": "mutoid-vermin",
+            "action": "fight"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "brutal"
+            ]
+          },
+          "partial": true,
+          "notes": "modelled as Brutal rather than a blanket \"3s do not count\""
+        }
+      ]
     }
   ],
   "firefightPloys": [

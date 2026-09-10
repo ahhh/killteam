@@ -5,7 +5,7 @@
   "blurb": "Goremonger kill teams are territorial and aggressive, yet to view them as crazed butchers would be an oversimplification. They strive to emulate the bladework and military discipline of a Bloodletter pack, and are capable of identifying and destroying strategic assets in order to achieve victory in Khorne's name.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 3,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/goremonger/",
@@ -465,13 +465,44 @@
       "id": "enhanced-violence",
       "name": "ENHANCED VIOLENCE",
       "description": "Whenever a friendly GOREMONGER operative's GORE TANK is: Half, its melee weapons have the Balanced weapon rule.Full, its melee weapons have the Relentless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "goremonger",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "GORE TANK is not simulated; the Half-tank reading is used"
+        }
+      ]
     },
     {
       "id": "augmented-endurance",
       "name": "AUGMENTED ENDURANCE",
       "description": "Whenever an operative is shooting a friendly GOREMONGER operative, if that friendly operative's GORE TANK is: Half, you can re-roll one of your defence dice.Full, you can re-roll any of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "goremonger"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "GORE TANK is not simulated; the Half-tank reading is used"
+        }
+      ]
     },
     {
       "id": "gory-tenacity",

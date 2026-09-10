@@ -5,7 +5,7 @@
   "blurb": "Vespid Stingwings are an offensive kill team with swarm-like instinctual behaviours. They have some powerful ranged weapons, but your operatives will always prioritise a close threat, so you'll have to plan your attacks to maximise their offensive potential.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/vespid-stingwings/",
@@ -499,7 +499,20 @@
       "id": "sting",
       "name": "STING",
       "description": "Improve the Hit stat of friendly VESPID STINGWING operatives' claws by 1, and those weapons have the Lethal 5+ and Shock weapon rules.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {},
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "shock",
+              "lethal5"
+            ]
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [

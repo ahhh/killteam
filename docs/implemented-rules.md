@@ -410,12 +410,39 @@ The AI scores candidate plans with per-role weights, then two layers on top
 All three show up in the combat log's plan rationale, alongside the score
 breakdown.
 
+## Ploys and CP
+
+CP accrues at 1 per turning point and is spent on **strategic ploys**. A ploy
+becomes playable when its pack gives it `hooks` — the same trigger/condition/
+effect data `ruleHooks` uses — and its effects last until the end of the
+turning point that bought it.
+
+Buying is an AI decision (`src/ai/ploys.js`): each ploy is priced by what its
+hooks do, scaled by the share of the living roster that can use them and by the
+team's disposition, so an aggressive melee team buys its melee buff and a
+gunline saves the CP. Conditional ploys are discounted by how often the
+condition is likely to hold, which stops a narrow ploy from being valued like a
+team-wide one. The initiative winner buys first.
+
+Every purchase is re-checked by the rules layer, so an unaffordable or
+duplicate pick proposed by the AI is rejected and logged rather than trusted.
+
+A ploy with no `hooks` is reported once at battle start and never used — see
+"Not implemented" below for which kinds those are.
+
 ## Not implemented
 
 These are recognised and reported, not simulated:
 
-- Strategic and firefight ploys, and command point spending
-- Equipment
+- Firefight ploys — their timing is reactive ("use this when an attack dice
+  inflicts Normal Dmg"), which needs an interrupt the turn machine does not
+  have. Catalogued, costed and reported, never fired.
+- Equipment — chosen before the battle, and there is no pre-battle selection
+  step. Catalogued and reported.
+- Strategic ploys whose printed condition has no expression in the hook
+  vocabulary (team-specific state such as GORE TANK, SERMON or TUNNEL, or
+  board state such as markers the engine does not place). Reported per ploy at
+  battle start rather than approximated.
 - Operative abilities (unique actions are carried as data but not performable)
 - The 40 teams' faction rules listed as reference-only above
 - Vantage points and elevation — `height` is stored but does not affect LOS

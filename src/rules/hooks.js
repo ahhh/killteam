@@ -15,6 +15,10 @@ import { isWithinShadow } from './terrain.js';
 import { liveOperatives } from '../state.js';
 import { baseDistance } from '../maps/geometry.js';
 import { traceSight } from './visibility.js';
+// effects.js imports this module in turn. The cycle resolves because
+// `isInjured` is a hoisted function declaration; keep it one.
+import { isInjured } from './effects.js';
+import { activePloyHooks } from './ploys.js';
 
 /** Condition keys a hook may use. Anything else is reported and fails closed. */
 export const HOOK_CONDITIONS = [
@@ -29,6 +33,23 @@ export const HOOK_CONDITIONS = [
   'performedThisActivation',    // [action types] — all must have happened
   'notPerformedThisActivation', // [action types] — none may have happened
   'withinShadow',               // WITHIN SHADOW, as terrain.js defines it
+  // Sequence-aware conditions. Most printed ploys are not team-wide buffs but
+  // buffs that apply *in a situation* — "shooting an operative within 6\"",
+  // "fighting a ready operative", "more than 5\" from other friendly
+  // operatives". Without these a pack can only express the unconditional
+  // minority, and authoring the rest would silently drop the condition and
+  // make every one of them stronger than printed.
+  'action',                     // 'shoot' | 'fight' — which sequence this is
+  'targetWithin',               // target is within x" (base to base)
+  'targetBeyond',               // target is more than x" away
+  'targetOrderIs',              // 'engage' | 'conceal'
+  'targetKeyword',
+  'targetNotKeyword',
+  'selfWounded',                // this operative is wounded (or is not)
+  'targetWounded',
+  'awayFromFriends',            // more than x" from every other friendly
+  'targetReady',                // target is yet to activate (expended = false)
+  'selfReady',
 ];
 
 /** Effect types the engine knows how to apply. */
@@ -70,7 +91,10 @@ export function profileOf(state, op) {
 
 function hooksOf(state, playerId, trigger) {
   const pack = state.teamPacks[playerId];
-  return (pack?.ruleHooks || []).filter((h) => h.trigger === trigger);
+  const own = (pack?.ruleHooks || []).filter((h) => h.trigger === trigger);
+  // A strategic ploy in force is just a hook the player paid CP for, so it
+  // enters here and inherits every condition and effect below.
+  return own.concat(activePloyHooks(state, playerId, trigger));
 }
 
 /** Strip a trailing value so `piercing2` matches a `piercing` condition. */
@@ -116,6 +140,43 @@ function matches(state, hook, ctx) {
 
   if (cond.withinShadow !== undefined && operative &&
       isWithinShadow(state, operative) !== cond.withinShadow) return false;
+
+  // Sequence conditions need the other half of the attack, which both
+  // `applyAttackHooks` and `applyDefenceHooks` already pass through ctx.
+  const other = ctx.target || ctx.attacker || null;
+
+  if (cond.action && ctx.action !== cond.action) return false;
+
+  if (cond.targetWithin !== undefined || cond.targetBeyond !== undefined) {
+    if (!other || !operative) return false;
+    const gap = baseDistance(operative, other);
+    if (cond.targetWithin !== undefined && gap > cond.targetWithin) return false;
+    if (cond.targetBeyond !== undefined && gap <= cond.targetBeyond) return false;
+  }
+  if (cond.targetOrderIs && other?.order !== cond.targetOrderIs) return false;
+  if (cond.targetKeyword || cond.targetNotKeyword) {
+    if (!other) return false;
+    const theirs = profileOf(state, other)?.keywords || [];
+    if (cond.targetKeyword && !theirs.includes(cond.targetKeyword)) return false;
+    if (cond.targetNotKeyword && theirs.includes(cond.targetNotKeyword)) return false;
+  }
+  if (cond.selfWounded !== undefined && operative &&
+      isInjured(operative) !== cond.selfWounded) return false;
+  if (cond.selfReady !== undefined && operative &&
+      (operative.ready === true) !== cond.selfReady) return false;
+  if (cond.targetReady !== undefined) {
+    if (!other) return false;
+    if ((other.ready === true) !== cond.targetReady) return false;
+  }
+  if (cond.targetWounded !== undefined) {
+    if (!other) return false;
+    if (isInjured(other) !== cond.targetWounded) return false;
+  }
+  if (cond.awayFromFriends !== undefined && operative) {
+    const near = liveOperatives(state, operative.playerId)
+      .some((o) => o.id !== operative.id && baseDistance(operative, o) <= cond.awayFromFriends);
+    if (near) return false;
+  }
 
   const used = operative?.usedThisActivation || [];
   if (cond.notPerformedThisActivation &&

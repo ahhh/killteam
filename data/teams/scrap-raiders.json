@@ -54,7 +54,7 @@
             "critical": 4
           },
           "rules": [],
-          "range": 8
+          "range": 48
         },
         {
           "id": "w-choppa",
@@ -101,7 +101,7 @@
             "critical": 4
           },
           "rules": [],
-          "range": 8
+          "range": 48
         },
         {
           "id": "w-choppa",

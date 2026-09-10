@@ -21,6 +21,7 @@ import {
 } from './tokens.js';
 import { fireTurningPointStart, fireActivationStart, hasFreeAction } from './hooks.js';
 import { resourceReadyStep, resetSpendLimits } from './resources.js';
+import { expirePloys, activatePloy, reportUnsupportedPloys } from './ploys.js';
 
 export const MAX_TURNING_POINTS = 4;
 const CP_PER_TURNING_POINT = 1;
@@ -118,7 +119,7 @@ function deployTeam(state, playerId, rng) {
 /* Turning point plumbing                                              */
 /* ------------------------------------------------------------------ */
 
-function beginTurningPoint(state, rng) {
+function beginTurningPoint(state, rng, controllers) {
   state.turningPoint++;
   state.phase = PHASES.STRATEGY;
   logEvent(state, EVENTS.TURN_STARTED, { turningPoint: state.turningPoint });
@@ -148,6 +149,10 @@ function beginTurningPoint(state, rng) {
     rolls: { p1: a, p2: b }, winner, turningPoint: state.turningPoint,
   });
 
+  // Last turning point's strategic ploys lapse before this one's are bought.
+  expirePloys(state);
+  buyStrategicPloys(state, controllers);
+
   // Ready step: faction rules that recur each turning point resolve here.
   fireTurningPointStart(state, rng, liveOperatives(state));
   // …including the team resource economies: what the turning point pays out,
@@ -157,6 +162,32 @@ function beginTurningPoint(state, rng) {
 
   state.killsThisTurn = { p1: 0, p2: 0 };
   state.phase = PHASES.FIREFIGHT;
+}
+
+/**
+ * The strategy phase: each player converts CP into rules for this turning
+ * point. The initiative winner buys first, which is the printed order and the
+ * one that matters — it knows it is activating first when it decides.
+ *
+ * The AI only proposes; `activatePloy` re-checks cost and legality (#3), and a
+ * rejected pick is logged rather than silently dropped, because unlike an
+ * optional resource spend there is nothing conditional about a ploy purchase.
+ */
+function buyStrategicPloys(state, controllers) {
+  const order = [state.initiativePlayerId, opponentOf(state.initiativePlayerId)];
+  for (const playerId of order) {
+    const picks = controllers?.[playerId]?.chooseStrategicPloys?.(state, playerId) || [];
+    for (const pick of picks) {
+      const result = activatePloy(state, playerId, pick.ployId);
+      if (!result.ok) {
+        logEvent(state, EVENTS.WARNING, {
+          ruleId: 'illegal-ploy-rejected',
+          message: `Rejected ploy ${pick.ployId} for ${state.players[playerId].teamName}: ${result.reason}`,
+          playerId,
+        });
+      }
+    }
+  }
 }
 
 /**
@@ -360,10 +391,11 @@ export function step(state, controllers) {
       seed: state.seed, mapId: state.map.id, missionId: state.mission.id,
       teams: { p1: state.players.p1.teamName, p2: state.players.p2.teamName },
     });
+    reportUnsupportedPloys(state);
     deployTeam(state, 'p1', rng);
     deployTeam(state, 'p2', rng);
     updateObjectiveControl(state);
-    beginTurningPoint(state, rng);
+    beginTurningPoint(state, rng, controllers);
     return finish('deploy', 'Both teams deploy.');
   }
 
@@ -418,7 +450,7 @@ export function step(state, controllers) {
       return { done: true, kind: 'game-end', fromSeq, description: state.result.summary };
     }
 
-    beginTurningPoint(state, rng);
+    beginTurningPoint(state, rng, controllers);
     return finish('turn', `Turning Point ${state.turningPoint} begins.`);
   }
 

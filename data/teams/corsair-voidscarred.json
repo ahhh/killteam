@@ -5,7 +5,7 @@
   "blurb": "Corsairs are avaricious raiders grouped together by charismatic commanders who draw their members from both craftworlds and the Dark City. The most experienced of Corsairs are the Voidscarred, each of whom possesses their own unique combat skills and have been hardened by several lifetimes of voidfaring and piracy.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 3,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/corsair-voidscarred/",
@@ -970,7 +970,21 @@
       "id": "outcasts",
       "name": "OUTCASTS",
       "description": "Whenever a friendly CORSAIR VOIDSCARRED operative is more than 5\" from other friendly operatives, its weapons have the Punishing weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "awayFromFriends": 5
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [

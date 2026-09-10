@@ -60,7 +60,8 @@
           "rules": [
             "balanced"
           ],
-          "range": 8
+          "range": 8,
+          "rulesText": "Range 8\""
         },
         {
           "id": "w-blade",
@@ -108,7 +109,7 @@
           "rules": [
             "ap1"
           ],
-          "range": 12
+          "range": 48
         },
         {
           "id": "w-fists",
@@ -151,7 +152,7 @@
             "critical": 4
           },
           "rules": [],
-          "range": 10
+          "range": 48
         },
         {
           "id": "w-fists",

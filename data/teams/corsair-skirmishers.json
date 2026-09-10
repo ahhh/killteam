@@ -60,7 +60,8 @@
           "rules": [
             "balanced"
           ],
-          "range": 8
+          "range": 8,
+          "rulesText": "Range 8\""
         },
         {
           "id": "w-glaive",
@@ -109,7 +110,7 @@
             "ap1",
             "devastating2"
           ],
-          "range": 18
+          "range": 48
         },
         {
           "id": "w-blade",
@@ -154,7 +155,7 @@
           "rules": [
             "ceaseless"
           ],
-          "range": 10
+          "range": 48
         },
         {
           "id": "w-blade",

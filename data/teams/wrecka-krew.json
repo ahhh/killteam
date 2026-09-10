@@ -5,7 +5,7 @@
   "blurb": "A Wrecka Krew is a kill team obsessed with one thing - destruction! Arguably the game's most aggressive team to date, these Orks like nothing better than an Engage order and an enemy operative in their sights.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/wrecka-krew/",
@@ -469,13 +469,41 @@
       "id": "waaagh",
       "name": "WAAAGH!",
       "description": "Friendly WRECKA KREW operatives' melee weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "destruction",
       "name": "DESTRUCTION",
       "description": "Friendly WRECKA KREW operatives' ranged weapons have the Saturate weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "saturate"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "tuff-gitz",

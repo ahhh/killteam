@@ -5,7 +5,7 @@
   "blurb": "Unusually amongst their warlike species, Ork Kommandos have an appreciation for subtlety. They will use any dirty and underhanded trick they can think of to achieve their goals. Of course, when the fight begins, their natural love for violence comes to the fore.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 3,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/kommandos/",
@@ -747,19 +747,64 @@
       "id": "dakka-dakka-dakka",
       "name": "DAKKA! DAKKA! DAKKA!",
       "description": "Friendly KOMMANDO operatives' ranged weapons have the Punishing weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "kommando",
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "waaagh",
       "name": "WAAAGH!",
       "description": "Friendly KOMMANDO operatives' melee weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "kommando",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "skulk-about",
       "name": "SKULK ABOUT",
       "description": "Whenever an enemy operative is shooting a friendly KOMMANDO operative that has a Conceal order, you can retain one of your defence dice as a normal success without rolling it (in addition to a cover save, if any).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "kommando",
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "modelled as one extra defence die rather than an auto-retained success"
+        }
+      ]
     },
     {
       "id": "sssshhhh",

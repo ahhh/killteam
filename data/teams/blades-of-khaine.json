@@ -5,7 +5,7 @@
   "blurb": "Athletic, graceful and utterly lethal, the Aeldari warriors that comprise Blades of Khaine kill teams come together to undertake missions of utmost importance on behalf of their craftworlds. They are dispatched to sever specific strands of fate, ensuring that terrible events they have foreseen never come to pass.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/blades-of-khaine/",
@@ -566,19 +566,61 @@
       "id": "forewarned",
       "name": "FOREWARNED",
       "description": "Whenever an operative is shooting a ready friendly BLADES OF KHAINE operative, you can re-roll any of your defence dice results of one result (e.g. results of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "selfReady": true
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 3
+          }
+        }
+      ]
     },
     {
       "id": "ruthless-poise",
       "name": "RUTHLESS POISE",
       "description": "Whenever a friendly BLADES OF KHAINE operative is fighting a ready enemy operative, that friendly operative's melee weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "targetReady": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "khaine-s-vengeance",
       "name": "KHAINE'S VENGEANCE",
       "description": "Whenever a friendly BLADES OF KHAINE operative is shooting an expended enemy operative, that friendly operative's ranged weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "dance-of-death",

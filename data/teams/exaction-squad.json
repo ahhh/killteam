@@ -5,7 +5,7 @@
   "blurb": "It is the responsibility of the Adeptus Arbites to enforce Imperial law. Exaction Squads are formed from the most highly skilled and experienced Arbitrators. They are tasked with hunting down and securing the most heinous of criminals, returning them alive to face the full extent of the Emperor's justice.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/exaction-squad/",
@@ -980,13 +980,45 @@
       "id": "dispense-justice",
       "name": "DISPENSE JUSTICE",
       "description": "Whenever a friendly EXACTION SQUAD operative is fighting or retaliating, if it hasn't moved more than its Move stat during the activation, or if it's a counteraction, its melee weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "notPerformedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "terminal-decree",
       "name": "TERMINAL DECREE",
       "description": "Whenever a friendly EXACTION SQUAD operative is shooting an enemy operative within 6\" of it, or whenever a friendly EXACTION SQUAD GUNNER operative is shooting, that friendly operative's ranged weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [

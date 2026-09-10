@@ -5,7 +5,7 @@
   "blurb": "Of all the mutant Beastmen in thrall to the Dark Gods, Fellgor Ravagers believe themselves the greatest and most powerful. They stalk space hulks, underhives and warp-tainted ruins, using their keen senses to track unsuspecting prey through the darkness before striking and butchering their foes with savage glee.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/fellgor-ravager/",
@@ -728,7 +728,21 @@
       "id": "violent-temperament",
       "name": "VIOLENT TEMPERAMENT",
       "description": "Whenever a friendly FELLGOR RAVAGER operative is fighting or retaliating, after rolling your attack dice, you can use this rule. If you do, you must re-roll all of your attack dice (you cannot only re-roll some).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "fight"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "ambush",
@@ -746,7 +760,21 @@
       "id": "reckless-determination",
       "name": "RECKLESS DETERMINATION",
       "description": "Whenever an enemy operative is shooting an expended friendly FELLGOR RAVAGER operative, if you cannot retain any cover saves, you can retain one of your defence dice as a normal success without rolling it.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "selfReady": false
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "modelled as one extra defence die rather than an auto-retained success"
+        }
+      ]
     }
   ],
   "firefightPloys": [

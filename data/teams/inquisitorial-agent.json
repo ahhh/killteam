@@ -5,7 +5,7 @@
   "blurb": "The reach of the Inquisition extends across the vastness of the Imperium. Inquisitorial kill teams bring together agents from all strata of Imperial society, from elite soldiers to zealous priests. Together, these disparate elements combine their skills to deadly effect, enabling them to root out and destroy heretics, aliens and the servants of Chaos.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/inquisitorial-agent/",
@@ -1195,13 +1195,43 @@
       "id": "quarry",
       "name": "QUARRY",
       "description": "Select one enemy operative to be your quarry for the turning point. Whenever a friendly INQUISITORIAL AGENT operative is shooting against, fighting against or retaliating against your quarry, that friendly operative's weapons have the Ceaseless weapon rule. Whenever your quarry is incapacitated, you can select a new enemy operative to be your quarry (and can continue to do so during this turning point).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "inquisitorial-agent"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "applies to every enemy, not the one selected quarry"
+        }
+      ]
     },
     {
       "id": "irrefutable-jurisdiction",
       "name": "IRREFUTABLE JURISDICTION",
       "description": "Whenever an operative is shooting a friendly INQUISITORIAL AGENT operative that's within 3\" of an objective marker, you can re-roll one of your defence dice. If that friendly operative contests that marker, you can re-roll any of your defence dice results of one result instead (e.g. results of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "inquisitorial-agent"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the \"within 3\" of an objective marker\" condition is not checked"
+        }
+      ]
     }
   ],
   "firefightPloys": [

@@ -5,7 +5,7 @@
   "blurb": "Elucia Vhane is a scion of a noble mercantile dynasty. Leaving behind her family's operations in the galactic north, Vhane led her Elucidian Starstriders to the Eastern Fringe. Alongside her esoteric crew, the bold Rogue Trader seeks to eclipse the rich history of her ancestors with her own rise to glory - or die trying.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/elucidian-starstrider/",
@@ -502,7 +502,22 @@
       "id": "lethal-proximity",
       "name": "LETHAL PROXIMITY",
       "description": "Whenever a friendly ELUCIDIAN STARSTRIDER operative is shooting an operative within 6\" of it, that friendly operative's ranged weapons (excluding PRIVATEER SUPPORT ASSET weapons) have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "stake-claim",

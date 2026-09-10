@@ -6,6 +6,7 @@
  * pack's data policy permits, along with its source and version metadata.
  */
 import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
+import { activePloyIds, findPloy } from '../rules/ploys.js';
 import { tokensOf } from '../rules/tokens.js';
 import {
   operativeResources, playerResources, levelLabel, resourceDef, availableSpends,
@@ -58,6 +59,22 @@ export function renderRosterPanel(container, state, playerId, { colors, selected
     score.append(chip);
   }
   container.append(score);
+
+  // What the CP actually bought. Ploys last one turning point, so this is the
+  // only place a reader can see why a weapon gained a rule this turn.
+  const ploys = activePloyIds(state, playerId)
+    .map((id) => findPloy(pack, id))
+    .filter(Boolean);
+  if (ploys.length) {
+    const row = h('div', 'ploy-row');
+    row.append(h('span', 'ploy-label', 'In force'));
+    for (const ploy of ploys) {
+      const tag = h('span', 'ploy-tag', ploy.name);
+      tag.title = ploy.description;
+      row.append(tag);
+    }
+    container.append(row);
+  }
 
   container.append(h('div', 'section-title', 'Operatives'));
 

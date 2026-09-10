@@ -128,6 +128,8 @@ export function describeEvent(e) {
     case 'TURN_ENDED':
       return `Turning Point ${e.turningPoint} ends. VP ${e.vp.p1}–${e.vp.p2}.`;
     case 'GAME_ENDED': return e.summary;
+    case 'PLOY_USED':
+      return `${e.playerId} uses ${e.ployName} for ${e.cost} CP (${e.cpRemaining} left).`;
     case 'RULE_APPLIED':
       return `${e.rule}: ${e.operativeName ? `${e.operativeName} ` : ''}${e.detail}.`;
     case 'AI_PLAN': return `${e.operativeName} plans: ${e.rationale.join(' · ')}`;

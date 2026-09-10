@@ -5,7 +5,7 @@
   "blurb": "Legionary kill teams are bitter veterans who possess centuries of combat experience. Some are little more than ravening killers who desire only to reave, slaughter and despoil. Others are devoted worshippers of the Dark Gods, seeking to conduct fell rituals in the hope of pleasing their infernal patrons and attaining greater power.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 3,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/legionary/",
@@ -966,7 +966,22 @@
       "id": "fickle-fates",
       "name": "FICKLE FATES",
       "description": "Whenever a friendly LEGIONARY operative is shooting a ready enemy operative, that friendly operative's ranged weapons have the Balanced weapon rule. Whenever an operative is shooting a ready friendly LEGIONARY TZEENTCH operative, in the Roll Defence Dice step, if you retain any critical successes, you can retain one of your fails as a normal success instead of discarding it.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetReady": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "blood-for-the-blood-god",

@@ -33,7 +33,9 @@ function pack(id, profile) {
       weapons: profile.weapons ?? [weapon(), melee()],
       abilities: [], keywords: profile.keywords ?? [],
     }],
-    strategicPloys: [], firefightPloys: [], equipment: [],
+    strategicPloys: profile.strategicPloys ?? [],
+    firefightPloys: profile.firefightPloys ?? [],
+    equipment: profile.equipment ?? [],
     ruleHooks: profile.ruleHooks ?? [],
     // Team-specific weapon rules, declared exactly as a real pack declares
     // them — see docs/rule-pack-format.md.

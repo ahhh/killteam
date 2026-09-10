@@ -5,7 +5,7 @@
   "blurb": "Battleclade kill teams disassemble the enemies of the Omnissiah in calibrated acts of aggression. Implanted with industrial tools, cybernetic systems and deadly augmented weapons, these servitors execute whatever acquisitive mission their zealous masters decree.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 4,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/battleclade/",
@@ -539,7 +539,23 @@
       "id": "noospheric-possession",
       "name": "NOOSPHERIC POSSESSION",
       "description": "SUPPORT. Whenever a friendly BATTLECLADE SERVITOR operative is within 6\" of a friendly BATTLECLADE AUTO-PROXY or BATTLECLADE SERVITOR UNDERSEER operative, that friendly SERVITOR operative's weapons have the Accurate 1 weapon rule. For the purposes of the Comms Device universal equipment, the operative the distance is being determined from must control your Comms Device marker to add 3\" to its distance requirement for this rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "servitor"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          },
+          "partial": true,
+          "notes": "the 6\" proximity to an AUTO-PROXY or UNDERSEER is not checked"
+        }
+      ]
     },
     {
       "id": "duty-of-reclamation",

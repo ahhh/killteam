@@ -10,6 +10,7 @@ import {
 import { WEAPON_RULES, parseRule } from '../rules/dice.js';
 import { describeHook } from '../rules/hooks.js';
 import { describeTeamRule, TEAM_RULE_EFFECTS } from '../rules/team-rules.js';
+import { describeResource } from '../rules/resources.js';
 import { TERRAIN_TRAITS } from '../rules/terrain.js';
 import { DISPOSITIONS } from '../ai/tactics.js';
 
@@ -197,9 +198,28 @@ export function validateTeamPack(pack) {
     }
   }
 
+  // --- Team resource economies (Power From Pain and friends) --------
+  const resources = pack.resources || {};
+  if (typeof resources !== 'object') {
+    report.error('resources must be an object keyed by resource id');
+  } else {
+    for (const [key, def] of Object.entries(resources)) {
+      for (const problem of describeResource(key, def)) report.warn(problem);
+    }
+    // A resource a weapon rule feeds but the pack never declares is a rule
+    // that silently does nothing, so it is called out here rather than only
+    // at runtime.
+    for (const [name, rule] of Object.entries(pack.weaponRules || {})) {
+      const fed = rule?.effect?.type === 'gainResource' ? rule.effect.resource : null;
+      if (fed && !(fed in resources)) {
+        report.warn(`weaponRules.${name} feeds a "${fed}" resource the pack does not declare`);
+      }
+    }
+  }
+
   // A pack claiming faction-rule support must actually wire some up.
-  if (level >= 3 && !(pack.ruleHooks || []).length) {
-    report.warn('supportLevel claims faction rules but the pack defines no ruleHooks');
+  if (level >= 3 && !(pack.ruleHooks || []).length && !Object.keys(resources).length) {
+    report.warn('supportLevel claims faction rules but the pack defines no ruleHooks or resources');
   }
 
   // --- Declared level vs implemented content (§28) -------------------

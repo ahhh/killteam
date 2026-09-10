@@ -5,7 +5,7 @@
   "blurb": "The teeming soldiery of the Astra Militarum are far from immune to the lure of Chaos. Those who have fallen into the embrace of the Dark Gods gather together under the banners of cruel and tyrannical leaders, combining the skills and weapons of the Imperial Guard with the dark influence of the Chaos Gods to murderous effect.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
-  "supportLevel": 1,
+  "supportLevel": 3,
   "source": {
     "publisher": "Games Workshop (rules); transcribed from Wahapedia",
     "url": "https://wahapedia.ru/kill-team3/kill-teams/blooded/",
@@ -1042,14 +1042,68 @@
     "bloodoffering": {
       "rule": "Blood Offering",
       "text": "Whenever this operative is fighting or retaliating with this weapon, the first time you strike with a critical success during that sequence, you gain one Blooded token.",
-      "partial": true,
-      "notes": "Blooded tokens are counted but nothing spends them — the ploys that would are not implemented",
       "effect": {
         "type": "gainResource",
         "resource": "blooded",
         "scope": "player",
         "trigger": "criticalSuccess"
       }
+    }
+  },
+  "resources": {
+    "blooded": {
+      "name": "Blooded token",
+      "rule": "Blooded",
+      "text": "You gain one Blooded token: In the Ready step of each Strategy phase. The first time an enemy operative is incapacitated during each turning point. The first time a friendly operative is incapacitated within 6\" of an enemy operative during each turning point. As a STRATEGIC GAMBIT, you can assign any of your unassigned Blooded tokens to friendly BLOODED operatives. Each operative cannot have more than one of your Blooded tokens. Then, if four or more friendly operatives in the killzone have one of your Blooded tokens, you can select one of them to be under the GAZE OF THE GODS until the end of the turning point. Whenever a friendly BLOODED operative has one of your Blooded tokens, its weapons have the Accurate 1 weapon rule. If that friendly BLOODED operative is under the GAZE OF THE GODS, you can retain one of your normal successes as a result of the Accurate 1 weapon rule as a critical success instead.",
+      "scope": "player",
+      "keyword": "blooded",
+      "start": 0,
+      "gains": [
+        {
+          "trigger": "readyStep",
+          "amount": 1
+        },
+        {
+          "trigger": "firstKillEachTurningPoint",
+          "amount": 1
+        },
+        {
+          "trigger": "firstLossNearEnemyEachTurningPoint",
+          "within": 6,
+          "amount": 1
+        }
+      ],
+      "assign": {
+        "trigger": "readyStep",
+        "toKeyword": "blooded",
+        "maxPerOperative": 1,
+        "token": {
+          "kind": "blooded",
+          "label": "Blooded",
+          "whileHeld": {
+            "weaponRules": [
+              "accurate1"
+            ]
+          }
+        },
+        "elevate": {
+          "atLeast": 4,
+          "label": "Gaze of the Gods",
+          "token": {
+            "kind": "gaze",
+            "label": "Gaze of the Gods",
+            "whileHeld": {
+              "weaponRules": [
+                "accuratecrits1"
+              ]
+            },
+            "expiry": {
+              "endOfTurningPoint": true
+            }
+          }
+        }
+      },
+      "spends": []
     }
   }
 }

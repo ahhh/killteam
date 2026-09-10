@@ -1,0 +1,1069 @@
+{
+  "id": "catachan-jungle-fighters",
+  "factionId": "astra-militarum",
+  "displayName": "Catachan Jungle Fighters",
+  "blurb": "The Catachan II “Green Vipers”: death-world veterans who fight from cover and concealment, closing through jungle and ruin with blade, flamer and improvised demolition.",
+  "edition": "kill-team-2021",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "aiDisposition": "aggressive",
+  "source": {
+    "publisher": "Fan-made kill team, transcribed from datasheet images supplied by the user",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Transcribed from the Catachan Kill Team PDF screenshots in ~/Desktop/Catachan_Jungle_Fighters/. The sheets use the 2021 symbol notation (circle 1\", triangle 2\", pentagon 6\"). Distances are doubled here to the scale this engine’s other packs use, so the printed Move 3\" becomes 6\" and a printed Range 6\" weapon becomes 12\"; weapons with no printed Range keep the packs’ convention of 48\" (effectively unlimited). Weapon \"!\" entries are read as critical-hit rules: MW2 as Devastating 2, P2 as Piercing Crits 2. Not an official Games Workshop product."
+  },
+  "colors": {
+    "primary": "#4c6a35",
+    "accent": "#c0472b"
+  },
+  "roster": {
+    "maxOperatives": 10,
+    "selectionRules": [
+      "1 COLONEL STRAKEN operative equipped with a Shotgun and Bionic Arm with Personal Catachan Fang.",
+      "9 CATACHAN operatives selected from the following list: SGT HARKER; SLY MARBO; FLAMER; JACK BREACHER; SNIPER CROWE; VOX-CASTER or PSYKER CLYDE; JUNGLE FIGHTER (includes RIPPER JACKSON); ROCKET LAUNCHER (APOLLO or GATOR); BOMBER RUSS; ZIPPER REIN.",
+      "JUNGLE FIGHTER operatives can be selected up to nine times, and each other option above can be selected once."
+    ],
+    "operatives": [
+      {
+        "profileId": "colonel-straken",
+        "count": 1
+      },
+      {
+        "profileId": "sgt-harker",
+        "count": 1
+      },
+      {
+        "profileId": "sly-marbo",
+        "count": 1
+      },
+      {
+        "profileId": "heavy-flamer",
+        "count": 1
+      },
+      {
+        "profileId": "jack-breacher",
+        "count": 1
+      },
+      {
+        "profileId": "sniper-crowe",
+        "count": 1
+      },
+      {
+        "profileId": "vox-caster",
+        "count": 1
+      },
+      {
+        "profileId": "ripper-jackson",
+        "count": 1
+      },
+      {
+        "profileId": "apollo",
+        "count": 1
+      },
+      {
+        "profileId": "jungle-fighter",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "colonel-straken",
+      "name": "Colonel Straken",
+      "role": "flexible",
+      "baseDiameter": 1.25,
+      "blurb": "Colonel 'Iron Hand' Straken, renowned as Catachan's “Man of Adamantium”, is the commanding officer of the Catachan II “Green Vipers” regiment of the Imperial Guard.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "shotgun",
+          "name": "Shotgun",
+          "type": "ranged",
+          "range": 12,
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Rng 6\""
+        },
+        {
+          "id": "bionic-arm",
+          "name": "Bionic Arm & Personal Catachan Fang",
+          "type": "melee",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "lets-move",
+          "name": "Let's Move!",
+          "description": "Each time this operative is activated, you can select one friendly CATACHAN operative within 6\" of and Visible to it. Add 1 to the selected operative's APL."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "leader",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "sgt-harker",
+      "name": "Sgt Harker",
+      "role": "ranged",
+      "baseDiameter": 1.25,
+      "blurb": "All Catachans have a reputation for being tough, but Harker is perhaps the hardest of them all — a giant of a man who carries his heavy bolter “Payback” as easily as a normal man might carry a rifle.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "payback",
+          "name": "Payback",
+          "type": "ranged",
+          "range": 12,
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "getsome"
+          ],
+          "rulesText": "Get Some!*"
+        },
+        {
+          "id": "catachan-fang",
+          "name": "Catachan Fang",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "run-and-gun",
+          "name": "Run and Gun (1AP)",
+          "description": "Perform a free Shoot action and free Dash action with this operative in any order."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "sly-marbo",
+      "name": "Sly Marbo",
+      "role": "assault",
+      "baseDiameter": 1.25,
+      "blurb": "A natural born survivor, a veritable one-man army, a loner who sticks to the shadows. Few have seen his face and none have heard him speak.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "ripper-pistol",
+          "name": "Ripper Pistol",
+          "type": "ranged",
+          "range": 12,
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Rng 6\""
+        },
+        {
+          "id": "envenomed-blade",
+          "name": "Envenomed Blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "relentless",
+            "firstblood"
+          ],
+          "rulesText": "Relentless"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "first-blood",
+          "name": "First Blood",
+          "description": "Each time after this operative fights in combat, if it lost any wounds in that combat but was not incapacitated, you can roll one D6: on a 4+, the enemy operative that fought it suffers 2 mortal wounds."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "heavy-flamer",
+      "name": "Flamer",
+      "role": "assault",
+      "baseDiameter": 1.25,
+      "blurb": "In battle, Catachans have a reputation for reckless bravery that borders on the insane, willingly throwing themselves into danger.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "range": 12,
+          "atk": 5,
+          "hit": 2,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "torrent2"
+          ],
+          "rulesText": "Rng 6\", Torrent 1\""
+        },
+        {
+          "id": "catachan-fang",
+          "name": "Catachan Fang",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "jack-breacher",
+      "name": "Jack Breacher",
+      "role": "assault",
+      "baseDiameter": 1.25,
+      "blurb": "Not all Demolition Charges are standardised pieces of Imperial Guard equipment. Jack Breacher uses improvised charges to clear the way for his team.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "range": 12,
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Rng 6\""
+        },
+        {
+          "id": "sledgehammer",
+          "name": "Sledgehammer",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 5
+          },
+          "rules": [
+            "brutal",
+            "hammerup"
+          ],
+          "rulesText": "Brutal, Hammer Up*"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "standby-go",
+          "name": "Standby ... Go!",
+          "description": "Each time after this operative performs a Normal Move, Dash or Charge action, it can move through parts of terrain features that are no more than 2\" thick as if they were not there."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "sniper-crowe",
+      "name": "Sniper Crowe",
+      "role": "sniper",
+      "baseDiameter": 1.25,
+      "blurb": "The Catachan regiments boast some of the best snipers in the Imperial Guard. Catachan marksmen will take up position solar hours, or even days, before a battle.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "sniper-rifle",
+          "name": "Sniper Rifle",
+          "type": "ranged",
+          "range": 48,
+          "atk": 6,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "devastating2"
+          ],
+          "rulesText": "MW2"
+        },
+        {
+          "id": "catachan-fang",
+          "name": "Catachan Fang",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "one-shot-two-kills",
+          "name": "One Shot, Two Kills (2AP)",
+          "description": "Perform a free Shoot action with this operative using its Sniper Rifle. After making the shooting attack against the target, this operative can make a shooting attack against each other valid target within 1\" of the original target. Each time this operative makes a shooting attack for this action, subtract 2 from the Attacks characteristic of its Sniper Rifle for that shooting attack."
+        },
+        {
+          "id": "hide-site",
+          "name": "Hide Site (2AP)",
+          "description": "Perform a free Shoot action with this operative using its Sniper Rifle, even if it has a Conceal order."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "vox-caster",
+      "name": "Vox-Caster",
+      "role": "support",
+      "baseDiameter": 1.25,
+      "blurb": "The Vox-caster, sometimes referred to as a Comm-link, is an Imperial radio communications transceiver.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "shredder-mine",
+          "name": "Shredder Mine",
+          "type": "ranged",
+          "range": 12,
+          "atk": 6,
+          "hit": 4,
+          "damage": {
+            "normal": 1,
+            "critical": 1
+          },
+          "rules": [
+            "stun",
+            "devastating2"
+          ],
+          "rulesText": "Rng 6\", Stun, MW2"
+        },
+        {
+          "id": "catachan-fang",
+          "name": "Catachan Fang",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "superior-intel",
+          "name": "Superior Intel",
+          "description": "Once per turning point, during this operative's activation, it can perform a mission or Pick Up action for one less AP (to a minimum of 0AP)."
+        },
+        {
+          "id": "sitrep",
+          "name": "SITREP (1AP)",
+          "description": "Select one friendly CATACHAN operative within 6\" of and Visible to this operative. Add 1 to its APL. This operative cannot perform this action if it is in Engagement Range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "psyker-clyde",
+      "name": "Psyker Clyde",
+      "role": "support",
+      "baseDiameter": 1.25,
+      "blurb": "Rare and extraordinary individuals serve in the regiments of the Astra Militarum and wield the destructive power of the Warp as a weapon.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "gaze-of-the-emperor",
+          "name": "Gaze of the Emperor",
+          "type": "ranged",
+          "range": 12,
+          "atk": 6,
+          "hit": 4,
+          "damage": {
+            "normal": 1,
+            "critical": 1
+          },
+          "rules": [
+            "psychic",
+            "stun",
+            "devastating2"
+          ],
+          "rulesText": "Rng 6\", Stun, MW2"
+        },
+        {
+          "id": "furry-fists",
+          "name": "Furry Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "primate-reflexes",
+          "name": "Primate Reflexes",
+          "description": "Once per turning point, during this operative's activation, it can perform a mission or Pick Up action for one less AP (to a minimum of 0AP)."
+        },
+        {
+          "id": "perfect-timing",
+          "name": "Perfect Timing (1AP)",
+          "description": "Select one friendly CATACHAN operative within 6\" of and Visible to this operative. Add 1 to its APL. This operative cannot perform this action if it is in Engagement Range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "jungle-fighter",
+      "name": "Jungle Fighter",
+      "role": "flexible",
+      "baseDiameter": 1.25,
+      "blurb": "Tough, resourceful and uncompromising warriors who excel at fast-moving, close-quarter firefights, infiltration and sniping.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "range": 12,
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Rng 6\""
+        },
+        {
+          "id": "catachan-fang",
+          "name": "Catachan Fang",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "ripper-jackson",
+      "name": "Ripper Jackson",
+      "role": "assault",
+      "baseDiameter": 1.25,
+      "blurb": "Sergeant “Ripper” Jackson is a veteran sergeant of the Catachan Jungle Fighters assault teams.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "bolter",
+          "name": "Bolter",
+          "type": "ranged",
+          "range": 12,
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Rng 6\""
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "apollo",
+      "name": "Apollo",
+      "role": "ranged",
+      "baseDiameter": 1.25,
+      "blurb": "Heavy Weapon Squads bolster battle lines and provide close fire support. The Rocket Launcher is a powerful mobile Heavy Support choice.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "rocket-launcher",
+          "name": "Rocket Launcher",
+          "type": "ranged",
+          "range": 48,
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ap1",
+            "splash",
+            "targetacquired"
+          ],
+          "rulesText": "AP1, Splash 1*"
+        },
+        {
+          "id": "catachan-fang",
+          "name": "Catachan Fang",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "target-acquired",
+          "name": "Target Acquired",
+          "description": "Each time this operative performs a Shoot action during its activation, in the Roll Attack Dice step of that shooting attack, if it has not moved during that activation, you can re-roll any or all of your attack dice."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "gator",
+      "name": "Gator",
+      "role": "ranged",
+      "baseDiameter": 1.25,
+      "blurb": "Gator came through the ranks in Catachan’s armoured regiments, hefting massive shells and magazines into place with ease.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "auto-cannon",
+          "name": "Auto Cannon",
+          "type": "ranged",
+          "range": 48,
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ap1",
+            "splash",
+            "targetacquired"
+          ],
+          "rulesText": "AP1, Splash 1*"
+        },
+        {
+          "id": "devil-claw",
+          "name": "Devil Claw",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "thumper",
+          "name": "Thumper",
+          "description": "Each time this operative performs a Shoot action during its activation, in the Roll Attack Dice step of that shooting attack, if it has not moved during that activation, you can re-roll any or all of your attack dice."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "trooper",
+        "green-vipers"
+      ]
+    },
+    {
+      "id": "bomber-russ",
+      "name": "Bomber Russ",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "blurb": "Catachans are experts at utilising booby traps, and it is relatively simple for Ratlings to improvise traps from natural materials and commonly available ammunition.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 6,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "dynamite",
+          "name": "Dynamite",
+          "type": "ranged",
+          "range": 48,
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "ap1",
+            "piercingcrits2",
+            "blast2",
+            "detonate"
+          ],
+          "rulesText": "AP1, Detonate*, P2"
+        },
+        {
+          "id": "ankle-bite",
+          "name": "Ankle Bite",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "booby-trap",
+          "name": "BOOBY TRAP!",
+          "description": "If this operative is incapacitated, roll one D6: on a 3+, it makes a shooting attack using its dynamite."
+        },
+        {
+          "id": "grunt",
+          "name": "Grunt",
+          "description": "This operative cannot perform mission actions, cannot perform the Pick Up action and cannot have a Conceal order. It cannot be equipped with equipment."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "ratling",
+        "bomber"
+      ]
+    },
+    {
+      "id": "zipper-rein",
+      "name": "Zipper Rein",
+      "role": "objective-runner",
+      "baseDiameter": 0.98,
+      "blurb": "Grapnels fire a hooked or magnetic grapnel connected to a coiled 100 metres of thin but strong line.",
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 5
+      },
+      "weapons": [
+        {
+          "id": "ankle-bite",
+          "name": "Ankle Bite",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "concealed",
+          "name": "Concealed",
+          "description": "This operative cannot have an Engage order. In addition, this operative is always treated as having a Conceal order, regardless of any other rules."
+        },
+        {
+          "id": "grappling-hook",
+          "name": "Grappling Hook",
+          "description": "Select a point on a terrain feature that is Visible to this operative. Perform a free Normal Move action with this operative, moving in a single straight line with unlimited Movement as though it can FLY. It must finish that move action within 2\" of that point."
+        }
+      ],
+      "keywords": [
+        "imperium",
+        "catachan",
+        "ratling",
+        "green-vipers"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "green-vipers",
+      "name": "Green Vipers",
+      "description": "GREEN VIPERS operatives in a CATACHAN kill team (excluding BOMBER RUSS operatives) have the following ability: This operative can perform a Charge action while it has a Conceal order."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "infiltrate",
+      "name": "INFILTRATE",
+      "cost": 1,
+      "description": "Friendly CATACHAN operatives that are not within Line of Sight of enemy operatives, or have a Conceal order and are more than 6\" from enemy operatives, can immediately perform a free Dash action. You can only use this Strategic Ploy once."
+    },
+    {
+      "id": "suppressive-fire",
+      "name": "SUPPRESSIVE FIRE",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, each time a friendly CATACHAN operative makes a shooting attack, in the Roll Attack Dice step of that shooting attack, if you retain any critical hits, you can select one of your failed hits to be retained as a successful normal hit."
+    },
+    {
+      "id": "feed-the-fang",
+      "name": "FEED THE FANG",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, each time a friendly CATACHAN operative fights in combat, in the Roll Attack Dice step of that combat, if you retain two or more normal hits, you can select one of those hits to be retained as a critical hit instead."
+    },
+    {
+      "id": "stealth-operator",
+      "name": "STEALTH OPERATOR",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, each time a shooting attack is made against a friendly CATACHAN operative, before rolling defence dice for that shooting attack, if it has a Conceal order, you can retain one as a successful normal save without rolling it."
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "just-a-scratch",
+      "name": "JUST A SCRATCH",
+      "cost": 1,
+      "description": "Use this Tactical Ploy in the Resolve Successful Hits step of a shooting attack or combat, when damage would be inflicted on a friendly CATACHAN (excluding ZIPPER REIN) operative from an attack dice. Ignore the damage inflicted from that attack dice."
+    },
+    {
+      "id": "jungle-warrior",
+      "name": "JUNGLE WARRIOR",
+      "cost": 1,
+      "description": "Use this Tactical Ploy at the end of the Firefight Phase. Select one friendly CATACHAN operative. It can perform a free Fight action."
+    },
+    {
+      "id": "tactical-insertion",
+      "name": "TACTICAL INSERTION",
+      "cost": 1,
+      "description": "Use this Tactical Ploy in the Set Up Operatives step of the mission sequence. Select one friendly CATACHAN (excluding BOMBER RUSS) operative. That operative can be set up with a Conceal order anywhere on the battlefield that is within 2\" of Heavy terrain and more than 6\" from enemy operatives and the enemy drop zone."
+    }
+  ],
+  "equipment": [
+    {
+      "id": "fang-blade",
+      "name": "FANG BLADE (2EP)",
+      "description": "The operative is equipped with the Fang Blade melee weapon for the battle."
+    },
+    {
+      "id": "lasgun",
+      "name": "LASGUN (2EP)",
+      "description": "The operative is equipped with the Lasgun ranged weapon for the battle."
+    },
+    {
+      "id": "harpoon",
+      "name": "HARPOON (3EP)",
+      "description": "Harpoon: A4 BS4+ D4/5, Rng 6\", Stun."
+    },
+    {
+      "id": "sledgehammer",
+      "name": "SLEDGEHAMMER (3EP)",
+      "description": "Sledgehammer: A4 BS3+ D4/4, Stun."
+    },
+    {
+      "id": "smoke-grenade",
+      "name": "SMOKE GRENADE (3EP)",
+      "description": "SMOKE GRENADE (1AP): place one Smoke token within 6\" of this operative, creating an area of smoke with a 1\" radius and unlimited upward height. Until the end of the Turning Point, an operative is not Visible if a Cover Line drawn to it crosses an area of smoke."
+    },
+    {
+      "id": "stun-grenade",
+      "name": "STUN GRENADE (2EP)",
+      "description": "STUN GRENADE (1AP): select one point within 6\" of this operative. Roll one D6 for each operative within 1\" of that point, subtracting 1 if they are not Visible to this operative. On a 4+, subtract 1 from that operative’s APL."
+    },
+    {
+      "id": "spring-mine",
+      "name": "SPRING MINE (2EP)",
+      "description": "Spring Mine: A4 BS3+ D2/4, Rng 6\", Blast 1\", Indirect, Limited."
+    },
+    {
+      "id": "dynamite",
+      "name": "DYNAMITE (4EP)",
+      "description": "Dynamite: A4 BS3+ D5/6, Rng 6\", Blast 1\", AP1, Indirect, Unwieldy, Limited."
+    },
+    {
+      "id": "climbing-rope",
+      "name": "CLIMBING ROPE (1EP)",
+      "description": "Climbing Rope: the first vertical distance of up to 3\" travelled while climbing counts as 1\"; drops count vertical distance as half."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "green-vipers",
+      "rule": "Green Vipers",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "green-vipers"
+      },
+      "effect": {
+        "type": "allowChargeWhileConceal"
+      }
+    },
+    {
+      "id": "lets-move",
+      "rule": "Let's Move!",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "leader"
+      },
+      "effect": {
+        "type": "grantAllyApl",
+        "amount": 1,
+        "within": 12,
+        "keyword": "catachan"
+      },
+      "partial": true,
+      "notes": "the engine picks the recipient — the friend that has yet to activate, nearest the enemy — rather than leaving the choice to a player"
+    }
+  ],
+  "weaponRules": {
+    "getsome": {
+      "rule": "Get Some!",
+      "text": "Each time this operative makes a shooting attack with this weapon, in the Roll Attack Dice step of that shooting attack, if the target is within 6\" of it, you can re-roll any or all of your attack dice.",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "shoot",
+        "targetWithin": 12,
+        "rules": [
+          "relentless"
+        ]
+      }
+    },
+    "targetacquired": {
+      "rule": "Target Acquired",
+      "text": "Each time this operative performs a Shoot action during its activation, in the Roll Attack Dice step of that shooting attack, if it has not moved during that activation, you can re-roll any or all of your attack dice.",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "shoot",
+        "notMovedThisActivation": true,
+        "orCounteraction": true,
+        "rules": [
+          "relentless"
+        ]
+      }
+    },
+    "hammerup": {
+      "rule": "Hammer Up",
+      "text": "Each time after this operative fights in combat, if it made a charge move during that activation, its Sledgehammer gains the critical hit rule for that combat.",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "fight",
+        "performedThisActivation": [
+          "charge"
+        ],
+        "rules": [
+          "lethal5"
+        ]
+      },
+      "partial": true,
+      "notes": "\"gains the critical hit rule\" is read as Lethal 5+, the engine’s nearest equivalent; the sheet does not name a specific rule"
+    },
+    "firstblood": {
+      "rule": "First Blood",
+      "text": "Each time after this operative fights in combat, if it lost any wounds in that combat but was not incapacitated, you can roll one D6: on a 4+, the enemy operative that fought it suffers 2 mortal wounds.",
+      "effect": {
+        "type": "retaliationRoll",
+        "dice": "D6",
+        "threshold": 4,
+        "damage": 2
+      }
+    },
+    "detonate": {
+      "rule": "Detonate",
+      "text": "This operative can perform a Shoot action with this weapon while it is within Engagement Range of an enemy operative. When this operative performs a Shoot action and selects this ranged weapon, make a shooting attack against each other operative visible to and within 1\" of it (even if it has friendly operatives within its engagement range) — each of them is a valid target and cannot be in Cover. After all of those shooting attacks have been made, this operative is incapacitated.",
+      "effect": {
+        "type": "selfPrimaryTarget",
+        "shootSelf": true,
+        "allowWhileEngaged": true
+      },
+      "partial": true,
+      "notes": "the engine resolves it the way it resolves Explosive — the bomber is the primary target and the blast catches everyone around it — rather than removing the bomber outright after the attacks"
+    },
+    "splash": {
+      "rule": "Splash 1",
+      "text": "Each time a critical hit is retained for this weapon, each other operative within 1\" of the target suffers 1 mortal wound.",
+      "effect": {
+        "type": "recognised"
+      },
+      "partial": true,
+      "notes": "splash Devastating is not implemented — the weapon fires normally and the 1\" spill is not applied"
+    }
+  }
+}

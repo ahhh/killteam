@@ -831,19 +831,108 @@
     "flay": {
       "rule": "Flay",
       "text": "Whenever this operative is using this weapon, the first time you strike with a critical success during that sequence, you can select one friendly HAND OF THE ARCHON operative within 6\" of it to gain one of your Pain tokens.",
-      "partial": true,
-      "notes": "the Pain token is granted and tracked, but invigorations cannot be spent — the Power From Pain economy is not implemented",
       "effect": {
-        "type": "inflictToken",
+        "type": "gainResource",
+        "resource": "pain",
+        "scope": "operative",
         "trigger": "criticalSuccess",
         "target": "friendly",
         "within": 6,
-        "token": {
-          "kind": "pain",
-          "label": "Pain",
-          "stacks": true
-        }
+        "amount": 1
       }
+    }
+  },
+  "resources": {
+    "pain": {
+      "name": "Pain token",
+      "rule": "Power From Pain",
+      "text": "After a friendly HAND OF THE ARCHON operative performs an action, it gains one of your Pain tokens if: An enemy operative was injured during that action, but was not incapacitated. An enemy operative was incapacitated during that action. If that enemy operative had a Wounds stat of 12 or more, that friendly operative gains two of your Pain tokens instead. You can spend friendly operatives' Pain tokens on invigorations when the 'when' condition is met. You cannot use more than one invigoration per activation or counteraction, except Stimulated Senses, which can be used once per activation or counteraction in addition to another invigoration.",
+      "scope": "operative",
+      "keyword": "hand-of-the-archon",
+      "start": 0,
+      "perActivation": 1,
+      "gains": [
+        {
+          "trigger": "enemyInjured",
+          "amount": 1
+        },
+        {
+          "trigger": "enemyIncapacitated",
+          "amount": 1,
+          "bonusIfWoundsAtLeast": {
+            "wounds": 12,
+            "amount": 2
+          }
+        }
+      ],
+      "spends": [
+        {
+          "id": "dark-animus",
+          "name": "Dark Animus",
+          "text": "WHEN: During the operative's activation, before or after it performs an action. EFFECT: Until the start of the operative's next activation, add 1 to its APL stat.",
+          "window": "activation",
+          "cost": 1,
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          }
+        },
+        {
+          "id": "accelerated-rejuvenation",
+          "name": "Accelerated Rejuvenation",
+          "text": "WHEN: During the operative's activation or counteraction, before or after it performs an action. EFFECT: The operative regains D3+1 lost wounds.",
+          "window": "activation",
+          "cost": 1,
+          "condition": {
+            "wounded": true
+          },
+          "effect": {
+            "type": "healWounds",
+            "dice": "D3+1"
+          }
+        },
+        {
+          "id": "vitalised-surge",
+          "name": "Vitalised Surge",
+          "text": "WHEN: After the operative incapacitates an enemy operative and that enemy operative is removed from the killzone. EFFECT: The operative can immediately perform a free Dash action, even if it's performed an action that prevents it from performing the Dash action.",
+          "window": "activation",
+          "cost": 1,
+          "condition": {
+            "incapacitatedThisActivation": true
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash",
+            "unrestricted": true
+          }
+        },
+        {
+          "id": "stimulated-senses-attack",
+          "name": "Stimulated Senses",
+          "group": "stimulated-senses",
+          "exempt": true,
+          "text": "WHEN: After rolling your attack or defence dice for the operative. EFFECT: You can re-roll any of your dice results of one result (e.g. results of 2).",
+          "window": "attackDice",
+          "cost": 1,
+          "effect": {
+            "type": "rerollDice",
+            "mode": "oneResult"
+          }
+        },
+        {
+          "id": "stimulated-senses-defence",
+          "name": "Stimulated Senses",
+          "group": "stimulated-senses",
+          "exempt": true,
+          "text": "WHEN: After rolling your attack or defence dice for the operative. EFFECT: You can re-roll any of your dice results of one result (e.g. results of 2).",
+          "window": "defenceDice",
+          "cost": 1,
+          "effect": {
+            "type": "rerollDice",
+            "mode": "oneResult"
+          }
+        }
+      ]
     }
   }
 }

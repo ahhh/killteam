@@ -12,13 +12,15 @@ import {
 } from '../state.js';
 import { pointInPolygon, polygonBounds, polygonCentroid } from '../maps/geometry.js';
 import { isPositionLegal } from './movement.js';
-import { resolveAction, getLegalActions } from './engine.js';
+import { resolveAction, getLegalActions, ACTION_COST } from './engine.js';
 import { updateObjectiveControl, scoreTurningPoint, scoreEndOfBattle } from './objectives.js';
 import { effectiveApl, applyDamage } from './effects.js';
 import {
   resolveActivationTokens, markTokenExpiryAtActivationStart, expireTokensAtActivationEnd,
+  expireTokensAtTurningPointEnd,
 } from './tokens.js';
-import { fireTurningPointStart, fireActivationStart } from './hooks.js';
+import { fireTurningPointStart, fireActivationStart, hasFreeAction } from './hooks.js';
+import { resourceReadyStep, resetSpendLimits } from './resources.js';
 
 export const MAX_TURNING_POINTS = 4;
 const CP_PER_TURNING_POINT = 1;
@@ -148,6 +150,10 @@ function beginTurningPoint(state, rng) {
 
   // Ready step: faction rules that recur each turning point resolve here.
   fireTurningPointStart(state, rng, liveOperatives(state));
+  // …including the team resource economies: what the turning point pays out,
+  // and the STRATEGIC GAMBIT that assigns a pooled resource to operatives.
+  expireTokensAtTurningPointEnd(state, liveOperatives(state));
+  resourceReadyStep(state);
 
   state.killsThisTurn = { p1: 0, p2: 0 };
   state.phase = PHASES.FIREFIGHT;
@@ -160,6 +166,7 @@ function beginTurningPoint(state, rng) {
  */
 function resetActivationFlags(op) {
   op.usedThisActivation = [];
+  resetSpendLimits(op);
   op.heavyUsed = false;
   op.heavyMoveAllowed = null;
   op.distanceMovedThisActivation = 0;
@@ -172,6 +179,10 @@ function resetActivationFlags(op) {
 
 function startActivation(state, op, rng) {
   resetActivationFlags(op);
+  // "…until the start of the operative's next activation": this is that
+  // moment, so an APL an invigoration bought lapses here — before the new AP
+  // total is worked out, and not merely because a turning point rolled over.
+  op.aplBonus = 0;
 
   // "Whenever an operative that has one of your X tokens is activated…" — the
   // burn lands before the operative gets to do anything, and can kill it, so
@@ -250,9 +261,16 @@ function runActivation(state, op, controller) {
   const actions = intent?.actions || [];
   for (const action of actions) {
     if (!op.alive) break;
-    if (op.apRemaining <= 0 && (action.type !== 'change_order')) break;
+    // A free action granted mid-activation — the Dash a kill just paid for —
+    // outlives the AP, so an empty AP pool is not the end of the plan.
+    if (op.apRemaining <= 0 && ACTION_COST[action.type] > 0 &&
+        !hasFreeAction(op, action.type)) break;
     const result = resolveAction(state, { ...action, operativeId: op.id });
     if (!result.ok) {
+      // A plan may carry a tail it only wants *if* a rule pays for it — the
+      // free Dash Vitalised Surge grants for a kill that may not happen. That
+      // is a conditional, not a mistake, so it is dropped without complaint.
+      if (action.optional) continue;
       logEvent(state, EVENTS.WARNING, {
         ruleId: 'illegal-action-rejected',
         message: `Rejected ${action.type} for ${op.name}: ${result.reason}`,
@@ -284,12 +302,17 @@ function tryCounteract(state, playerId, controller) {
     op.moveLimitThisActivation = null;
     op.moveLimitRule = null;
     op.inCounteraction = true;
+    // The printed limits are "per activation or counteraction", so a
+    // counteraction gets its own allowance of invigorations.
+    resetSpendLimits(op);
     fireActivationStart(state, op);
     const legal = getLegalActions(state, op.id).filter((a) => a.type !== 'pass');
     if (!legal.length) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 
     const intent = controller.planActivation(state, op.id, { counteract: true });
-    const action = (intent?.actions || []).find((a) => a.type !== 'pass' && a.type !== 'change_order');
+    const proposed = intent?.actions || [];
+    const action = proposed.find(
+      (a) => a.type !== 'pass' && a.type !== 'change_order' && a.type !== 'spend');
     if (!action) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 
     logEvent(state, EVENTS.OPERATIVE_ACTIVATED, {
@@ -297,6 +320,11 @@ function tryCounteract(state, playerId, controller) {
       counteract: true, ap: 1, order: op.order,
     });
     const seqBefore = state.eventLog.length;
+    // A counteraction is one action, but the invigorations that go with it are
+    // not actions — Rejuvenate is legal here too.
+    for (const spend of proposed.filter((a) => a.type === 'spend')) {
+      resolveAction(state, { ...spend, operativeId: op.id });
+    }
     const result = resolveAction(state, { ...action, operativeId: op.id });
     op.counteracted = true;
     op.apRemaining = 0;

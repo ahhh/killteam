@@ -1111,7 +1111,7 @@ test('Drag hauls the target towards the shooter, two inches per unblocked succes
   assert.ok(startX - victim.x <= successes * 2 + 1e-9, 'and never further than the rule allows');
 });
 
-test('a resource-feeding weapon counts what it earned without pretending to spend it', () => {
+test('a resource-feeding weapon pays into the economy its pack declares', () => {
   const s = makeState({
     p1: {
       at: [{ x: 6, y: 11 }],
@@ -1120,8 +1120,37 @@ test('a resource-feeding weapon counts what it earned without pretending to spen
         bloodoffering: {
           rule: 'Blood Offering',
           text: '…the first time you strike with a critical success during that sequence, you gain one Blooded token.',
-          partial: true,
-          notes: 'Blooded tokens are counted but nothing spends them',
+          effect: {
+            type: 'gainResource', resource: 'blooded', scope: 'player',
+            trigger: 'criticalSuccess',
+          },
+        },
+      },
+      resources: {
+        blooded: { name: 'Blooded token', rule: 'Blooded', scope: 'player', gains: [], spends: [] },
+      },
+    },
+    p2: { at: [{ x: 16, y: 11 }], wounds: 60 },
+    seed: 'blood',
+  });
+  const [op] = opsOf(s, 'p1');
+
+  applyResourceGain(s, op, gun(['bloodoffering']), { damage: 5, unsavedCrits: 0 });
+  assert.equal(s.players.p1.resources.blooded, undefined, 'a normal hit earns nothing');
+
+  applyResourceGain(s, op, gun(['bloodoffering']), { damage: 5, unsavedCrits: 1 });
+  assert.equal(s.players.p1.resources.blooded, 1, 'a critical strike pays into the pool');
+});
+
+test('a weapon feeding a resource its pack never declared is reported, not guessed', () => {
+  const s = makeState({
+    p1: {
+      at: [{ x: 6, y: 11 }],
+      weapons: [gun(['bloodoffering'], { range: 24 }), melee()],
+      weaponRules: {
+        bloodoffering: {
+          rule: 'Blood Offering',
+          text: '…you gain one Blooded token.',
           effect: {
             type: 'gainResource', resource: 'blooded', scope: 'player',
             trigger: 'criticalSuccess',
@@ -1129,17 +1158,99 @@ test('a resource-feeding weapon counts what it earned without pretending to spen
         },
       },
     },
-    p2: { at: [{ x: 16, y: 11 }], wounds: 60 },
+    p2: { at: [{ x: 16, y: 11 }] },
     seed: 'blood',
   });
   const [op] = opsOf(s, 'p1');
-  const [victim] = opsOf(s, 'p2');
-
-  applyResourceGain(s, op, gun(['bloodoffering']), { damage: 5, unsavedCrits: 0 });
-  assert.equal(s.players.p1.resources, undefined, 'a normal hit earns nothing');
 
   applyResourceGain(s, op, gun(['bloodoffering']), { damage: 5, unsavedCrits: 1 });
-  assert.equal(s.players.p1.resources.blooded, 1);
-  assert.ok(s.warnings.some((w) => w.ruleId === 'weapon-rule-partial:bloodoffering'),
-    'and the log says the tokens cannot actually be spent');
+  assert.equal(s.players.p1.resources.blooded, undefined, 'nothing is invented');
+  assert.ok(s.warnings.some((w) => w.ruleId === 'resource:blooded'),
+    'and the missing declaration is reported');
+});
+
+/* ====================================================================== */
+/* First Blood: hurting the thing that hurt you                           */
+/* ====================================================================== */
+
+const firstBlood = {
+  firstblood: {
+    rule: 'First Blood',
+    text: 'Each time after this operative fights in combat, if it lost any wounds in that combat but was not incapacitated, you can roll one D6: on a 4+, the enemy operative that fought it suffers 2 mortal wounds.',
+    effect: { type: 'retaliationRoll', dice: 'D6', threshold: 4, damage: 2 },
+  },
+};
+
+function marboState(seed) {
+  return makeState({
+    p1: {
+      at: [{ x: 10, y: 11 }], wounds: 20,
+      weapons: [blade(['firstblood'], { atk: 4, hit: 3 })],
+      weaponRules: firstBlood,
+    },
+    p2: { at: [{ x: 10.9, y: 11 }], wounds: 20, weapons: [melee({ atk: 4, hit: 3 })] },
+    seed,
+  });
+}
+
+test('First Blood cuts back at the operative that drew blood', () => {
+  // Seeds are scanned rather than guessed: the rule only fires in a fight that
+  // actually cost the wielder wounds, which the dice have to produce.
+  let fired = null;
+  for (let i = 0; i < 40 && !fired; i++) {
+    const s = marboState(`fb-${i}`);
+    const [marbo] = opsOf(s, 'p1');
+    const [foe] = opsOf(s, 'p2');
+    resolveFight(s, marbo.id, foe.id, 'w-melee');
+    const event = s.eventLog.find((e) => e.rule === 'First Blood');
+    if (event && marbo.woundsRemaining < marbo.wounds && marbo.alive) fired = { s, event, foe };
+  }
+  assert.ok(fired, 'a fight that hurt the wielder rolls for it');
+  assert.match(fired.event.detail, /cuts back for 2 damage|fails to cut back/);
+});
+
+test('First Blood stays quiet when the fight cost the wielder nothing', () => {
+  const s = makeState({
+    p1: {
+      at: [{ x: 10, y: 11 }], wounds: 20,
+      weapons: [blade(['firstblood'], { atk: 6, hit: 2 })],
+      weaponRules: firstBlood,
+    },
+    // A weaponless operative rolls no dice at all, so it can never hurt back.
+    p2: { at: [{ x: 10.9, y: 11 }], weapons: [] },
+    seed: 'fb-quiet',
+  });
+  const [marbo] = opsOf(s, 'p1');
+  const [foe] = opsOf(s, 'p2');
+  resolveFight(s, marbo.id, foe.id, 'w-melee');
+  assert.equal(s.eventLog.some((e) => e.rule === 'First Blood'), false);
+});
+
+/* ====================================================================== */
+/* Get Some!: a rule that only applies up close                           */
+/* ====================================================================== */
+
+const getSome = {
+  getsome: {
+    rule: 'Get Some!',
+    text: 'Each time this operative makes a shooting attack with this weapon, if the target is within 6" of it, you can re-roll any or all of your attack dice.',
+    effect: { type: 'grantRuleIf', action: 'shoot', targetWithin: 12, rules: ['relentless'] },
+  },
+};
+
+test('Get Some! grants its re-roll only inside the range it prints', () => {
+  const s = makeState({
+    p1: { at: [{ x: 6, y: 11 }], weapons: [gun(['getsome'], { range: 24 }), melee()], weaponRules: getSome },
+    p2: { at: [{ x: 14, y: 11 }, { x: 26, y: 11 }], count: 2 },
+    seed: 'getsome',
+  });
+  const [harker] = opsOf(s, 'p1');
+  const [near, far] = opsOf(s, 'p2');
+  const weapon = gun(['getsome'], { range: 24 });
+
+  const close = weaponAdjustments(s, harker, weapon, { action: 'shoot', target: near });
+  assert.deepEqual(close.rules, ['relentless'], 'within 12" the dice come back');
+
+  const distant = weaponAdjustments(s, harker, weapon, { action: 'shoot', target: far });
+  assert.deepEqual(distant.rules, [], 'beyond it they do not');
 });

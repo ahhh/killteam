@@ -553,8 +553,6 @@
     "ritual": {
       "rule": "Ritual",
       "text": "Whenever this operative is using this weapon, the first time you inflict damage on an operative within its control range during that sequence, you can increase this operative's GORE TANK.",
-      "partial": true,
-      "notes": "the GORE TANK is counted on the operative but nothing reads it — the abilities it fuels are not implemented",
       "effect": {
         "type": "gainResource",
         "resource": "gore-tank",
@@ -570,6 +568,135 @@
         "type": "dragTarget",
         "perSuccess": 2
       }
+    }
+  },
+  "resources": {
+    "gore-tank": {
+      "name": "GORE TANK",
+      "rule": "Gore Tanks",
+      "text": "Each friendly GOREMONGER operative has a GORE TANK that has three levels: full, half and empty. They start the battle at half. Whenever a GORE TANK increases, it goes up one level; whenever it decreases, it goes down one level. A GORE TANK cannot increase when it's already full, or decrease when it's already empty. Whenever a friendly GOREMONGER operative incapacitates an operative within its control range, or visible to and within 2\" of it, you can increase its GORE TANK. Whenever a friendly GOREMONGER operative uses a SANGUAVITAE rule, you must decrease its GORE TANK.",
+      "scope": "operative",
+      "keyword": "goremonger",
+      "start": 1,
+      "max": 2,
+      "levels": [
+        "empty",
+        "half",
+        "full"
+      ],
+      "perActivation": 2,
+      "gains": [
+        {
+          "trigger": "killWithin",
+          "within": 2,
+          "amount": 1
+        }
+      ],
+      "spends": [
+        {
+          "id": "rejuvenate",
+          "name": "Rejuvenate",
+          "text": "WHEN: During a friendly GOREMONGER operative's activation or counteraction, before or after it performs an action. EFFECT: That operative regains up to D3+1 lost wounds.",
+          "window": "activation",
+          "cost": 1,
+          "condition": {
+            "wounded": true
+          },
+          "effect": {
+            "type": "healWounds",
+            "dice": "D3+1"
+          }
+        },
+        {
+          "id": "mania",
+          "name": "Mania",
+          "text": "WHEN: During a friendly GOREMONGER operative's activation, before or after it performs an action. EFFECT: Until the start of that operative's next activation, add 1 to its APL stat.",
+          "window": "activation",
+          "cost": 1,
+          "excludes": [
+            "fury"
+          ],
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          }
+        },
+        {
+          "id": "fury",
+          "name": "Fury",
+          "text": "WHEN: During a friendly GOREMONGER operative's activation, before or after it performs an action. EFFECT: That operative can perform two Fight actions during that activation, and the second one is free.",
+          "window": "activation",
+          "cost": 1,
+          "excludes": [
+            "mania"
+          ],
+          "condition": {
+            "actionAvailable": "fight"
+          },
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1,
+            "free": true
+          }
+        },
+        {
+          "id": "rake",
+          "name": "Rake",
+          "text": "WHEN: When a friendly GOREMONGER operative performs the Charge action during its activation. EFFECT: When that operative finishes moving during that action, you can inflict D3 damage on one enemy operative within its control range.",
+          "window": "activation",
+          "cost": 1,
+          "condition": {
+            "performedThisActivation": [
+              "charge"
+            ],
+            "enemyWithinControlRange": true
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3"
+          }
+        },
+        {
+          "id": "surge",
+          "name": "Surge",
+          "text": "WHEN: When a friendly GOREMONGER operative performs the Charge or Reposition action. EFFECT: Until the end of that action, add 1\" to that operative's Move stat.",
+          "window": "activation",
+          "cost": 1,
+          "condition": {
+            "notPerformedThisActivation": [
+              "charge",
+              "reposition"
+            ]
+          },
+          "effect": {
+            "type": "moveBonus",
+            "inches": 1,
+            "appliesTo": [
+              "charge",
+              "reposition"
+            ]
+          }
+        },
+        {
+          "id": "rage",
+          "name": "Rage",
+          "text": "WHEN: When a friendly GOREMONGER operative performs the Fight action. EFFECT: Until the end of that action, add 1 to the Atk stat of that operative's melee weapons.",
+          "window": "activation",
+          "cost": 1,
+          "condition": {
+            "actionAvailable": "fight"
+          },
+          "effect": {
+            "type": "weaponBoost",
+            "weaponType": "melee",
+            "atkBonus": 1,
+            "appliesTo": [
+              "fight"
+            ]
+          }
+        }
+      ]
     }
   }
 }

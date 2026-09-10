@@ -120,8 +120,9 @@
     {
       "id": "astra-militarum",
       "name": "Astra Militarum",
-      "blurb": "5 kill teams",
+      "blurb": "6 kill teams",
       "teams": [
+        "catachan-jungle-fighters",
         "death-korps",
         "kasrkin",
         "ratlings",

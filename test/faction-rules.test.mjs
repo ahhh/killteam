@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { makeState, opsOf, weapon, melee } from './fixtures.mjs';
 import { getLegalActions, resolveAction } from '../src/rules/engine.js';
 import { fireActivationStart, fireTurningPointStart, timesAllowed } from '../src/rules/hooks.js';
-import { applyDamage } from '../src/rules/effects.js';
+import { applyDamage, effectiveApl } from '../src/rules/effects.js';
 import { EVENTS } from '../src/state.js';
 import { Rng } from '../src/rng.js';
 
@@ -143,7 +143,7 @@ test('a free action is not spent while AP could pay for it', () => {
   a.apRemaining = 2;
   resolveAction(s, { operativeId: a.id, type: 'dash', destination: { x: 6.5, y: 11 } });
   assert.equal(a.apRemaining, 1, 'AP paid for the Dash');
-  assert.deepEqual(a.freeActions, ['dash'], 'the grant is still in hand');
+  assert.deepEqual(a.freeActions.map((f) => f.action), ['dash'], 'the grant is still in hand');
 });
 
 /* --- Runes of Khorne: damage cap --------------------------------------- */
@@ -322,4 +322,44 @@ test('a hook marked partial reports what it does not simulate', () => {
   const warn = s.warnings.find((w) => w.ruleId === 'hook-partial:void-armour');
   assert.ok(warn, 'the partial implementation is recorded in the battle warnings');
   assert.match(warn.detail, /sweeping-profile/);
+});
+
+/* --- Let's Move!: a leader hands an ally a point of APL ---------------- */
+
+const letsMove = [{
+  id: 'lets-move', rule: "Let's Move!", trigger: 'onActivationStart',
+  condition: { keyword: 'leader' },
+  effect: { type: 'grantAllyApl', amount: 1, within: 12, keyword: 'catachan' },
+}];
+
+test("Let's Move! adds APL to a friend that has yet to activate", () => {
+  const s = makeState({
+    p1: {
+      at: [{ x: 6, y: 11 }, { x: 8, y: 11 }], count: 2,
+      keywords: ['catachan', 'leader'], ruleHooks: letsMove,
+    },
+    p2: { at: [{ x: 20, y: 11 }] },
+  });
+  const [leader, trooper] = opsOf(s, 'p1');
+  trooper.ready = true;
+
+  fireActivationStart(s, leader);
+  assert.equal(trooper.aplBonus, 1, 'the order lands on the friend, not the leader');
+  assert.equal(leader.aplBonus ?? 0, 0);
+  assert.equal(effectiveApl(trooper), trooper.apl + 1);
+});
+
+test("Let's Move! passes over an operative that has already gone", () => {
+  const s = makeState({
+    p1: {
+      at: [{ x: 6, y: 11 }, { x: 8, y: 11 }], count: 2,
+      keywords: ['catachan', 'leader'], ruleHooks: letsMove,
+    },
+    p2: { at: [{ x: 20, y: 11 }] },
+  });
+  const [leader, trooper] = opsOf(s, 'p1');
+  trooper.ready = false;
+
+  fireActivationStart(s, leader);
+  assert.equal(trooper.aplBonus ?? 0, 0, 'an expended operative cannot spend the AP');
 });

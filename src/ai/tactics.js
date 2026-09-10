@@ -16,6 +16,10 @@
  *    crowds, Explosive weapons hunt for a crowd to stand inside, psykers value
  *    getting the big spell off over plinking with a sidearm.
  *
+ * A third layer, the team resource economies, does not scale weights at all —
+ * an invigoration is a decision rather than a disposition — so it lives in
+ * `spending.js` and only reports here, in the plan rationale.
+ *
  * Both produce plain multipliers over the role weights, so the scoring function
  * stays one readable sum and a plan's breakdown still explains itself.
  *
@@ -24,6 +28,7 @@
  */
 import { getProfile, selfDirectedWeapon } from '../rules/shooting.js';
 import { blastRadius, torrentRadius } from '../rules/weapon-rules.js';
+import { spendLabels } from './spending.js';
 
 /**
  * Multipliers over the role weights. `approachFloor` is the exception: it
@@ -205,6 +210,11 @@ export function unitTacticsFor(state, op) {
     mods.exposure = (mods.exposure ?? 1) * 0.85;
     mods.damage = (mods.damage ?? 1) * 1.15;
   }
+
+  // What the team's resource economy is offering this operative right now.
+  // It changes no weight — the spends are chosen in `spending.js`, plan by
+  // plan — but the log should say what was on the table when it chose.
+  labels.push(...spendLabels(state, op));
 
   return { labels, mods, multiHit, detonator, psyker, spellBonus, splashWeight };
 }

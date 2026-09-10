@@ -20,6 +20,7 @@ import {
   aplDefenceRule, weaponAdjustments, withAdjustments, notePartialTeamRule,
 } from './team-rules.js';
 import { snapshotTokens, grantToken } from './tokens.js';
+import { diceRerollSpend, grantResourceFromWeapon } from './resources.js';
 import { applyAttackHooks, applyDefenceHooks, rollExpression } from './hooks.js';
 import { applyDamage, applyStun, hitModifierFor, effectiveApl } from './effects.js';
 import { isPositionLegal } from './movement.js';
@@ -309,7 +310,12 @@ function resolveSequence(state, rng, attacker, target, weapon, opts = {}) {
   }
   const attackWeapon = withAdjustments(hooked, adjustments);
 
-  const attack = rollAttack(rng, attackWeapon, { hitModifier: hitModifierFor(attacker) });
+  const attack = rollAttack(rng, attackWeapon, {
+    hitModifier: hitModifierFor(attacker),
+    // Stimulated Senses: a resource the attacker may spend on a second look
+    // at the dice it just rolled.
+    extraReroll: diceRerollSpend(state, attacker, { kind: 'attack' }),
+  });
   logEvent(state, EVENTS.ATTACK_ROLLED, {
     attackerId: attacker.id, attackerName: attacker.name,
     targetId: target.id, targetName: target.name,
@@ -326,7 +332,9 @@ function resolveSequence(state, rng, attacker, target, weapon, opts = {}) {
   const soulstrike = aplDefenceRule(state, attacker, weapon);
   const defence = rollDefence(rng, target, def.weapon, {
     inCover, attackCrits: attack.crits, diceDelta: def.diceDelta, rerolls: def.rerolls,
+    saveModifier: def.saveModifier || 0,
     aplDefence: soulstrike ? { apl: effectiveApl(target) } : null,
+    extraReroll: diceRerollSpend(state, target, { kind: 'defence' }),
   });
   if (soulstrike) notePartialTeamRule(state, soulstrike);
   logEvent(state, EVENTS.DEFENCE_ROLLED, {
@@ -601,9 +609,11 @@ function applyDrag(state, attacker, target, weapon, outcome) {
 }
 
 /**
- * Blood Offering, Ritual: the weapon feeds a team resource track. The engine
- * counts it so the log is honest about what was earned, but nothing spends it
- * — the ploys and abilities that would are not implemented.
+ * Blood Offering, Ritual, Flay: the weapon feeds a team resource economy.
+ *
+ * What the resource then *does* is the pack's `resources` block — see
+ * `rules/resources.js`. This end only decides whether the sequence earned it,
+ * and who it goes to: the wielder, or the friend a rule lets it pick.
  */
 export function applyResourceGain(state, attacker, weapon, outcome) {
   const def = teamRuleEffect(state, attacker, weapon, 'gainResource');
@@ -615,16 +625,7 @@ export function applyResourceGain(state, attacker, weapon, outcome) {
     : outcome.damage > 0;
   if (!fired) return;
 
-  const holder = effect.scope === 'operative' ? attacker : state.players[attacker.playerId];
-  if (!holder.resources) holder.resources = {};
-  holder.resources[effect.resource] = (holder.resources[effect.resource] || 0) + 1;
-
-  logEvent(state, EVENTS.RULE_APPLIED, {
-    ruleId: `weapon-rule:${def.name}`,
-    rule: def.rule || def.name,
-    operativeId: attacker.id, operativeName: attacker.name, playerId: attacker.playerId,
-    detail: `gains 1 ${effect.resource} (now ${holder.resources[effect.resource]})`,
-  });
+  grantResourceFromWeapon(state, attacker, effect, { rule: def.rule || def.name });
 }
 
 /* ------------------------------------------------------------------ */

@@ -143,6 +143,27 @@ export function tokenMoveDelta(op) {
   return delta;
 }
 
+/**
+ * Weapon rules a token grants its holder while it is held.
+ *
+ * A Blooded token is not a debuff hung on an enemy — it is a mark of favour
+ * assigned to one of your own, and what it does is give that operative's
+ * weapons Accurate 1. Same subsystem, opposite sign, so it reads off the same
+ * `whileHeld` block.
+ *
+ * @returns {string[]} rule tokens, in the order the tokens were gained.
+ */
+export function tokenWeaponRules(op, weapon) {
+  const out = [];
+  for (const t of tokensOf(op)) {
+    const grant = t.whileHeld?.weaponRules;
+    if (!grant) continue;
+    if (t.whileHeld.weaponType && weapon?.type !== t.whileHeld.weaponType) continue;
+    for (const rule of grant) if (!out.includes(rule)) out.push(rule);
+  }
+  return out;
+}
+
 /* ------------------------------------------------------------------ */
 /* Lifecycle                                                           */
 /* ------------------------------------------------------------------ */
@@ -192,12 +213,30 @@ export function resolveActivationTokens(state, rng, op, applyDamage) {
  * either a D6 (3+ sheds the token) or −1 APL for this activation to shed it
  * for certain.
  *
- * The engine always takes the free roll. Spending APL is sometimes the better
- * play — an operative one bad roll from death would rather pay — but modelling
- * that is a judgement call the AI layer does not make yet, so the simple,
- * deterministic branch is the one taken and is documented as such.
+ * Which is better depends on the operative, so the choice is made rather than
+ * defaulted: an operative that another burn could kill pays the APL, because a
+ * one-in-three chance of dying next activation costs more than one action does
+ * now. Anything healthier takes the free roll. The token damage has already
+ * been applied when this runs, so `woundsRemaining` is what the operative is
+ * actually carrying into its next activation.
+ *
+ * The penalty lands before AP is counted (see `startActivation`), so paying it
+ * genuinely costs this activation an action.
  */
 function resolveRemovalChoice(state, rng, op, token, removal, results) {
+  if (removal.aplCost && paysAplToShed(op, token)) {
+    const cost = Number(removal.aplCost) || 1;
+    op.aplPenaltyThisActivation = (op.aplPenaltyThisActivation || 0) + cost;
+    removeOne(op, token);
+    logEvent(state, EVENTS.RULE_APPLIED, {
+      ruleId: `weapon-rule:${token.rule}`,
+      rule: token.label,
+      operativeId: op.id, operativeName: op.name, playerId: op.playerId,
+      detail: `gives up ${cost} APL this activation to smother the ${token.label} token for certain`,
+    });
+    results.push({ token: token.kind, removed: true, aplPaid: cost });
+    return;
+  }
   if (removal.d6) {
     const rolled = rng.d6();
     const removed = rolled >= removal.d6;
@@ -214,6 +253,31 @@ function resolveRemovalChoice(state, rng, op, token, removal, results) {
   }
 }
 
+/**
+ * Is another burn likely to finish this operative off?
+ *
+ * The worst the token can roll against the wounds it has left, weighed against
+ * the chance the free roll simply fails. An operative that cannot survive the
+ * next burn pays; one that can, gambles.
+ */
+function paysAplToShed(op, token) {
+  const worst = maxOfExpression(token.onActivation?.damage || '');
+  if (!worst) return false;
+  if (op.woundsRemaining > worst) return false;
+  // Nothing is gained by paying an APL the operative does not have to give.
+  return op.apl - (op.aplPenaltyThisActivation || 0) > 1;
+}
+
+/** The largest result a dice expression can produce; 0 if unparseable. */
+function maxOfExpression(expr) {
+  const m = /^(?:(\d*)[Dd](\d+))?\s*(?:([+-])\s*(\d+))?$/.exec(String(expr).trim());
+  if (/^\d+$/.test(String(expr).trim())) return Number(expr);
+  if (!m) return 0;
+  let total = m[2] ? (m[1] ? Number(m[1]) : 1) * Number(m[2]) : 0;
+  if (m[4]) total += (m[3] === '-' ? -1 : 1) * Number(m[4]);
+  return Math.max(0, total);
+}
+
 function removeOne(op, token) {
   const i = op.tokens.indexOf(token);
   if (i >= 0) op.tokens.splice(i, 1);
@@ -228,6 +292,27 @@ function removeOne(op, token) {
 export function markTokenExpiryAtActivationStart(op) {
   for (const t of tokensOf(op)) {
     if (t.expiry?.endOfNextActivation) t.expiresThisActivation = true;
+  }
+}
+
+/**
+ * "…until the end of the turning point": the GAZE OF THE GODS is handed out
+ * fresh in each Ready step, so the one from last turning point comes off
+ * before the new one is assigned.
+ */
+export function expireTokensAtTurningPointEnd(state, operatives) {
+  for (const op of operatives) {
+    const expiring = tokensOf(op).filter((t) => t.expiry?.endOfTurningPoint);
+    if (!expiring.length) continue;
+    op.tokens = op.tokens.filter((t) => !t.expiry?.endOfTurningPoint);
+    for (const t of expiring) {
+      logEvent(state, EVENTS.RULE_APPLIED, {
+        ruleId: `weapon-rule:${t.rule}`,
+        rule: t.label,
+        operativeId: op.id, operativeName: op.name, playerId: op.playerId,
+        detail: `${t.label} lapses at the end of the turning point`,
+      });
+    }
   }
 }
 

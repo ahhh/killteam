@@ -27,7 +27,9 @@
 import { warnUnsupported } from '../state.js';
 import { parseRule, ruleMap } from './dice.js';
 import { CONTROL_RANGE } from './visibility.js';
-import { pointPolygonDistance } from '../maps/geometry.js';
+import { pointPolygonDistance, baseDistance } from '../maps/geometry.js';
+import { tokenWeaponRules } from './tokens.js';
+import { resourceWeaponBoosts } from './resources.js';
 
 /** Effect types the engine knows how to apply. Anything else fails closed. */
 export const TEAM_RULE_EFFECTS = {
@@ -49,7 +51,8 @@ export const TEAM_RULE_EFFECTS = {
   executeRoll: 'A roll after the sequence can finish off a target that survived.',
   onIncapacitate: 'The wielder is rewarded for a kill — wounds back, or a lasting buff.',
   dragTarget: 'Haul the target towards the shooter before damage is inflicted.',
-  gainResource: 'Add to a team resource track the engine counts but cannot spend.',
+  retaliationRoll: 'A fighter that survived being hurt rolls to hurt its attacker back.',
+  gainResource: 'Feed a team resource economy — see rules/resources.js.',
   recognised: 'The engine knows this rule and deliberately does nothing for it.',
   unusable: 'The weapon needs a subsystem this engine does not have, so it never fires.',
 };
@@ -256,6 +259,14 @@ export function weaponAdjustments(state, op, weapon, ctx = {}) {
     fold(def.effect);
   }
 
+  // A token the operative is *holding* can improve its weapons too — a
+  // Blooded token is Accurate 1 for as long as it is carried.
+  for (const rule of tokenWeaponRules(op, weapon)) fold({ rules: [rule] });
+
+  // …and so can something bought with a team resource for this one action:
+  // Rage adds an attack die to the Fight it was spent on.
+  for (const boost of resourceWeaponBoosts(op, weapon, ctx.action)) fold(boost);
+
   // Headtaker's skullcleaver keeps the Critical Dmg it has earned.
   const earned = op.weaponMods?.[weapon.id];
   if (earned) {
@@ -306,6 +317,11 @@ function grantConditionHolds(state, op, effect, ctx) {
       !(ctx.target && ctx.target.woundsRemaining < ctx.target.wounds)) return false;
   // "an expended operative" is one that has already been activated.
   if (effect.targetExpended && !ctx.target?.activatedThisTurningPoint) return false;
+  // "if the target is within x" of it" — Get Some! only re-rolls up close.
+  if (effect.targetWithin !== undefined) {
+    if (!ctx.target) return false;
+    if (baseDistance(op, ctx.target) > Number(effect.targetWithin)) return false;
+  }
   if (effect.terrainWithinControlRange && !terrainInControlRange(state, op)) return false;
   return true;
 }
@@ -338,6 +354,26 @@ export function damageBonusVsToken(state, attacker, weapon, target, snapshot) {
     critical += Number(effect.critical) || 0;
   }
   return { normal, critical };
+}
+
+/**
+ * First Blood: a fighter that was hurt but not put down rolls to hurt back.
+ *
+ * Printed as an ability rather than a weapon rule, but it keys off a weapon's
+ * fight sequence and reads its result, so it is declared on the weapon like
+ * every other sequence-shaped rule.
+ *
+ * @returns {{def:object, dice:string, threshold:number, damage:number}|null}
+ */
+export function retaliationRule(state, op, weapon) {
+  const def = teamRuleEffect(state, op, weapon, 'retaliationRoll');
+  if (!def) return null;
+  return {
+    def,
+    dice: def.effect.dice || 'D6',
+    threshold: Number(def.effect.threshold) || 4,
+    damage: Number(def.effect.damage) || 1,
+  };
 }
 
 /** Soulstrike: defence dice are read against the target's APL, not its Save. */

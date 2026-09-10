@@ -22,6 +22,7 @@ import {
   detonationOpportunityAt,
 } from './utility.js';
 import { dispositionFor, unitTacticsFor, applyTactics } from './tactics.js';
+import { openingSpends, meleeSpends, postKillSpends, canHealItself } from './spending.js';
 
 export const AI_VERSION = '0.2.0';
 
@@ -108,6 +109,17 @@ function shotEstimate(shot, extra = {}) {
     target: shot.selfDirected ? null : shot.targetId,
     ...extra,
   };
+}
+
+/**
+ * A melee profile as it will read once the resource spends the AI is planning
+ * have landed — Rage's extra attack die. The pack's profile is never touched;
+ * this is a copy for the estimate, and the engine folds the same bonus in for
+ * real when the Fight resolves.
+ */
+function buffed(weapon, buffs) {
+  if (!weapon || !buffs?.atkBonus) return weapon;
+  return { ...weapon, atk: weapon.atk + buffs.atkBonus };
 }
 
 /** What the log says about why this operative plays the way it does. */
@@ -199,7 +211,9 @@ export class UtilityController {
       if (state.objectives.some(
         (o) => baseDistance(op, { x: o.x, y: o.y, baseDiameter: 0 }) < effectiveMove(op) + 2
       )) urgency += 1;
-      if (isInjured(op)) urgency -= 0.5;
+      // A wounded operative usually wants to wait; one that can heal itself
+      // with a resource has less reason to.
+      if (isInjured(op)) urgency -= canHealItself(state, op) ? 0.1 : 0.5;
       // A demolition charge is spent the moment its carrier is shot, so a squig
       // already standing in a crowd goes now rather than hoping to survive.
       const tactics = unitTacticsFor(state, op);
@@ -216,16 +230,25 @@ export class UtilityController {
   planActivation(state, operativeId, { counteract = false } = {}) {
     const op = state.operatives[operativeId];
     this._cache.clear();
-    const ap = counteract ? 1 : (op.apRemaining || effectiveApl(op));
+    const baseAp = counteract ? 1 : (op.apRemaining || effectiveApl(op));
     const enemies = liveOperatives(state).filter((o) => o.playerId !== op.playerId);
     const engaged = enemiesInControlRange(op, liveOperatives(state));
     const disposition = dispositionFor(state, op.playerId);
     const tactics = unitTacticsFor(state, op);
     const w = weightsFor(state, op, disposition, tactics);
 
+    // What the team's resource economy is willing to pay for this activation.
+    // A counteraction is one AP whatever the APL, so an APL invigoration buys
+    // nothing there and is not offered.
+    const spending = counteract
+      ? { always: [], conditional: [], apBonus: 0, rationale: [] }
+      : openingSpends(state, op, { enemies });
+    const ap = baseAp + spending.apBonus;
+    const buffs = meleeSpends(state, op);
+
     const plans = engaged.length
-      ? this._engagedPlans(state, op, ap, enemies, engaged)
-      : this._freePlans(state, op, ap, enemies, tactics);
+      ? this._engagedPlans(state, op, ap, enemies, engaged, buffs)
+      : this._freePlans(state, op, ap, enemies, tactics, buffs);
 
     plans.push({ actions: [], rationale: ['No useful action found; holds position.'], estimate: {} });
 
@@ -251,10 +274,23 @@ export class UtilityController {
       chosen = tieRng.pick(tied);
     }
 
+    // The opening spends go in front of the plan that was chosen with them in
+    // mind. The conditional one — an extra point of AP — is only paid for if
+    // the plan actually spends it, so a quiet activation keeps its token.
+    // A kill unlocks a free Dash for some teams; the tail is conditional, so
+    // it is appended to whatever plan won rather than shaping the ranking.
+    this._appendPostKill(state, op, chosen, enemies);
+
+    const usesBonus = (chosen.estimate?.apUsed || 0) > baseAp;
+    const opening = [...spending.always, ...(usesBonus ? spending.conditional : [])];
+    const openingNotes = opening.length ? spending.rationale : [];
+    if (opening.length) chosen.actions = [...opening, ...chosen.actions];
+
     return {
       operativeId,
       actions: chosen.actions,
       rationale: [
+        ...openingNotes,
         ...chosen.rationale,
         tacticNote(state, op, disposition, tactics),
         this._explain(chosen),
@@ -262,6 +298,32 @@ export class UtilityController {
       considered: plans.length,
       score: Number(chosen.score.toFixed(2)),
     };
+  }
+
+  /**
+   * Vitalised Surge: an operative that kills something may spend a Pain token
+   * on a free Dash. Only worth planning for when the plan expects a kill —
+   * and it is planned as `optional`, because expecting one is not having one.
+   */
+  _appendPostKill(state, op, plan, enemies) {
+    const e = plan.estimate || {};
+    const target = e.target ? state.operatives[e.target] : null;
+    if (!target || (e.damage || 0) < target.woundsRemaining) return;
+
+    const from = e.endsAt || { x: op.x, y: op.y };
+    const after = { ...op, x: from.x, y: from.y };
+    const candidates = generateDestinations(
+      { ...state, operatives: { ...state.operatives, [op.id]: after } },
+      after, DASH_DISTANCE, { towardEnemies: false }
+    );
+    const retreat = this._bestBy(candidates, (d) =>
+      this._cover(state, op, d.x, d.y, enemies) * 2 - this._exposure(state, op, d.x, d.y, enemies));
+    if (!retreat || retreat.length < 0.5) return;
+
+    const bundle = postKillSpends(state, op, retreat);
+    if (!bundle) return;
+    plan.actions = [...plan.actions, ...bundle.actions];
+    plan.rationale = [...plan.rationale, ...bundle.rationale];
   }
 
   /**
@@ -308,20 +370,37 @@ export class UtilityController {
   /* Plan enumeration                                                 */
   /* --------------------------------------------------------------- */
 
-  _engagedPlans(state, op, ap, enemies, engaged) {
+  _engagedPlans(state, op, ap, enemies, engaged, buffs = null) {
     const plans = [];
     const melee = meleeWeapons(state, op)[0];
 
     if (melee) {
-      const target = bestMeleeTarget(state, op, engaged, melee);
+      const target = bestMeleeTarget(state, op, engaged, buffed(melee, buffs));
       if (target) {
+        // Rage buys attack dice and Fury a second swing, so the plan that pays
+        // for them is a different plan from the plain Fight — worth ranking as
+        // its own option rather than assuming the buffed version is free.
+        const extra = buffs?.extraFights
+          ? Array.from({ length: buffs.extraFights }, () => (
+            { type: 'fight', targetId: target.targetId, weaponId: melee.id }))
+          : [];
         plans.push({
           actions: [
             { type: 'change_order', order: ORDERS.ENGAGE },
+            ...(buffs?.before || []),
             { type: 'fight', targetId: target.targetId, weaponId: melee.id },
+            ...extra,
           ],
-          rationale: [`Fights ${target.targetName} (expects ${target.expected.toFixed(1)} damage)`],
-          estimate: { damage: target.expected, target: target.targetId, apUsed: 1, endsAt: { x: op.x, y: op.y } },
+          rationale: [
+            ...(buffs?.rationale || []),
+            `Fights ${target.targetName} (expects ${target.expected.toFixed(1)} damage)`,
+          ],
+          estimate: {
+            damage: target.expected * (1 + (extra.length ? 0.8 : 0)),
+            target: target.targetId,
+            apUsed: 1 + extra.length,
+            endsAt: { x: op.x, y: op.y },
+          },
         });
       }
     }
@@ -341,7 +420,7 @@ export class UtilityController {
     return plans;
   }
 
-  _freePlans(state, op, ap, enemies, tactics) {
+  _freePlans(state, op, ap, enemies, tactics, buffs = null) {
     const plans = [];
     const melee = meleeWeapons(state, op)[0];
 
@@ -467,25 +546,34 @@ export class UtilityController {
 
     // --- Charge and fight -----------------------------------------
     if (melee && ap >= 2) {
-      const allowance = usableMoveAllowance(state, op, 'charge');
+      // Surge buys the inch that decides whether the charge reaches at all, so
+      // it is part of the allowance the plan is built against.
+      const allowance = usableMoveAllowance(state, op, 'charge') + (buffs?.moveBonus || 0);
+      const weapon = buffed(melee, buffs);
       for (const enemy of enemies) {
         if (baseDistance(op, enemy) > allowance) continue;
         // Ask for a *legal* contact point rather than assuming one exists.
         const dest = chargeDestination(state, op, enemy, allowance);
         if (!dest) continue;
-        const expected = expectedDamage(op, melee, enemy, { inCover: false });
+        const swings = 1 + (buffs?.extraFights || 0);
+        const expected = expectedDamage(op, weapon, enemy, { inCover: false }) *
+          (swings > 1 ? 1.8 : 1) + (buffs?.extraDamage || 0);
         plans.push({
           actions: [
             { type: 'change_order', order: ORDERS.ENGAGE },
+            ...(buffs?.before || []),
             { type: 'charge', destination: { x: dest.x, y: dest.y }, targetId: enemy.id },
-            { type: 'fight', targetId: enemy.id, weaponId: melee.id },
+            ...(buffs?.afterCharge || []),
+            ...Array.from({ length: swings }, () => (
+              { type: 'fight', targetId: enemy.id, weaponId: melee.id })),
           ],
           rationale: [
             `Charges ${enemy.name} across ${dest.length.toFixed(1)}"`,
+            ...(buffs?.rationale || []),
             `Fights for an expected ${expected.toFixed(1)} damage`,
           ],
           estimate: {
-            damage: expected, target: enemy.id, apUsed: 2,
+            damage: expected, target: enemy.id, apUsed: 1 + swings,
             endsAt: dest, moved: dest.length, charge: true,
           },
         });

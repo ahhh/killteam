@@ -23,6 +23,7 @@ export const DEFENCE_DICE = 3;
  */
 export const WEAPON_RULES = {
   accurate: 'Retain x attack dice as normal successes without rolling them.',
+  accuratecrits: 'x of the dice Accurate retains are retained as critical successes instead.',
   balanced: 'Re-roll one attack die.',
   ceaseless: 'Re-roll any attack dice that rolled 1.',
   relentless: 'Re-roll any attack dice.',
@@ -101,9 +102,15 @@ export function validateWeaponRules(state, weapon, op = null) {
 
 /**
  * Roll and retain attack dice.
+ *
+ * `extraReroll` is an optional re-roll a rule offers *after* the dice have
+ * landed and the printed re-rolls have been taken — a resource spent on a
+ * second look at the roll (Stimulated Senses). It is a policy object rather
+ * than a flag because the decision needs the dice: see `diceRerollSpend`.
+ *
  * @returns {{rolls:number[], rerolled:number[], normals:number, crits:number, misses:number}}
  */
-export function rollAttack(rng, weapon, { hitModifier = 0 } = {}) {
+export function rollAttack(rng, weapon, { hitModifier = 0, extraReroll = null } = {}) {
   const rules = ruleSet(weapon);
   const hitOn = Math.max(2, Math.min(6, weapon.hit + hitModifier));
   // ruleSet keys by name, so "lethal4" and "lethal5" both land on `lethal`.
@@ -129,13 +136,18 @@ export function rollAttack(rng, weapon, { hitModifier = 0 } = {}) {
   if (rules.has('relentless')) reroll((d) => d < hitOn);
   else if (rules.has('ceaseless')) reroll((d) => d === 1);
   if (rules.has('balanced')) reroll((d) => d < hitOn, 1);
+  applyExtraReroll(rng, rolls, rerolled, extraReroll, (d) => d < hitOn);
 
   // A die must be a success before it can be a critical success, so a weapon
   // with Lethal 4+ fired at Hit 5+ still crits only on 5s and 6s.
   const critAt = Math.max(critOn, hitOn);
-  let crits = rolls.filter((d) => d >= critAt).length;
-  let normals = rolls.filter((d) => d >= hitOn && d < critAt).length + accurate;
-  let misses = rolls.length - crits - (normals - accurate);
+  // Gaze of the Gods: some of the dice Accurate set aside are retained as
+  // critical successes rather than normal ones.
+  const accurateCrits = Math.min(
+    rules.has('accuratecrits') ? (rules.get('accuratecrits') || 1) : 0, accurate);
+  let crits = rolls.filter((d) => d >= critAt).length + accurateCrits;
+  let normals = rolls.filter((d) => d >= hitOn && d < critAt).length + accurate - accurateCrits;
+  let misses = rolls.length - rolls.filter((d) => d >= hitOn).length;
 
   if (rules.has('rending') && crits >= 1 && normals >= 1) { normals--; crits++; }
 
@@ -154,6 +166,25 @@ export function rollAttack(rng, weapon, { hitModifier = 0 } = {}) {
 }
 
 /**
+ * Take an offered re-roll, if its policy wants the dice this roll produced.
+ *
+ * The policy is handed the dice and how the roll reads them, and answers with
+ * the indices it wants re-rolled; `onUse` is what pays for it, so a policy
+ * that declines costs nothing.
+ */
+function applyExtraReroll(rng, rolls, rerolled, policy, isFail) {
+  if (!policy) return;
+  const chosen = policy.choose(rolls, { isFail }) || [];
+  if (!chosen.length) return;
+  for (const i of chosen) {
+    const nd = rng.d6();
+    rerolled.push({ from: rolls[i], to: nd, granted: true });
+    rolls[i] = nd;
+  }
+  policy.onUse(chosen);
+}
+
+/**
  * Roll defence dice.
  *
  * Piercing x always removes dice; Piercing Crits x only bites when the attack
@@ -166,7 +197,7 @@ export function rollAttack(rng, weapon, { hitModifier = 0 } = {}) {
  */
 export function rollDefence(rng, defender, weapon,
   { inCover = false, saveModifier = 0, attackCrits = 0, diceDelta = 0, rerolls = 0,
-    aplDefence = null } = {}) {
+    aplDefence = null, extraReroll = null } = {}) {
   const rules = ruleSet(weapon);
   let dice = DEFENCE_DICE + diceDelta;
   if (rules.has('ap')) dice -= rules.get('ap') || 1;
@@ -191,6 +222,7 @@ export function rollDefence(rng, defender, weapon,
     rolls[i] = nd;
     spent++;
   }
+  applyExtraReroll(rng, rolls, rerolled, extraReroll, (d) => classify(d) === 'fail');
 
   let crits = rolls.filter((d) => classify(d) === 'crit').length;
   let normals = rolls.filter((d) => classify(d) === 'normal').length;

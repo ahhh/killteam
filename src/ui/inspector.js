@@ -7,6 +7,9 @@
  */
 import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
 import { tokensOf } from '../rules/tokens.js';
+import {
+  operativeResources, playerResources, levelLabel, resourceDef, availableSpends,
+} from '../rules/resources.js';
 import { SUPPORT_LEVELS } from '../data/schema.js';
 import { createPortrait } from './portraits.js';
 
@@ -46,6 +49,14 @@ export function renderRosterPanel(container, state, playerId, { colors, selected
     chip.append(h('div', 'k', key), h('div', 'v', String(value)));
     score.append(chip);
   }
+
+  // A shared pool — Blooded tokens — belongs with the team's other counters,
+  // because it is spent on the team's behalf rather than any one operative's.
+  for (const pool of playerResources(state, playerId)) {
+    const chip = h('div', 'stat-chip');
+    chip.append(h('div', 'k', pool.label), h('div', 'v', String(pool.amount)));
+    score.append(chip);
+  }
   container.append(score);
 
   container.append(h('div', 'section-title', 'Operatives'));
@@ -79,12 +90,20 @@ export function renderRosterPanel(container, state, playerId, { colors, selected
     // Poison, Blaze and the rest are the whole point of the weapons that hang
     // them, so an operative carrying one says so on its card.
     const tokens = op.alive ? tokensOf(op) : [];
-    if (tokens.length) {
+    // What this operative is personally holding — Pain tokens, a GORE TANK —
+    // is read the same way, because both change what it can do this activation.
+    const held = op.alive ? operativeResources(state, op).filter((r) => r.amount > 0) : [];
+    if (tokens.length || held.length) {
       const strip = h('div', 'token-strip');
       const counts = new Map();
       for (const t of tokens) counts.set(t.label, (counts.get(t.label) || 0) + 1);
       for (const [label, n] of counts) {
         strip.append(h('span', 'token-chip', n > 1 ? `${label} ×${n}` : label));
+      }
+      for (const r of held) {
+        const def = resourceDef(state, playerId, r.key);
+        const text = def?.levels ? `${r.label}: ${r.text}` : `${r.label} ×${r.amount}`;
+        strip.append(h('span', 'token-chip resource-chip', text));
       }
       card.append(strip);
     }
@@ -180,6 +199,27 @@ export function renderOperativeDetail(container, state, operativeId) {
     }
   }
   container.append(weapons);
+
+  // The economy this operative is playing with, and what it could buy now.
+  const held = operativeResources(state, op);
+  const spends = op.alive ? availableSpends(state, op, { window: 'activation' }) : [];
+  if (held.length || spends.length) {
+    container.append(h('h3', null, 'Team resources'));
+    for (const r of held) {
+      const def = resourceDef(state, op.playerId, r.key);
+      container.append(h('p', null,
+        `${r.label}: ${def?.levels ? levelLabel(def, r.amount) : r.amount}` +
+        (def?.rule ? ` (${def.rule})` : '')));
+    }
+    if (spends.length) {
+      const list = document.createElement('ul');
+      for (const option of spends) {
+        list.append(h('li', null, option.spend.name || option.spend.id));
+      }
+      container.append(h('p', 'muted', 'Can spend now:'));
+      container.append(list);
+    }
+  }
 
   if (profile?.abilities?.length) {
     container.append(h('h3', null, 'Abilities'));

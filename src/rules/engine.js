@@ -23,7 +23,14 @@ import { canFight, resolveFight, resolveSweep } from './fighting.js';
 import { effectiveApl, effectiveMove } from './effects.js';
 import { moveLimitBlocker, moveLimitAfterUse } from './team-rules.js';
 import { updateObjectiveControl } from './objectives.js';
-import { timesAllowed, claimExtraAction, consumeFreeAction, chargeIgnoresOrder } from './hooks.js';
+import {
+  timesAllowed, claimExtraAction, consumeFreeAction, chargeIgnoresOrder,
+  hasFreeAction, freeActionIsUnrestricted,
+} from './hooks.js';
+import {
+  availableSpends, resolveSpend, extraActionsFromSpends, resourceMoveBonus,
+  consumeActionBoosts, applyPostActionResources,
+} from './resources.js';
 
 export const ENGINE_VERSION = '0.1.0';
 
@@ -37,6 +44,10 @@ export const ACTION_COST = {
   fight: 1,
   pass: 0,
   change_order: 0,
+  // Spending a team resource — an invigoration, a SANGUAVITAE rule — is a
+  // choice made "before or after it performs an action", not an action that
+  // costs the operative anything (see rules/resources.js).
+  spend: 0,
 };
 
 /** Actions an operative may only perform once per activation. */
@@ -50,15 +61,20 @@ const ONCE_PER_ACTIVATION = new Set([
  */
 function alreadyUsed(state, op, type) {
   if (!ONCE_PER_ACTIVATION.has(type)) return false;
+  // Vitalised Surge's Dash is printed as usable "even if it's performed an
+  // action that prevents it from performing the Dash action", so an
+  // unrestricted grant answers this question before the tally does.
+  if (freeActionIsUnrestricted(op, type)) return false;
   const used = op.usedThisActivation.filter((t) => t === type).length;
-  return used >= timesAllowed(state, op, type);
+  return used >= timesAllowed(state, op, type) + extraActionsFromSpends(op, type);
 }
 
 /**
  * Movement allowance for a movement action, in inches.
  */
 export function moveAllowance(state, op, type) {
-  const move = effectiveMove(op);
+  // Surge buys an inch of Move for the move action it was spent on.
+  const move = effectiveMove(op) + resourceMoveBonus(op, type);
   switch (type) {
     case 'reposition': return move;
     case 'dash': return DASH_DISTANCE;
@@ -90,8 +106,19 @@ export function getLegalActions(state, operativeId) {
   const op = state.operatives[operativeId];
   const actions = [];
   if (!op || !op.alive || !op.placed) return actions;
+
+  // Resource spends cost no AP and are legal "before or after" an action, so
+  // they are on the menu even for an operative with nothing left to spend —
+  // Rejuvenate after the last shot is a perfectly good use of a GORE TANK.
+  for (const option of availableSpends(state, op, { window: 'activation' })) {
+    actions.push({
+      type: 'spend', cost: 0, resource: option.key, spendId: option.spend.id,
+      spendName: option.spend.name || option.spend.id,
+    });
+  }
+
   if (op.apRemaining <= 0 && !(op.freeActions || []).length) {
-    return [{ type: 'pass', cost: 0 }];
+    return [...actions, { type: 'pass', cost: 0 }];
   }
 
   const all = liveOperatives(state);
@@ -174,7 +201,7 @@ export function getLegalActions(state, operativeId) {
 
   actions.push({ type: 'pass', cost: 0 });
   return actions
-    .map((a) => ((op.freeActions || []).includes(a.type) && a.cost > op.apRemaining)
+    .map((a) => (hasFreeAction(op, a.type) && a.cost > op.apRemaining)
       ? { ...a, cost: 0, free: true } : a)
     .filter((a) => a.cost <= op.apRemaining);
 }
@@ -195,7 +222,7 @@ export function resolveAction(state, action) {
   }
   // A granted free action is only worth spending when AP would otherwise stop
   // it, so check affordability first and fall back to the grant.
-  const free = listedCost > op.apRemaining && (op.freeActions || []).includes(action.type);
+  const free = listedCost > op.apRemaining && hasFreeAction(op, action.type);
   const cost = free ? 0 : listedCost;
   if (cost > op.apRemaining) {
     return { ok: false, reason: `not enough AP (${op.apRemaining} left, needs ${cost})` };
@@ -204,8 +231,10 @@ export function resolveAction(state, action) {
     return { ok: false, reason: `${action.type} already performed this activation` };
   }
 
+  const seqBefore = state.eventLog.length;
   let result;
   switch (action.type) {
+    case 'spend': result = resolveSpend(state, op, action); break;
     case 'change_order': result = doChangeOrder(state, op, action); break;
     case 'reposition':
     case 'dash':
@@ -224,7 +253,13 @@ export function resolveAction(state, action) {
   if (ONCE_PER_ACTIVATION.has(action.type)) {
     op.usedThisActivation.push(action.type);
     claimExtraAction(state, op, action.type);
+    // Rage and Surge last "until the end of that action", and the action has
+    // now ended.
+    consumeActionBoosts(op, action.type);
   }
+  // What the action earned: Power From Pain reads the enemy it left injured,
+  // Gore Tanks the operative it left dead at its feet.
+  if (action.type !== 'spend') applyPostActionResources(state, op, seqBefore);
   updateObjectiveControl(state);
   return result;
 }

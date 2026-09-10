@@ -2,6 +2,7 @@
  * Terrain rules representation. Kept separate from how terrain is drawn
  * (project invariant: renderer can change without changing combat).
  */
+import { pointPolygonDistance, pointInPolygon } from '../maps/geometry.js';
 
 /** Every trait the engine understands. Unknown traits are reported, not guessed. */
 export const TERRAIN_TRAITS = {
@@ -50,4 +51,33 @@ export function isPassable(piece) {
 /** Traits present in data but not implemented by this engine version. */
 export function unknownTraits(piece) {
   return traitsOf(piece).filter((t) => !(t in TERRAIN_TRAITS));
+}
+
+/**
+ * Heavy terrain: everything that is not Light and not insignificant. The
+ * printed rules define Heavy by exclusion in exactly this way, so the engine
+ * does too rather than asking maps for a second trait.
+ */
+export function isHeavy(piece) {
+  return !isLight(piece) && !hasTrait(piece, 'insignificant');
+}
+
+/**
+ * WITHIN SHADOW (Mandrakes): "within 1" of Heavy terrain that's not lower than
+ * it, or any part of its base underneath Vantage terrain".
+ *
+ * The height clause cannot be checked — this engine stores terrain `height`
+ * but gives operatives no elevation of their own, so every operative is at
+ * ground level and no piece is ever "lower than it". Shadow Portal markers are
+ * the third route in and markers are not implemented; both gaps are declared
+ * `partial` by the pack that uses this.
+ */
+export function isWithinShadow(state, op) {
+  const reach = 1 + (op.baseDiameter || 0) / 2;
+  return (state.map.terrain || []).some((piece) => {
+    const points = piece.shape?.points;
+    if (!points) return false;
+    if (hasTrait(piece, 'vantage') && pointInPolygon(op.x, op.y, points)) return true;
+    return isHeavy(piece) && pointPolygonDistance(op.x, op.y, points) <= reach;
+  });
 }

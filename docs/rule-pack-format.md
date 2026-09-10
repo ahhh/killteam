@@ -66,7 +66,8 @@ provenance note in `README.md` for where their data came from.
   "factionRules": [],
   "strategicPloys": [], "firefightPloys": [], "equipment": [],
   "ruleHooks": [],
-  "weaponRules": {}
+  "weaponRules": {},
+  "resources": {}                  // team resource economies; see below
 }
 ```
 
@@ -150,7 +151,11 @@ trigger names with no effects wired to them yet.
 
 `keyword`, `notKeyword`, `role`, `orderIs`, `weaponType`, `weaponIdIn`,
 `weaponNameContains`, `weaponHasAnyRule`, `performedThisActivation`,
-`notPerformedThisActivation`.
+`notPerformedThisActivation`, `withinShadow`.
+
+`withinShadow` is the Mandrakes' terrain state: within 1" of Heavy terrain, or
+a base underneath Vantage terrain. Heavy is every piece that is neither `light`
+nor `insignificant`, so no map needs a new trait.
 
 Conditions are evaluated **when the trigger fires**, not cached at activation
 start, so `notPerformedThisActivation` correctly stops applying the moment the
@@ -163,15 +168,121 @@ operative moves.
 | `grantWeaponRule` | `rules[]` | Adds weapon rules for this sequence only |
 | `ignoreWeaponRules` | `rules[]` | Strips rules before the defence roll |
 | `modifyDefenceDice` | `delta` | Adds or removes defence dice |
+| `modifySave` | `delta` | Improves (negative) or worsens the Save stat for this roll |
 | `rerollDefenceDice` | `count` | Re-rolls that many failed defence dice |
 | `capDamage` | `max`, `perAction` | Caps damage from one action |
 | `healWounds` | `dice` | Regains lost wounds, e.g. `"D3+1"` |
 | `allowChargeWhileConceal` | — | Charge without an Engage order |
 | `extraAction` | `action` or `oneOf[]`, `count` | Repeats an action |
 | `freeAction` | `action` | One action per activation costing no AP |
+| `grantAllyApl` | `amount`, `within`, `keyword` | Hands APL to a friendly operative when this one activates |
 
 `extraAction` with `oneOf` models the Astartes shape — *either* two Shoot
 actions *or* two Fight actions: whichever is repeated first claims the grant.
+
+### Team resource economies (`resources`)
+
+Some teams run an economy: they earn a countable *something* — a Pain token, a
+level of GORE TANK, a Blooded token — from what their operatives do, and spend
+it again on a menu of effects. Three parts, declared as data, with nothing
+evaluated and every unknown trigger, window, condition or effect reported and
+ignored rather than guessed.
+
+```jsonc
+"resources": {
+  "pain": {
+    "name": "Pain token",             // shown on the roster card
+    "rule": "Power From Pain",        // the faction rule, for the log
+    "text": "…the printed wording…",
+    "scope": "operative",             // or "player" — a pool the team shares
+    "keyword": "hand-of-the-archon",  // who may hold and spend it
+    "start": 0,                       // GORE TANKs start at half, so: 1
+    "max": 2,                         // optional cap
+    "levels": ["empty", "half", "full"],   // optional: a track, not a count
+    "perActivation": 1,               // spends per activation or counteraction
+
+    "gains": [
+      { "trigger": "enemyInjured", "amount": 1 },
+      { "trigger": "enemyIncapacitated", "amount": 1,
+        "bonusIfWoundsAtLeast": { "wounds": 12, "amount": 2 } }
+    ],
+    "spends": [
+      { "id": "dark-animus", "name": "Dark Animus", "text": "…",
+        "window": "activation", "cost": 1,
+        "effect": { "type": "addApl", "amount": 1 } }
+    ]
+  }
+}
+```
+
+**Gain triggers**
+
+| Trigger | Fields | Pays out when |
+|---|---|---|
+| `readyStep` | `amount` | The Ready step of each turning point |
+| `enemyInjured` | `amount` | The holder's action left an enemy Injured and alive |
+| `enemyIncapacitated` | `amount`, `bonusIfWoundsAtLeast` | The holder's action killed an enemy |
+| `killWithin` | `within`, `amount` | The holder killed something within x" (control range always counts) |
+| `firstKillEachTurningPoint` | `amount` | The team's first kill of the turning point |
+| `firstLossNearEnemyEachTurningPoint` | `within`, `amount` | The team's first loss within x" of an enemy |
+
+Gains are read off the events the action produced, so they cannot drift out of
+step with what the rules actually did. `enemyInjured` uses the **Injured**
+keyword — half wounds or fewer — not "took any damage".
+
+**Spend windows**
+
+| Window | Spent as |
+|---|---|
+| `activation` | A 0-AP action the AI proposes, legal before or after any action |
+| `attackDice` | Inside the attack roll, by the engine's own policy |
+| `defenceDice` | Inside the defence roll, by the engine's own policy |
+
+**Spend effects**
+
+| Effect | Fields | Does |
+|---|---|---|
+| `addApl` | `amount` | +APL until the start of the next activation, and the AP now |
+| `healWounds` | `dice` | Regains lost wounds |
+| `freeAction` | `action`, `unrestricted` | One action costing no AP; `unrestricted` also lifts the once-per-activation limits |
+| `extraAction` | `action`, `count`, `free` | Repeats an action this activation |
+| `weaponBoost` | `weaponType`, `atkBonus`, `damageNormal`, `damageCritical`, `rules[]`, `appliesTo[]` | A better profile for the next action of that type |
+| `moveBonus` | `inches`, `appliesTo[]` | Adds to the Move stat for the next such move |
+| `inflictDamage` | `dice`, `within` | Damages an enemy the operative is standing over |
+| `rerollDice` | `mode` (`oneResult` / `any`) | Re-rolls dice in a dice window |
+
+**Spend limits**, all optional and all enforced by the rules layer:
+`cost` (default 1), `perActivation` on the spend (default 1) and on the
+resource (a cap across all its spends), `exempt` (this spend does not count
+against the resource's cap — Stimulated Senses), `group` (two declarations of
+one printed rule sharing an allowance, as the attack and defence halves of
+Stimulated Senses do), and `excludes[]` (Mania and Fury in one activation).
+
+**Spend conditions** — ANDed, all optional: `keyword`, `wounded`, `injured`,
+`incapacitatedThisActivation`, `actionAvailable`, `performedThisActivation[]`,
+`notPerformedThisActivation[]`, `enemyWithinControlRange`.
+
+**Assignment** (`assign`) turns a shared pool into per-operative tokens in the
+Ready step — the Blooded STRATEGIC GAMBIT:
+
+```jsonc
+"assign": {
+  "trigger": "readyStep", "toKeyword": "blooded", "maxPerOperative": 1,
+  "token": { "kind": "blooded", "label": "Blooded",
+             "whileHeld": { "weaponRules": ["accurate1"] } },
+  "elevate": { "atLeast": 4, "label": "Gaze of the Gods",
+               "token": { "kind": "gaze", "label": "Gaze of the Gods",
+                          "whileHeld": { "weaponRules": ["accuratecrits1"] },
+                          "expiry": { "endOfTurningPoint": true } } }
+}
+```
+
+Who spends, and when: `activation` spends are chosen by the AI (`src/ai/
+spending.js`) and validated by the action layer like any other action, so a
+spend the AI asks for out of turn is refused rather than applied. Dice-window
+spends have no action layer to ask, so `rules/resources.js` applies one
+documented policy: re-roll the failing result the most dice are showing, when
+that is worth at least 0.6 of a success in expectation.
 
 ### Support levels (§10)
 
@@ -180,7 +291,7 @@ actions *or* two Fight actions: whichever is repeated first claims the grant.
 | 0 | Metadata only, no playable data | Reference only |
 | 1 | Core stats and basic weapons | Core compatible |
 | 2 | Roster restrictions | Core compatible |
-| 3 | Faction rules (via `ruleHooks`) and core operative abilities | Mostly supported |
+| 3 | Faction rules (via `ruleHooks` or `resources`) and core operative abilities | Mostly supported |
 | 4 | Team ploys and equipment | Mostly supported |
 | 5 | Full supported team behaviour | Full engine support |
 
@@ -258,7 +369,8 @@ what makes it resolve.
 | `executeRoll` | `dice` | A roll that can finish off a target that survived |
 | `onIncapacitate` | `dice`, `heal`, `weaponCriticalBonus` | Rewards the wielder for a kill |
 | `dragTarget` | `perSuccess` | Hauls the target towards the shooter before damage |
-| `gainResource` | `resource`, `scope`, `trigger` | Counts a team resource the engine cannot spend |
+| `retaliationRoll` | `dice`, `threshold`, `damage` | A fighter hurt but not put down rolls to hurt back |
+| `gainResource` | `resource`, `scope`, `trigger`, `target`, `within`, `amount` | Pays into a team resource economy (see that section) |
 | `recognised` | — | The engine knows the rule and deliberately does nothing (needs `partial`) |
 | `unusable` | `reason` | The weapon needs a subsystem the engine lacks, so it never fires |
 
@@ -266,15 +378,19 @@ what makes it resolve.
 
 `action` (`"shoot"` / `"fight"`), `performedThisActivation[]`,
 `notMovedThisActivation` (with `orCounteraction`), `targetKeyword`,
-`targetWounded`, `targetExpended`, `terrainWithinControlRange`.
+`targetWounded`, `targetExpended`, `targetWithin` (inches),
+`terrainWithinControlRange`.
 
 **`inflictToken` triggers**: `anySuccess` (damage from any retained success),
 `criticalSuccess` (damage from a critical, Devastating included), and
 `anyDiceResolved` (dice resolved and the target survived).
 
 **Token shape**: `{kind, label, stacks, unique, onActivation: {damage, removal:
-{d6}}, whileHeld: {moveDelta, hitPenalty, notCumulativeWithInjured}, expiry:
-{endOfNextActivation}}`. Damage expressions are `"1"`, `"D3"`, `"2D6"`, `"D3+1"`.
+{d6}}, whileHeld: {moveDelta, hitPenalty, notCumulativeWithInjured,
+weaponRules[], weaponType}, expiry: {endOfNextActivation, endOfTurningPoint}}`.
+Damage expressions are `"1"`, `"D3"`, `"2D6"`, `"D3+1"`. A token is usually
+something stuck to an enemy, but `whileHeld.weaponRules` runs the other way: a
+Blooded token assigned to one of your own gives its weapons Accurate 1.
 
 Marking a rule `partial` (with `notes`) raises it once per battle in the
 warnings, exactly as a `partial` rule hook does — so a rule that is only half

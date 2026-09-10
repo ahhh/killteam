@@ -19,6 +19,23 @@ export const PHASES = {
 
 export const ORDERS = { ENGAGE: 'engage', CONCEAL: 'conceal' };
 
+/**
+ * Starting amount of each resource a pack declares at this scope.
+ *
+ * Inlined rather than imported from `rules/resources.js` so state stays the
+ * leaf of the dependency graph: it is plain data, and nothing here reasons
+ * about what a resource *does*.
+ */
+function startingResources(team, scope) {
+  const out = {};
+  for (const [key, def] of Object.entries(team?.resources || {})) {
+    if ((def.scope || 'operative') !== scope) continue;
+    const start = Number(def.start) || 0;
+    if (start > 0) out[key] = start;
+  }
+  return out;
+}
+
 let uidCounter = 0;
 /** Deterministic-per-battle ids (reset on each battle creation). */
 function resetUid() { uidCounter = 0; }
@@ -42,6 +59,9 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
       factionId: team.factionId,
       cp: 0,
       victoryPoints: 0,
+      /** A shared pool a team spends from — Blooded tokens. */
+      resources: startingResources(team, 'player'),
+      resourceFirsts: {},
       vpBreakdown: {},
       colorId: playerId === 'p1' ? 'a' : 'b',
     };
@@ -94,6 +114,18 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
           inCounteraction: false,
           /** Blaze: APL given up to shed a token, for this activation only. */
           aplPenaltyThisActivation: 0,
+          /** Dark Animus, Mania: APL bought until the next activation starts. */
+          aplBonus: 0,
+          /**
+           * Team resource economies — Pain tokens, the GORE TANK. A levelled
+           * track starts part-full, so the pack's declared `start` is read
+           * here rather than assumed to be zero (see rules/resources.js).
+           */
+          resources: startingResources(team, 'operative'),
+          spendsThisActivation: {},
+          spendExtraActions: {},
+          actionBoosts: [],
+          killsThisActivation: 0,
           /** Poison, Blaze, Mindburn and friends — see rules/tokens.js. */
           tokens: [],
           extraActions: {},

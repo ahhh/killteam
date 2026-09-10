@@ -38,6 +38,8 @@ function pack(id, profile) {
     // Team-specific weapon rules, declared exactly as a real pack declares
     // them — see docs/rule-pack-format.md.
     weaponRules: profile.weaponRules ?? {},
+    // Team resource economies — Pain tokens and their like.
+    resources: profile.resources ?? {},
   };
 }
 

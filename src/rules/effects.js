@@ -49,6 +49,7 @@ export function isInjured(op) {
 
 export function effectiveApl(op) {
   return Math.max(1, op.apl
+    + (op.aplBonus || 0)
     - (isInjured(op) ? 1 : 0)
     - (isStunned(op) ? 1 : 0)
     - (op.aplPenaltyThisActivation || 0));

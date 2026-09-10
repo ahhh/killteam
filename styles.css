@@ -346,6 +346,15 @@ body.no-motion * { transition: none !important; animation: none !important; }
   letter-spacing: 0.02em;
 }
 
+/* A team resource the operative is holding — a Pain token, a GORE TANK level.
+   Distinguished from an inflicted token because one is an asset and the other
+   is something stuck to it. */
+.token-chip.resource-chip {
+  border-color: #3f6b4a;
+  background: #12211a;
+  color: #8fd6a5;
+}
+
 /* A stat a rule has changed away from the printed profile. */
 .op-meta .stat-changed {
   color: #e0b183;

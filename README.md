@@ -22,13 +22,20 @@ official Games Workshop sources.
 
 **Bundled rules data.** Six teams (`vanguard-*`, `ash-cultists`,
 `corsair-skirmishers`, `scrap-raiders`, `skycaste-marksmen`) are original
-synthetic demo teams written for this engine — invented stat lines. The other
-48 under `data/teams/` were transcribed from [Wahapedia](https://wahapedia.ru/kill-team3/)
+synthetic demo teams written for this engine — invented stat lines. Another 48
+under `data/teams/` were transcribed from [Wahapedia](https://wahapedia.ru/kill-team3/)
 in September 2026 and carry their source URL in each pack's `source` block.
 Those are reproduced for simulation and reference only; Games Workshop holds
 the rights, and the official downloads are authoritative for actual play. This
 goes further than the repository policy in `plan.md` §3, which anticipated that
 real rule data would be loaded locally rather than committed.
+
+`catachan-jungle-fighters` is a **fan-made** kill team, transcribed from
+datasheet images supplied by the user rather than from any published source.
+Its sheets are in the 2021 symbol notation, so the pack's `source.notes`
+records the one conversion applied: distances are doubled to the scale the
+other packs use, which turns the printed Move 3" into 6" and a printed Range
+6" weapon into 12".
 
 ## Operative art
 
@@ -70,7 +77,7 @@ npm start           # python3 -m http.server 8000
 ## Develop
 
 ```bash
-npm test            # 31 unit, fixture, determinism, AI and replay tests
+npm test            # 205 unit, fixture, determinism, AI and replay tests
 npm run test:data   # validate every bundled team, map and mission
 npm run smoke       # run one battle headlessly and print the result
 npm run batch 60 vanguard-wardens scrap-raiders   # batch balance harness
@@ -95,6 +102,7 @@ src/
     weapon-rules.js   Heavy, Limited, Silent, Seek, Hot, Blast, Torrent, Stun
     team-rules.js     the asterisked, team-specific weapon rules
     tokens.js         Poison, Blaze, Mindburn and the rest of the token family
+    resources.js      team resource economies: Pain tokens, GORE TANKs, Blooded
     objectives.js     objective control and mission scoring
     effects.js        damage, incapacitation, injured and stunned states
     terrain.js        terrain traits
@@ -103,6 +111,8 @@ src/
     utility.js        analytic estimators (no RNG consumed while thinking)
     targeting.js      target selection from a hypothetical position
     movement.js       candidate destination generation
+    tactics.js        faction disposition and per-unit tactics
+    spending.js       when to spend a team resource, and on what
   data/               schema, validators, loader
   maps/geometry.js    all geometry, in inches
   replay/             replay capture, verification, batch harness
@@ -161,10 +171,18 @@ Milestones 0–6 of `plan.md` are implemented and tested:
 Not yet built: procedural map generation (Milestone 6's generator), the
 Mapforge adapter (Milestone 7), and ploys/equipment/operative abilities.
 
-Faction rules now run through a declarative `ruleHooks` layer — 13 rules across
-11 teams, which declare `supportLevel: 3`. The other 37 transcribed teams carry
+Faction rules now run through a declarative `ruleHooks` layer — 16 rules across
+14 teams, which declare `supportLevel: 3`. The other 40 transcribed teams carry
 their faction rules, ploys, equipment and unique actions as reference data only
 and stay at `supportLevel: 1`.
+
+Three of those teams live on a **resource economy** rather than a hook, so
+packs declare that as data too, in a `resources` block: Hand of the Archon earn
+and spend Pain tokens on all four invigorations, Goremongers fill and drain a
+three-level GORE TANK to pay for the six SANGUAVITAE rules, and the Blooded
+earn tokens, assign them, and hand one operative the Gaze of the Gods. Earning
+is the engine's; deciding when to spend is the AI's (`src/ai/spending.js`), and
+a spend is a 0-AP action the rules layer validates like any other.
 
 Weapon rules resolve in two layers. Every **universal** rule from the appendix
 is the engine's own, because those mean the same thing on every datasheet. The

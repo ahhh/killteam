@@ -10,12 +10,14 @@ import { Rng } from '../rng.js';
 import { EVENTS, logEvent, liveOperatives } from '../state.js';
 import { baseDistance } from '../maps/geometry.js';
 import { rollAttack, validateWeaponRules, parseRule } from './dice.js';
+import { rollExpression } from './hooks.js';
 import { noteWeaponUse, limitedExhausted } from './weapon-rules.js';
 import {
   meleeModifiers, weaponAdjustments, withAdjustments, damageBonusVsToken,
-  teamRuleEffect, notePartialTeamRule,
+  teamRuleEffect, notePartialTeamRule, retaliationRule,
 } from './team-rules.js';
 import { snapshotTokens } from './tokens.js';
+import { diceRerollSpend } from './resources.js';
 import { applyAttackHooks } from './hooks.js';
 import { applyDamage, applyStun, hitModifierFor } from './effects.js';
 import { withinControlRange } from './visibility.js';
@@ -111,9 +113,16 @@ export function resolveFight(state, attackerId, targetId, weaponId = null) {
   const tWeapon = withGrantedRules(state, target, targetWeapon,
     applyAttackHooks(state, target, targetWeapon, { target: attacker, action: 'fight' }), attacker);
 
-  const aRoll = rollAttack(rng, aWeapon, { hitModifier: hitModifierFor(attacker) });
+  // Both fighters roll attack dice, so both may spend on a second look.
+  const aRoll = rollAttack(rng, aWeapon, {
+    hitModifier: hitModifierFor(attacker),
+    extraReroll: diceRerollSpend(state, attacker, { kind: 'attack' }),
+  });
   const dRoll = targetWeapon.atk > 0
-    ? rollAttack(rng, tWeapon, { hitModifier: hitModifierFor(target) })
+    ? rollAttack(rng, tWeapon, {
+      hitModifier: hitModifierFor(target),
+      extraReroll: diceRerollSpend(state, target, { kind: 'attack' }),
+    })
     : { rolls: [], rerolled: [], normals: 0, crits: 0, misses: 0, hitOn: 6, critOn: 6 };
 
   // Stun bites off the attack roll, so both fighters can stun each other.
@@ -288,6 +297,11 @@ export function resolveFight(state, attackerId, targetId, weaponId = null) {
     if (nextFoePool.normals + nextFoePool.crits > 0) turn = foeId;
   }
 
+  // First Blood: whoever was hurt and lived can cut back on the way out. Both
+  // fighters get the chance, because either may be the one carrying the rule.
+  applyRetaliationRoll(state, rng, attacker, attackerWeapon, target, damageDealt[targetId]);
+  applyRetaliationRoll(state, rng, target, targetWeapon, attacker, damageDealt[attackerId]);
+
   // Rewards for a kill, and the resource tracks a weapon feeds, settle here.
   if (!target.alive) applyKillReward(state, rng, attacker, attackerWeapon);
   applyResourceGain(state, attacker, attackerWeapon, {
@@ -320,6 +334,37 @@ export function resolveFight(state, attackerId, targetId, weaponId = null) {
     attackerIncapacitated: !attacker.alive,
     repeatFight: mods[attackerId].repeatFight || null,
   };
+}
+
+/**
+ * First Blood: "if it lost any wounds in that combat but was not
+ * incapacitated, roll one D6: on a 4+, the enemy operative that fought it
+ * suffers 2 mortal wounds".
+ *
+ * Both halves of the condition are read off the sequence that just ran, so the
+ * rule cannot fire for a fighter that walked away untouched.
+ */
+function applyRetaliationRoll(state, rng, op, weapon, foe, woundsTaken) {
+  const rule = retaliationRule(state, op, weapon);
+  if (!rule) return;
+  if (!op.alive || !foe.alive || woundsTaken <= 0) return;
+  notePartialTeamRule(state, rule.def);
+
+  const rolled = rollExpression(rng, rule.dice);
+  const hit = rolled >= rule.threshold;
+  logEvent(state, EVENTS.RULE_APPLIED, {
+    ruleId: `weapon-rule:${rule.def.name}`,
+    rule: rule.def.rule || rule.def.name,
+    operativeId: foe.id, operativeName: foe.name, playerId: foe.playerId,
+    detail: hit
+      ? `${op.name} cuts back for ${rule.damage} damage (rolled ${rolled}, needed ${rule.threshold}+)`
+      : `${op.name} fails to cut back (rolled ${rolled}, needed ${rule.threshold}+)`,
+  });
+  if (hit) {
+    applyDamage(state, foe.id, rule.damage, {
+      kind: 'fight', attackerId: op.id, rule: rule.def.rule || rule.def.name,
+    });
+  }
 }
 
 /**

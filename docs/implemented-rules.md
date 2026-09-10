@@ -67,6 +67,7 @@ Value-free: `balanced`, `ceaseless`, `relentless`, `rending`, `punishing`,
 | `ap<x>` | As `piercing<x>`; kept for packs written against older wording. |
 | `devastating<x>` | Each retained critical hit inflicts x damage, ignoring saves. |
 | `accurate<x>` | Retain x attack dice as normal successes without rolling them. |
+| `accuratecrits<x>` | x of the dice Accurate retained are critical successes instead. Nothing prints this; the Gaze of the Gods grants it. |
 | `limited<x>` | Usable x times per battle, per operative. Defaults to 1. |
 | `blast<x>` | Also resolved against everyone within x" of the target. |
 | `torrent<x>` | Also resolved against other valid targets within x" of the target. |
@@ -151,7 +152,7 @@ by each team that prints them:
 | `concealedposition` | 9 sniper teams | The profile is usable on the operative's first Shoot action of the battle and no other |
 | `poison` | Plague Marines, Raveners | A token that burns its holder on activation — 1 damage or D3, as each team prints it |
 | `toxic` | Plague Marines | +1 to both Dmg stats against an operative that held a Poison token when the action began |
-| `blaze` | Sanctifiers | A token: D3 on activation, then a D6 to shake it off |
+| `blaze` | Sanctifiers | A token: D3 on activation, then a D6 to shake it off — or a point of APL to smother it for certain, which the holder pays when the next burn could kill it |
 | `terrorchem` | Nemesis Claw | A token off a critical (Devastating included), D3 on activation |
 | `neutronfragment` | Vespid Stingwings | A stacking token, D3 per token held |
 | `mindburn` | Warpcoven | One token per player at a time; worsens Hit by 1 |
@@ -178,8 +179,10 @@ by each team that prints them:
 | `siphonlife` | Legionary | A nearby friend regains wounds per damaging die, once per turning point |
 | `dimensionalbanishment` | Canoptek Circle | 2D6 against remaining wounds finishes off a survivor |
 | `drag` | Goremonger | The target is hauled 2" per unblocked success towards the shooter |
+| `firstblood` | Catachan Jungle Fighters | A fighter hurt but not put down rolls a D6 to cut back for 2 |
+| `getsome`, `targetacquired`, `hammerup` | Catachan Jungle Fighters | Re-rolls up close, re-rolls when it stood still, and Lethal 5+ after a charge |
 | `engineered`, `custom` | Gellerpox, Phobos Strike Team | The pack's fixed pre-battle loadout choice, applied all battle |
-| `bloodoffering`, `ritual` | Blooded, Goremonger | The resource is counted; nothing spends it |
+| `bloodoffering`, `ritual`, `flay` | Blooded, Goremonger, Hand of the Archon | Pays into the team's resource economy (below) |
 | `neutronbombardment` | Vespid Stingwings | The weapon fires normally; the Neutron Fallout marker is not placed |
 
 #### What is deliberately half-done
@@ -187,17 +190,11 @@ by each team that prints them:
 These are declared `partial` in their packs and reported once per battle, so
 the log never implies more fidelity than there is:
 
-- **Blaze** — the holder always takes the free D6. Giving up 1 APL for a
-  certain removal is a real choice the AI does not make.
 - **Magnify**, **Siphon Life**, **Drag** — each is printed as optional ("you
   can use this rule"). The engine takes them whenever they help, and takes
   them fully: Drag never discards attack dice to spare a target.
 - **Beam** — the attacker picks "one and only one beam line". The engine picks
   the line that catches the most enemies, so a replay is identical.
-- **Flay** — the Pain token is granted and tracked, but invigorations cannot be
-  spent; the Power From Pain economy is not implemented.
-- **Blood Offering**, **Ritual** — the token and the GORE TANK are counted but
-  nothing reads them.
 - **Headtaker** — the Frenzy token that would suppress the healing half does
   not exist, so the wounds always come back.
 - **Engineered**, **Custom** — the pack fixes the two improvements rather than
@@ -223,11 +220,56 @@ a serialized state replays without consulting the pack that granted it.
 - Stat penalties that print "this isn't cumulative with being injured" combine
   with `max`, not addition.
 - A token that expires "at the end of its next activation" survives the
-  activation it landed in, exactly as Stun does.
+  activation it landed in, exactly as Stun does; one that expires "at the end
+  of the turning point" comes off in the next Ready step.
+- A token that offers its holder a way out (Blaze) makes the choice rather than
+  defaulting to it: an operative the next burn could kill spends the APL to be
+  certain, and a healthy one takes the free roll.
 - An incapacitated operative takes its tokens with it.
 
 Tokens an operative is carrying are shown on its roster card, because they
 change what happens the moment it activates.
+
+### Team resource economies
+
+Three teams live on an economy: they earn a countable thing from what their
+operatives do, and spend it again on a menu of effects with their own windows
+and limits. A pack declares all of it as data in a `resources` block (see
+`docs/rule-pack-format.md`); the engine owns the counting, the limits and the
+spending, and `src/ai/spending.js` owns the decision.
+
+| Team | Rule | Earned by | Spent on |
+|---|---|---|---|
+| Hand of the Archon | Power From Pain | An action that leaves an enemy Injured, or kills one — two Pain tokens for a Wounds 12+ kill; Flay hands one to a friend within 6" | **Dark Animus** (+1 APL, and the AP now), **Accelerated Rejuvenation** (D3+1 wounds back), **Vitalised Surge** (a free Dash after a kill, even after an action that forbids one), **Stimulated Senses** (re-roll one result, attack or defence) |
+| Goremonger | Gore Tanks / Sanguavitae | Killing something in control range or within 2"; Ritual's first damage in a sequence. Starts at half, capped at full | **Rejuvenate**, **Mania** (+1 APL), **Fury** (a second, free Fight), **Rake** (D3 on contact after a charge), **Surge** (+1" Move), **Rage** (+1 Atk in melee) |
+| Blooded | Blooded tokens | The Ready step, the first enemy killed each turning point, the first friendly lost within 6" of an enemy, and Blood Offering | Assigned to operatives as a STRATEGIC GAMBIT: a held token gives that operative's weapons Accurate 1, and four or more assigned puts one under the **Gaze of the Gods** (its Accurate retention is a critical success) until the end of the turning point |
+
+How the limits work: "no more than one invigoration per activation or
+counteraction, except Stimulated Senses" and "no more than two SANGUAVITAE
+rules, and not Mania and Fury together" are declared per spend and enforced by
+the rules layer, so an AI that asks for one too many is refused rather than
+allowed to cheat.
+
+Who decides:
+
+- An `activation` spend is a **0-AP action**. The AI proposes it as part of a
+  plan and the action layer validates it like any other action, which is what
+  puts the choice in front of the same scoring that picks the plan.
+- A dice-window spend (Stimulated Senses) happens in the middle of a roll,
+  where there is no action layer to ask. The engine applies one documented
+  policy: re-roll the failing result the most dice are showing, when doing so
+  is worth at least 0.6 of a success in expectation — so two failed dice at 4+
+  buy the re-roll and one never does.
+- Vitalised Surge is a reaction to a kill that has not happened yet at planning
+  time, so the AI appends it, and the Dash it pays for, as **optional** actions:
+  if the target survives, both are dropped without a word.
+
+Two readings worth stating, because the printed wording is ambiguous:
+
+- "an enemy operative was **injured** during that action" is read as the
+  Injured keyword — half wounds or fewer — rather than "took any damage".
+- Dark Animus and Mania add APL "until the start of the operative's next
+  activation". Bought mid-activation, they hand over the extra AP immediately.
 
 ### Non-combatant operatives
 
@@ -252,7 +294,8 @@ pack validator names every weaponless operative it loads.
 ### Faction rules
 
 Faction rules reach the engine as declarative `ruleHooks` on a team pack (see
-`docs/rule-pack-format.md`). Thirteen are implemented across eleven teams:
+`docs/rule-pack-format.md`), or — for the three teams whose faction rule is an
+economy — as a `resources` block. Eighteen are implemented across fifteen teams:
 
 | Team | Rule | Simulated | Not simulated |
 |---|---|---|---|
@@ -266,18 +309,22 @@ Faction rules reach the engine as declarative `ruleHooks` on a team pack (see
 | Hand of the Archon | Rifles | Accurate 1 on the splinter rifle before moving | — |
 | Goremonger | Runes of Khorne | Damage capped at 8 per Shoot action | — |
 | Hierotek Circle | Living Metal | D3+1 lost wounds regained each Ready step | — |
-| Mandrakes | Umbral Entities | Piercing and Piercing Crits ignored against them | the Save bonus WITHIN SHADOW |
+| Mandrakes | Umbral Entities | Piercing and Piercing Crits ignored against them, and Save improved WITHIN SHADOW | the "not lower than it" clause, which needs operative elevation |
 | Imperial Navy Breacher | Void Armour | Defence re-roll vs Blast/Torrent, two for a Grenadier | sweeping-profile exclusion; splash-Devastating immunity |
+| Hand of the Archon | Power From Pain, Invigorations | Pain tokens earned and spent on all four invigorations | — |
+| Goremonger | Gore Tanks, Sanguavitae | The three-level tank and all six SANGUAVITAE rules | — |
+| Blooded | Blooded | Tokens earned, assigned, and the Gaze of the Gods | the player's choice of who to assign them to |
+| Catachan Jungle Fighters | Green Vipers | Charge while Concealed | — |
+| Catachan Jungle Fighters | Let's Move! | The leader hands 1 APL to a friend within range and sight | the player's choice of who receives it |
 
 Rules marked "not simulated" are declared `partial` in the pack and reported
 once per battle in the warnings, so the log never implies more fidelity than
 there is.
 
-The other 37 teams' faction rules are carried as reference text only — they
-need engine subsystems that do not exist yet (markers and tokens, operative
-transformation, area effects, per-operative resource tracks, order
-manipulation, terrain concepts such as WITHIN SHADOW). Those packs stay at
-`supportLevel: 1`.
+The other 40 teams' faction rules are carried as reference text only — they
+need engine subsystems that do not exist yet (markers, operative
+transformation, area effects, order manipulation, terrain concepts such as
+WITHIN SHADOW). Those packs stay at `supportLevel: 1`.
 
 ### Objectives and scoring
 - Control by total APL within an objective's control range; equal totals are contested
@@ -353,7 +400,15 @@ The AI scores candidate plans with per-role weights, then two layers on top
   weapons (Explosive — the bomb squigs) walk into a crowd and detonate, and
   psykers value getting a `psychic` weapon off over a safer sidearm shot.
 
-Both show up in the combat log's plan rationale, alongside the score breakdown.
+- **resource spending** (`src/ai/spending.js`), for the teams that run an
+  economy. It scales no weights — an invigoration is a decision, not a
+  disposition — but it prefixes the plan with what it wants to buy: wounds back
+  on an operative that is Injured, an extra point of AP on one that is not and
+  has a target in reach, and the melee upgrades that only pay off in a charge.
+  The extra AP is only paid for if the plan it enabled actually spends it.
+
+All three show up in the combat log's plan rationale, alongside the score
+breakdown.
 
 ## Not implemented
 
@@ -362,7 +417,7 @@ These are recognised and reported, not simulated:
 - Strategic and firefight ploys, and command point spending
 - Equipment
 - Operative abilities (unique actions are carried as data but not performable)
-- The 37 teams' faction rules listed as reference-only above
+- The 40 teams' faction rules listed as reference-only above
 - Vantage points and elevation — `height` is stored but does not affect LOS
 - Overwatch, Guard, Pick Up Marker, Operate Hatch and other mission actions
 - Injured/Incapacitated special cases beyond the APL and hit modifiers above
@@ -371,10 +426,10 @@ These are recognised and reported, not simulated:
   machinery as Blast plus a damage-only variant of it.
 - Markers and the actions that place them (Mine, Explosives, Neutron Fallout,
   Skytorch), which is why three weapons refuse to fire rather than guessing.
-- Team resource economies — Pain tokens and their invigorations, Blooded
-  tokens, the GORE TANK. The engine counts what a weapon earns; nothing spends it.
 - The Frenzy token, the "obscured" state as distinct from cover, and the
   pre-battle loadout choices `Engineered` and `Custom` offer.
+- The rest of the Blooded gambit's shape — tokens are assigned automatically in
+  the Ready step, nearest the enemy first, rather than being placed by a player.
 
 ## Rules fidelity note
 

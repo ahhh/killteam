@@ -534,9 +534,22 @@
           "piercing",
           "piercingcrits"
         ]
+      }
+    },
+    {
+      "id": "umbral-entities-shadow-save",
+      "rule": "Umbral Entities",
+      "trigger": "beforeDefenceRoll",
+      "condition": {
+        "keyword": "mandrake",
+        "withinShadow": true
+      },
+      "effect": {
+        "type": "modifySave",
+        "delta": -1
       },
       "partial": true,
-      "notes": "the Save improvement while WITHIN SHADOW is not simulated — the engine has no shadow/Heavy-terrain concept"
+      "notes": "WITHIN SHADOW is read as Heavy terrain within 1\" or a base under Vantage terrain; the \"not lower than it\" clause needs operative elevation, and Shadow Portal markers are not implemented"
     }
   ],
   "weaponRules": {

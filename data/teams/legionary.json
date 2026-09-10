@@ -1042,5 +1042,21 @@
       "partial": true,
       "notes": "the requirement that a bolt weapon be selected for one of two Shoot actions is not enforced"
     }
-  ]
+  ],
+  "weaponRules": {
+    "siphonlife": {
+      "rule": "Siphon Life",
+      "text": "When you select this weapon, you can use this rule. If you do, at the start of the Resolve Attack Dice step, select one friendly LEGIONARY operative visible to and within 6\" of this operative. For each attack dice you resolve during that step that inflicts damage, that friendly operative regains 1 lost wound, or D3 lost wounds if it was a critical success. You cannot use this weapon rule more than once per turning point.",
+      "partial": true,
+      "notes": "the engine always uses the rule and picks the most wounded friend in range, rather than leaving both optional choices to a player",
+      "effect": {
+        "type": "healOnDamage",
+        "keyword": "legionary",
+        "within": 6,
+        "perNormal": "1",
+        "perCritical": "D3",
+        "oncePerTurningPoint": true
+      }
+    }
+  }
 }

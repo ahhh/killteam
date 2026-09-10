@@ -1051,5 +1051,30 @@
       "description": "Once per battle, if friendly HEARTHKYN SALVAGER operatives contest two or more objective markers, after rolling off to decide initiative, you can use this rule. If you do, you can re-roll your dice."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "beam": {
+      "rule": "Beam",
+      "text": "Whenever this operative is shooting with this weapon, each retained critical success immediately inflicts D3 damage on each other operative along one (and only one) beam line (roll separately for each operative), but the target isn't affected. An operative is along a beam line if a targeting line can be drawn from this operative to its base, and that line crosses the base of the original target but doesn't cross Heavy terrain.",
+      "partial": true,
+      "notes": "the engine picks the beam line that catches the most enemies rather than leaving the choice to a player",
+      "effect": {
+        "type": "beamLine",
+        "damage": "D3"
+      }
+    },
+    "forceimpact": {
+      "rule": "Force Impact",
+      "text": "Whenever this operative is fighting with this weapon, if it's performed the Charge action during the activation, this weapon has the Brutal weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "rules": [
+          "brutal"
+        ],
+        "performedThisActivation": [
+          "charge"
+        ]
+      }
+    }
+  }
 }

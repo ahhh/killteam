@@ -871,5 +871,39 @@
       "description": "You can ignore any changes to the Move stat of friendly NOVITIATE operatives from being injured."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "antipsyker": {
+      "rule": "Anti-PSYKER",
+      "text": "Whenever this weapon is being used against an operative that has the PSYKER keyword, add 1 to both Dmg stats of this weapon and it has the Lethal 5+ weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "targetKeyword": "psyker",
+        "rules": [
+          "lethal5"
+        ],
+        "damageNormal": 1,
+        "damageCritical": 1
+      }
+    },
+    "riposte": {
+      "rule": "Riposte",
+      "text": "Whenever you block with a critical success, you can also inflict damage equal to the weapon's Critical Dmg stat on the enemy operative in that sequence.",
+      "effect": {
+        "type": "meleeModifier",
+        "riposte": true
+      }
+    },
+    "zealousrage": {
+      "rule": "Zealous Rage",
+      "text": "Whenever this operative is fighting with this weapon, it has the Ceaseless weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "fight",
+        "rules": [
+          "ceaseless"
+        ]
+      }
+    }
+  }
 }

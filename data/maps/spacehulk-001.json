@@ -1,0 +1,862 @@
+{
+  "id": "spacehulk-001",
+  "name": "Derelict Hulk",
+  "version": 1,
+  "blurb": "A dead ship of welded wrecks. Five-inch corridors, blind junctions, and collapsed decking you shove through rather than shoot past.",
+  "board": {
+    "width": 30,
+    "height": 22,
+    "units": "inches"
+  },
+  "terrain": [
+    {
+      "id": "hull-fore",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 30,
+            "y": 0
+          },
+          {
+            "x": 30,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 1
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "hull-aft",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0,
+            "y": 21
+          },
+          {
+            "x": 30,
+            "y": 21
+          },
+          {
+            "x": 30,
+            "y": 22
+          },
+          {
+            "x": 0,
+            "y": 22
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0,
+            "y": 6
+          },
+          {
+            "x": 3,
+            "y": 6
+          },
+          {
+            "x": 3,
+            "y": 8.5
+          },
+          {
+            "x": 0,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8,
+            "y": 6
+          },
+          {
+            "x": 12.5,
+            "y": 6
+          },
+          {
+            "x": 12.5,
+            "y": 8.5
+          },
+          {
+            "x": 8,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 17.5,
+            "y": 6
+          },
+          {
+            "x": 22,
+            "y": 6
+          },
+          {
+            "x": 22,
+            "y": 8.5
+          },
+          {
+            "x": 17.5,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-4",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 27,
+            "y": 6
+          },
+          {
+            "x": 30,
+            "y": 6
+          },
+          {
+            "x": 30,
+            "y": 8.5
+          },
+          {
+            "x": 27,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-5",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0,
+            "y": 13.5
+          },
+          {
+            "x": 3,
+            "y": 13.5
+          },
+          {
+            "x": 3,
+            "y": 16
+          },
+          {
+            "x": 0,
+            "y": 16
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-6",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8,
+            "y": 13.5
+          },
+          {
+            "x": 12.5,
+            "y": 13.5
+          },
+          {
+            "x": 12.5,
+            "y": 16
+          },
+          {
+            "x": 8,
+            "y": 16
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-7",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 17.5,
+            "y": 13.5
+          },
+          {
+            "x": 22,
+            "y": 13.5
+          },
+          {
+            "x": 22,
+            "y": 16
+          },
+          {
+            "x": 17.5,
+            "y": 16
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "bulkhead-8",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 27,
+            "y": 13.5
+          },
+          {
+            "x": 30,
+            "y": 13.5
+          },
+          {
+            "x": 30,
+            "y": 16
+          },
+          {
+            "x": 27,
+            "y": 16
+          }
+        ]
+      },
+      "height": 4,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hulk-bulkhead"
+      }
+    },
+    {
+      "id": "debris-n1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 10.4,
+            "y": 1.2
+          },
+          {
+            "x": 11.6,
+            "y": 1.2
+          },
+          {
+            "x": 11.6,
+            "y": 5.8
+          },
+          {
+            "x": 10.4,
+            "y": 5.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-n2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 20.4,
+            "y": 1.2
+          },
+          {
+            "x": 21.599999999999998,
+            "y": 1.2
+          },
+          {
+            "x": 21.599999999999998,
+            "y": 5.8
+          },
+          {
+            "x": 20.4,
+            "y": 5.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-m1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 5.4,
+            "y": 8.7
+          },
+          {
+            "x": 6.6000000000000005,
+            "y": 8.7
+          },
+          {
+            "x": 6.6000000000000005,
+            "y": 13.3
+          },
+          {
+            "x": 5.4,
+            "y": 13.3
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-m2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 15.4,
+            "y": 8.7
+          },
+          {
+            "x": 16.6,
+            "y": 8.7
+          },
+          {
+            "x": 16.6,
+            "y": 13.3
+          },
+          {
+            "x": 15.4,
+            "y": 13.3
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-m3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 25.4,
+            "y": 8.7
+          },
+          {
+            "x": 26.599999999999998,
+            "y": 8.7
+          },
+          {
+            "x": 26.599999999999998,
+            "y": 13.3
+          },
+          {
+            "x": 25.4,
+            "y": 13.3
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-s1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 10.4,
+            "y": 16.2
+          },
+          {
+            "x": 11.6,
+            "y": 16.2
+          },
+          {
+            "x": 11.6,
+            "y": 20.8
+          },
+          {
+            "x": 10.4,
+            "y": 20.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-s2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 20.4,
+            "y": 16.2
+          },
+          {
+            "x": 21.599999999999998,
+            "y": 16.2
+          },
+          {
+            "x": 21.599999999999998,
+            "y": 20.8
+          },
+          {
+            "x": 20.4,
+            "y": 20.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-v1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 3.2,
+            "y": 9.8
+          },
+          {
+            "x": 7.8,
+            "y": 9.8
+          },
+          {
+            "x": 7.8,
+            "y": 10.8
+          },
+          {
+            "x": 3.2,
+            "y": 10.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "debris-v2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 22.2,
+            "y": 11.2
+          },
+          {
+            "x": 26.8,
+            "y": 11.2
+          },
+          {
+            "x": 26.8,
+            "y": 12.2
+          },
+          {
+            "x": 22.2,
+            "y": 12.2
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-debris"
+      }
+    },
+    {
+      "id": "grille-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8.6,
+            "y": 9
+          },
+          {
+            "x": 9.6,
+            "y": 9
+          },
+          {
+            "x": 9.6,
+            "y": 13
+          },
+          {
+            "x": 8.6,
+            "y": 13
+          }
+        ]
+      },
+      "height": 0.8,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-pipes"
+      }
+    },
+    {
+      "id": "grille-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 20.4,
+            "y": 9
+          },
+          {
+            "x": 21.4,
+            "y": 9
+          },
+          {
+            "x": 21.4,
+            "y": 13
+          },
+          {
+            "x": 20.4,
+            "y": 13
+          }
+        ]
+      },
+      "height": 0.8,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-pipes"
+      }
+    },
+    {
+      "id": "grille-nc",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13,
+            "y": 6.2
+          },
+          {
+            "x": 17,
+            "y": 6.2
+          },
+          {
+            "x": 17,
+            "y": 7.2
+          },
+          {
+            "x": 13,
+            "y": 7.2
+          }
+        ]
+      },
+      "height": 0.8,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-pipes"
+      }
+    },
+    {
+      "id": "grille-sc",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13,
+            "y": 14.8
+          },
+          {
+            "x": 17,
+            "y": 14.8
+          },
+          {
+            "x": 17,
+            "y": 15.8
+          },
+          {
+            "x": 13,
+            "y": 15.8
+          }
+        ]
+      },
+      "height": 0.8,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "hulk-pipes"
+      }
+    }
+  ],
+  "objectives": [
+    {
+      "id": "obj-1",
+      "x": 5.5,
+      "y": 3.5,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-2",
+      "x": 5.5,
+      "y": 18.5,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-3",
+      "x": 15,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-4",
+      "x": 24.5,
+      "y": 3.5,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-5",
+      "x": 24.5,
+      "y": 18.5,
+      "controlRange": 1
+    }
+  ],
+  "deploymentZones": [
+    {
+      "id": "dz-p1",
+      "playerId": "p1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 1.6,
+            "y": 1.2
+          },
+          {
+            "x": 6,
+            "y": 1.2
+          },
+          {
+            "x": 6,
+            "y": 20.8
+          },
+          {
+            "x": 1.6,
+            "y": 20.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "dz-p2",
+      "playerId": "p2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 24,
+            "y": 1.2
+          },
+          {
+            "x": 28.4,
+            "y": 1.2
+          },
+          {
+            "x": 28.4,
+            "y": 20.8
+          },
+          {
+            "x": 24,
+            "y": 20.8
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "author": "project",
+    "license": "original",
+    "sourceUrl": "",
+    "notes": "Hand-authored. Corridors are 5\" wide so the largest bundled base (2.95\") can still move and deploy. Geometry is rules-authoritative; art is cosmetic."
+  }
+}

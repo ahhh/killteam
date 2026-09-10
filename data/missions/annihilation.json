@@ -1,0 +1,25 @@
+{
+  "id": "annihilation",
+  "name": "Annihilation",
+  "version": 1,
+  "blurb": "No objectives, no clock worth speaking of. The battle ends when one kill team is the only one left standing.",
+  "board": {
+    "width": 30,
+    "height": 22
+  },
+  "victory": {
+    "type": "lastTeamStanding",
+    "turningPointCap": 12
+  },
+  "ignoreObjectives": true,
+  "scoring": {
+    "kills": {
+      "vpPer": 1
+    }
+  },
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "checkedAt": "2026-09-10",
+    "notes": "Not a published Kill Team mission — a deathmatch variant this simulator provides for testing team match-ups without objective play."
+  }
+}

@@ -417,5 +417,15 @@
       "description": "Whenever a friendly EXODITE DRAGON MASTER MOUNTED operative is incapacitated, you gain 1CP."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "aimed": {
+      "rule": "Aimed",
+      "text": "This operative cannot use this weapon during an activation in which it moved more than 3\", and it cannot move more than 3\" during an activation in which it used this weapon.",
+      "effect": {
+        "type": "moveLimit",
+        "inches": 3
+      }
+    }
+  }
 }

@@ -829,5 +829,23 @@
         "type": "allowChargeWhileConceal"
       }
     }
-  ]
+  ],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    },
+    "explosive": {
+      "rule": "Explosive",
+      "text": "This operative can perform the Shoot action with this weapon while within control range of an enemy operative. Don't select a valid target. Instead, this operative is always the primary target and cannot be in cover or obscured.",
+      "effect": {
+        "type": "selfPrimaryTarget",
+        "shootSelf": true,
+        "allowWhileEngaged": true
+      }
+    }
+  }
 }

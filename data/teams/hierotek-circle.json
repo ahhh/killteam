@@ -797,5 +797,23 @@
         "dice": "D3+1"
       }
     }
-  ]
+  ],
+  "weaponRules": {
+    "magnify": {
+      "rule": "Magnify",
+      "text": "Whenever this operative is performing the Shoot action with this weapon, if the target is visible to this operative, and another friendly HIEROTEK CIRCLE APPRENTEK or HIEROTEK CIRCLE CRYPTEK operative that has an Engage order and isn't within control range of enemy operatives is visible to this operative, you can use this rule. If you do, treat that operative as the active operative for the purposes of determining a valid target, cover and obscured. If you do, this weapon has the Ceaseless weapon rule until the end of that action.",
+      "partial": true,
+      "notes": "the engine uses the spotter only when it improves the shot, rather than leaving the optional choice to a player",
+      "effect": {
+        "type": "spotterTargeting",
+        "keywords": [
+          "apprentek",
+          "cryptek"
+        ],
+        "grantRules": [
+          "ceaseless"
+        ]
+      }
+    }
+  }
 }

@@ -1017,5 +1017,39 @@
       "description": "Add 1 to both Dmg stats of each friendly BLOODED operative's bayonet, bayonet & shield and improvised blade for the battle."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "shield": {
+      "rule": "Shield",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, each of your blocks can be allocated to block two unresolved successes (instead of one).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2
+      }
+    },
+    "stalk": {
+      "rule": "Stalk",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, if Light or Heavy terrain is within its control range, this weapon has the Lethal 5+ weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "fight",
+        "terrainWithinControlRange": true,
+        "rules": [
+          "lethal5"
+        ]
+      }
+    },
+    "bloodoffering": {
+      "rule": "Blood Offering",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, the first time you strike with a critical success during that sequence, you gain one Blooded token.",
+      "partial": true,
+      "notes": "Blooded tokens are counted but nothing spends them — the ploys that would are not implemented",
+      "effect": {
+        "type": "gainResource",
+        "resource": "blooded",
+        "scope": "player",
+        "trigger": "criticalSuccess"
+      }
+    }
+  }
 }

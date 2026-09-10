@@ -324,3 +324,63 @@ body.no-motion * { transition: none !important; animation: none !important; }
   body.show-rosters .panel { display: block; max-height: 32vh; border: none; border-top: 1px solid var(--line); }
   .logbar { height: 130px; }
 }
+
+/* Weapon-rule tokens hung on an operative — Poison, Blaze, Mindburn and the
+   rest. They change what happens on that operative's next activation, so they
+   sit on the roster card rather than being buried in the log. */
+.token-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.token-chip {
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  border: 1px solid #6b4a2f;
+  background: #241a12;
+  color: #e0b183;
+  letter-spacing: 0.02em;
+}
+
+/* A stat a rule has changed away from the printed profile. */
+.op-meta .stat-changed {
+  color: #e0b183;
+}
+
+/* Mission picker on the setup screen. Two ways to win, chosen before the
+   battle starts, so the choice is spelled out rather than hidden in a list. */
+.mission-choice {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.mission-option {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--line, #2a3040);
+  border-radius: 8px;
+  cursor: pointer;
+  background: #161a24;
+}
+
+.mission-option:hover { border-color: #3d4658; }
+
+.mission-option.selected {
+  border-color: var(--accent, #6d9bd1);
+  background: #1a2130;
+}
+
+.mission-option input { margin-right: 8px; }
+.mission-option .mission-name { font-weight: 600; }
+
+.mission-option .mission-blurb {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted, #9aa4b8);
+}

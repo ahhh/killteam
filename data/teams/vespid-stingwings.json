@@ -550,5 +550,40 @@
       "description": "Whenever a friendly VESPID STINGWING operative (excluding OVERSIGHT DRONE) is fighting, its melee weapons have the Ceaseless weapon rule."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "skytorch": {
+      "rule": "Skytorch",
+      "text": "An operative can only use this weapon during the Skytorch Assault action. If it does, don't select a valid target. Instead, shoot against each operative within its torch zone (excluding operatives wholly underneath Vantage terrain); they aren't in cover or obscured. The torch zone is the horizontal area between the operative's current and previous location.",
+      "effect": {
+        "type": "unusable",
+        "reason": "only usable during the Skytorch Assault action, which is not implemented"
+      }
+    },
+    "neutronfragment": {
+      "rule": "Neutron Fragment",
+      "text": "If the target of this weapon isn't incapacitated but you resolve any attack dice, the target gains one of your Neutron Fragment tokens. Whenever an operative that has one of your Neutron Fragment tokens is activated, inflict D3 damage on it for each Neutron Fragment token it has (roll separately for each).",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "anyDiceResolved",
+        "token": {
+          "kind": "neutron-fragment",
+          "label": "Neutron Fragment",
+          "stacks": true,
+          "onActivation": {
+            "damage": "D3"
+          }
+        }
+      }
+    },
+    "neutronbombardment": {
+      "rule": "Neutron Bombardment",
+      "text": "Place one of your Neutron Fallout markers within the primary target's control range. Neutron Fallout: Once during each enemy operative's activation, as soon as it's within 2\" of one of your Neutron Fallout markers, inflict D3 damage on that operative (multiple markers aren't cumulative).",
+      "partial": true,
+      "notes": "the weapon fires normally, but the Neutron Fallout marker it leaves behind is not placed — markers are not implemented",
+      "effect": {
+        "type": "recognised"
+      }
+    }
+  }
 }

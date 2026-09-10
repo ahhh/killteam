@@ -968,5 +968,23 @@
         "count": 1
       }
     }
-  ]
+  ],
+  "weaponRules": {
+    "shield": {
+      "rule": "Shield",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, each of your blocks can be allocated to block two unresolved successes (instead of one).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2
+      }
+    },
+    "detonate": {
+      "rule": "Detonate",
+      "text": "Don't select a valid target. Instead, a friendly IMPERIAL NAVY BREACHER GHEISTSKULL operative is always the primary target and cannot be in cover or obscured. If that operative isn't in the killzone, you cannot select this weapon.",
+      "effect": {
+        "type": "friendlyPrimaryTarget",
+        "keyword": "gheistskull"
+      }
+    }
+  }
 }

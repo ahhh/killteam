@@ -8,17 +8,45 @@
 import { Rng } from '../rng.js';
 import {
   PHASES, ORDERS, EVENTS, logEvent, liveOperatives, allOperatives,
-  readyOperatives, opponentOf,
+  readyOperatives, opponentOf, warnUnsupported,
 } from '../state.js';
 import { pointInPolygon, polygonBounds, polygonCentroid } from '../maps/geometry.js';
 import { isPositionLegal } from './movement.js';
 import { resolveAction, getLegalActions } from './engine.js';
 import { updateObjectiveControl, scoreTurningPoint, scoreEndOfBattle } from './objectives.js';
-import { effectiveApl } from './effects.js';
+import { effectiveApl, applyDamage } from './effects.js';
+import {
+  resolveActivationTokens, markTokenExpiryAtActivationStart, expireTokensAtActivationEnd,
+} from './tokens.js';
 import { fireTurningPointStart, fireActivationStart } from './hooks.js';
 
 export const MAX_TURNING_POINTS = 4;
 const CP_PER_TURNING_POINT = 1;
+
+/**
+ * How a mission decides who won.
+ *
+ * `victoryPoints` is the default and the published shape: four turning points,
+ * then compare VP. `lastTeamStanding` is the deathmatch variant — no scoring
+ * worth the name, no fixed clock, and the battle runs until one side has
+ * nobody left. It still carries a cap so two gunlines that cannot see each
+ * other cannot run forever.
+ */
+export function victoryCondition(state) {
+  return state.mission.victory?.type ?? 'victoryPoints';
+}
+
+export function isLastTeamStanding(state) {
+  return victoryCondition(state) === 'lastTeamStanding';
+}
+
+/** The last turning point this mission will play. */
+export function turningPointLimit(state) {
+  if (isLastTeamStanding(state)) {
+    return state.mission.victory?.turningPointCap ?? 12;
+  }
+  return state.mission.turningPoints ?? MAX_TURNING_POINTS;
+}
 
 /* ------------------------------------------------------------------ */
 /* Deployment                                                          */
@@ -73,6 +101,13 @@ function deployTeam(state, playerId, rng) {
         operativeId: op.id, operativeName: op.name, playerId,
         x: Number(op.x.toFixed(2)), y: Number(op.y.toFixed(2)),
       });
+    } else {
+      // A tight map and a large base can leave nowhere legal to stand. That
+      // silently costs a player an operative, so it is reported rather than
+      // shrugged off — usually it means the map's corridors are narrower than
+      // the widest base in the team.
+      warnUnsupported(state, 'deployment:no-legal-position',
+        `${op.name} (${op.baseDiameter}" base) found no legal position in its deployment zone`);
     }
   }
 }
@@ -127,11 +162,27 @@ function resetActivationFlags(op) {
   op.usedThisActivation = [];
   op.heavyUsed = false;
   op.heavyMoveAllowed = null;
+  op.distanceMovedThisActivation = 0;
+  op.moveLimitThisActivation = null;
+  op.moveLimitRule = null;
+  op.aplPenaltyThisActivation = 0;
+  op.inCounteraction = false;
   op.stunnedAtActivationStart = op.stunned === true;
 }
 
-function startActivation(state, op) {
+function startActivation(state, op, rng) {
   resetActivationFlags(op);
+
+  // "Whenever an operative that has one of your X tokens is activated…" — the
+  // burn lands before the operative gets to do anything, and can kill it, so
+  // AP is only counted afterwards.
+  markTokenExpiryAtActivationStart(op);
+  resolveActivationTokens(state, rng, op, applyDamage);
+  if (!op.alive) {
+    op.apRemaining = 0;
+    return;
+  }
+
   op.apRemaining = effectiveApl(op);
   fireActivationStart(state, op);
   op.ready = false;
@@ -150,11 +201,14 @@ function endActivation(state, op) {
     apUnspent: op.apRemaining,
   });
   op.apRemaining = 0;
-  // Stun lasts "until the end of its next activation" — this was it.
+  // Stun lasts "until the end of its next activation" — this was it. Tokens
+  // with the same wording (Humbling Cruelty, Mindburn) come off here too.
   if (op.stunnedAtActivationStart) {
     op.stunned = false;
     op.stunnedAtActivationStart = false;
   }
+  op.aplPenaltyThisActivation = 0;
+  expireTokensAtActivationEnd(state, op);
 }
 
 /** Credit kills to the player who inflicted them, for this turning point. */
@@ -174,7 +228,14 @@ function tallyKills(state, fromSeq) {
  */
 function runActivation(state, op, controller) {
   const seqBefore = state.eventLog.length;
-  startActivation(state, op);
+  const rng = Rng.fromState(state.rng);
+  startActivation(state, op, rng);
+  state.rng = rng.getState();
+  if (!op.alive) {
+    // A token burned the last wound off it before it could act.
+    tallyKills(state, seqBefore);
+    return;
+  }
 
   const intent = controller.planActivation(state, op.id);
   if (intent?.rationale?.length) {
@@ -219,13 +280,17 @@ function tryCounteract(state, playerId, controller) {
     op.usedThisActivation = [];
     op.heavyUsed = false;
     op.heavyMoveAllowed = null;
+    op.distanceMovedThisActivation = 0;
+    op.moveLimitThisActivation = null;
+    op.moveLimitRule = null;
+    op.inCounteraction = true;
     fireActivationStart(state, op);
     const legal = getLegalActions(state, op.id).filter((a) => a.type !== 'pass');
-    if (!legal.length) { op.apRemaining = 0; continue; }
+    if (!legal.length) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 
     const intent = controller.planActivation(state, op.id, { counteract: true });
     const action = (intent?.actions || []).find((a) => a.type !== 'pass' && a.type !== 'change_order');
-    if (!action) { op.apRemaining = 0; continue; }
+    if (!action) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 
     logEvent(state, EVENTS.OPERATIVE_ACTIVATED, {
       operativeId: op.id, operativeName: op.name, playerId,
@@ -235,6 +300,7 @@ function tryCounteract(state, playerId, controller) {
     const result = resolveAction(state, { ...action, operativeId: op.id });
     op.counteracted = true;
     op.apRemaining = 0;
+    op.inCounteraction = false;
     tallyKills(state, seqBefore);
     return result.ok;
   }
@@ -313,7 +379,7 @@ export function step(state, controllers) {
     });
 
     const wiped = ['p1', 'p2'].filter((p) => liveOperatives(state, p).length === 0);
-    const lastTurn = state.turningPoint >= MAX_TURNING_POINTS;
+    const lastTurn = state.turningPoint >= turningPointLimit(state);
 
     if (wiped.length || lastTurn) {
       scoreEndOfBattle(state);
@@ -334,14 +400,26 @@ export function step(state, controllers) {
 function buildResult(state, wiped) {
   const p1 = state.players.p1;
   const p2 = state.players.p2;
-  let winner = null;
-  if (p1.victoryPoints > p2.victoryPoints) winner = 'p1';
-  else if (p2.victoryPoints > p1.victoryPoints) winner = 'p2';
-
   const survivors = {
     p1: liveOperatives(state, 'p1').length,
     p2: liveOperatives(state, 'p2').length,
   };
+  const shared = {
+    wiped,
+    victoryPoints: { p1: p1.victoryPoints, p2: p2.victoryPoints },
+    vpBreakdown: { p1: p1.vpBreakdown, p2: p2.vpBreakdown },
+    survivors,
+    turningPoints: state.turningPoint,
+    victory: victoryCondition(state),
+    seed: state.seed,
+  };
+
+  if (isLastTeamStanding(state)) return { ...shared, ...lastTeamStandingResult(state, survivors) };
+
+  let winner = null;
+  if (p1.victoryPoints > p2.victoryPoints) winner = 'p1';
+  else if (p2.victoryPoints > p1.victoryPoints) winner = 'p2';
+
   // VP ties break on surviving operatives; still tied means a draw.
   if (!winner) {
     if (survivors.p1 > survivors.p2) winner = 'p1';
@@ -352,13 +430,52 @@ function buildResult(state, wiped) {
     ? `${state.players[winner].teamName} wins ${p1.victoryPoints}–${p2.victoryPoints}.`
     : `Draw ${p1.victoryPoints}–${p2.victoryPoints}.`;
 
+  return { ...shared, winner, summary };
+}
+
+/**
+ * Deathmatch: the side with anybody left wins outright.
+ *
+ * If the cap is reached with both teams still on the board nobody has won by
+ * the mission's own terms, so it is called on who is left standing — operatives
+ * first, then total wounds remaining, which is the closest thing to "who was
+ * winning". A dead heat on both is an honest draw.
+ */
+function lastTeamStandingResult(state, survivors) {
+  const woundsLeft = {
+    p1: liveOperatives(state, 'p1').reduce((sum, o) => sum + o.woundsRemaining, 0),
+    p2: liveOperatives(state, 'p2').reduce((sum, o) => sum + o.woundsRemaining, 0),
+  };
+
+  if (survivors.p1 === 0 && survivors.p2 === 0) {
+    return { winner: null, summary: 'Mutual annihilation — both kill teams are wiped out.', woundsLeft };
+  }
+  if (survivors.p2 === 0) {
+    return {
+      winner: 'p1', woundsLeft,
+      summary: `${state.players.p1.teamName} wipes out ${state.players.p2.teamName}, ` +
+        `${survivors.p1} operative(s) left standing.`,
+    };
+  }
+  if (survivors.p1 === 0) {
+    return {
+      winner: 'p2', woundsLeft,
+      summary: `${state.players.p2.teamName} wipes out ${state.players.p1.teamName}, ` +
+        `${survivors.p2} operative(s) left standing.`,
+    };
+  }
+
+  let winner = null;
+  if (survivors.p1 !== survivors.p2) winner = survivors.p1 > survivors.p2 ? 'p1' : 'p2';
+  else if (woundsLeft.p1 !== woundsLeft.p2) winner = woundsLeft.p1 > woundsLeft.p2 ? 'p1' : 'p2';
+
+  const tally = `${survivors.p1}–${survivors.p2} operatives, ${woundsLeft.p1}–${woundsLeft.p2} wounds`;
   return {
-    winner, summary, wiped,
-    victoryPoints: { p1: p1.victoryPoints, p2: p2.victoryPoints },
-    vpBreakdown: { p1: p1.vpBreakdown, p2: p2.vpBreakdown },
-    survivors,
-    turningPoints: state.turningPoint,
-    seed: state.seed,
+    winner, woundsLeft, cappedOut: true,
+    summary: winner
+      ? `Neither team was wiped out by Turning Point ${state.turningPoint}; ` +
+        `${state.players[winner].teamName} is left in the better shape (${tally}).`
+      : `Neither team was wiped out by Turning Point ${state.turningPoint}, and they end level (${tally}).`,
   };
 }
 

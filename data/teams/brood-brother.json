@@ -1163,5 +1163,14 @@
       "description": "STRATEGIC GAMBIT. Select one enemy operative visible to a friendly BROOD BROTHER operative to gain one of your Crossfire tokens."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    }
+  }
 }

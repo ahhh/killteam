@@ -515,5 +515,15 @@
       "description": "Once per turning point, when an operative is shooting a friendly CANOPTEK CIRCLE GEOMANCER operative, at the start of the Roll Defence Dice step, you can use this rule. If you do, worsen the x of the Piercing weapon rule by 1 (if any) until the end of that sequence. Note that Piercing 1 would therefore be ignored."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "dimensionalbanishment": {
+      "rule": "Dimensional Banishment",
+      "text": "After this operative uses this weapon, if you inflicted damage or retained any critical successes, if the target wasn't incapacitated, roll 2D6: if the result is higher than the target's remaining wounds, the target is incapacitated.",
+      "effect": {
+        "type": "executeRoll",
+        "dice": "2D6"
+      }
+    }
+  }
 }

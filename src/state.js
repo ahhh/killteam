@@ -83,7 +83,19 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
           heavyMoveAllowed: null,
           /** Limited x: uses spent per weapon id, for the whole battle. */
           weaponUses: {},
+          /** Concealed Position: how many Shoot actions this operative has made. */
+          shootActionsTaken: 0,
           usedThisActivation: [],
+          /** Aimed: inches walked this activation, and the budget left by a shot. */
+          distanceMovedThisActivation: 0,
+          moveLimitThisActivation: null,
+          moveLimitRule: null,
+          /** True only while resolving a counteraction, which some rules read. */
+          inCounteraction: false,
+          /** Blaze: APL given up to shed a token, for this activation only. */
+          aplPenaltyThisActivation: 0,
+          /** Poison, Blaze, Mindburn and friends — see rules/tokens.js. */
+          tokens: [],
           extraActions: {},
           freeActions: [],
           chargeWhileConceal: false,
@@ -114,7 +126,10 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
 
     players,
     operatives,
-    objectives: (map.objectives || []).map((o) => ({
+    // A mission may declare that it plays without objectives at all — the
+    // deathmatch variant does — and then the markers simply are not there,
+    // for the AI, the scoring or the renderer.
+    objectives: mission.ignoreObjectives ? [] : (map.objectives || []).map((o) => ({
       ...o,
       controlledBy: null,
     })),

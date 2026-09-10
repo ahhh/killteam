@@ -895,5 +895,35 @@
       "description": "Once per battle, when a friendly WARPCOVEN SORCERER operative is activated or counteracts, you can select a different BOON OF TZEENTCH for it to have until the end of the battle (it loses any it previously had). It cannot be the same BOON OF TZEENTCH any other friendly operative has. Note that if you use this rule when a friendly operative counteracts and you select Echoes from the Warp, it can be used immediately to change the operative's order and perform a free action during that counteraction."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "shield": {
+      "rule": "Shield",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, each of your blocks can be allocated to block two unresolved successes (instead of one).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2
+      }
+    },
+    "mindburn": {
+      "rule": "Mindburn",
+      "text": "In the Resolve Attack Dice step, if you inflict damage with any critical successes, the operative this weapon is being used against gains one of your Mindburn tokens (if it doesn't already have one) until the end of its next activation, until it's incapacitated or until a friendly operative uses this weapon again (whichever comes first). Whenever an operative has one of your Mindburn tokens, worsen the Hit stat of its weapons by 1 (this isn't cumulative with being injured).",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "criticalSuccess",
+        "token": {
+          "kind": "mindburn",
+          "label": "Mindburn",
+          "unique": true,
+          "whileHeld": {
+            "hitPenalty": 1,
+            "notCumulativeWithInjured": true
+          },
+          "expiry": {
+            "endOfNextActivation": true
+          }
+        }
+      }
+    }
+  }
 }

@@ -18,13 +18,17 @@ export class SetupScreen {
    * @param {{repo:DataRepository, roots:{p1:HTMLElement,p2:HTMLElement},
    *          referenceRoot:HTMLElement, importEls:object}} deps
    */
-  constructor({ repo, roots, referenceRoot, importEls, onChange }) {
+  constructor({ repo, roots, referenceRoot, importEls, missionRoot, missionIds = [], onChange, onMissionChange }) {
     this.repo = repo;
     this.roots = roots;
     this.referenceRoot = referenceRoot;
     this.importEls = importEls;
+    this.missionRoot = missionRoot;
+    this.missionIds = missionIds;
     this.onChange = onChange;
+    this.onMissionChange = onMissionChange;
     this.selection = { p1: null, p2: null };
+    this.missionId = missionIds[0] ?? null;
     this._wireImport();
   }
 
@@ -37,11 +41,56 @@ export class SetupScreen {
     this.selection = { p1, p2 };
   }
 
+  getMission() {
+    return this.missionId;
+  }
+
+  setMission(missionId) {
+    if (missionId && this.repo.missions.has(missionId)) this.missionId = missionId;
+    this._renderMissions();
+  }
+
   async render() {
     for (const playerId of ['p1', 'p2']) {
       await this._renderColumn(playerId);
     }
+    this._renderMissions();
     this._renderReference();
+  }
+
+  /**
+   * How the battle is won, picked alongside the teams because it changes what
+   * a good match-up even means: an objective game rewards holding ground for
+   * four turning points, a deathmatch only rewards being the last one alive.
+   */
+  _renderMissions() {
+    const root = this.missionRoot;
+    if (!root) return;
+    root.replaceChildren();
+
+    for (const id of this.missionIds) {
+      const mission = this.repo.missions.get(id);
+      if (!mission) continue;
+
+      const label = h('label', 'mission-option');
+      if (id === this.missionId) label.classList.add('selected');
+
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'mission';
+      input.value = id;
+      input.checked = id === this.missionId;
+      input.addEventListener('change', () => {
+        this.missionId = id;
+        this._renderMissions();
+        this.onMissionChange?.(id);
+      });
+
+      const name = h('span', 'mission-name', mission.name ?? id);
+      label.append(input, name);
+      if (mission.blurb) label.append(h('span', 'mission-blurb', mission.blurb));
+      root.append(label);
+    }
   }
 
   async _renderColumn(playerId) {

@@ -620,5 +620,40 @@
       "description": "Whenever an operative is shooting a friendly GELLERPOX INFECTED NIGHTMARE HULK operative that's more than 6\" from it, you can retain one of your defence dice results of 3 as a normal success instead of discarding it."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "engineered": {
+      "rule": "Engineered",
+      "text": "At the end of the Select Operatives step, if this operative is selected for deployment, select up to two of the following improvements or weapon rules for this weapon to have for the battle: Add 1 to the Normal Dmg stat, add 1 to the Critical Dmg stat, Balanced, Brutal, Lethal 5+, Rending.",
+      "partial": true,
+      "notes": "the pack fixes the two improvements (Lethal 5+ and Brutal); the engine does not let a player pick them before the battle",
+      "effect": {
+        "type": "fixedUpgrade",
+        "rules": [
+          "lethal5",
+          "brutal"
+        ]
+      }
+    },
+    "swipe": {
+      "rule": "Swipe",
+      "text": "Whenever this operative performs the Fight action and you select this weapon profile, if it isn't incapacitated, it can immediately perform a free Fight action afterwards, but you must select this weapon profile and it can only fight against each enemy operative within its control range once per activation or counteraction using this weapon profile.",
+      "effect": {
+        "type": "meleeModifier",
+        "repeatFight": true
+      }
+    },
+    "feast": {
+      "rule": "Feast",
+      "text": "Whenever this operative is using this weapon against a wounded operative, add 1 to the Atk stat of this weapon and it has the Lethal 5+ weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "targetWounded": true,
+        "rules": [
+          "lethal5"
+        ],
+        "atkBonus": 1
+      }
+    }
+  }
 }

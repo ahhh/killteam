@@ -844,5 +844,44 @@
       "description": "Once per turning point, when an operative is shooting a friendly SANCTIFIER operative that's benefitting from the SERMON, when you collect your defence dice, you can use this rule. If you do, change one of the attacker's retained critical successes to a normal success (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits)."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "blaze": {
+      "rule": "Blaze",
+      "text": "If you inflict damage with any critical successes, the operative this weapon is being used against gains one of your Blaze tokens (if it doesn't already have one). Whenever an operative that has one of your Blaze tokens is activated, inflict D3 damage on it. Then that operative's controlling player selects one of the following: Roll one D6: on a 3+, remove that token. Subtract 1 from the operative's APL stat until the end of that activation to remove that token.",
+      "partial": true,
+      "notes": "the holder always takes the free D6 to shed the token; giving up 1 APL for a certain removal is never chosen",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "criticalSuccess",
+        "token": {
+          "kind": "blaze",
+          "label": "Blaze",
+          "onActivation": {
+            "damage": "D3",
+            "removal": {
+              "d6": 3
+            }
+          }
+        }
+      }
+    },
+    "twintorrent": {
+      "rule": "Twin Torrent",
+      "text": "Select up to two different valid targets that aren't within control range of friendly operatives. Shoot with this weapon against both of them in an order of your choice (roll each sequence separately). Torrent 0\" means you cannot select secondary targets, but this weapon still has the Torrent weapon rule for all other rules purposes.",
+      "effect": {
+        "type": "extraPrimaryTargets",
+        "count": 2
+      }
+    },
+    "wreathed": {
+      "rule": "Wreathed",
+      "text": "This operative can perform the Shoot action with this weapon while within control range of an enemy operative. Don't select a valid target. Instead, this operative is always the primary target, but only shoot against secondary targets and they cannot be in cover or obscured (in other words, determine Blast from this operative, but this operative isn't affected).",
+      "effect": {
+        "type": "selfPrimaryTarget",
+        "shootSelf": false,
+        "allowWhileEngaged": true
+      }
+    }
+  }
 }

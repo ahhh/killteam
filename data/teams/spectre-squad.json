@@ -986,5 +986,14 @@
       "description": "Friendly SPECTRE SQUAD operatives (excluding VOX-RELAY BEACON) can perform the following unique action: ADVANCED CAMOUFLAGE1APUntil the start of this operative's next activation, while it has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\". This operative cannot perform this action while visible to and within 3\" of an enemy operative."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    }
+  }
 }

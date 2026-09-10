@@ -15,10 +15,13 @@ import {
 import {
   withinControlRange, enemiesInControlRange, canBeTargeted,
 } from './visibility.js';
-import { canShoot, resolveShoot, usableRangedWeapons, meleeWeapons } from './shooting.js';
+import {
+  canShoot, resolveShoot, usableRangedWeapons, meleeWeapons, selfDirectedWeapon,
+} from './shooting.js';
 import { heavyMoveBlocker } from './weapon-rules.js';
-import { canFight, resolveFight } from './fighting.js';
-import { effectiveApl } from './effects.js';
+import { canFight, resolveFight, resolveSweep } from './fighting.js';
+import { effectiveApl, effectiveMove } from './effects.js';
+import { moveLimitBlocker, moveLimitAfterUse } from './team-rules.js';
 import { updateObjectiveControl } from './objectives.js';
 import { timesAllowed, claimExtraAction, consumeFreeAction, chargeIgnoresOrder } from './hooks.js';
 
@@ -55,13 +58,28 @@ function alreadyUsed(state, op, type) {
  * Movement allowance for a movement action, in inches.
  */
 export function moveAllowance(state, op, type) {
+  const move = effectiveMove(op);
   switch (type) {
-    case 'reposition': return op.move;
+    case 'reposition': return move;
     case 'dash': return DASH_DISTANCE;
-    case 'charge': return op.move + CHARGE_BONUS;
-    case 'fall_back': return op.move;
+    case 'charge': return move + CHARGE_BONUS;
+    case 'fall_back': return move;
     default: return 0;
   }
+}
+
+/**
+ * The allowance an operative may actually spend on `type` right now.
+ *
+ * Aimed leaves a budget for the whole activation rather than forbidding the
+ * action outright, so a Dragon Master that fired its stationary profile may
+ * still shuffle the remainder of 3".
+ */
+export function usableMoveAllowance(state, op, type) {
+  const allowance = moveAllowance(state, op, type);
+  const limit = moveLimitAfterUse(op);
+  if (limit === null) return allowance;
+  return Math.max(0, Math.min(allowance, limit - (op.distanceMovedThisActivation || 0)));
 }
 
 /**
@@ -82,21 +100,22 @@ export function getLegalActions(state, operativeId) {
   const fellBack = op.usedThisActivation.includes('fall_back');
 
   // --- Movement -----------------------------------------------------
-  // Heavy also runs the other way: having fired one pins the operative.
-  const mayMove = (type) => !heavyMoveBlocker(op, type);
+  // Heavy also runs the other way; Aimed leaves a budget rather than a veto,
+  // so a move only disappears once the budget cannot pay for any of it.
+  const mayMove = (type) => !heavyMoveBlocker(op, type) && usableMoveAllowance(state, op, type) > 0;
 
   if (!isEngaged && mayMove('reposition') && !alreadyUsed(state, op, 'reposition')) {
-    actions.push({ type: 'reposition', cost: 1, allowance: moveAllowance(state, op, 'reposition') });
+    actions.push({ type: 'reposition', cost: 1, allowance: usableMoveAllowance(state, op, 'reposition') });
   }
   if (!isEngaged && mayMove('dash') && !alreadyUsed(state, op, 'dash')) {
-    actions.push({ type: 'dash', cost: 1, allowance: DASH_DISTANCE });
+    actions.push({ type: 'dash', cost: 1, allowance: usableMoveAllowance(state, op, 'dash') });
   }
   if (isEngaged && mayMove('fall_back') && !alreadyUsed(state, op, 'fall_back')) {
-    actions.push({ type: 'fall_back', cost: 1, allowance: moveAllowance(state, op, 'fall_back') });
+    actions.push({ type: 'fall_back', cost: 1, allowance: usableMoveAllowance(state, op, 'fall_back') });
   }
   const mayCharge = op.order === ORDERS.ENGAGE || chargeIgnoresOrder(op);
   if (!isEngaged && !fellBack && mayCharge && mayMove('charge') && !alreadyUsed(state, op, 'charge')) {
-    const allowance = moveAllowance(state, op, 'charge');
+    const allowance = usableMoveAllowance(state, op, 'charge');
     const reachable = all.filter(
       (e) => e.playerId !== op.playerId && baseDistance(op, e) <= allowance + 1
     );
@@ -111,8 +130,24 @@ export function getLegalActions(state, operativeId) {
   // --- Shooting -----------------------------------------------------
   // No blanket order check: `canShoot` decides per weapon, because Silent
   // weapons may be fired from Conceal and Heavy ones may be pinned by a move.
-  if (!isEngaged && !fellBack && !alreadyUsed(state, op, 'shoot')) {
+  // Nor a blanket melee lockout: Explosive and Wreathed are meant to go off
+  // with an enemy in the operative's face.
+  if (!fellBack && !alreadyUsed(state, op, 'shoot')) {
     for (const weapon of usableRangedWeapons(state, op)) {
+      // A self-directed weapon selects no valid target, so it offers exactly
+      // one "target": the operative holding it.
+      if (selfDirectedWeapon(state, op, weapon)) {
+        const check = canShoot(state, op.id, op.id, weapon);
+        if (check.ok) {
+          actions.push({
+            type: 'shoot', cost: 1, weaponId: weapon.id, weaponName: weapon.name,
+            selfDirected: true,
+            targets: [{ targetId: op.id, range: 0, inCover: false }],
+          });
+        }
+        continue;
+      }
+      if (isEngaged) continue;
       const targets = [];
       for (const enemy of all) {
         if (enemy.playerId === op.playerId) continue;
@@ -207,7 +242,7 @@ function doChangeOrder(state, op, action) {
 }
 
 function doMove(state, op, action) {
-  const allowance = moveAllowance(state, op, action.type);
+  const allowance = usableMoveAllowance(state, op, action.type);
   const all = liveOperatives(state);
   const engagedBefore = enemiesInControlRange(op, all);
 
@@ -235,6 +270,9 @@ function doMove(state, op, action) {
   }
   if (!plan.ok) return { ok: false, reason: plan.reason };
 
+  const budgeted = moveLimitBlocker(op, plan.length);
+  if (budgeted) return { ok: false, reason: budgeted };
+
   const from = { x: op.x, y: op.y };
   op.x = dest.x;
   op.y = dest.y;
@@ -257,6 +295,8 @@ function doMove(state, op, action) {
     }
   }
 
+  op.distanceMovedThisActivation = (op.distanceMovedThisActivation || 0) + plan.length;
+
   logEvent(state, EVENTS.MOVE_RESOLVED, {
     operativeId: op.id, operativeName: op.name, playerId: op.playerId,
     action: action.type,
@@ -271,9 +311,21 @@ function doMove(state, op, action) {
 
 function doShoot(state, op, action) {
   const result = resolveShoot(state, op.id, action.targetId, action.weaponId);
+  // Concealed Position counts Shoot *actions*, not sequences, so a Blast that
+  // sprayed four operatives still only spends the one shot.
+  if (result.ok) op.shootActionsTaken = (op.shootActionsTaken || 0) + 1;
   return result;
 }
 
 function doFight(state, op, action) {
-  return resolveFight(state, op.id, action.targetId, action.weaponId);
+  const result = resolveFight(state, op.id, action.targetId, action.weaponId);
+  if (!result.ok) return result;
+  // Phase Sweep keeps swinging for free until every enemy in reach has been
+  // fought once. It takes precedence over the once-per-activation limit, so it
+  // runs inside the action rather than asking the AP layer for another one.
+  if (result.repeatFight) {
+    const extra = resolveSweep(state, op.id, result.attackerWeaponId, action.targetId);
+    if (extra.length) result.sweep = extra;
+  }
+  return result;
 }

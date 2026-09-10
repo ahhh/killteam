@@ -706,5 +706,26 @@
       "description": "Whenever an operative is shooting a friendly HERNKYN YAEGIR operative, if the ranged weapon in that sequence has the Blast or Torrent weapon rule, you can re-roll one of your defence dice. In addition, friendly HERNKYN YAEGIR operatives aren't affected by the x\" Devastating x weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    },
+    "bipod": {
+      "rule": "Bipod",
+      "text": "Whenever this operative is shooting with this weapon, if it hasn't moved during the activation, or if it's a counteraction, this weapon has the Ceaseless weapon rule. Note this operative isn't restricted from moving after shooting.",
+      "effect": {
+        "type": "grantRuleIf",
+        "rules": [
+          "ceaseless"
+        ],
+        "notMovedThisActivation": true,
+        "orCounteraction": true
+      }
+    }
+  }
 }

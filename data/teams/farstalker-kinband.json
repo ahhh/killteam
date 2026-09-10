@@ -841,5 +841,22 @@
       "description": "Once per battle, during a friendly FARSTALKER KINBAND operative's activation (excluding HOUND), before or after it performs an action, if it's not within control range of enemy operatives, you can use this rule. If you do, add 1 to that friendly operative's APL stat until the end of its activation."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    },
+    "salvo": {
+      "rule": "Salvo",
+      "text": "Select up to two different valid targets that aren't within control range of friendly operatives. Shoot with this weapon against both of them in an order of your choice (roll each sequence separately).",
+      "effect": {
+        "type": "extraPrimaryTargets",
+        "count": 2
+      }
+    }
+  }
 }

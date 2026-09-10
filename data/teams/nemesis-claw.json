@@ -838,5 +838,22 @@
       "partial": true,
       "notes": "the requirement that a bolt weapon be selected for one of two Shoot actions is not enforced"
     }
-  ]
+  ],
+  "weaponRules": {
+    "terrorchem": {
+      "rule": "Terrorchem",
+      "text": "In the Resolve Attack Dice step, if you inflict damage with any critical successes (including as a result of the Devastating weapon rule), the operative this weapon is being used against gains one of your Terrorchem tokens (if it doesn't already have one). Whenever an operative that has one of your Terrorchem tokens is activated, inflict D3 damage on it.",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "criticalSuccess",
+        "token": {
+          "kind": "terrorchem",
+          "label": "Terrorchem",
+          "onActivation": {
+            "damage": "D3"
+          }
+        }
+      }
+    }
+  }
 }

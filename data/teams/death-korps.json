@@ -1058,5 +1058,22 @@
       "description": "Once per battle STRATEGIC GAMBIT. Place your Gas marker in the killzone; it cannot be placed underneath Vantage terrain. Whenever an operative is within 3\" of that marker, subtract 1 from its APL stat. In the Ready step of the next Strategy phase, remove that marker. Note that an operative's APL stat is only changed while it's within 3\" of that marker. If it moves more than 3\" from that marker, its APL stat is no longer changed by this rule."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    },
+    "detonate": {
+      "rule": "Detonate",
+      "text": "Don't select a valid target. Instead, shoot against each operative within 2\" of your Mine marker, unless Heavy terrain is wholly intervening between that operative and that marker. Each of those operatives cannot be in cover or obscured. Roll each sequence separately in an order of your choice. This weapon cannot be selected if your Mine marker isn't in the killzone. At the end of the action, remove your Mine marker from the killzone.",
+      "effect": {
+        "type": "unusable",
+        "reason": "needs a Mine marker, and the action that places one is not implemented"
+      }
+    }
+  }
 }

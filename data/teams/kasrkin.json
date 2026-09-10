@@ -824,5 +824,14 @@
       "partial": true,
       "notes": "the requirement that a bolt pistol, hot-shot lasgun or hot-shot laspistol be selected for both Shoot actions is not enforced"
     }
-  ]
+  ],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    }
+  }
 }

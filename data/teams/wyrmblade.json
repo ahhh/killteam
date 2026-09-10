@@ -930,5 +930,20 @@
       "description": "Whenever a friendly WYRMBLADE operative is shooting, the target cannot be obscured if it's visible to and within 6\" of a friendly WYRMBLADE NEOPHYTE operative that isn't within control range of enemy operatives."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "hypersense": {
+      "rule": "Hypersense",
+      "text": "Whenever this operative is shooting with this weapon profile, enemy operatives cannot be obscured.",
+      "partial": true,
+      "notes": "the engine folds obscured into cover, so this is applied as Seek — the target cannot use terrain for cover when being selected",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "shoot",
+        "rules": [
+          "seek"
+        ]
+      }
+    }
+  }
 }

@@ -655,5 +655,26 @@
       "description": "Whenever a friendly CELESTIAN INSIDIANT operative is activated, you can use this rule. If you do, roll one D6 and inflict damage on that operative equal to half the result (rounding up); on a 4+, that operative also becomes INSPIRING. You cannot make more than one friendly operative INSPIRING using this rule per turning point."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "shield": {
+      "rule": "Shield",
+      "text": "Whenever this operative is fighting or retaliating with this weapon profile, each of your blocks can be allocated to block two unresolved successes (instead of one).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2
+      }
+    },
+    "antipsyker": {
+      "rule": "Anti-PSYKER",
+      "text": "Whenever this weapon is being used against an operative that has the PSYKER keyword, it has the Lethal 5+ weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "targetKeyword": "psyker",
+        "rules": [
+          "lethal5"
+        ]
+      }
+    }
+  }
 }

@@ -5,7 +5,8 @@
  * visual arrangement of any published datacard, and shows only what the loaded
  * pack's data policy permits, along with its source and version metadata.
  */
-import { effectiveApl, isInjured } from '../rules/effects.js';
+import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
+import { tokensOf } from '../rules/tokens.js';
 import { SUPPORT_LEVELS } from '../data/schema.js';
 
 /** Build an element with text set safely — never innerHTML for pack content. */
@@ -68,9 +69,24 @@ export function renderRosterPanel(container, state, playerId, { colors, selected
     meta.append(h('span', null, `${op.woundsRemaining}/${op.wounds} W`));
     meta.append(h('span', null, `APL ${effectiveApl(op)}`));
     meta.append(h('span', null, `Sv ${op.save}+`));
-    meta.append(h('span', null, `M ${op.move}"`));
+    const move = effectiveMove(op);
+    meta.append(h('span', move !== op.move ? 'stat-changed' : null, `M ${move}"`));
     if (isInjured(op) && op.alive) meta.append(h('span', null, '· injured'));
+    if (op.stunned && op.alive) meta.append(h('span', null, '· stunned'));
     card.append(meta);
+
+    // Poison, Blaze and the rest are the whole point of the weapons that hang
+    // them, so an operative carrying one says so on its card.
+    const tokens = op.alive ? tokensOf(op) : [];
+    if (tokens.length) {
+      const strip = h('div', 'token-strip');
+      const counts = new Map();
+      for (const t of tokens) counts.set(t.label, (counts.get(t.label) || 0) + 1);
+      for (const [label, n] of counts) {
+        strip.append(h('span', 'token-chip', n > 1 ? `${label} ×${n}` : label));
+      }
+      card.append(strip);
+    }
 
     const track = h('div', 'wound-track');
     const frac = Math.max(0, op.woundsRemaining / op.wounds);

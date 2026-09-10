@@ -924,5 +924,23 @@
       "partial": true,
       "notes": "the extra AP for a second Shoot with certain heavy weapons, and the bonus free counteract action, are not simulated"
     }
-  ]
+  ],
+  "weaponRules": {
+    "shield": {
+      "rule": "Shield",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, each of your blocks can be allocated to block two unresolved successes (instead of one).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2
+      }
+    },
+    "phasesweep": {
+      "rule": "Phase Sweep",
+      "text": "Whenever this operative performs the Fight action with this weapon profile, if it isn't incapacitated, it can immediately perform a free Fight action afterwards, but you must select this weapon profile and it can only fight against each enemy operative within its control range once per activation or counteraction using this weapon profile. This takes precedence over action restrictions, and you can continue to perform free Fight actions until this operative is incapacitated or has fought against every enemy operative within its control range.",
+      "effect": {
+        "type": "meleeModifier",
+        "repeatFight": true
+      }
+    }
+  }
 }

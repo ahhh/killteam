@@ -9,7 +9,9 @@ import { Rng } from '../rng.js';
 import { liveOperatives, ORDERS } from '../state.js';
 import { baseDistance } from '../maps/geometry.js';
 import { enemiesInControlRange, withinControlRange, CONTROL_RANGE } from '../rules/visibility.js';
-import { effectiveApl, isInjured } from '../rules/effects.js';
+import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
+import { usableMoveAllowance } from '../rules/engine.js';
+import { isLastTeamStanding } from '../rules/phases.js';
 import { meleeWeapons } from '../rules/shooting.js';
 import { DASH_DISTANCE, CHARGE_BONUS } from '../rules/movement.js';
 import { generateDestinations, chargeDestination } from './movement.js';
@@ -46,8 +48,25 @@ const SHOOT_EVAL_DESTINATIONS = 8;
 /** Fidelity the rules engine uses; the chosen plan is re-checked at this level. */
 const FULL_SAMPLES = 6;
 
-function weightsFor(op) {
-  return ROLE_WEIGHTS[op.role] || ROLE_WEIGHTS.flexible;
+/**
+ * Role weights, adjusted for what the mission actually rewards.
+ *
+ * In an objective game, a sniper that sits still and shoots is playing well —
+ * its team wins on ground held elsewhere. In a last-team-standing deathmatch
+ * there is no ground and no clock, so the same behaviour is two gunlines
+ * refusing to meet until the safety cap stops them. With nothing to contest,
+ * every role has to be willing to close: the drive to approach gets a floor
+ * and the fear of exposure is halved.
+ */
+function weightsFor(state, op) {
+  const base = ROLE_WEIGHTS[op.role] || ROLE_WEIGHTS.flexible;
+  if (!isLastTeamStanding(state)) return base;
+  return {
+    ...base,
+    objective: 0,
+    approach: Math.max(base.approach, 2.5),
+    exposure: base.exposure * 0.5,
+  };
 }
 
 export class UtilityController {
@@ -76,6 +95,23 @@ export class UtilityController {
     return this._memo('cov', op, x, y, () => coverQualityAt(state, op, x, y, enemies));
   }
 
+  /**
+   * What a destination is worth as *ground*.
+   *
+   * Normally that means objectives. A deathmatch has none, and then every
+   * destination scores zero — so "take ground" picked the first candidate,
+   * which is always "stay exactly where I am", and two kill teams spent twelve
+   * turning points repositioning zero inches. With no markers to hold, the only
+   * ground worth taking is ground closer to the enemy.
+   */
+  _groundValue(state, op, x, y, enemies) {
+    if (state.objectives.length) return objectiveValueAt(state, op, x, y);
+    if (!enemies.length) return 0;
+    const ghost = { ...op, x, y };
+    const nearest = Math.min(...enemies.map((e) => baseDistance(ghost, e)));
+    return Math.max(0, 1 - nearest / APPROACH_HORIZON);
+  }
+
   /** Cheap urgency heuristic — full planning for every operative is wasteful. */
   chooseActivation(state, readyIds) {
     const enemies = liveOperatives(state).filter((o) => o.playerId !== this.playerId);
@@ -89,7 +125,7 @@ export class UtilityController {
       );
       if (nearest < 12) urgency += 2;
       if (state.objectives.some(
-        (o) => baseDistance(op, { x: o.x, y: o.y, baseDiameter: 0 }) < op.move + 2
+        (o) => baseDistance(op, { x: o.x, y: o.y, baseDiameter: 0 }) < effectiveMove(op) + 2
       )) urgency += 1;
       if (isInjured(op)) urgency -= 0.5;
       if (!best || urgency > best.urgency) best = { id, urgency };
@@ -106,7 +142,7 @@ export class UtilityController {
     const ap = counteract ? 1 : (op.apRemaining || effectiveApl(op));
     const enemies = liveOperatives(state).filter((o) => o.playerId !== op.playerId);
     const engaged = enemiesInControlRange(op, liveOperatives(state));
-    const w = weightsFor(op);
+    const w = weightsFor(state, op);
 
     const plans = engaged.length
       ? this._engagedPlans(state, op, ap, enemies, engaged)
@@ -155,6 +191,7 @@ export class UtilityController {
     const at = plan.estimate?.endsAt || { x: op.x, y: op.y };
     const confirmed = bestShotFrom(state, op, at, enemies, {
       samples: FULL_SAMPLES, moved: plan.estimate?.movedBefore ?? null,
+      movedDistance: plan.estimate?.movedBefore ? (plan.estimate?.moved ?? 0) : 0,
     });
     if (!confirmed) return false;
     // Keep the plan, but shoot at whatever is actually targetable from there.
@@ -201,7 +238,7 @@ export class UtilityController {
     }
 
     // Disengage: worth it when melee is going badly.
-    const destinations = generateDestinations(state, op, op.move, { towardEnemies: false })
+    const destinations = generateDestinations(state, op, usableMoveAllowance(state, op, 'reposition'), { towardEnemies: false })
       .filter((d) => !enemies.some((e) => withinControlRange({ ...op, x: d.x, y: d.y }, e)));
 
     for (const dest of destinations.slice(0, 6)) {
@@ -239,7 +276,14 @@ export class UtilityController {
       // weapon is Heavy, which pins the operative for the rest of the turn.
       const mayMoveAfter = shotHere.heavyAllows === undefined || shotHere.heavyAllows === 'reposition';
       if (ap >= 2 && mayMoveAfter) {
-        const retreats = generateDestinations(state, op, op.move, { towardEnemies: false });
+        // The move comes after the shot, so it is sized against the budget the
+        // shot leaves behind — Aimed clamps it to 3" however far the operative
+        // could otherwise have walked.
+        const afterShot = Math.min(
+          usableMoveAllowance(state, op, 'fall_back'),
+          shotHere.moveLimit ?? Infinity
+        );
+        const retreats = generateDestinations(state, op, afterShot, { towardEnemies: false });
         const safest = this._bestBy(retreats, (d) =>
           this._cover(state, op, d.x, d.y, enemies) * 2 - this._exposure(state, op, d.x, d.y, enemies));
         if (safest && safest.length > 0.2) {
@@ -260,11 +304,12 @@ export class UtilityController {
 
     // --- Move, then shoot -----------------------------------------
     if (ap >= 2) {
-      const destinations = generateDestinations(state, op, op.move);
+      const destinations = generateDestinations(state, op, usableMoveAllowance(state, op, 'reposition'));
       const ranked = destinations
         .map((d) => ({
           d,
-          quick: objectiveValueAt(state, op, d.x, d.y) * 2 - this._exposure(state, op, d.x, d.y, enemies),
+          quick: this._groundValue(state, op, d.x, d.y, enemies) * 2 -
+            this._exposure(state, op, d.x, d.y, enemies),
         }))
         .sort((a, b) => b.quick - a.quick)
         .slice(0, SHOOT_EVAL_DESTINATIONS)
@@ -273,7 +318,8 @@ export class UtilityController {
       for (const dest of ranked) {
         // A Heavy weapon cannot follow a Reposition, so ask for the best shot
         // that would still be legal after the move.
-        const shot = bestShotFrom(state, op, dest, enemies, { moved: 'reposition' });
+        const shot = bestShotFrom(state, op, dest, enemies,
+          { moved: 'reposition', movedDistance: dest.length });
         if (!shot) continue;
         plans.push({
           actions: [
@@ -295,7 +341,7 @@ export class UtilityController {
 
     // --- Charge and fight -----------------------------------------
     if (melee && ap >= 2) {
-      const allowance = op.move + CHARGE_BONUS;
+      const allowance = usableMoveAllowance(state, op, 'charge');
       for (const enemy of enemies) {
         if (baseDistance(op, enemy) > allowance) continue;
         // Ask for a *legal* contact point rather than assuming one exists.
@@ -321,8 +367,9 @@ export class UtilityController {
     }
 
     // --- Take ground ----------------------------------------------
-    const moveDests = generateDestinations(state, op, op.move);
-    const objectiveDest = this._bestBy(moveDests, (d) => objectiveValueAt(state, op, d.x, d.y));
+    const moveDests = generateDestinations(state, op, usableMoveAllowance(state, op, 'reposition'));
+    const objectiveDest = this._bestBy(moveDests,
+      (d) => this._groundValue(state, op, d.x, d.y, enemies));
     if (objectiveDest) {
       const staysHidden = !bestShotFrom(state, op, objectiveDest, enemies);
       const order = staysHidden ? ORDERS.CONCEAL : ORDERS.ENGAGE;
@@ -340,13 +387,19 @@ export class UtilityController {
       });
 
       // Reposition + Dash: the longest legal move in the game.
-      if (ap >= 2) {
+      // A Dash is illegal once an enemy is within control range, so the pair
+      // is only worth planning when the Reposition keeps clear of one.
+      const afterIsFree = !enemies.some(
+        (e) => withinControlRange({ ...op, x: objectiveDest.x, y: objectiveDest.y }, e)
+      );
+      if (ap >= 2 && afterIsFree) {
         const after = { ...op, x: objectiveDest.x, y: objectiveDest.y };
         const dashDests = generateDestinations(
           { ...state, operatives: { ...state.operatives, [op.id]: after } },
           after, DASH_DISTANCE, { towardEnemies: false }
         );
-        const dashTo = this._bestBy(dashDests, (d) => objectiveValueAt(state, op, d.x, d.y));
+        const dashTo = this._bestBy(dashDests,
+          (d) => this._groundValue(state, op, d.x, d.y, enemies));
         if (dashTo && dashTo.length > 0.2) {
           plans.push({
             actions: [...actions, { type: 'dash', destination: { x: dashTo.x, y: dashTo.y } }],

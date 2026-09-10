@@ -9,6 +9,7 @@
  *   - Survivors deal Normal / Critical damage.
  */
 import { warnUnsupported } from '../state.js';
+import { isDeclaredTeamRule } from './team-rules.js';
 
 export const DEFENCE_DICE = 3;
 
@@ -80,13 +81,21 @@ function ruleSet(weapon) {
   return map;
 }
 
-export function validateWeaponRules(state, weapon) {
+/**
+ * Report every rule on a weapon the engine cannot resolve (#7).
+ *
+ * A rule counts as known if it is in the universal table above, or if the
+ * wielder's own pack declares it in `weaponRules` — the asterisked rules whose
+ * meaning is team-specific. `op` is optional so callers without one (the pack
+ * validator) still get the universal check.
+ */
+export function validateWeaponRules(state, weapon, op = null) {
   for (const r of weapon.rules || []) {
     const { name, value } = parseRule(r);
     const key = value !== null && WEAPON_RULES[`${name}${value}`] ? `${name}${value}` : name;
-    if (!(key in WEAPON_RULES)) {
-      warnUnsupported(state, `weapon-rule:${r}`, `${weapon.name} has unimplemented rule "${r}"`);
-    }
+    if (key in WEAPON_RULES) continue;
+    if (op && isDeclaredTeamRule(state, op, r)) continue;
+    warnUnsupported(state, `weapon-rule:${r}`, `${weapon.name} has unimplemented rule "${r}"`);
   }
 }
 
@@ -156,7 +165,8 @@ export function rollAttack(rng, weapon, { hitModifier = 0 } = {}) {
  * @param {number} attackCrits critical hits retained by the attack roll.
  */
 export function rollDefence(rng, defender, weapon,
-  { inCover = false, saveModifier = 0, attackCrits = 0, diceDelta = 0, rerolls = 0 } = {}) {
+  { inCover = false, saveModifier = 0, attackCrits = 0, diceDelta = 0, rerolls = 0,
+    aplDefence = null } = {}) {
   const rules = ruleSet(weapon);
   let dice = DEFENCE_DICE + diceDelta;
   if (rules.has('ap')) dice -= rules.get('ap') || 1;
@@ -170,29 +180,56 @@ export function rollDefence(rng, defender, weapon,
   const rolledCount = coverApplies ? Math.max(0, dice - 1) : dice;
   const rolls = rng.rollDice(rolledCount);
   const saveOn = Math.max(2, Math.min(6, defender.save + saveModifier));
+  const classify = defenceClassifier(saveOn, aplDefence);
 
   // A granted re-roll is only ever spent on a die that failed to save.
   const rerolled = [];
   for (let i = 0, spent = 0; i < rolls.length && spent < rerolls; i++) {
-    if (rolls[i] >= saveOn) continue;
+    if (classify(rolls[i]) !== 'fail') continue;
     const nd = rng.d6();
     rerolled.push({ from: rolls[i], to: nd });
     rolls[i] = nd;
     spent++;
   }
 
-  let crits = rolls.filter((d) => d === 6).length;
-  let normals = rolls.filter((d) => d >= saveOn && d < 6).length;
+  let crits = rolls.filter((d) => classify(d) === 'crit').length;
+  let normals = rolls.filter((d) => classify(d) === 'normal').length;
   if (coverApplies && dice > 0) normals++; // retained cover save
 
-  return { rolls, rerolled, normals, crits, saveOn, dice, coverSave: coverApplies && dice > 0 };
+  return {
+    rolls, rerolled, normals, crits, saveOn, dice,
+    coverSave: coverApplies && dice > 0,
+    aplDefence: aplDefence ? { apl: aplDefence.apl } : null,
+  };
+}
+
+/**
+ * How one defence die reads: 'crit', 'normal' or 'fail'.
+ *
+ * Normally that is the Save stat, 6s critical. Soulstrike (Mandrakes) inverts
+ * it: a die succeeds when it rolls at or *under* the target's APL, a 1 is
+ * always critical and a 6 always fails — so a sluggish, wounded operative is
+ * the hardest thing in the killzone to hit with a soul-blast.
+ */
+function defenceClassifier(saveOn, aplDefence) {
+  if (!aplDefence) {
+    return (d) => (d === 6 ? 'crit' : d >= saveOn ? 'normal' : 'fail');
+  }
+  const apl = Number(aplDefence.apl) || 0;
+  return (d) => {
+    if (d === 6) return 'fail';
+    if (d === 1) return 'crit';
+    return d <= apl ? 'normal' : 'fail';
+  };
 }
 
 /**
  * Cancel hits with saves and total the damage that gets through.
  */
-export function resolveSaves(attack, defence, weapon) {
+export function resolveSaves(attack, defence, weapon, { damageBonus = null } = {}) {
   const rules = ruleSet(weapon);
+  const normalDamage = weapon.damage.normal + (damageBonus?.normal || 0);
+  const criticalDamage = weapon.damage.critical + (damageBonus?.critical || 0);
   let normalHits = attack.normals;
   let critHits = attack.crits;
   let normalSaves = defence.normals;
@@ -216,8 +253,8 @@ export function resolveSaves(attack, defence, weapon) {
   const devastating = rules.has('devastating') ? (rules.get('devastating') || 0) : 0;
 
   const damage =
-    normalHits * weapon.damage.normal +
-    critHits * weapon.damage.critical +
+    normalHits * normalDamage +
+    critHits * criticalDamage +
     attack.crits * devastating; // devastating ignores saves
 
   return {

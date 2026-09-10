@@ -1,0 +1,1067 @@
+{
+  "id": "jungle-temple-001",
+  "name": "Temple of the Green Moon",
+  "version": 1,
+  "blurb": "A stepped ziggurat drowning in canopy. The sanctum is worth holding and has only four ways in — and the jungle between is Light terrain, so a Seek Light weapon can pick you out of it.",
+  "board": {
+    "width": 30,
+    "height": 22,
+    "units": "inches"
+  },
+  "terrain": [
+    {
+      "id": "temple-terrace",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 10,
+            "y": 6
+          },
+          {
+            "x": 20,
+            "y": 6
+          },
+          {
+            "x": 20,
+            "y": 16
+          },
+          {
+            "x": 10,
+            "y": 16
+          }
+        ]
+      },
+      "height": 1,
+      "traits": [
+        "cover",
+        "traversable",
+        "vantage"
+      ],
+      "render": {
+        "styleId": "temple-terrace"
+      }
+    },
+    {
+      "id": "temple-sanctum",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.9,
+            "y": 8.5
+          },
+          {
+            "x": 18.1,
+            "y": 8.5
+          },
+          {
+            "x": 18.1,
+            "y": 13.5
+          },
+          {
+            "x": 11.9,
+            "y": 13.5
+          }
+        ]
+      },
+      "height": 1.5,
+      "traits": [
+        "cover",
+        "traversable",
+        "vantage"
+      ],
+      "render": {
+        "styleId": "temple-terrace"
+      }
+    },
+    {
+      "id": "temple-wall-n1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11,
+            "y": 7.6
+          },
+          {
+            "x": 13,
+            "y": 7.6
+          },
+          {
+            "x": 13,
+            "y": 8.5
+          },
+          {
+            "x": 11,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-n2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 17,
+            "y": 7.6
+          },
+          {
+            "x": 19,
+            "y": 7.6
+          },
+          {
+            "x": 19,
+            "y": 8.5
+          },
+          {
+            "x": 17,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-s1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11,
+            "y": 13.5
+          },
+          {
+            "x": 13,
+            "y": 13.5
+          },
+          {
+            "x": 13,
+            "y": 14.4
+          },
+          {
+            "x": 11,
+            "y": 14.4
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-s2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 17,
+            "y": 13.5
+          },
+          {
+            "x": 19,
+            "y": 13.5
+          },
+          {
+            "x": 19,
+            "y": 14.4
+          },
+          {
+            "x": 17,
+            "y": 14.4
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-w1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11,
+            "y": 7.6
+          },
+          {
+            "x": 11.9,
+            "y": 7.6
+          },
+          {
+            "x": 11.9,
+            "y": 9
+          },
+          {
+            "x": 11,
+            "y": 9
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-w2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11,
+            "y": 13
+          },
+          {
+            "x": 11.9,
+            "y": 13
+          },
+          {
+            "x": 11.9,
+            "y": 14.4
+          },
+          {
+            "x": 11,
+            "y": 14.4
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-e1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 18.1,
+            "y": 7.6
+          },
+          {
+            "x": 19,
+            "y": 7.6
+          },
+          {
+            "x": 19,
+            "y": 9
+          },
+          {
+            "x": 18.1,
+            "y": 9
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "temple-wall-e2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 18.1,
+            "y": 13
+          },
+          {
+            "x": 19,
+            "y": 13
+          },
+          {
+            "x": 19,
+            "y": 14.4
+          },
+          {
+            "x": 18.1,
+            "y": 14.4
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "idol-nw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 10.2,
+            "y": 6.2
+          },
+          {
+            "x": 11,
+            "y": 6.2
+          },
+          {
+            "x": 11,
+            "y": 7
+          },
+          {
+            "x": 10.2,
+            "y": 7
+          }
+        ]
+      },
+      "height": 3.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "idol-ne",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19,
+            "y": 6.2
+          },
+          {
+            "x": 19.8,
+            "y": 6.2
+          },
+          {
+            "x": 19.8,
+            "y": 7
+          },
+          {
+            "x": 19,
+            "y": 7
+          }
+        ]
+      },
+      "height": 3.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "idol-sw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 10.2,
+            "y": 15
+          },
+          {
+            "x": 11,
+            "y": 15
+          },
+          {
+            "x": 11,
+            "y": 15.8
+          },
+          {
+            "x": 10.2,
+            "y": 15.8
+          }
+        ]
+      },
+      "height": 3.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "idol-se",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19,
+            "y": 15
+          },
+          {
+            "x": 19.8,
+            "y": 15
+          },
+          {
+            "x": 19.8,
+            "y": 15.8
+          },
+          {
+            "x": 19,
+            "y": 15.8
+          }
+        ]
+      },
+      "height": 3.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "temple-stone"
+      }
+    },
+    {
+      "id": "canopy-nw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 2.4,
+            "y": 2
+          },
+          {
+            "x": 6.2,
+            "y": 1.6
+          },
+          {
+            "x": 7.4,
+            "y": 4.2
+          },
+          {
+            "x": 5,
+            "y": 6.4
+          },
+          {
+            "x": 2,
+            "y": 5
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-sw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 2,
+            "y": 17
+          },
+          {
+            "x": 5,
+            "y": 15.6
+          },
+          {
+            "x": 7.4,
+            "y": 17.8
+          },
+          {
+            "x": 6.2,
+            "y": 20.4
+          },
+          {
+            "x": 2.4,
+            "y": 20
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-ne",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 23.8,
+            "y": 1.6
+          },
+          {
+            "x": 27.6,
+            "y": 2
+          },
+          {
+            "x": 28,
+            "y": 5
+          },
+          {
+            "x": 25,
+            "y": 6.4
+          },
+          {
+            "x": 22.6,
+            "y": 4.2
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-se",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 25,
+            "y": 15.6
+          },
+          {
+            "x": 28,
+            "y": 17
+          },
+          {
+            "x": 27.6,
+            "y": 20
+          },
+          {
+            "x": 23.8,
+            "y": 20.4
+          },
+          {
+            "x": 22.6,
+            "y": 17.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-n",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 12.5,
+            "y": 1.2
+          },
+          {
+            "x": 17.5,
+            "y": 1.2
+          },
+          {
+            "x": 18.4,
+            "y": 3.4
+          },
+          {
+            "x": 15,
+            "y": 4.6
+          },
+          {
+            "x": 11.6,
+            "y": 3.4
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-s",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 15,
+            "y": 17.4
+          },
+          {
+            "x": 18.4,
+            "y": 18.6
+          },
+          {
+            "x": 17.5,
+            "y": 20.8
+          },
+          {
+            "x": 12.5,
+            "y": 20.8
+          },
+          {
+            "x": 11.6,
+            "y": 18.6
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 7.2,
+            "y": 8.6
+          },
+          {
+            "x": 9,
+            "y": 8
+          },
+          {
+            "x": 9.2,
+            "y": 13.8
+          },
+          {
+            "x": 7.4,
+            "y": 14.2
+          },
+          {
+            "x": 6.6,
+            "y": 11.4
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "canopy-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 21,
+            "y": 8
+          },
+          {
+            "x": 22.8,
+            "y": 8.6
+          },
+          {
+            "x": 23.4,
+            "y": 11.4
+          },
+          {
+            "x": 22.6,
+            "y": 14.2
+          },
+          {
+            "x": 20.8,
+            "y": 13.8
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "jungle-canopy"
+      }
+    },
+    {
+      "id": "column-nw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 7.6,
+            "y": 5.4
+          },
+          {
+            "x": 10.2,
+            "y": 5.4
+          },
+          {
+            "x": 10.2,
+            "y": 6.2
+          },
+          {
+            "x": 7.6,
+            "y": 6.2
+          }
+        ]
+      },
+      "height": 0.9,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "fallen-column"
+      }
+    },
+    {
+      "id": "column-ne",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19.8,
+            "y": 5.4
+          },
+          {
+            "x": 22.4,
+            "y": 5.4
+          },
+          {
+            "x": 22.4,
+            "y": 6.2
+          },
+          {
+            "x": 19.8,
+            "y": 6.2
+          }
+        ]
+      },
+      "height": 0.9,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "fallen-column"
+      }
+    },
+    {
+      "id": "column-sw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 7.6,
+            "y": 15.8
+          },
+          {
+            "x": 10.2,
+            "y": 15.8
+          },
+          {
+            "x": 10.2,
+            "y": 16.6
+          },
+          {
+            "x": 7.6,
+            "y": 16.6
+          }
+        ]
+      },
+      "height": 0.9,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "fallen-column"
+      }
+    },
+    {
+      "id": "column-se",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19.8,
+            "y": 15.8
+          },
+          {
+            "x": 22.4,
+            "y": 15.8
+          },
+          {
+            "x": 22.4,
+            "y": 16.6
+          },
+          {
+            "x": 19.8,
+            "y": 16.6
+          }
+        ]
+      },
+      "height": 0.9,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "fallen-column"
+      }
+    },
+    {
+      "id": "column-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 4.6,
+            "y": 10.4
+          },
+          {
+            "x": 5.4,
+            "y": 10.4
+          },
+          {
+            "x": 5.4,
+            "y": 12.8
+          },
+          {
+            "x": 4.6,
+            "y": 12.8
+          }
+        ]
+      },
+      "height": 0.9,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "fallen-column"
+      }
+    },
+    {
+      "id": "column-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 24.6,
+            "y": 10.4
+          },
+          {
+            "x": 25.4,
+            "y": 10.4
+          },
+          {
+            "x": 25.4,
+            "y": 12.8
+          },
+          {
+            "x": 24.6,
+            "y": 12.8
+          }
+        ]
+      },
+      "height": 0.9,
+      "traits": [
+        "cover",
+        "light",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "fallen-column"
+      }
+    }
+  ],
+  "objectives": [
+    {
+      "id": "obj-1",
+      "x": 5,
+      "y": 6,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-2",
+      "x": 5,
+      "y": 16,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-3",
+      "x": 15,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-4",
+      "x": 25,
+      "y": 6,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-5",
+      "x": 25,
+      "y": 16,
+      "controlRange": 1
+    }
+  ],
+  "deploymentZones": [
+    {
+      "id": "dz-p1",
+      "playerId": "p1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 1.6,
+            "y": 1.6
+          },
+          {
+            "x": 6.5,
+            "y": 1.6
+          },
+          {
+            "x": 6.5,
+            "y": 20.4
+          },
+          {
+            "x": 1.6,
+            "y": 20.4
+          }
+        ]
+      }
+    },
+    {
+      "id": "dz-p2",
+      "playerId": "p2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 23.5,
+            "y": 1.6
+          },
+          {
+            "x": 28.4,
+            "y": 1.6
+          },
+          {
+            "x": 28.4,
+            "y": 20.4
+          },
+          {
+            "x": 23.5,
+            "y": 20.4
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "author": "project",
+    "license": "original",
+    "sourceUrl": "",
+    "notes": "Hand-authored. The canopy is the first bundled terrain traited \"light\", so Seek Light finally has something to ignore. Geometry is rules-authoritative; art is cosmetic."
+  }
+}

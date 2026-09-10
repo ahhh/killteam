@@ -587,5 +587,33 @@
       "description": "Whenever an enemy operative is activated within 3\" of a friendly PLAGUE MARINE operative: If that enemy operative doesn't have one of your Poison tokens, roll one D3: on a 3, it gains one.If that enemy operative has one of your Poison tokens, inflict D3 damage on it (instead of 1)."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "poison": {
+      "rule": "Poison",
+      "text": "In the Resolve Attack Dice step, if you inflict damage with any successes, the operative this weapon is being used against (excluding friendly PLAGUE MARINE operatives) gains one of your Poison tokens (if it doesn't already have one). Whenever an operative that has one of your Poison tokens is activated, inflict 1 damage on it.",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "anySuccess",
+        "excludeKeyword": "plague-marine",
+        "token": {
+          "kind": "poison",
+          "label": "Poison",
+          "onActivation": {
+            "damage": "1"
+          }
+        }
+      }
+    },
+    "toxic": {
+      "rule": "Toxic",
+      "text": "Whenever this operative is using this weapon against an enemy operative that had one of your Poison tokens at the start of that action, add 1 to both Dmg stats of this weapon.",
+      "effect": {
+        "type": "damageBonusVsToken",
+        "token": "poison",
+        "normal": 1,
+        "critical": 1
+      }
+    }
+  }
 }

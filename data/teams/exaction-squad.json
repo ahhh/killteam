@@ -1037,5 +1037,23 @@
       "description": "Up to twice per turning point, when a friendly EXACTION SQUAD operative is performing the Shoot action and you select a combat shotgun, executioner shotgun, scoped shotpistol or shotpistol, you can use this rule. If you do, select one of the following weapon rules for that weapon to have until the end of that action: Saturate.Piercing 1, but only if the target has a Save stat of 3+ or better.Torrent 1\", but you cannot select more than one secondary target."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    },
+    "repress": {
+      "rule": "Repress",
+      "text": "Whenever this operative is using this weapon: Each of your blocks can be allocated to block two unresolved successes (instead of one). If this operative is retaliating, you resolve the first attack dice (i.e. defender instead of attacker).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2,
+        "defenderResolvesFirst": true
+      }
+    }
+  }
 }

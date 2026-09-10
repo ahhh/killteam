@@ -809,5 +809,41 @@
         ]
       }
     }
-  ]
+  ],
+  "weaponRules": {
+    "stinger": {
+      "rule": "Stinger",
+      "text": "Whenever an enemy operative is incapacitated by this weapon, before it's removed from the killzone, inflict D3 damage on each other operative visible to and within 2\" of it. Each operative subsequently incapacitated as a result of this weapon rule will cause this to happen again.",
+      "effect": {
+        "type": "chainOnIncapacitate",
+        "damage": "D3",
+        "range": 2
+      }
+    },
+    "tangle": {
+      "rule": "Tangle",
+      "text": "Whenever this operative is fighting or retaliating with this weapon, each of your blocks can be allocated to block two unresolved successes (instead of one).",
+      "effect": {
+        "type": "meleeModifier",
+        "blockMultiplier": 2
+      }
+    },
+    "flay": {
+      "rule": "Flay",
+      "text": "Whenever this operative is using this weapon, the first time you strike with a critical success during that sequence, you can select one friendly HAND OF THE ARCHON operative within 6\" of it to gain one of your Pain tokens.",
+      "partial": true,
+      "notes": "the Pain token is granted and tracked, but invigorations cannot be spent — the Power From Pain economy is not implemented",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "criticalSuccess",
+        "target": "friendly",
+        "within": 6,
+        "token": {
+          "kind": "pain",
+          "label": "Pain",
+          "stacks": true
+        }
+      }
+    }
+  }
 }

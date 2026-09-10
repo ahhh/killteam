@@ -19,6 +19,11 @@
     </div>
 
     <div class="field">
+      <label for="missionSelect">Mission</label>
+      <select id="missionSelect" aria-label="Mission"></select>
+    </div>
+
+    <div class="field">
       <label for="seedInput">Seed</label>
       <input type="text" id="seedInput" class="mono" size="12" value="hive-7782" aria-label="Battle seed">
       <button id="newSeedBtn" title="Generate a new random seed">New</button>
@@ -88,6 +93,9 @@
       <div class="setup-col" id="setupP1"></div>
       <div class="setup-col" id="setupP2"></div>
     </div>
+
+    <h3>Mission</h3>
+    <div class="mission-choice" id="missionChoice" role="radiogroup" aria-label="Mission"></div>
 
     <h3>Load your own rule pack</h3>
     <p class="muted">

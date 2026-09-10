@@ -538,5 +538,14 @@
       "partial": true,
       "notes": "the Save improvement while WITHIN SHADOW is not simulated — the engine has no shadow/Heavy-terrain concept"
     }
-  ]
+  ],
+  "weaponRules": {
+    "soulstrike": {
+      "rule": "Soulstrike",
+      "text": "Successful defence dice are determined differently. Each result that's equal to or less than the target's APL stat is a success and is retained. Each result that's higher than the target's APL stat is a fail and is discarded. Each result of 1 is always a critical success. Each other success is a normal success. Each result of 6 is always a fail.",
+      "effect": {
+        "type": "aplDefence"
+      }
+    }
+  }
 }

@@ -797,5 +797,40 @@
       "description": "You can ignore any changes to the Move stat of friendly FELLGOR RAVAGER operatives from being injured."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "headtaker": {
+      "rule": "Headtaker",
+      "text": "Whenever this operative incapacitates an operative with this weapon, roll one D3: This operative regains a number of lost wounds equal to the result (unless it has a Frenzy token). Until the end of the battle, add the result to the Critical Dmg stat of this operative's skullcleaver (to a maximum of 8).",
+      "partial": true,
+      "notes": "the Frenzy token that would suppress the healing half is not implemented, so the wounds are always regained",
+      "effect": {
+        "type": "onIncapacitate",
+        "dice": "D3",
+        "heal": true,
+        "weaponCriticalBonus": {
+          "max": 8
+        }
+      }
+    },
+    "tactualhunter": {
+      "rule": "Tactual Hunter",
+      "text": "Whenever this operative is fighting with this weapon against an expended operative, the first time you strike with a critical success during that sequence, you can immediately resolve another of your successes as a strike (before your opponent).",
+      "effect": {
+        "type": "meleeModifier",
+        "doubleStrikeVsExpended": true
+      }
+    },
+    "viciousblows": {
+      "rule": "Vicious Blows",
+      "text": "Whenever this operative is fighting, this weapon has the Ceaseless weapon rule.",
+      "effect": {
+        "type": "grantRuleIf",
+        "action": "fight",
+        "rules": [
+          "ceaseless"
+        ]
+      }
+    }
+  }
 }

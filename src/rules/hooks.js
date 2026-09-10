@@ -150,7 +150,10 @@ function unknownEffect(state, hook) {
 
 /** Roll "D3+1", "D6", "2" and so on. Returns 0 for anything unparseable. */
 export function rollExpression(rng, expr) {
-  const m = /^(?:(\d*)[Dd](\d+))?\s*(?:([+-])\s*(\d+))?$/.exec(String(expr).trim());
+  const text = String(expr).trim();
+  // A flat amount with no dice at all — Plague Marine Poison is "1 damage".
+  if (/^\d+$/.test(text)) return Number(text);
+  const m = /^(?:(\d*)[Dd](\d+))?\s*(?:([+-])\s*(\d+))?$/.exec(text);
   if (!m || (!m[2] && !m[4])) return 0;
   let total = 0;
   if (m[2]) {

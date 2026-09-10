@@ -9,6 +9,7 @@ import {
 } from './schema.js';
 import { WEAPON_RULES, parseRule } from '../rules/dice.js';
 import { describeHook } from '../rules/hooks.js';
+import { describeTeamRule, TEAM_RULE_EFFECTS } from '../rules/team-rules.js';
 import { TERRAIN_TRAITS } from '../rules/terrain.js';
 
 class Report {
@@ -109,7 +110,10 @@ export function validateTeamPack(pack) {
       for (const rule of w.rules || []) {
         const { name, value } = parseRule(rule);
         const key = value !== null && WEAPON_RULES[`${name}${value}`] ? `${name}${value}` : name;
-        if (!(key in WEAPON_RULES)) {
+        // A rule is known if the universal appendix covers it, or if this pack
+        // declares its own reading of it in `weaponRules`.
+        const declared = TEAM_RULE_EFFECTS[pack.weaponRules?.[name]?.effect?.type];
+        if (!(key in WEAPON_RULES) && !declared) {
           report.warn(`${wl} has unimplemented rule "${rule}" — it will be ignored and logged during play`);
         }
       }
@@ -160,6 +164,36 @@ export function validateTeamPack(pack) {
     const key = `${hook.trigger}:${hook.id ?? JSON.stringify(hook.condition)}`;
     if (seenHooks.has(key)) report.error(`duplicate rule hook "${key}"`);
     seenHooks.add(key);
+  }
+
+  // --- Team-specific weapon rules -----------------------------------
+  const weaponRules = pack.weaponRules || {};
+  if (typeof weaponRules !== 'object' || Array.isArray(weaponRules)) {
+    report.error('weaponRules must be an object keyed by rule token');
+  } else {
+    for (const [name, def] of Object.entries(weaponRules)) {
+      if (!/^[a-z]+$/.test(name)) {
+        report.warn(`weaponRules key "${name}" should be the bare lowercase rule token`);
+      }
+      if (typeof def?.effect === 'string' && /function|=>/.test(def.effect)) {
+        report.error('weapon rules must be declarative data — executable code is never run from a pack');
+      }
+      if (!def?.text) {
+        report.warn(`weaponRules.${name} carries no printed wording in "text"`);
+      }
+      for (const problem of describeTeamRule(name, def)) report.warn(problem);
+    }
+    // A declared rule nothing uses is dead weight; a used rule nothing
+    // declares is the one that actually costs fidelity, so both are called out.
+    const used = new Set();
+    for (const op of operatives) {
+      for (const w of op.weapons || []) {
+        for (const token of w.rules || []) used.add(String(token).replace(/\d+$/, '').split(':')[0]);
+      }
+    }
+    for (const name of Object.keys(weaponRules)) {
+      if (!used.has(name)) report.warn(`weaponRules.${name} is declared but no weapon uses it`);
+    }
   }
 
   // A pack claiming faction-rule support must actually wire some up.
@@ -251,17 +285,30 @@ export function validateMap(map) {
   return report;
 }
 
+/** Ways a mission can be won. Anything else is rejected rather than guessed. */
+export const VICTORY_CONDITIONS = ['victoryPoints', 'lastTeamStanding'];
+
 export function validateMission(mission) {
   const report = new Report(`mission:${mission?.id ?? 'unknown'}`);
   if (!mission || typeof mission !== 'object') return report.error('mission is not an object');
   if (!mission.id) report.error('missing id');
   const scoring = mission.scoring;
-  if (!scoring || !Object.keys(scoring).length) {
+  const victory = mission.victory?.type ?? 'victoryPoints';
+  if (!VICTORY_CONDITIONS.includes(victory)) {
+    report.error(`unknown victory condition "${victory}"`);
+  }
+  // A last-team-standing mission wins by elimination, so it is allowed to
+  // score nothing at all; every other mission needs a way to earn VP.
+  if (victory === 'victoryPoints' && (!scoring || !Object.keys(scoring).length)) {
     report.error('mission defines no scoring rules — no one could ever win');
   }
   if (mission.turningPoints !== undefined &&
       (!Number.isInteger(mission.turningPoints) || mission.turningPoints < 1 || mission.turningPoints > 10)) {
     report.error('turningPoints must be an integer between 1 and 10');
+  }
+  const cap = mission.victory?.turningPointCap;
+  if (cap !== undefined && (!Number.isInteger(cap) || cap < 1 || cap > 40)) {
+    report.error('victory.turningPointCap must be an integer between 1 and 40');
   }
   return report;
 }

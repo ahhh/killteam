@@ -66,6 +66,8 @@ src/
     fighting.js       melee resolution (strike / parry)
     dice.js           attack + defence dice, dice-level weapon rules
     weapon-rules.js   Heavy, Limited, Silent, Seek, Hot, Blast, Torrent, Stun
+    team-rules.js     the asterisked, team-specific weapon rules
+    tokens.js         Poison, Blaze, Mindburn and the rest of the token family
     objectives.js     objective control and mission scoring
     effects.js        damage, incapacitation, injured and stunned states
     terrain.js        terrain traits
@@ -124,6 +126,8 @@ Milestones 0–6 of `plan.md` are implemented and tested:
 - ✅ Core combat: orders, shooting, fighting, wounds, LOS, cover, charge, fall back
 - ✅ Turn engine: deployment, initiative, alternating activations, CP, Counteract
 - ✅ Objectives, mission scoring, utility AI with explainable reasons
+- ✅ Two mission modes: objective play, and a last-team-standing deathmatch
+- ✅ Three maps: an industrial yard, a space-hulk corridor lattice, a jungle temple
 - ✅ Rule-pack loader, validators, compatibility badges, runtime import
 - ✅ Replay capture and verification, batch balance harness
 
@@ -133,8 +137,19 @@ Mapforge adapter (Milestone 7), and ploys/equipment/operative abilities.
 Faction rules now run through a declarative `ruleHooks` layer — 13 rules across
 11 teams, which declare `supportLevel: 3`. The other 37 transcribed teams carry
 their faction rules, ploys, equipment and unique actions as reference data only
-and stay at `supportLevel: 1`. Rules that are only half-implemented are marked
-`partial` in the pack and say so in the battle log. See
+and stay at `supportLevel: 1`.
+
+Weapon rules resolve in two layers. Every **universal** rule from the appendix
+is the engine's own, because those mean the same thing on every datasheet. The
+**asterisked, team-specific** ones cannot be — *Poison* costs 1 damage per
+activation for Plague Marines and D3 for Raveners — so each pack declares its
+own reading in a `weaponRules` block, from a fixed effect vocabulary. Every
+rule token in every bundled pack is now either universal or declared: 46
+distinct team rules across 34 teams.
+
+Rules that are only half-implemented are marked `partial` in the pack and say
+so in the battle log; three weapons whose enabling markers or actions do not
+exist refuse to fire at all, with a stated reason, rather than guessing. See
 `docs/implemented-rules.md` for the exact inventory.
 
 ### Known balance caveat

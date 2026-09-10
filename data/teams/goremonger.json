@@ -548,5 +548,28 @@
         "perAction": "shoot"
       }
     }
-  ]
+  ],
+  "weaponRules": {
+    "ritual": {
+      "rule": "Ritual",
+      "text": "Whenever this operative is using this weapon, the first time you inflict damage on an operative within its control range during that sequence, you can increase this operative's GORE TANK.",
+      "partial": true,
+      "notes": "the GORE TANK is counted on the operative but nothing reads it — the abilities it fuels are not implemented",
+      "effect": {
+        "type": "gainResource",
+        "resource": "gore-tank",
+        "scope": "operative"
+      }
+    },
+    "drag": {
+      "rule": "Drag",
+      "text": "Whenever this operative is shooting with this weapon, at the start of the Resolve Attack Dice step (before inflicting damage), you can move the target up to x\". X is your total number of successful unblocked attack dice, multiplied by 2. The target must be moved to a location it can be placed as close as possible to this operative. Then you can discard any of your successful unblocked attack dice.",
+      "partial": true,
+      "notes": "the engine always drags the full distance and never discards attack dice to spare the target",
+      "effect": {
+        "type": "dragTarget",
+        "perSuccess": 2
+      }
+    }
+  }
 }

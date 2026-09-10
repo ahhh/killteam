@@ -575,5 +575,27 @@
       "description": "Once per battle, when you activate a friendly VOID-DANCER TROUPE operative, if the friendly operative that has the PIVOTAL ROLE has been incapacitated, you can use this rule. If you do, that activated operative has the PIVOTAL ROLE for the battle."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "humblingcruelty": {
+      "rule": "Humbling Cruelty",
+      "text": "If the target of this weapon isn't incapacitated but any of your attack dice inflict damage, the target gains one of your Humbling Cruelty tokens (if it doesn't already have one). Whenever an enemy operative has one of your Humbling Cruelty tokens, subtract 2\" from its Move stat and worsen the Hit stat of its weapons by 1. This isn't cumulative with being injured. At the end of that enemy operative's next activation, remove its Humbling Cruelty token.",
+      "effect": {
+        "type": "inflictToken",
+        "trigger": "anyDiceResolved",
+        "token": {
+          "kind": "humbling-cruelty",
+          "label": "Humbling Cruelty",
+          "whileHeld": {
+            "moveDelta": -2,
+            "hitPenalty": 1,
+            "notCumulativeWithInjured": true
+          },
+          "expiry": {
+            "endOfNextActivation": true
+          }
+        }
+      }
+    }
+  }
 }

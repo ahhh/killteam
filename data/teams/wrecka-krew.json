@@ -538,5 +538,34 @@
       "description": "When this item of equipment is selected, also select the Waaagh! or Destruction strategy ploy. The first time you would use that ploy during the battle, it costs you 0CP; whenever you would use it thereafter, it costs you 0CP if you have any Wrecka points."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [],
+  "weaponRules": {
+    "salvo": {
+      "rule": "Salvo",
+      "text": "Select up to two different valid targets that aren't within control range of friendly operatives. Shoot with this weapon against both primary targets in an order of your choice, then against all remaining secondary targets in the same manner (roll each sequence separately). Each target (primary and secondary) cannot be shot more than once during the action.",
+      "effect": {
+        "type": "extraPrimaryTargets",
+        "count": 2
+      }
+    },
+    "explosive": {
+      "rule": "Explosive",
+      "text": "This operative can perform the Shoot action with this weapon while within control range of an enemy operative. Don't select a valid target. Instead, this operative is always the primary target and cannot be in cover or obscured.",
+      "effect": {
+        "type": "selfPrimaryTarget",
+        "shootSelf": true,
+        "allowWhileEngaged": true
+      }
+    },
+    "smash": {
+      "rule": "Smash",
+      "text": "Whenever you strike, you can move the enemy operative in a straight line increment of up to 1\". If you do, it must end the move further away from this operative and in a location it can be placed. Then move this operative in a straight line increment of up to 1\", but it must end that move within that enemy operative's control range (if either isn't possible, you cannot move them).",
+      "effect": {
+        "type": "meleeModifier",
+        "push": {
+          "distance": 1
+        }
+      }
+    }
+  }
 }

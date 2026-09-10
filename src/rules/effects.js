@@ -4,6 +4,7 @@
  */
 import { EVENTS, logEvent } from '../state.js';
 import { applyDamageHooks } from './hooks.js';
+import { clearTokens, tokenHitPenalty, tokenHitPenaltyIsCapped, tokenMoveDelta } from './tokens.js';
 
 export function applyDamage(state, operativeId, amount, source = {}) {
   const op = state.operatives[operativeId];
@@ -29,6 +30,7 @@ export function applyDamage(state, operativeId, amount, source = {}) {
     op.woundsRemaining = 0;
     op.alive = false;
     op.ready = false;
+    clearTokens(op); // an incapacitated operative takes its tokens with it
     logEvent(state, EVENTS.OPERATIVE_INCAPACITATED, {
       operativeId,
       operativeName: op.name,
@@ -46,7 +48,10 @@ export function isInjured(op) {
 }
 
 export function effectiveApl(op) {
-  return Math.max(1, op.apl - (isInjured(op) ? 1 : 0) - (isStunned(op) ? 1 : 0));
+  return Math.max(1, op.apl
+    - (isInjured(op) ? 1 : 0)
+    - (isStunned(op) ? 1 : 0)
+    - (op.aplPenaltyThisActivation || 0));
 }
 
 /**
@@ -74,9 +79,28 @@ export function applyStun(state, op, source = {}) {
   return true;
 }
 
-/** Injured operatives suffer a -1 modifier to their hit rolls (worse). */
+/**
+ * How much worse this operative's hit rolls are, in pips of Hit stat.
+ *
+ * Being Injured costs 1. Mindburn and Humbling Cruelty each cost 1 too, but
+ * both print "this isn't cumulative with being injured" — so a burned, injured
+ * operative is still only 1 worse, and the two combine with `max`, not `+`.
+ */
 export function hitModifierFor(op) {
-  return isInjured(op) ? 1 : 0;
+  const injured = isInjured(op) ? 1 : 0;
+  const fromTokens = tokenHitPenalty(op);
+  if (!fromTokens) return injured;
+  return tokenHitPenaltyIsCapped(op)
+    ? Math.max(injured, fromTokens)
+    : injured + fromTokens;
+}
+
+/**
+ * The operative's Move stat as the board should read it. Humbling Cruelty
+ * takes 2" off it for as long as its token is held.
+ */
+export function effectiveMove(op) {
+  return Math.max(0, op.move + tokenMoveDelta(op));
 }
 
 export function addStatus(op, status) {

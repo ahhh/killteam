@@ -8,7 +8,9 @@
  */
 import { DataRepository } from './data/loader.js';
 import { createBattleState, PHASES } from './state.js';
-import { step as advanceBattle, MAX_TURNING_POINTS } from './rules/phases.js';
+import {
+  step as advanceBattle, turningPointLimit, isLastTeamStanding,
+} from './rules/phases.js';
 import { createControllers, AI_VERSION } from './ai/controller.js';
 import { ENGINE_VERSION } from './rules/engine.js';
 import { buildReplay, toBattleLogText, toJson, digestEvents } from './replay/recorder.js';
@@ -21,6 +23,9 @@ import { PlaybackClock } from './ui/controls.js';
 const PREFS_KEY = 'ktsim.prefs.v1';
 const DEFAULT_MAP = 'industrial-001';
 const DEFAULT_MISSION = 'secure-and-hold';
+/** Every map and mission the app offers. Adding one is a data change (#5). */
+const MAPS = ['industrial-001', 'spacehulk-001', 'jungle-temple-001'];
+const MISSIONS = ['secure-and-hold', 'annihilation'];
 
 const $ = (id) => document.getElementById(id);
 
@@ -46,8 +51,8 @@ class App {
       await this.repo.loadCatalogue();
       await this.repo.loadReference();
       for (const id of this.repo.catalogueTeamIds()) await this.repo.loadTeam(id);
-      await this.repo.loadMap(DEFAULT_MAP);
-      await this.repo.loadMission(DEFAULT_MISSION);
+      for (const id of MAPS) await this.repo.loadMap(id);
+      for (const id of MISSIONS) await this.repo.loadMission(id);
     } catch (err) {
       this._fatal(err);
       return;
@@ -68,10 +73,14 @@ class App {
       repo: this.repo,
       roots: { p1: $('setupP1'), p2: $('setupP2') },
       referenceRoot: $('referenceList'),
+      missionRoot: $('missionChoice'),
+      missionIds: MISSIONS,
       importEls: {
         box: $('importBox'), button: $('importBtn'),
         file: $('importFile'), result: $('importResult'),
       },
+      // The setup screen and the toolbar are two views of one choice.
+      onMissionChange: (id) => { $('missionSelect').value = id; },
     });
 
     const teams = this.prefs.teams ?? {};
@@ -80,9 +89,13 @@ class App {
       this.repo.teams.has(teams.p1) ? teams.p1 : ids[0],
       this.repo.teams.has(teams.p2) ? teams.p2 : ids[Math.min(3, ids.length - 1)]
     );
+    this.setup.setMission(
+      this.repo.missions.has(this.prefs.mission) ? this.prefs.mission : DEFAULT_MISSION
+    );
     await this.setup.render();
 
     this._populateMaps();
+    this._populateMissions();
     this._wireControls();
 
     if (this.prefs.seed) $('seedInput').value = this.prefs.seed;
@@ -122,11 +135,12 @@ class App {
     $('seedInput').value = useSeed;
 
     const mapId = $('mapSelect').value || DEFAULT_MAP;
+    const missionId = $('missionSelect').value || DEFAULT_MISSION;
 
     this.state = createBattleState({
       seed: useSeed,
       map: this.repo.maps.get(mapId),
-      mission: this.repo.missions.get(DEFAULT_MISSION),
+      mission: this.repo.missions.get(missionId),
       teams: {
         p1: this.repo.teams.get(selection.p1),
         p2: this.repo.teams.get(selection.p2),
@@ -141,7 +155,7 @@ class App {
     this.renderer.highlight = null;
     this.log.clear();
 
-    this._savePrefs({ seed: useSeed, teams: selection });
+    this._savePrefs({ seed: useSeed, teams: selection, mission: missionId, map: mapId });
     this.render();
     this._syncControls();
   }
@@ -200,10 +214,15 @@ class App {
     });
 
     const s = this.state;
+    // A deathmatch has no meaningful clock — its turning point cap only exists
+    // so two teams that cannot reach each other still stop — so it is shown as
+    // an open-ended count rather than "3 of 12".
+    const clock = isLastTeamStanding(s)
+      ? `Turning Point ${Math.max(1, s.turningPoint)} · last team standing`
+      : `Turning Point ${Math.max(1, s.turningPoint)} of ${turningPointLimit(s)}`;
     const phase = s.phase === PHASES.COMPLETE
       ? 'Battle complete'
-      : `Turning Point ${Math.max(1, s.turningPoint)} of ${MAX_TURNING_POINTS} · ` +
-        `${s.phase} · initiative ${s.initiativePlayerId ?? '—'}`;
+      : `${clock} · ${s.phase} · initiative ${s.initiativePlayerId ?? '—'}`;
     $('phaseLabel').textContent = phase;
   }
 
@@ -232,9 +251,18 @@ class App {
       : 'Draw';
     const score = document.createElement('div');
     score.className = 'score';
-    score.textContent = `${state.result.victoryPoints.p1} – ${state.result.victoryPoints.p2}`;
+    // A deathmatch is decided by who is left standing, not by VP, so the big
+    // number is the survivor count — showing VP there would be misleading.
+    const deathmatch = isLastTeamStanding(state);
+    score.textContent = deathmatch
+      ? `${state.result.survivors.p1} – ${state.result.survivors.p2}`
+      : `${state.result.victoryPoints.p1} – ${state.result.victoryPoints.p2}`;
     head.append(title, winner, score);
     body.append(head);
+
+    const summary = document.createElement('p');
+    summary.textContent = state.result.summary;
+    body.append(summary);
 
     const table = document.createElement('div');
     table.className = 'vp-table';
@@ -253,13 +281,16 @@ class App {
       addRow(reason, state.result.vpBreakdown.p1[reason] ?? 0, state.result.vpBreakdown.p2[reason] ?? 0);
     }
     addRow('Survivors', state.result.survivors.p1, state.result.survivors.p2);
+    if (deathmatch && state.result.woundsLeft) {
+      addRow('Wounds left', state.result.woundsLeft.p1, state.result.woundsLeft.p2);
+    }
     body.append(table);
 
     const meta = document.createElement('p');
     meta.className = 'muted mono';
     meta.textContent =
       `seed ${state.seed} · engine ${state.engineVersion} · AI ${state.aiVersion} · ` +
-      `map ${state.map.id} · digest ${digestEvents(state.eventLog)}`;
+      `map ${state.map.id} · mission ${state.mission.id} · digest ${digestEvents(state.eventLog)}`;
     body.append(meta);
 
     if (state.warnings.length) {
@@ -320,10 +351,36 @@ class App {
       const option = document.createElement('option');
       option.value = id;
       option.textContent = map.name ?? id;
+      if (map.blurb) option.title = map.blurb;
       select.append(option);
     }
-    select.value = DEFAULT_MAP;
+    const saved = this.prefs.map;
+    select.value = this.repo.maps.has(saved) ? saved : DEFAULT_MAP;
     select.addEventListener('change', () => this.newBattle());
+  }
+
+  /**
+   * The mission picker. "Secure and Hold" is the four-turning-point objective
+   * game; "Annihilation" runs until one kill team is wiped out.
+   */
+  _populateMissions() {
+    const select = $('missionSelect');
+    select.replaceChildren();
+    for (const id of MISSIONS) {
+      const mission = this.repo.missions.get(id);
+      if (!mission) continue;
+      const option = document.createElement('option');
+      option.value = id;
+      option.textContent = mission.name ?? id;
+      if (mission.blurb) option.title = mission.blurb;
+      select.append(option);
+    }
+    const saved = this.prefs.mission;
+    select.value = this.repo.missions.has(saved) ? saved : DEFAULT_MISSION;
+    select.addEventListener('change', () => {
+      this.setup.setMission(select.value);
+      this.newBattle();
+    });
   }
 
   _wireControls() {

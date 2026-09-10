@@ -10,6 +10,7 @@ import {
   heavyShootBlocker, heavyAllowedMove, limitedExhausted, isSilent, seekMode,
   blastRadius, torrentRadius,
 } from '../rules/weapon-rules.js';
+import { teamRuleBlocker, weaponMoveLimit } from '../rules/team-rules.js';
 import { liveOperatives } from '../state.js';
 
 /** Blast catches friends as readily as enemies; weight that heavily. */
@@ -22,8 +23,14 @@ const FRIENDLY_FIRE_WEIGHT = 3;
  *   so Heavy weapons drop out of the running for that plan.
  * @returns {{weaponId,targetId,expected,score,inCover,range,silent,heavyAllows}|null}
  */
-export function bestShotFrom(state, op, position, enemies, { samples = QUICK_SAMPLES, moved = null } = {}) {
-  const ghost = { ...op, x: position.x, y: position.y, order: 'engage' };
+export function bestShotFrom(state, op, position, enemies,
+  { samples = QUICK_SAMPLES, moved = null, movedDistance = 0 } = {}) {
+  // The ghost stands where the plan would end, having walked that far — Aimed
+  // reads the distance, not just which action was used.
+  const ghost = {
+    ...op, x: position.x, y: position.y, order: 'engage',
+    distanceMovedThisActivation: (op.distanceMovedThisActivation || 0) + (movedDistance || 0),
+  };
 
   // Cannot shoot while an enemy is within control range.
   if (enemies.some((e) => withinControlRange(ghost, e))) return null;
@@ -38,6 +45,10 @@ export function bestShotFrom(state, op, position, enemies, { samples = QUICK_SAM
     // Rules the engine will enforce at resolve time; don't plan around them.
     if (limitedExhausted(op, weapon)) continue;
     if (heavyShootBlocker(weapon, wouldHaveUsed)) continue;
+    // Team rules that gate the weapon entirely: a spent Concealed Position
+    // shot, a weapon whose enabling action the engine does not have, or an
+    // Aimed profile after the operative has already walked too far.
+    if (teamRuleBlocker(state, ghost, weapon, { counteraction: op.inCounteraction === true })) continue;
 
     for (const enemy of enemies) {
       const range = baseDistance(ghost, enemy);
@@ -63,6 +74,8 @@ export function bestShotFrom(state, op, position, enemies, { samples = QUICK_SAM
           inCover, range,
           silent: isSilent(weapon),
           heavyAllows: heavyAllowedMove(weapon),
+          // Aimed and its cousins cap any move made after this shot.
+          moveLimit: weaponMoveLimit(state, op, weapon),
           splash,
         };
       }

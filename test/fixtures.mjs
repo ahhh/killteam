@@ -35,6 +35,9 @@ function pack(id, profile) {
     }],
     strategicPloys: [], firefightPloys: [], equipment: [],
     ruleHooks: profile.ruleHooks ?? [],
+    // Team-specific weapon rules, declared exactly as a real pack declares
+    // them — see docs/rule-pack-format.md.
+    weaponRules: profile.weaponRules ?? {},
   };
 }
 
@@ -54,7 +57,7 @@ export function makeState(spec) {
     ],
     metadata: {},
   };
-  const mission = {
+  const mission = spec.mission ?? {
     id: 'fixture-mission', name: 'Fixture', turningPoints: 4,
     scoring: { objectives: { vpPer: 1, maxPerTurningPoint: 3 }, kills: { vpPer: 1, maxPerTurningPoint: 2 } },
   };

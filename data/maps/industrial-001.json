@@ -1,0 +1,625 @@
+{
+  "id": "industrial-001",
+  "name": "Industrial Crossfire",
+  "version": 1,
+  "seed": null,
+  "board": {
+    "width": 30,
+    "height": 22,
+    "units": "inches"
+  },
+  "terrain": [
+    {
+      "id": "ruin-c-n",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13.0,
+            "y": 4.0
+          },
+          {
+            "x": 17.0,
+            "y": 4.0
+          },
+          {
+            "x": 17.0,
+            "y": 5.2
+          },
+          {
+            "x": 13.0,
+            "y": 5.2
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-c-s",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13.0,
+            "y": 16.8
+          },
+          {
+            "x": 17.0,
+            "y": 16.8
+          },
+          {
+            "x": 17.0,
+            "y": 18.0
+          },
+          {
+            "x": 13.0,
+            "y": 18.0
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "wall-c-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13.4,
+            "y": 8.0
+          },
+          {
+            "x": 14.6,
+            "y": 8.0
+          },
+          {
+            "x": 14.6,
+            "y": 11.0
+          },
+          {
+            "x": 13.4,
+            "y": 11.0
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "wall-c-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 15.4,
+            "y": 11.0
+          },
+          {
+            "x": 16.6,
+            "y": 11.0
+          },
+          {
+            "x": 16.6,
+            "y": 14.0
+          },
+          {
+            "x": 15.4,
+            "y": 14.0
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-l",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 7.0,
+            "y": 8.5
+          },
+          {
+            "x": 8.2,
+            "y": 8.5
+          },
+          {
+            "x": 8.2,
+            "y": 13.5
+          },
+          {
+            "x": 7.0,
+            "y": 13.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-r",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 21.8,
+            "y": 8.5
+          },
+          {
+            "x": 23.0,
+            "y": 8.5
+          },
+          {
+            "x": 23.0,
+            "y": 13.5
+          },
+          {
+            "x": 21.8,
+            "y": 13.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-tl",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.0,
+            "y": 6.5
+          },
+          {
+            "x": 14.0,
+            "y": 6.5
+          },
+          {
+            "x": 14.0,
+            "y": 7.7
+          },
+          {
+            "x": 11.0,
+            "y": 7.7
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-bl",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.0,
+            "y": 14.3
+          },
+          {
+            "x": 14.0,
+            "y": 14.3
+          },
+          {
+            "x": 14.0,
+            "y": 15.5
+          },
+          {
+            "x": 11.0,
+            "y": 15.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-tr",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 16.0,
+            "y": 6.5
+          },
+          {
+            "x": 19.0,
+            "y": 6.5
+          },
+          {
+            "x": 19.0,
+            "y": 7.7
+          },
+          {
+            "x": 16.0,
+            "y": 7.7
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "ruin-br",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 16.0,
+            "y": 14.3
+          },
+          {
+            "x": 19.0,
+            "y": 14.3
+          },
+          {
+            "x": 19.0,
+            "y": 15.5
+          },
+          {
+            "x": 16.0,
+            "y": 15.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "industrial-wall"
+      }
+    },
+    {
+      "id": "crate-tl",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 9.5,
+            "y": 3.0
+          },
+          {
+            "x": 11.5,
+            "y": 3.0
+          },
+          {
+            "x": 11.5,
+            "y": 4.5
+          },
+          {
+            "x": 9.5,
+            "y": 4.5
+          }
+        ]
+      },
+      "height": 1.5,
+      "traits": [
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "cargo-crate"
+      }
+    },
+    {
+      "id": "crate-bl",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 9.5,
+            "y": 17.5
+          },
+          {
+            "x": 11.5,
+            "y": 17.5
+          },
+          {
+            "x": 11.5,
+            "y": 19.0
+          },
+          {
+            "x": 9.5,
+            "y": 19.0
+          }
+        ]
+      },
+      "height": 1.5,
+      "traits": [
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "cargo-crate"
+      }
+    },
+    {
+      "id": "crate-tr",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 18.5,
+            "y": 3.0
+          },
+          {
+            "x": 20.5,
+            "y": 3.0
+          },
+          {
+            "x": 20.5,
+            "y": 4.5
+          },
+          {
+            "x": 18.5,
+            "y": 4.5
+          }
+        ]
+      },
+      "height": 1.5,
+      "traits": [
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "cargo-crate"
+      }
+    },
+    {
+      "id": "crate-br",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 18.5,
+            "y": 17.5
+          },
+          {
+            "x": 20.5,
+            "y": 17.5
+          },
+          {
+            "x": 20.5,
+            "y": 19.0
+          },
+          {
+            "x": 18.5,
+            "y": 19.0
+          }
+        ]
+      },
+      "height": 1.5,
+      "traits": [
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "cargo-crate"
+      }
+    },
+    {
+      "id": "barricade-l",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 4.5,
+            "y": 10.4
+          },
+          {
+            "x": 7.5,
+            "y": 10.4
+          },
+          {
+            "x": 7.5,
+            "y": 11.0
+          },
+          {
+            "x": 4.5,
+            "y": 11.0
+          }
+        ]
+      },
+      "height": 1.0,
+      "traits": [
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "barricade"
+      }
+    },
+    {
+      "id": "barricade-r",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 22.5,
+            "y": 10.4
+          },
+          {
+            "x": 25.5,
+            "y": 10.4
+          },
+          {
+            "x": 25.5,
+            "y": 11.0
+          },
+          {
+            "x": 22.5,
+            "y": 11.0
+          }
+        ]
+      },
+      "height": 1.0,
+      "traits": [
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "barricade"
+      }
+    }
+  ],
+  "objectives": [
+    {
+      "id": "obj-1",
+      "x": 8.0,
+      "y": 6.0,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-2",
+      "x": 8.0,
+      "y": 16.0,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-3",
+      "x": 15.0,
+      "y": 11.0,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-4",
+      "x": 22.0,
+      "y": 6.0,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-5",
+      "x": 22.0,
+      "y": 16.0,
+      "controlRange": 1
+    }
+  ],
+  "deploymentZones": [
+    {
+      "id": "dz-p1",
+      "playerId": "p1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0.5,
+            "y": 1.0
+          },
+          {
+            "x": 5.5,
+            "y": 1.0
+          },
+          {
+            "x": 5.5,
+            "y": 21.0
+          },
+          {
+            "x": 0.5,
+            "y": 21.0
+          }
+        ]
+      }
+    },
+    {
+      "id": "dz-p2",
+      "playerId": "p2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 24.5,
+            "y": 1.0
+          },
+          {
+            "x": 29.5,
+            "y": 1.0
+          },
+          {
+            "x": 29.5,
+            "y": 21.0
+          },
+          {
+            "x": 24.5,
+            "y": 21.0
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "author": "project",
+    "license": "original",
+    "sourceUrl": "",
+    "notes": "Hand-authored reference map. Geometry is rules-authoritative; art is cosmetic."
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "id": "scrap-raiders",
+  "factionId": "scrap-horde",
+  "displayName": "Scrap Horde Raiders",
+  "blurb": "Slow to shoot, brutal in reach. Wins if it closes the distance.",
+  "edition": "synthetic-1",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Fictional demo team. Not transcribed from any published game."
+  },
+  "colors": {
+    "primary": "#6f8f36",
+    "accent": "#e0eec2"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "scrap-boss",
+        "count": 1
+      },
+      {
+        "profileId": "scrap-raider",
+        "count": 5
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "scrap-boss",
+      "name": "Scrap Boss",
+      "role": "assault",
+      "baseDiameter": 1.4,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "w-scrapgun",
+          "name": "Scrap Blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "range": 8
+        },
+        {
+          "id": "w-choppa",
+          "name": "Great Choppa",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "brutal",
+            "ceaseless"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "leader",
+        "scrap-horde"
+      ]
+    },
+    {
+      "id": "scrap-raider",
+      "name": "Scrap Raider",
+      "role": "assault",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "w-scrapgun",
+          "name": "Scrap Blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "range": 8
+        },
+        {
+          "id": "w-choppa",
+          "name": "Choppa",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "scrap-horde"
+      ]
+    }
+  ],
+  "strategicPloys": [],
+  "firefightPloys": [],
+  "equipment": [],
+  "ruleHooks": []
+}

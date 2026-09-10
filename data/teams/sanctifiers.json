@@ -1,0 +1,848 @@
+{
+  "id": "sanctifiers",
+  "factionId": "agents-of-the-imperium",
+  "displayName": "Sanctifiers",
+  "blurb": "Sanctifiers draw their strength from an unshakeable faith in the Emperor. When they are grouped together, they gain miraculous power that elevates them far beyond what a mere Human civilian should be capable of in the 41st Millennium.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/sanctifiers/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#4a7a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 11,
+    "selectionRules": [
+      "1 SANCTIFIER CONFESSOR operative",
+      "1 SANCTIFIER CHERUB operative",
+      "9 SANCTIFIER operatives selected from the following list: CONFLAGRATOR; DEATH CULT ASSASSIN; DRILL ABBOT; MIRACULIST; MISSIONARY with one of the following options: Ministorum flamer; brazier of holy fire*; Ministorum flamer; gun butt; holy relic; MISSIONARY with one of the following options: Meltagun; chainsword; holy relic; Plasma gun; chainsword; brazier of holy fire*; PERSECUTOR; PREACHER; RELIQUANT; SALVATIONIST"
+    ],
+    "operatives": [
+      {
+        "profileId": "sanctifier-confessor",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-cherub",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-conflagrator",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-death-cult-assassin",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-drill-abbot",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-miraculist",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-missionary",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-persecutor",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-preacher",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-reliquant",
+        "count": 1
+      },
+      {
+        "profileId": "sanctifier-salvationist",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "sanctifier-confessor",
+      "name": "Sanctifier Confessor",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "mace-of-censure",
+          "name": "Mace of Censure",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 5
+          },
+          "rules": [
+            "brutal",
+            "shock"
+          ],
+          "rulesText": "Brutal, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "leader",
+        "confessor"
+      ]
+    },
+    {
+      "id": "sanctifier-cherub",
+      "name": "Sanctifier Cherub",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 5
+      },
+      "weapons": [
+        {
+          "id": "incentiviser",
+          "name": "Incentiviser",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 3
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "incentivise",
+          "name": "INCENTIVISE",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly SANCTIFIER operative (excluding CONFESSOR, DEATH CULT ASSASSIN, MIRACULIST and ORATOR) visible to and within 2\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.Fly: Whenever this operative is performing the Charge, Fall Back or Reposition action, it can FLY. If it does, don't move it. Instead, remove it from the killzone and set it back up wholly within a distance equal to its Move stat horizontally of its original location (in a killzone that uses the close quarters rules, e.g. Killzone: Tomb World, this distance cannot be measured over or through Wall terrain). Note that it gains no additional distance when performing the Charge action. It must be set up in a location it can be placed, and unless it's the Charge action, it cannot be set up within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "cherub"
+      ]
+    },
+    {
+      "id": "sanctifier-conflagrator",
+      "name": "Sanctifier Conflagrator",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "twin-hand-flamers-focused",
+          "name": "Twin hand flamers (focused)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2",
+            "blaze"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 2\", Blaze*",
+          "range": 6
+        },
+        {
+          "id": "twin-hand-flamers-twin-torrent",
+          "name": "Twin hand flamers (twin torrent)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent0",
+            "twintorrent1",
+            "blaze"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 0\", Twin Torrent1, Blaze*",
+          "range": 6
+        },
+        {
+          "id": "gun-butts",
+          "name": "Gun butts",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "conflagrator"
+      ]
+    },
+    {
+      "id": "sanctifier-death-cult-assassin",
+      "name": "Sanctifier Death Cult Assassin",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "throwing-knives",
+          "name": "Throwing knives",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 5
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 6\", Silent",
+          "range": 6
+        },
+        {
+          "id": "ritual-blades",
+          "name": "Ritual blades",
+          "type": "melee",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "trained-assassin",
+          "name": "TRAINED ASSASSIN",
+          "cost": "1AP",
+          "description": "Change this operative's order. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "death-cult-assassin"
+      ]
+    },
+    {
+      "id": "sanctifier-drill-abbot",
+      "name": "Sanctifier Drill Abbot",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "great-hammer",
+          "name": "Great hammer",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "brutal",
+            "shock"
+          ],
+          "rulesText": "Brutal, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "drill-abbot"
+      ]
+    },
+    {
+      "id": "sanctifier-persecutor",
+      "name": "Sanctifier Persecutor",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "hand-flamer",
+          "name": "Hand flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent1",
+            "blaze"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 1\", Blaze*",
+          "range": 6
+        },
+        {
+          "id": "eviscerator",
+          "name": "Eviscerator",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "persecutor"
+      ]
+    },
+    {
+      "id": "sanctifier-miraculist",
+      "name": "Sanctifier Miraculist",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "holy-light",
+          "name": "Holy light",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "limited1",
+            "piercing1",
+            "saturate",
+            "blaze"
+          ],
+          "rulesText": "Range 8\", Devastating 3, Limited 1, Piercing 1, Saturate, Blaze*",
+          "range": 8
+        },
+        {
+          "id": "wreathe-in-fire",
+          "name": "Wreathe in fire",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "blast1",
+            "limited1",
+            "wreathed1",
+            "blaze"
+          ],
+          "rulesText": "Blast 1\", Limited 1, Wreathed1, Blaze*",
+          "range": 48
+        },
+        {
+          "id": "burning-hands",
+          "name": "Burning hands",
+          "type": "melee",
+          "atk": 1,
+          "hit": 2,
+          "damage": {
+            "normal": 7,
+            "critical": 8
+          },
+          "rules": [
+            "brutal",
+            "limited1",
+            "blaze"
+          ],
+          "rulesText": "Brutal, Limited 1, Blaze*"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 2,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "miraculist"
+      ]
+    },
+    {
+      "id": "sanctifier-missionary",
+      "name": "Sanctifier Missionary",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "brazier-of-holy-fire",
+          "name": "Brazier of holy fire",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "saturate",
+            "torrent1",
+            "blaze"
+          ],
+          "rulesText": "Range 4\", Saturate, Torrent 1\", Blaze*",
+          "range": 4
+        },
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "ministorum-flamer",
+          "name": "Ministorum flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "saturate",
+            "torrent2",
+            "blaze"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\", Blaze*",
+          "range": 8
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "brazier-of-holy-fire-2",
+          "name": "Brazier of holy fire",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock",
+            "blaze"
+          ],
+          "rulesText": "Shock, Blaze*"
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "missionary"
+      ]
+    },
+    {
+      "id": "sanctifier-preacher",
+      "name": "Sanctifier Preacher",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "hand-flamer",
+          "name": "Hand flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent1",
+            "blaze"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 1\", Blaze*",
+          "range": 6
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "preacher"
+      ]
+    },
+    {
+      "id": "sanctifier-reliquant",
+      "name": "Sanctifier Reliquant",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "hand-flamer",
+          "name": "Hand flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent1",
+            "blaze"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 1\", Blaze*",
+          "range": 6
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "reliquant"
+      ]
+    },
+    {
+      "id": "sanctifier-salvationist",
+      "name": "Sanctifier Salvationist",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "soulstave",
+          "name": "Soulstave",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "1AP",
+          "description": "Select one friendly SANCTIFIER operative within this operative's control range to regain up to 2D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "sanctifier",
+        "imperium",
+        "adeptus-ministorum",
+        "medic",
+        "salvationist"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "blaze",
+      "name": "Blaze",
+      "description": "Some weapons in this team's rules have the Blaze weapon rule below. *Blaze: If you inflict damage with any critical successes, the operative this weapon is being used against gains one of your Blaze tokens (if it doesn't already have one). Whenever an operative that has one of your Blaze tokens is activated, inflict D3 damage on it. Then that operative's controlling player selects one of the following: Roll one D6: on a 3+, remove that token.Subtract 1 from the operative's APL stat until the end of that activation to remove that token."
+    },
+    {
+      "id": "ministorum-sermon",
+      "name": "Ministorum Sermon",
+      "description": "STRATEGIC GAMBIT. Select one friendly SANCTIFIER operative. If a friendly CONFESSOR operative hasn't been incapacitated, you must select it. Until you use this STRATEGIC GAMBIT again during the battle, that operative has the ORATOR keyword. Whenever a friendly SANCTIFIER operative is within 3\" of a friendly ORATOR operative (or 6\" if the ORATOR is a CONFESSOR), that friendly SANCTIFIER operative is benefitting from the SERMON. Whenever a friendly SANCTIFIER operative is activated within 3\" of a friendly ORATOR operative (or 6\" if the ORATOR is a CONFESSOR), that friendly SANCTIFIER operative is benefitting from the SERMON until the end of that activation (i.e. even if it then moves more than the distance requirement from the ORATOR operative). Whenever a friendly SANCTIFIER operative is benefitting from the SERMON, Normal and Critical Dmg of 4 or more inflicts 1 less damage on it."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "the-emperor-protects",
+      "name": "THE EMPEROR PROTECTS",
+      "description": "Whenever an operative is shooting a friendly SANCTIFIER operative that's benefitting from the SERMON, you can re-roll any of your defence dice results of one result (e.g. results of 2).",
+      "cost": 1
+    },
+    {
+      "id": "fervent-brawl",
+      "name": "FERVENT BRAWL",
+      "description": "Whenever a friendly SANCTIFIER operative that's benefitting from the SERMON is fighting or retaliating, its melee weapons have the Ceaseless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "zealous-persecution",
+      "name": "ZEALOUS PERSECUTION",
+      "description": "Whenever a friendly SANCTIFIER operative is fighting during an activation in which it performed the Charge action, its melee weapons have the Lethal 5+ weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "rally-the-flock",
+      "name": "RALLY THE FLOCK",
+      "description": "Each friendly SANCTIFIER operative (excluding ORATOR) that's benefitting from the SERMON can immediately perform a free Dash or Fall Back action in an order of your choice (choose separately for each and, for the latter, it cannot move more than 3\"). Each that does so must end that move closer and visible to (or vice versa) to a friendly ORATOR operative. You cannot use this ploy during the first turning point.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "rosarius",
+      "name": "ROSARIUS",
+      "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly SANCTIFIER operative. Ignore that inflicted damage.",
+      "cost": 1
+    },
+    {
+      "id": "ardent-eradication",
+      "name": "ARDENT ERADICATION",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly SANCTIFIER operative, if it's shooting against or fighting against an enemy operative that's within 3\" of a friendly ORATOR operative (or 6\" if the ORATOR is a CONFESSOR). You can re-roll any of your attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "redeemed-through-fire",
+      "name": "REDEEMED THROUGH FIRE",
+      "description": "Use this firefight ploy when a friendly SANCTIFIER operative that has a weapon with the Blaze weapon rule is incapacitated, before it's removed from the killzone. Each enemy operative visible to and within 2\" of it gains one of your Blaze tokens (if it doesn't already have one).",
+      "cost": 1
+    },
+    {
+      "id": "unwavering-devotion",
+      "name": "UNWAVERING DEVOTION",
+      "description": "Use this firefight ploy when a friendly SANCTIFIER ORATOR or SANCTIFIER MIRACULIST operative is selected as the valid target of a Shoot action or to fight against during the Fight action. Select one other friendly SANCTIFIER operative (excluding CONFESSOR, MIRACULIST and ORATOR) visible to and within 3\" of that first friendly operative to become the valid target or to be fought against (as appropriate) instead (even if it wouldn't normally be valid for this). If it's the Fight action, treat that other operative as being within the fighting operative's control range for the duration of that action. If it's the Shoot action, that other operative is only in cover or obscured if the original target was. This ploy has no effect if it's the Shoot action and the ranged weapon has the Blast or Torrent weapon rule.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "sanctification-orbs",
+      "name": "SANCTIFICATION ORBS",
+      "description": "Once per turning point, one friendly SANCTIFIER operative (excluding CHERUB, DEATH CULT ASSASSIN and MIRACULIST) can perform the following unique action: SANCTIFICATION ORB1APSelect one enemy operative visible to and within 6\" of this operative. That operative and each other enemy operative within 1\" of it takes a doused test. For an operative to take a doused test, roll one D6: on a 3+, it gains one of your Doused tokens. Whenever a friendly SANCTIFIER operative is shooting an operative that has one of your Doused tokens with a weapon that has the Blaze weapon rule, that weapon also has the Seek weapon rule. After a friendly SANCTIFIER operative uses a weapon that has the Blaze weapon rule against an enemy operative that has one of your Doused tokens, remove that token (even if the Seek weapon rule wasn't used). This operative cannot perform this action while within control range of an enemy operative."
+    },
+    {
+      "id": "purity-seals",
+      "name": "PURITY SEALS",
+      "description": "Once per turning point, when a friendly SANCTIFIER operative is shooting or fighting, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    },
+    {
+      "id": "ecclesiarchy-texts",
+      "name": "ECCLESIARCHY TEXTS",
+      "description": "In the Ready step of each Strategy phase, roll 3D6: if the result is less than the remaining wounds of a friendly ORATOR operative, you gain 1CP. Note that this is done before the Gambit step, so if there isn't a valid ORATOR operative, you cannot use this rule during that turning point (e.g. during the first turning point)."
+    },
+    {
+      "id": "imperial-cult-symbols",
+      "name": "IMPERIAL CULT SYMBOLS",
+      "description": "Once per turning point, when an operative is shooting a friendly SANCTIFIER operative that's benefitting from the SERMON, when you collect your defence dice, you can use this rule. If you do, change one of the attacker's retained critical successes to a normal success (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits)."
+    }
+  ],
+  "ruleHooks": []
+}

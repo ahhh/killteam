@@ -1,0 +1,134 @@
+{
+  "id": "vanguard-breachers",
+  "factionId": "vanguard-compact",
+  "displayName": "Vanguard Breachers",
+  "blurb": "Close-assault specialists. Wants to be in your control range by Turning Point 2.",
+  "edition": "synthetic-1",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Fictional demo team. Not transcribed from any published game."
+  },
+  "colors": {
+    "primary": "#2f6f5e",
+    "accent": "#cfe8df"
+  },
+  "roster": {
+    "maxOperatives": 5,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "breacher-champion",
+        "count": 1
+      },
+      {
+        "profileId": "breacher",
+        "count": 4
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "breacher-champion",
+      "name": "Breacher Champion",
+      "role": "assault",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "w-shortgun",
+          "name": "Breaching Shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "punishing"
+          ],
+          "range": 6
+        },
+        {
+          "id": "w-hammer",
+          "name": "Thunder Maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "brutal"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "leader",
+        "vanguard"
+      ]
+    },
+    {
+      "id": "breacher",
+      "name": "Breacher",
+      "role": "assault",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "w-shortgun",
+          "name": "Breaching Shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "punishing"
+          ],
+          "range": 6
+        },
+        {
+          "id": "w-chainblade",
+          "name": "Chain Blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "vanguard"
+      ]
+    }
+  ],
+  "strategicPloys": [],
+  "firefightPloys": [],
+  "equipment": [],
+  "ruleHooks": []
+}

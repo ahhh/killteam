@@ -1,0 +1,1065 @@
+{
+  "id": "angel-of-death",
+  "factionId": "space-marines",
+  "displayName": "Angel of Death",
+  "blurb": "Genetically modified transhuman warriors, Space Marines are amongst Humanity's most elite fighting forces. Angels of Death kill teams are composed of elite specialists trained in myriad forms of combat, who are capable of overcoming almost any foe.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/angel-of-death/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f6f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [
+      "1 ANGEL OF DEATH operative selected from the following list: ASSAULT INTERCESSOR SERGEANT with one option from each of the following: Hand flamer or heavy bolt pistol; Chainsword, power fist, power weapon or thunder hammer; Or the following option: Plasma pistol; chainsword; INTERCESSOR SERGEANT with one option from each of the following: Auto bolt rifle, bolt rifle or stalker bolt rifle; Chainsword, fists, power fist, power weapon or thunder hammer; SPACE MARINE CAPTAIN",
+      "5 ANGEL OF DEATH operatives selected from the following list: ASSAULT INTERCESSOR GRENADIER; ASSAULT INTERCESSOR WARRIOR; ELIMINATOR SNIPER; HEAVY INTERCESSOR GUNNER; INTERCESSOR GUNNER with auxiliary grenade launcher and one of the following options: Auto bolt rifle; fists; Bolt rifle; fists; Stalker bolt rifle; fists; INTERCESSOR WARRIOR with one of the following options: Auto bolt rifle; fists; Bolt rifle; fists; Stalker bolt rifle; fists"
+    ],
+    "operatives": [
+      {
+        "profileId": "assault-intercessor-sergeant",
+        "count": 1
+      },
+      {
+        "profileId": "assault-intercessor-grenadier",
+        "count": 1
+      },
+      {
+        "profileId": "assault-intercessor-warrior",
+        "count": 1
+      },
+      {
+        "profileId": "eliminator-sniper",
+        "count": 1
+      },
+      {
+        "profileId": "heavy-intercessor-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "intercessor-gunner",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "space-marine-captain",
+      "name": "Space Marine Captain",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "power-fist",
+          "name": "Power fist",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "space-marine-captain"
+      ]
+    },
+    {
+      "id": "assault-intercessor-sergeant",
+      "name": "Assault Intercessor Sergeant",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "hand-flamer",
+          "name": "Hand flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent1"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 1\"",
+          "range": 6
+        },
+        {
+          "id": "heavy-bolt-pistol",
+          "name": "Heavy bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-fist",
+          "name": "Power fist",
+          "type": "melee",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "thunder-hammer",
+          "name": "Thunder hammer",
+          "type": "melee",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "shock",
+            "stun"
+          ],
+          "rulesText": "Shock, Stun"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "assault-intercessor",
+        "sergeant"
+      ]
+    },
+    {
+      "id": "intercessor-sergeant",
+      "name": "Intercessor Sergeant",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "auto-bolt-rifle",
+          "name": "Auto bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "torrent1"
+          ],
+          "rulesText": "Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "bolt-rifle",
+          "name": "Bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-heavy",
+          "name": "Stalker bolt rifle (heavy)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "lethal5",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Dash only), Lethal 5+, Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-mobile",
+          "name": "Stalker bolt rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-fist",
+          "name": "Power fist",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "thunder-hammer",
+          "name": "Thunder hammer",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "shock",
+            "stun"
+          ],
+          "rulesText": "Shock, Stun"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "intercessor",
+        "sergeant"
+      ]
+    },
+    {
+      "id": "assault-intercessor-grenadier",
+      "name": "Assault Intercessor Grenadier",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "heavy-bolt-pistol",
+          "name": "Heavy bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "assault-intercessor",
+        "grenadier"
+      ]
+    },
+    {
+      "id": "assault-intercessor-warrior",
+      "name": "Assault Intercessor Warrior",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "heavy-bolt-pistol",
+          "name": "Heavy bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "assault-intercessor",
+        "warrior"
+      ]
+    },
+    {
+      "id": "heavy-intercessor-gunner",
+      "name": "Heavy Intercessor Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 5,
+        "apl": 3,
+        "save": 3,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "heavy-bolter-focused",
+          "name": "Heavy bolter (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "heavy-bolter-sweeping",
+          "name": "Heavy bolter (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1",
+            "torrent1"
+          ],
+          "rulesText": "Piercing Crits 1, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "heavy-intercessor",
+        "gunner"
+      ]
+    },
+    {
+      "id": "intercessor-gunner",
+      "name": "Intercessor Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "auto-bolt-rifle",
+          "name": "Auto bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "torrent1"
+          ],
+          "rulesText": "Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "auxiliary-grenade-launcher-frag",
+          "name": "Auxiliary grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "auxiliary-grenade-launcher-krak",
+          "name": "Auxiliary grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "bolt-rifle",
+          "name": "Bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-heavy",
+          "name": "Stalker bolt rifle (heavy)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "lethal5",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Dash only), Lethal 5+, Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-mobile",
+          "name": "Stalker bolt rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "intercessor",
+        "gunner"
+      ]
+    },
+    {
+      "id": "intercessor-warrior",
+      "name": "Intercessor Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "auto-bolt-rifle",
+          "name": "Auto bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "torrent1"
+          ],
+          "rulesText": "Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "bolt-rifle",
+          "name": "Bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-heavy",
+          "name": "Stalker bolt rifle (heavy)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "lethal5",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Dash only), Lethal 5+, Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-mobile",
+          "name": "Stalker bolt rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "intercessor",
+        "warrior"
+      ]
+    },
+    {
+      "id": "eliminator-sniper",
+      "name": "Eliminator Sniper",
+      "role": "sniper",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "bolt-sniper-rifle-executioner",
+          "name": "Bolt sniper rifle (executioner)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:dash",
+            "saturate",
+            "seeklight",
+            "silent"
+          ],
+          "rulesText": "Heavy (Dash only), Saturate, Seek Light, Silent",
+          "range": 48
+        },
+        {
+          "id": "bolt-sniper-rifle-hyperfrag",
+          "name": "Bolt sniper rifle (hyperfrag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast1",
+            "heavy:dash",
+            "silent"
+          ],
+          "rulesText": "Blast 1\", Heavy (Dash only), Silent",
+          "range": 48
+        },
+        {
+          "id": "bolt-sniper-rifle-mortis",
+          "name": "Bolt sniper rifle (mortis)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy:dash",
+            "piercing1",
+            "silent"
+          ],
+          "rulesText": "Devastating 3, Heavy (Dash only), Piercing 1, Silent",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "optics",
+          "name": "OPTICS",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation, whenever it's shooting, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "angel-of-death",
+        "imperium",
+        "adeptus-astartes",
+        "eliminator",
+        "sniper"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "chapter-tactics",
+      "name": "Chapter Tactics",
+      "description": "When selecting your kill team, select a primary and secondary CHAPTER TACTIC for friendly ANGEL OF DEATH operatives to gain for the battle. Multiple instances of the same CHAPTER TACTIC aren't cumulative. Designer's Note: If you're playing a series of games, i.e. a campaign or tournament, you must select the same primary and secondary CHAPTER TACTIC for every battle (you can still change the secondary with the Adaptive Tactics strategy ploy). 1. AGGRESSIVEThis operative's melee weapons have the Rending weapon rule. 2. DUELLERWhenever this operative is fighting or retaliating, each of your normal successes can block one unresolved critical success (unless the enemy operative's weapon has the Brutal weapon rule). 3. RESOLUTEYou can ignore any changes to this operative's APL stat. and it isn't affected by enemy operatives' Shock weapon rule. 4. STEALTHYWhenever an operative is shooting this operative, if you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn't cumulative with improved cover saves from Vantage terrain. 5. MOBILEThis operative can perform the Fall Back action for 1 less AP.This operative can perform the Charge action while within control range of an enemy operative, and can leave that operative's control range to do so (but then normal requirements for that move apply). 6. HARDYWhenever an operative is shooting this operative, defence dice results of 5+ are critical successes. 7. SHARPSHOOTERWhenever this operative is shooting during an activation in which it hasn't performed the Charge, Fall Back or Reposition action, its bolt weapons have the Accurate 1 and Severe weapon rules 8. SIEGE SPECIALISTThis operative's ranged weapons have the Saturate weapon rule. Whenever this operative is fighting or retaliating, enemy operatives cannot assist."
+    },
+    {
+      "id": "astartes",
+      "name": "Astartes",
+      "description": "During each friendly ANGEL OF DEATH operative's activation, it can perform either two Shoot actions or two Fight actions. If it's two Shoot actions, a bolt weapon must be selected for at least one of them, and if it's a bolt sniper rifle or heavy bolter, 1 additional AP must be spent for the second action if both actions are using that weapon. Each friendly ANGEL OF DEATH operative can counteract regardless of its order."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "combat-doctrine",
+      "name": "COMBAT DOCTRINE",
+      "description": "Select one COMBAT DOCTRINE from those presented below. Whenever a friendly ANGEL OF DEATH operative is x, its weapons have the Balanced weapon rule. X is the COMBAT DOCTRINE you selected. Devastator Doctrine: Shooting an operative more than 6\" from it.Tactical Doctrine: Shooting an operative within 6\" of it.Assault Doctrine: Fighting or retaliating.",
+      "cost": 1
+    },
+    {
+      "id": "and-they-shall-know-no-fear",
+      "name": "AND THEY SHALL KNOW NO FEAR",
+      "description": "You can ignore any changes to the stats of friendly ANGEL OF DEATH operatives from being injured (including their weapons' stats).",
+      "cost": 1
+    },
+    {
+      "id": "adaptive-tactics",
+      "name": "ADAPTIVE TACTICS",
+      "description": "Change your secondary CHAPTER TACTIC. Note this ploy only lasts until the end of the turning point, at which point your original secondary CHAPTER TACTIC returns.",
+      "cost": 1
+    },
+    {
+      "id": "indomitus",
+      "name": "INDOMITUS",
+      "description": "Whenever an operative is shooting a friendly ANGEL OF DEATH operative, if you roll two or more fails, you can discard one of them to retain another as a normal success instead.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "adjust-doctrine",
+      "name": "ADJUST DOCTRINE",
+      "description": "Use this firefight ploy during a friendly ANGEL OF DEATH operative's activation, before or after it performs an action. If you've used the COMBAT DOCTRINE strategy ploy during this turning point, change the COMBAT DOCTRINE you selected.",
+      "cost": 1
+    },
+    {
+      "id": "transhuman-physiology",
+      "name": "TRANSHUMAN PHYSIOLOGY",
+      "description": "Use this firefight ploy when an operative is shooting a friendly ANGEL OF DEATH operative, in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    },
+    {
+      "id": "shock-assault",
+      "name": "SHOCK ASSAULT",
+      "description": "Use this firefight ploy when a friendly ANGEL OF DEATH operative is performing the Fight action during an activation in which it performed the Charge action, at the start of the Resolve Attack Dice step. Until the end of that action: Its melee weapon has the Shock weapon rule. The first time you strike during that sequence, inflict 1 additional damage (to a maximum of 7).",
+      "cost": 1
+    },
+    {
+      "id": "wrath-of-vengeance",
+      "name": "WRATH OF VENGEANCE",
+      "description": "Use this firefight ploy when a friendly ANGEL OF DEATH operative is counteracting. It can perform an additional 1AP action for free during that counteraction, but both actions must be different.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "purity-seals",
+      "name": "PURITY SEALS",
+      "description": "Once per turning point, when a friendly ANGEL OF DEATH operative is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    },
+    {
+      "id": "chapter-reliquaries",
+      "name": "CHAPTER RELIQUARIES",
+      "description": "You can use the Wrath of Vengeance firefight ploy for 0CP if the specified friendly operative has an Engage order."
+    },
+    {
+      "id": "tilting-shields",
+      "name": "TILTING SHIELDS",
+      "description": "Once per turning point, when a friendly ANGEL OF DEATH operative is fighting or retaliating, after your opponent rolls their attack dice, but before re-rolls, you can use this rule. If you do, your opponent cannot retain attack dice results of less than 6 as critical successes during that sequence (e.g. as a result of the Lethal, Rending or Severe weapon rules)."
+    },
+    {
+      "id": "auspex",
+      "name": "AUSPEX",
+      "description": "Once per turning point, when a friendly ANGEL OF DEATH operative performs the Shoot action and you're selecting a valid target, you can use this rule. If you do, until the end of the activation/counteraction, enemy operatives within 8\" of that friendly operative cannot be obscured."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "astartes-double-action",
+      "rule": "Astartes",
+      "trigger": "onActionLegality",
+      "condition": {
+        "keyword": "angel-of-death"
+      },
+      "effect": {
+        "type": "extraAction",
+        "oneOf": [
+          "shoot",
+          "fight"
+        ],
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the bolt-weapon requirement and the extra AP for a second bolt sniper rifle or heavy bolter Shoot are not enforced"
+    }
+  ]
+}

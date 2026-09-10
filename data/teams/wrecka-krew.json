@@ -1,0 +1,542 @@
+{
+  "id": "wrecka-krew",
+  "factionId": "orks",
+  "displayName": "Wrecka Krew",
+  "blurb": "A Wrecka Krew is a kill team obsessed with one thing - destruction! Arguably the game's most aggressive team to date, these Orks like nothing better than an Engage order and an enemy operative in their sights.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/wrecka-krew/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a2f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 7,
+    "selectionRules": [
+      "2 WRECKA KREW BOMB SQUIG operatives",
+      "5 WRECKA KREW operatives selected from the following list: BREAKA BOY DEMOLISHA; FIGHTER; KRUSHA; GUNNER with one of the following options: 'Eavy rokkit launcha; fists; Rokkit launcha; fists; ROKKITEER with one of the following options: Rokkit launcha; pulsa rokkit; fists; Rokkit launcha; rokkit rack; fists"
+    ],
+    "operatives": [
+      {
+        "profileId": "wrecka-bomb-squig",
+        "count": 2
+      },
+      {
+        "profileId": "breaka-boy-demolisha",
+        "count": 1
+      },
+      {
+        "profileId": "breaka-boy-fighter",
+        "count": 1
+      },
+      {
+        "profileId": "breaka-boy-krusha",
+        "count": 1
+      },
+      {
+        "profileId": "tankbusta-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "tankbusta-rokkiteer",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "wrecka-boss-nob",
+      "name": "Wrecka Boss Nob",
+      "role": "ranged",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "rokkit-pistol",
+          "name": "Rokkit pistol",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 5,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1"
+          ],
+          "rulesText": "Range 8\", Blast 1\"",
+          "range": 8
+        },
+        {
+          "id": "two-rokkit-pistols-focused",
+          "name": "Two rokkit pistols (focused)",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1",
+            "ceaseless"
+          ],
+          "rulesText": "Range 8\", Blast 1\", Ceaseless",
+          "range": 8
+        },
+        {
+          "id": "two-rokkit-pistols-salvo",
+          "name": "Two rokkit pistols (salvo)",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 5,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1",
+            "salvo"
+          ],
+          "rulesText": "Range 8\", Blast 1\", Salvo*",
+          "range": 8
+        },
+        {
+          "id": "choppa",
+          "name": "Choppa",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "smash-hammer",
+          "name": "Smash hammer",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "leader",
+        "boss-nob"
+      ]
+    },
+    {
+      "id": "wrecka-bomb-squig",
+      "name": "Wrecka Bomb Squig",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 5
+      },
+      "weapons": [
+        {
+          "id": "explosives",
+          "name": "Explosives",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1",
+            "limited1",
+            "explosive"
+          ],
+          "rulesText": "Blast 1\", Limited 1, Explosive*",
+          "range": 48
+        },
+        {
+          "id": "bite",
+          "name": "Bite",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "bomb-squig"
+      ]
+    },
+    {
+      "id": "breaka-boy-demolisha",
+      "name": "Breaka Boy Demolisha",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "tankhammer-bash",
+          "name": "Tankhammer (bash)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "breaka-boy",
+        "demolisha"
+      ]
+    },
+    {
+      "id": "breaka-boy-fighter",
+      "name": "Breaka Boy Fighter",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "smash-hammer",
+          "name": "Smash hammer",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "break-stuff",
+          "name": "Break Stuff",
+          "cost": "1AP",
+          "description": "Select a terrain feature within this operative's control range. If it's an equipment terrain feature, remove it. Otherwise, place one of your Breach markers within this operative's control range as close as possible to that terrain feature. Whenever an operative is within 1\" of that marker, it treats parts of that terrain feature that are no more than 1\" thick as Accessible terrain. This operative cannot perform this action while within control range of an enemy operative, or if a terrain feature isn't within its control range."
+        }
+      ],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "breaka-boy",
+        "fighter"
+      ]
+    },
+    {
+      "id": "breaka-boy-krusha",
+      "name": "Breaka Boy Krusha",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "knucklebustas",
+          "name": "Knucklebustas",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal",
+            "shock",
+            "smash"
+          ],
+          "rulesText": "Brutal, Shock, Smash*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "breaka-boy",
+        "krusha"
+      ]
+    },
+    {
+      "id": "tankbusta-gunner",
+      "name": "Tankbusta Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "eavy-rokkit-launcha",
+          "name": "'Eavy rokkit launcha",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1",
+            "heavy:dash"
+          ],
+          "rulesText": "Blast 1\", Heavy (Dash only)",
+          "range": 48
+        },
+        {
+          "id": "rokkit-launcha",
+          "name": "Rokkit launcha",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 5,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1"
+          ],
+          "rulesText": "Blast 1\"",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "tankbusta",
+        "gunner"
+      ]
+    },
+    {
+      "id": "tankbusta-rokkiteer",
+      "name": "Tankbusta Rokkiteer",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "rokkit-launcha",
+          "name": "Rokkit launcha",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 5,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1"
+          ],
+          "rulesText": "Blast 1\"",
+          "range": 48
+        },
+        {
+          "id": "rokkit-rack",
+          "name": "Rokkit rack",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 5,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "heavy:reposition",
+            "limited1",
+            "relentless"
+          ],
+          "rulesText": "Blast 2\", Heavy (Reposition only), Limited 1, Relentless",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wrecka-krew",
+        "ork",
+        "tankbusta",
+        "rokkiteer"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "wrecka-rampage",
+      "name": "Wrecka Rampage",
+      "description": "Whenever a friendly WRECKA KREW operative is shooting, fighting or retaliating, in the Roll Attack Dice step: For each attack dice result of 6 you retain, you gain one Wrecka point.You can spend up to 2 of your Wrecka points (unless it's a BOMB SQUIG, then you cannot spend any). For each point you spend this way, retain one of your fails as a normal success instead of discarding it.You cannot have more than 6 Wrecka points at once. You can gain and spend Wrecka points during the same action and can do so in an order of your choice, unless you started the action with 6, in which case you can only spend them."
+    },
+    {
+      "id": "tanked-up",
+      "name": "Tanked Up",
+      "description": "The first time a friendly WRECKA KREW operative (excluding BOMB SQUIG) that has an Engage order performs either the Charge, Shoot or Fight action (excluding Guard) during each of its activations/counteractions, add 1 to its APL stat until the start of its next activation."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "waaagh",
+      "name": "WAAAGH!",
+      "description": "Friendly WRECKA KREW operatives' melee weapons have the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "destruction",
+      "name": "DESTRUCTION",
+      "description": "Friendly WRECKA KREW operatives' ranged weapons have the Saturate weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "tuff-gitz",
+      "name": "TUFF GITZ",
+      "description": "Whenever an operative is shooting a friendly WRECKA KREW operative that has an Engage order, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "amped-up",
+      "name": "AMPED UP",
+      "description": "Each friendly WRECKA KREW operative that has an Engage order can immediately regain up to D3+1 lost wounds (roll separately for each).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "just-a-scratch",
+      "name": "JUST A SCRATCH",
+      "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly WRECKA KREW operative (excluding BOMB SQUIG). Ignore that inflicted damage.",
+      "cost": 1
+    },
+    {
+      "id": "proppa-scrap",
+      "name": "PROPPA SCRAP",
+      "description": "Use this firefight ploy during a friendly BREAKA BOY or BOSS NOB operative's activation. During that activation, that operative can perform two FIGHT actions.",
+      "cost": 1
+    },
+    {
+      "id": "demolition-job",
+      "name": "DEMOLITION JOB",
+      "description": "Use this firefight ploy after a friendly WRECKA KREW operative performs the Shoot or Fight action, just before incapacitated operatives are removed (if any). Place one of your Demolition markers within the target's control range (if it's using a Blast weapon, the primary target). Whenever a friendly WRECKA KREW operative (excluding BOMB SQUIG) is shooting against, fighting against or retaliating against an operative that's within 3\" of that marker, you can spend a Wrecka point for free (even if you have none). In the Ready step of the next Strategy phase, remove that marker.",
+      "cost": 1
+    },
+    {
+      "id": "kaboom",
+      "name": "KABOOM!",
+      "description": "Use this firefight ploy when a friendly WRECKA KREW operative performs the Shoot action and a weapon with the Blast weapon rule is selected. Until the end of that action, add 1\" to that weapon's Blast and it has the Severe weapon rule when shooting the primary target. You cannot use this ploy and the Drill Rokkits rule during the same action. Note that Severe doesn't generate a Wrecka point (as it's not a 6).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "drill-rokkits",
+      "name": "DRILL ROKKITS",
+      "description": "Once per turning point, when a friendly WRECKA KREW operative is performing the Shoot action and you select a rokkit launcha or 'eavy rokkit launcha, you can use this rule. If you do, until the end of that action, that weapon loses the Blast weapon rule but has the Piercing 1 weapon rule."
+    },
+    {
+      "id": "engine-oil",
+      "name": "ENGINE OIL",
+      "description": "Once per turning point, when a friendly WRECKA KREW operative (excluding BOMB SQUIG) is activated, you can use this rule. If you do, until the end of that activation, you can ignore any changes to that operative's stats from being injured (including its weapons' stats)."
+    },
+    {
+      "id": "extra-armour",
+      "name": "EXTRA ARMOUR",
+      "description": "Subtract 1\" from the Move stat of friendly WRECKA KREW operatives and improve their Save stat by 1. This excludes BOMB SQUIG operatives and isn't cumulative with the Protective rule of a Portable Barricade from universal equipment."
+    },
+    {
+      "id": "glyphs",
+      "name": "GLYPHS",
+      "description": "When this item of equipment is selected, also select the Waaagh! or Destruction strategy ploy. The first time you would use that ploy during the battle, it costs you 0CP; whenever you would use it thereafter, it costs you 0CP if you have any Wrecka points."
+    }
+  ],
+  "ruleHooks": []
+}

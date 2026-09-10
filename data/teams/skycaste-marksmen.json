@@ -1,0 +1,179 @@
+{
+  "id": "skycaste-marksmen",
+  "factionId": "sky-caste",
+  "displayName": "Sky Caste Marksmen",
+  "blurb": "Best gunline in the set, worst in a fistfight. Wins by never being reached.",
+  "edition": "synthetic-1",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Fictional demo team. Not transcribed from any published game."
+  },
+  "colors": {
+    "primary": "#c98a2e",
+    "accent": "#f6e3c2"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "skycaste-shas",
+        "count": 1
+      },
+      {
+        "profileId": "skycaste-heavy",
+        "count": 1
+      },
+      {
+        "profileId": "skycaste-marksman",
+        "count": 4
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "skycaste-shas",
+      "name": "Caste Leader",
+      "role": "support",
+      "baseDiameter": 1.25,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "w-pulsepistol",
+          "name": "Pulse Sidearm",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "balanced"
+          ],
+          "range": 8
+        },
+        {
+          "id": "w-baton",
+          "name": "Shock Baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "leader",
+        "sky-caste"
+      ]
+    },
+    {
+      "id": "skycaste-heavy",
+      "name": "Caste Heavy Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "w-heavypulse",
+          "name": "Heavy Pulse Array",
+          "type": "ranged",
+          "atk": 6,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ap1"
+          ],
+          "range": 14
+        },
+        {
+          "id": "w-baton",
+          "name": "Shock Baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sky-caste"
+      ]
+    },
+    {
+      "id": "skycaste-marksman",
+      "name": "Caste Marksman",
+      "role": "ranged",
+      "baseDiameter": 1.25,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "w-pulserifle",
+          "name": "Pulse Rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "balanced"
+          ],
+          "range": 12
+        },
+        {
+          "id": "w-baton",
+          "name": "Shock Baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "sky-caste"
+      ]
+    }
+  ],
+  "strategicPloys": [],
+  "firefightPloys": [],
+  "equipment": [],
+  "ruleHooks": []
+}

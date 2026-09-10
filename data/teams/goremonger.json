@@ -1,0 +1,552 @@
+{
+  "id": "goremonger",
+  "factionId": "world-eaters",
+  "displayName": "Goremonger",
+  "blurb": "Goremonger kill teams are territorial and aggressive, yet to view them as crazed butchers would be an oversimplification. They strive to emulate the bladework and military discipline of a Bloodletter pack, and are capable of identifying and destroying strategic assets in order to achieve victory in Khorne's name.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/goremonger/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f7a8a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 8,
+    "selectionRules": [
+      "1 GOREMONGER BLOOD HERALD operative",
+      "7 GOREMONGER operatives selected from the following list: ASPIRANT; BLOODTAKER; IMPALER; INCITER; SKULLCLAIMER; STALKER"
+    ],
+    "operatives": [
+      {
+        "profileId": "goremonger-blood-herald",
+        "count": 1
+      },
+      {
+        "profileId": "goremonger-aspirant",
+        "count": 2
+      },
+      {
+        "profileId": "goremonger-bloodtaker",
+        "count": 1
+      },
+      {
+        "profileId": "goremonger-impaler",
+        "count": 1
+      },
+      {
+        "profileId": "goremonger-inciter",
+        "count": 1
+      },
+      {
+        "profileId": "goremonger-skullclaimer",
+        "count": 1
+      },
+      {
+        "profileId": "goremonger-stalker",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "goremonger-blood-herald",
+      "name": "Goremonger Blood Herald",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "icon-of-khorne",
+          "name": "Icon of Khorne",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "saturate"
+          ],
+          "rulesText": "Range 8\", Saturate",
+          "range": 8
+        },
+        {
+          "id": "chainblade",
+          "name": "Chainblade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "leader",
+        "blood-herald"
+      ]
+    },
+    {
+      "id": "goremonger-aspirant",
+      "name": "Goremonger Aspirant",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "chainglaive",
+          "name": "Chainglaive",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "aspirant"
+      ]
+    },
+    {
+      "id": "goremonger-bloodtaker",
+      "name": "Goremonger Bloodtaker",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "ritual-blade",
+          "name": "Ritual blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "ritual"
+          ],
+          "rulesText": "Ritual*"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "transfusion-ritual",
+          "name": "TRANSFUSION RITUAL",
+          "cost": "1AP",
+          "description": "Decrease this operative's GORE TANK. Instead of using a SANGUAVITAE rule, you can increase the GORE TANK of one other friendly GOREMONGER operative within 8\" of this operative. This operative cannot perform this action while within control range of an enemy operative, or if its GORE TANK is empty."
+        }
+      ],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "bloodtaker"
+      ]
+    },
+    {
+      "id": "goremonger-impaler",
+      "name": "Goremonger Impaler",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "fleshskewer-ranged",
+          "name": "Fleshskewer (ranged)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1",
+            "stun",
+            "drag"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1, Stun, Drag*",
+          "range": 8
+        },
+        {
+          "id": "fleshskewer-stab",
+          "name": "Fleshskewer (stab)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "gore-fuel",
+          "name": "GORE-FUEL",
+          "cost": "1AP",
+          "description": "Decrease this operative's GORE TANK. Until this operative uses any profile of its fleshskewer, all profiles of it have the Severe weapon rule. This operative cannot perform this action while within control range of an enemy operative, or if its GORE TANK is empty."
+        }
+      ],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "impaler"
+      ]
+    },
+    {
+      "id": "goremonger-inciter",
+      "name": "Goremonger Inciter",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "dual-autopistols-focused",
+          "name": "Dual autopistols (focused)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "ceaseless",
+            "devastating1",
+            "rending"
+          ],
+          "rulesText": "Range 8\", Ceaseless, Devastating 1, Rending",
+          "range": 8
+        },
+        {
+          "id": "dual-autopistols-point-blank",
+          "name": "Dual autopistols (point-blank)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Ceaseless, Rending"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "dash-and-spray",
+          "name": "DASH AND SPRAY",
+          "cost": "1AP",
+          "description": "Perform a free Dash action and a free Shoot action with this operative in any order. You can only select dual autopistols (focused) for that Shoot action. This operative cannot perform this action while it has a Conceal order, or while within control range of an enemy operative.Incite the Hunt: Whenever this operative incapacitates an enemy operative from more than 2\" away, before that enemy operative is removed from the killzone, you can increase the GORE TANK of one friendly GOREMONGER operative within 8\" of that enemy operative. Whenever this operative inflicts damage on an enemy operative with either profile of its dual autopistols but doesn't incapacitate it, that enemy operative gains one of your Bleeding tokens (if it doesn't already have one). During a friendly GOREMONGER operative's activation or counteraction, before or after it performs an action, if it's within 8\" of an enemy operative that has one of your Bleeding tokens, you can remove that token and increase that friendly operative's GORE TANK."
+        }
+      ],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "inciter"
+      ]
+    },
+    {
+      "id": "goremonger-skullclaimer",
+      "name": "Goremonger Skullclaimer",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "great-chainaxe",
+          "name": "Great chainaxe",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "skullclaimer"
+      ]
+    },
+    {
+      "id": "goremonger-stalker",
+      "name": "Goremonger Stalker",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "pickrippers",
+          "name": "Pickrippers",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "goremonger",
+        "chaos",
+        "stalker"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "runes-of-khorne",
+      "name": "Runes of Khorne",
+      "description": "Each friendly GOREMONGER operative cannot lose more than 8 wounds per Shoot action."
+    },
+    {
+      "id": "gore-tanks",
+      "name": "Gore Tanks",
+      "description": "Each friendly GOREMONGER operative has a GORE TANK that has three levels: full, half and empty. They start the battle at half. Whenever a GORE TANK increases, it goes up one level; whenever it decreases, it goes down one level. A GORE TANK cannot increase when it's already full, or decrease when it's already empty (see diagram on other side). Whenever a friendly GOREMONGER operative incapacitates an operative within its control range, or visible to and within 2\" of it, you can increase its GORE TANK. Whenever a friendly GOREMONGER operative uses a SANGUAVITAE rule, you must decrease its GORE TANK."
+    },
+    {
+      "id": "sanguavitae",
+      "name": "Sanguavitae",
+      "description": "Each SANGUAVITAE rule specifies when it can be used, and you must decrease the operative's GORE TANK to do so. You cannot use the same SANGUAVITAE rule more than once per activation or counteraction, and you cannot use more than two SANGUAVITAE rules per activation or counteraction. You cannot use Mania and Fury during the same activation. RejuvenateWHEN: During a friendly GOREMONGER operative's activation or counteraction, before or after it performs an action. EFFECT: That operative regains up to D3+1 lost wounds.ManiaWHEN: During a friendly GOREMONGER operative's activation, before or after it performs an action. EFFECT: Until the start of that operative's next activation, add 1 to its APL stat.FuryWHEN: During a friendly GOREMONGER operative's activation, before or after it performs an action. EFFECT: That operative can perform two Fight actions during that activation, and the second one is free.RakeWHEN: When a friendly GOREMONGER operative performs the Charge action during its activation. EFFECT: When that operative finishes moving during that action, you can inflict D3 damage on one enemy operative within its control range.SurgeWHEN: When a friendly GOREMONGER operative performs the Charge or Reposition action. EFFECT: Until the end of that action, add 1\" to that operative's Move stat.RageWHEN: When a friendly GOREMONGER operative performs the Fight action. EFFECT: Until the end of that action, add 1 to the Atk stat of that operative's melee weapons."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "enhanced-violence",
+      "name": "ENHANCED VIOLENCE",
+      "description": "Whenever a friendly GOREMONGER operative's GORE TANK is: Half, its melee weapons have the Balanced weapon rule.Full, its melee weapons have the Relentless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "augmented-endurance",
+      "name": "AUGMENTED ENDURANCE",
+      "description": "Whenever an operative is shooting a friendly GOREMONGER operative, if that friendly operative's GORE TANK is: Half, you can re-roll one of your defence dice.Full, you can re-roll any of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "gory-tenacity",
+      "name": "GORY TENACITY",
+      "description": "Whenever a friendly GOREMONGER operative is fighting or retaliating, the first time your opponent strikes it during that sequence, halve the damage inflicted (rounding up and to a minimum of 2).",
+      "cost": 1
+    },
+    {
+      "id": "hunt-for-blood",
+      "name": "HUNT FOR BLOOD",
+      "description": "Select one friendly GOREMONGER operative. If it has a Conceal order, change it to Engage. Then it can immediately perform a free Charge action, but cannot move more than 3\" during that action.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "unbridled-aggression",
+      "name": "UNBRIDLED AGGRESSION",
+      "description": "Use this firefight ploy when a friendly GOREMONGER operative is fighting during an activation in which it performed the Charge action, at the end of the Roll Attack Dice step. Until the end of that sequence, that operative's melee weapons have the Severe weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "gorethirst",
+      "name": "GORETHIRST",
+      "description": "Use this firefight ploy when you would counteract. You can do so with one friendly GOREMONGER operative that has a Conceal order, but before it counteracts, you must change its order to Engage and it cannot perform any actions other than Charge, Shoot or Fight during that counteraction.",
+      "cost": 1
+    },
+    {
+      "id": "destructive-demise",
+      "name": "DESTRUCTIVE DEMISE",
+      "description": "Use this firefight ploy when a friendly GOREMONGER operative is incapacitated, before it's removed from the killzone. Inflict damage determined by that friendly operative's GORE TANK on one enemy operative within that friendly operative's control range. Inflict: D3 if empty.D3+1 if half.D3+2 if full.",
+      "cost": 1
+    },
+    {
+      "id": "lacerate-flesh",
+      "name": "LACERATE FLESH",
+      "description": "Use this firefight ploy when a friendly GOREMONGER operative with an empty GORE TANK is activated or counteracts. Increase that operative's GORE TANK. At the end of that activation/counteraction, decrease its GORE TANK (you cannot use this decrease to use a SANGUAVITAE rule); if you cannot decrease its GORE TANK, inflict D3 damage on it.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "gory-totem",
+      "name": "GORY TOTEM",
+      "description": "Before the battle, you can set up one of your Gory Totem markers wholly within your territory and more than 2\" from other markers (excluding your Bloody Cadaver marker). Whenever an enemy operative within 3\" of your Gory Totem marker is shooting, fighting or retaliating, your opponent cannot re-roll their attack dice."
+    },
+    {
+      "id": "bloody-cadaver",
+      "name": "BLOODY CADAVER",
+      "description": "Before the battle, you can set up one of your Bloody Cadaver markers wholly within your territory and more than 2\" from other markers (excluding your Gory Totem marker). Friendly GOREMONGER operatives can perform the Pick Up Marker action on that marker. In the Ready step of each Strategy phase, you can increase the GORE TANK of one friendly GOREMONGER operative that controls that marker, unless that friendly operative is within control range of an enemy operative."
+    },
+    {
+      "id": "chaos-sigil",
+      "name": "CHAOS SIGIL",
+      "description": "Once per turning point, when an operative is shooting a friendly GOREMONGER operative, at the start of the Roll Defence Dice step, you can use this rule. If you do, worsen the x of the Piercing weapon rule by 1 (if any) until the end of that sequence. Note that Piercing 1 would therefore be ignored."
+    },
+    {
+      "id": "wrist-chains",
+      "name": "WRIST CHAINS",
+      "description": "Once per turning point, when a friendly GOREMONGER operative performs the Shoot action and you're selecting a ranged weapon, you can use this rule. If you do, until the end of that action, the following melee weapons are treated as ranged weapons with the Range 2\" weapon rule: chainblade, chainglaive, great chainaxe (ignore its Brutal weapon rule), pickrippers. If that melee weapon has the Balanced or Relentless weapon rules as a result of the Enhanced Violence strategy ploy, it has those weapon rules while it is a ranged weapon."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "runes-of-khorne",
+      "rule": "Runes of Khorne",
+      "trigger": "beforeDamageApplied",
+      "condition": {
+        "keyword": "goremonger"
+      },
+      "effect": {
+        "type": "capDamage",
+        "max": 8,
+        "perAction": "shoot"
+      }
+    }
+  ]
+}

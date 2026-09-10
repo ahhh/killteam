@@ -1,0 +1,1312 @@
+{
+  "id": "hunter-clade",
+  "factionId": "adeptus-mechanicus",
+  "displayName": "Hunter Clade",
+  "blurb": "",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/hunter-clade/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f7a8a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 10,
+    "selectionRules": [
+      "1 HUNTER CLADE operative selected from the following list: SICARIAN INFILTRATOR PRINCEPS with one option from each of the following: Flechette blaster or stubcarbine; Power weapon or taser goad; SICARIAN RUSTSTALKER PRINCEPS; SKITARII RANGER ALPHA with one of the following options: Galvanic rifle; gun butt; Master-crafted radium pistol; power weapon; Or one option from each of the following: Arc pistol or phosphor blast pistol; Arc maul or taser goad; SKITARII VANGUARD ALPHA with one of the following options: Radium carbine; gun butt; Master-crafted radium pistol; power weapon; Or one option from each of the following: Arc pistol or phosphor blast pistol; Arc maul or taser goad",
+      "9 HUNTER CLADE operatives selected from the following list: WARRIOR INFILTRATOR* with one option from each of the following: Flechette blaster or stubcarbine; Power weapon or taser goad; WARRIOR SICARIAN* with one of the following options: Chordclaw & transonic razor; Transonic blades; SKITARII RANGER DIKTAT; SKITARII RANGER GUNNER* with gun butt and one of the following options: Arc rifle, plasma caliver or transuranic arquebus; SKITARII RANGER SURVEYOR; RANGER WARRIOR; SKITARII VANGUARD DIKTAT; SKITARII VANGUARD GUNNER* with gun butt and one of the following options: Arc rifle, plasma caliver or transuranic arquebus; SKITARII VANGUARD SURVEYOR; VANGUARD WARRIOR"
+    ],
+    "operatives": [
+      {
+        "profileId": "sicarian-infiltrator-princeps",
+        "count": 1
+      },
+      {
+        "profileId": "sicarian-infiltrator-warrior",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-ranger-diktat",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-ranger-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-ranger-surveyor",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-ranger-warrior",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-vanguard-diktat",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-vanguard-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-vanguard-surveyor",
+        "count": 1
+      },
+      {
+        "profileId": "skitarii-vanguard-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "sicarian-ruststalker-princeps",
+      "name": "Sicarian Ruststalker Princeps",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "chordclaw-transonic-blades",
+          "name": "Chordclaw & transonic blades",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "balanced",
+            "rending"
+          ],
+          "rulesText": "Balanced, Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "leader",
+        "sicarian",
+        "ruststalker",
+        "princeps"
+      ]
+    },
+    {
+      "id": "sicarian-infiltrator-princeps",
+      "name": "Sicarian Infiltrator Princeps",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "flechette-blaster",
+          "name": "Flechette blaster",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "saturate",
+            "silent"
+          ],
+          "rulesText": "Range 8\", Saturate, Silent",
+          "range": 8
+        },
+        {
+          "id": "stubcarbine",
+          "name": "Stubcarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "taser-goad",
+          "name": "Taser goad",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "shock"
+          ],
+          "rulesText": "Lethal 5+, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "leader",
+        "sicarian",
+        "infiltrator",
+        "princeps"
+      ]
+    },
+    {
+      "id": "skitarii-ranger-alpha",
+      "name": "Skitarii Ranger Alpha",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "arc-pistol",
+          "name": "Arc pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Stun",
+          "range": 8
+        },
+        {
+          "id": "galvanic-rifle",
+          "name": "Galvanic rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "master-crafted-radium-pistol",
+          "name": "Master-crafted radium pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "balanced",
+            "rending"
+          ],
+          "rulesText": "Range 8\", Balanced, Rending",
+          "range": 8
+        },
+        {
+          "id": "phosphor-blast-pistol",
+          "name": "Phosphor blast pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "blast1",
+            "severe"
+          ],
+          "rulesText": "Range 8\", Blast 1\", Severe",
+          "range": 8
+        },
+        {
+          "id": "arc-maul",
+          "name": "Arc maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "taser-goad",
+          "name": "Taser goad",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "shock"
+          ],
+          "rulesText": "Lethal 5+, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "leader",
+        "skitarii",
+        "ranger",
+        "alpha"
+      ]
+    },
+    {
+      "id": "skitarii-vanguard-alpha",
+      "name": "Skitarii Vanguard Alpha",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "arc-pistol",
+          "name": "Arc pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Stun",
+          "range": 8
+        },
+        {
+          "id": "master-crafted-radium-pistol",
+          "name": "Master-crafted radium pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "balanced",
+            "rending"
+          ],
+          "rulesText": "Range 8\", Balanced, Rending",
+          "range": 8
+        },
+        {
+          "id": "phosphor-blast-pistol",
+          "name": "Phosphor blast pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "blast1",
+            "severe"
+          ],
+          "rulesText": "Range 8\", Blast 1\", Severe",
+          "range": 8
+        },
+        {
+          "id": "radium-carbine",
+          "name": "Radium carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "arc-maul",
+          "name": "Arc maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "taser-goad",
+          "name": "Taser goad",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "shock"
+          ],
+          "rulesText": "Lethal 5+, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "leader",
+        "skitarii",
+        "vanguard",
+        "alpha"
+      ]
+    },
+    {
+      "id": "sicarian-infiltrator-warrior",
+      "name": "Sicarian Infiltrator Warrior",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "flechette-blaster",
+          "name": "Flechette blaster",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "saturate",
+            "silent"
+          ],
+          "rulesText": "Range 8\", Saturate, Silent",
+          "range": 8
+        },
+        {
+          "id": "stubcarbine",
+          "name": "Stubcarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "taser-goad",
+          "name": "Taser goad",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "shock"
+          ],
+          "rulesText": "Lethal 5+, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "sicarian",
+        "infiltrator",
+        "warrior"
+      ]
+    },
+    {
+      "id": "sicarian-ruststalker-warrior",
+      "name": "Sicarian Ruststalker Warrior",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "chordclaw-transonic-razor",
+          "name": "Chordclaw & transonic razor",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "balanced"
+          ],
+          "rulesText": "Balanced"
+        },
+        {
+          "id": "transonic-blades",
+          "name": "Transonic blades",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "sicarian",
+        "ruststalker",
+        "warrior"
+      ]
+    },
+    {
+      "id": "skitarii-ranger-diktat",
+      "name": "Skitarii Ranger Diktat",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "galvanic-rifle",
+          "name": "Galvanic rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly HUNTER CLADE operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "ranger",
+        "diktat"
+      ]
+    },
+    {
+      "id": "skitarii-ranger-gunner",
+      "name": "Skitarii Ranger Gunner",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "arc-rifle",
+          "name": "Arc rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Piercing 1, Stun",
+          "range": 48
+        },
+        {
+          "id": "plasma-caliver-standard",
+          "name": "Plasma caliver (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-caliver-supercharge",
+          "name": "Plasma caliver (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "transuranic-arquebus-mobile",
+          "name": "Transuranic arquebus (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "devastating2",
+            "heavy:dash",
+            "piercing1"
+          ],
+          "rulesText": "Devastating 2, Heavy (Dash only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "transuranic-arquebus-stationary",
+          "name": "Transuranic arquebus (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "piercing1",
+            "severe"
+          ],
+          "rulesText": "Devastating 3, Heavy, Piercing 1, Severe",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "ranger",
+        "gunner"
+      ]
+    },
+    {
+      "id": "skitarii-ranger-surveyor",
+      "name": "Skitarii Ranger Surveyor",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "galvanic-rifle",
+          "name": "Galvanic rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly HUNTER CLADE operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "ranger",
+        "surveyor"
+      ]
+    },
+    {
+      "id": "skitarii-ranger-warrior",
+      "name": "Skitarii Ranger Warrior",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "galvanic-rifle",
+          "name": "Galvanic rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "ranger",
+        "warrior"
+      ]
+    },
+    {
+      "id": "skitarii-vanguard-diktat",
+      "name": "Skitarii Vanguard Diktat",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "radium-carbine",
+          "name": "Radium carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly HUNTER CLADE operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "vanguard",
+        "diktat"
+      ]
+    },
+    {
+      "id": "skitarii-vanguard-gunner",
+      "name": "Skitarii Vanguard Gunner",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "arc-rifle",
+          "name": "Arc rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Piercing 1, Stun",
+          "range": 48
+        },
+        {
+          "id": "plasma-caliver-standard",
+          "name": "Plasma caliver (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-caliver-supercharge",
+          "name": "Plasma caliver (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "transuranic-arquebus-mobile",
+          "name": "Transuranic arquebus (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "devastating2",
+            "heavy:dash",
+            "piercing1"
+          ],
+          "rulesText": "Devastating 2, Heavy (Dash only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "transuranic-arquebus-stationary",
+          "name": "Transuranic arquebus (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "piercing1",
+            "severe"
+          ],
+          "rulesText": "Devastating 3, Heavy, Piercing 1, Severe",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "vanguard",
+        "gunner"
+      ]
+    },
+    {
+      "id": "skitarii-vanguard-surveyor",
+      "name": "Skitarii Vanguard Surveyor",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "radium-carbine",
+          "name": "Radium carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly HUNTER CLADE operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "vanguard",
+        "surveyor"
+      ]
+    },
+    {
+      "id": "skitarii-vanguard-warrior",
+      "name": "Skitarii Vanguard Warrior",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "radium-carbine",
+          "name": "Radium carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hunter-clade",
+        "imperium",
+        "adeptus-mechanicus",
+        "skitarii",
+        "vanguard",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "doctrina-imperatives",
+      "name": "Doctrina Imperatives",
+      "description": "At the end of the Select Operatives step, select one DOCTRINA IMPERATIVE to be a Primary Mode for your kill team until the end of the battle (note that selecting a Primary Mode doesn't automatically give you the effects of that DOCTRINA IMPERATIVE for the battle; you must still select it as a STRATEGIC GAMBIT, as below). STRATEGIC GAMBIT. Select one DOCTRINA IMPERATIVE for friendly HUNTER CLADE operatives to have until the Ready step of the next Strategy phase. Each DOCTRINA IMPERATIVE has both an Optimisation and a Deprecation rule. Both are in effect while your kill team has that DOCTRINA IMPERATIVE. Once per battle, when you select the DOCTRINA IMPERATIVE that's your kill team's Primary Mode, you can ignore its Deprecation rule. Protector ImperativeOptimisation: Friendly HUNTER CLADE operatives' ranged weapons have the Ceaseless weapon rule. Deprecation: Worsen the Hit stat of friendly HUNTER CLADE operatives' melee weapons by 1. This isn't cumulative with being injured. Conqueror ImperativeOptimisation: Friendly HUNTER CLADE operatives' melee weapons have the Ceaseless weapon rule. Deprecation: Worsen the Hit stat of friendly HUNTER CLADE operatives' ranged weapons by 1. This isn't cumulative with being injured. Bulwark ImperativeOptimisation: Normal Dmg of 3 or more inflicts 1 less damage on friendly HUNTER CLADE operatives. Deprecation: Subtract 1\" from the Move stat of friendly HUNTER CLADE operatives. Aggressor ImperativeOptimisation: Add 1\" to the Move stat of friendly HUNTER CLADE operatives. Deprecation: Worsen the Save stat of friendly HUNTER CLADE operatives by 1. Neutral ImperativeOptimisation: None. Deprecation: None."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "debilitating-irradiation",
+      "name": "DEBILITATING IRRADIATION",
+      "description": "Whenever an enemy operative is shooting against, fighting against or retaliating against a friendly HUNTER CLADE VANGUARD operative, if that enemy operative is under the effects of the Rad-Saturation rule (see VANGUARD operatives), subtract 1 from the Normal Dmg stat of its weapons (to a minimum of 3).",
+      "cost": 1
+    },
+    {
+      "id": "neurostatic-interference",
+      "name": "NEUROSTATIC INTERFERENCE",
+      "description": "Whenever an enemy operative within 6\" of a friendly HUNTER CLADE INFILTRATOR operative is shooting, fighting or retaliating, your opponent cannot re-roll their attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "scouting-protocol",
+      "name": "SCOUTING PROTOCOL",
+      "description": "Each friendly HUNTER CLADE RANGER operative that has a Conceal order and is more than 6\" from enemy operatives can immediately perform a free Dash action in an order of your choice. You cannot use this ploy during the first turning point.",
+      "cost": 1
+    },
+    {
+      "id": "accelerant-agents",
+      "name": "ACCELERANT AGENTS",
+      "description": "During each friendly HUNTER CLADE RUSTSTALKER operative's activation, it can perform two Fight actions, and one of them can be free.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "control-edict",
+      "name": "CONTROL EDICT",
+      "description": "Use this firefight ploy when it's your turn to activate a friendly operative. Select one friendly HUNTER CLADE LEADER operative and one other ready friendly HUNTER CLADE operative visible to and within 3\" of that LEADER operative; activate one of them as normal. When that first friendly operative you activate is expended, you can activate the other friendly operative before your opponent activates. When that other operative is expended, your opponent then activates as normal. Whenever you use this ploy, you cannot select more than one HUNTER CLADE SICARIAN operative.",
+      "cost": 1
+    },
+    {
+      "id": "scrapcode-overload",
+      "name": "SCRAPCODE OVERLOAD",
+      "description": "Use this firefight ploy when a friendly HUNTER CLADE INFILTRATOR operative is activated. Alternatively, use this firefight ploy when a friendly HUNTER CLADE INFILTRATOR operative, or an enemy operative within 3\" of that friendly operative, would perform the Pick Up Marker or a mission action (excluding Operate Hatch). Until the start of that friendly operative's next activation, whenever determining control of a marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 3\" of that friendly operative. Note this isn't a change to the APL stat, so any changes are cumulative with this, and this can change control of a marker before performing the action.",
+      "cost": 1
+    },
+    {
+      "id": "command-override",
+      "name": "COMMAND OVERRIDE",
+      "description": "Use this firefight ploy when you activate a friendly HUNTER CLADE operative. Select a DOCTRINA IMPERATIVE for that operative to have instead of its current one (if any) until the Ready step of the next Strategy phase.",
+      "cost": 1
+    },
+    {
+      "id": "omnissiah-s-imperative",
+      "name": "OMNISSIAH'S IMPERATIVE",
+      "description": "Use this firefight ploy during a friendly HUNTER CLADE operative's activation. Alternatively, use it when an enemy operative is shooting a friendly HUNTER CLADE operative, at the end of the Roll Attack Dice step. Until the Ready step of the next Strategy phase, that friendly operative has an additional rule determined by its current DOCTRINA IMPERATIVE as follows: Protector: This operative's ranged weapons have the Severe weapon rule. Conqueror: Whenever this operative is fighting, after resolving your first attack dice during that sequence, you can immediately resolve another (before your opponent).Bulwark: Improve this operative's Save stat by 1. In addition, whenever an operative is shooting this operative, you can collect and roll one additional defence dice. If you use this ploy during a Shoot action, this operative's Save stat is changed immediately (this takes precedence over the core rules).Aggressor: You can ignore the first vertical distance of 2\" this operative moves during one climb up.Neutral: None.Note that you can use this ploy after rolling attack or defence dice for this operative, or before or after retaining or re-rolling those dice.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "rad-bombardment",
+      "name": "RAD BOMBARDMENT",
+      "description": "Once per battle STRATEGIC GAMBIT in any turning point after the first. Select one objective marker or your opponent's drop zone. Roll one D6 separately for each enemy operative within control range of that selected objective marker or within that drop zone, and subtract 1 if any part of that enemy operative's base is underneath Vantage terrain: on a 4+, subtract 1 from that operative's APL stat until the end of its next activation; on a 6, also inflict D3 damage on it (roll separately for each)."
+    },
+    {
+      "id": "redundancy-systems",
+      "name": "REDUNDANCY SYSTEMS",
+      "description": "Once per turning point, when a friendly HUNTER CLADE operative is activated, if it's not within control range of enemy operatives, you can use this rule. If you do, that friendly operative regains up to D3+2 lost wounds."
+    },
+    {
+      "id": "refractor-field",
+      "name": "REFRACTOR FIELD",
+      "description": "Once per turning point, when an operative is shooting a friendly HUNTER CLADE operative, at the start of the Roll Defence Dice step, you can use this rule. If you do, worsen the x of the Piercing weapon rule by 1 (if any) until the end of that sequence. Note that Piercing 1 would therefore be ignored."
+    },
+    {
+      "id": "extremis-mind-link",
+      "name": "EXTREMIS MIND-LINK",
+      "description": "Once per battle, you can use the Control Edict firefight ploy for 0CP, but instead of activating the selected friendly operatives in succession, activate them at the same time. Complete their activations action by action in any order."
+    }
+  ],
+  "ruleHooks": []
+}

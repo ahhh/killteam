@@ -1,0 +1,972 @@
+{
+  "id": "imperial-navy-breacher",
+  "factionId": "agents-of-the-imperium",
+  "displayName": "Imperial Navy Breacher",
+  "blurb": "Counted amongst the complement of many Navis Imperialis vessels, Navy Breachers are elite Voidsmen who are outfitted, trained and endlessly drilled in boarding actions and void-based combat. Wielding a wide array of cutting gear, boarding shields and close-range weapons, they are well-suited to deadly combat in close confines.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/imperial-navy-breacher/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#7a5b9c",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 11,
+    "selectionRules": [
+      "1 IMPERIAL NAVY BREACHER SERGEANT-AT-ARMS operative with the following option: Navis shotgun and Navis hatchet; Or one option from each of the following: Bolt pistol or heirloom autopistol; Chainsword or power weapon",
+      "10 IMPERIAL NAVY BREACHER operatives selected from the following list: ARMSMAN; AXEJACK; C.A.T. UNIT*; ENDURANT; GHEISTSKULL*; GRENADIER; GUNNER with Navis las-volley and gun butt; GUNNER with meltagun and gun butt; GUNNER with plasma gun and gun butt; HATCHCUTTER; SURVEYOR; VOID-JAMMER"
+    ],
+    "operatives": [
+      {
+        "profileId": "navis-sergeant-at-arms",
+        "count": 1
+      },
+      {
+        "profileId": "navis-armsman",
+        "count": 1
+      },
+      {
+        "profileId": "navis-axejack",
+        "count": 1
+      },
+      {
+        "profileId": "navis-c-a-t-unit",
+        "count": 1
+      },
+      {
+        "profileId": "navis-endurant",
+        "count": 1
+      },
+      {
+        "profileId": "navis-gheistskull",
+        "count": 1
+      },
+      {
+        "profileId": "navis-grenadier",
+        "count": 1
+      },
+      {
+        "profileId": "navis-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "navis-hatchcutter",
+        "count": 1
+      },
+      {
+        "profileId": "navis-surveyor",
+        "count": 1
+      },
+      {
+        "profileId": "navis-void-jammer",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "navis-sergeant-at-arms",
+      "name": "Navis Sergeant-At-Arms",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "heirloom-autopistol",
+          "name": "Heirloom autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "navis-shotgun-close-range",
+          "name": "Navis shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "navis-shotgun-long-range",
+          "name": "Navis shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "navis-hatchet",
+          "name": "Navis hatchet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "leader",
+        "sergeant-at-arms"
+      ]
+    },
+    {
+      "id": "navis-armsman",
+      "name": "Navis Armsman",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "navis-shotgun-close-range",
+          "name": "Navis shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "navis-shotgun-long-range",
+          "name": "Navis shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "navis-hatchet",
+          "name": "Navis hatchet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "armsman"
+      ]
+    },
+    {
+      "id": "navis-axejack",
+      "name": "Navis Axejack",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "axejack"
+      ]
+    },
+    {
+      "id": "navis-c-a-t-unit",
+      "name": "Navis C.A.T. Unit",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 5,
+        "wounds": 5
+      },
+      "weapons": [],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to this operative. Until the end of the turning point, until that enemy operative is no longer visible to this operative or until this operative performs this action again (whichever comes first), whenever a friendly IMPERIAL NAVY BREACHER operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "c-a-t-unit"
+      ]
+    },
+    {
+      "id": "navis-endurant",
+      "name": "Navis Endurant",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 4,
+        "apl": 2,
+        "save": 2,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "navis-heavy-shotgun-close-range",
+          "name": "Navis heavy shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "relentless"
+          ],
+          "rulesText": "Range 6\", Relentless",
+          "range": 6
+        },
+        {
+          "id": "navis-heavy-shotgun-long-range",
+          "name": "Navis heavy shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [
+            "relentless"
+          ],
+          "rulesText": "Relentless",
+          "range": 48
+        },
+        {
+          "id": "shield-bash",
+          "name": "Shield bash",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [
+            "brutal",
+            "shield"
+          ],
+          "rulesText": "Brutal, Shield*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "endurant"
+      ]
+    },
+    {
+      "id": "navis-gheistskull",
+      "name": "Navis Gheistskull",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 5,
+        "wounds": 5
+      },
+      "weapons": [],
+      "abilities": [
+        {
+          "id": "boost",
+          "name": "BOOST",
+          "cost": "1AP",
+          "description": "The next time this operative performs a Charge action during this activation, add 4\" to the distance it can move (instead of 2\"). This operative cannot perform this action more than once per battle, and cannot perform it during the first turning point."
+        }
+      ],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "gheistskull"
+      ]
+    },
+    {
+      "id": "navis-grenadier",
+      "name": "Navis Grenadier",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "demolition-charge",
+          "name": "Demolition charge",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "blast2",
+            "heavy:reposition",
+            "limited1",
+            "piercing1",
+            "saturate"
+          ],
+          "rulesText": "Range 3\", Blast 2\", Heavy (Reposition only), Limited 1, Piercing 1, Saturate",
+          "range": 3
+        },
+        {
+          "id": "navis-shotgun-close-range",
+          "name": "Navis shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "navis-shotgun-long-range",
+          "name": "Navis shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "navis-hatchet",
+          "name": "Navis hatchet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "grenadier"
+      ]
+    },
+    {
+      "id": "navis-gunner",
+      "name": "Navis Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "navis-las-volley-focused",
+          "name": "Navis las-volley (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "rending"
+          ],
+          "rulesText": "Heavy (Dash only), Rending",
+          "range": 48
+        },
+        {
+          "id": "navis-las-volley-sweeping",
+          "name": "Navis las-volley (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "rending",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash only), Rending, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "gunner"
+      ]
+    },
+    {
+      "id": "navis-hatchcutter",
+      "name": "Navis Hatchcutter",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "chainfist",
+          "name": "Chainfist",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal",
+            "rending"
+          ],
+          "rulesText": "Brutal, Rending"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "weld-shut",
+          "name": "WELD SHUT",
+          "cost": "1AP",
+          "description": "Select a closed hatchway (e.g. Killzone: Gallowdark) within this operative's control range. 1 additional AP must be spent for other operatives to perform the Operate Hatch action to open that hatchway. This effect ends when that hatchway is opened. Note this operative isn't affected by this effect. This operative cannot perform this action while within control range of an enemy operative, or if it isn't within 1\" of a closed hatchway."
+        },
+        {
+          "id": "breach-point",
+          "name": "BREACH POINT",
+          "cost": "1AP",
+          "description": "Place one of your Breach markers within this operative's control range as close as possible to a terrain feature within control range of it. Whenever an operative is within 1\" of that marker, it treats parts of that terrain feature that are no more than 1\" thick as Accessible terrain. This operative cannot perform this action while within control range of an enemy operative, or if a terrain feature isn't within its control range."
+        }
+      ],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "hatchcutter"
+      ]
+    },
+    {
+      "id": "navis-surveyor",
+      "name": "Navis Surveyor",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "navis-shotgun-close-range",
+          "name": "Navis shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "navis-shotgun-long-range",
+          "name": "Navis shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "navis-hatchet",
+          "name": "Navis hatchet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "wayfind",
+          "name": "WAYFIND",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly IMPERIAL NAVY BREACHER operative (excluding C.A.T. UNIT or GHEISTSKULL) visible to and within 6\" of this operative, or visible to and within 6\" of a friendly IMPERIAL NAVY BREACHER C.A.T. UNIT operative. Until the end of that operative's next activation, add 1 to its APL stat. For the purposes of the Comms Device universal equipment, the operative the distance is being determined from must control that marker. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "remote-control",
+          "name": "REMOTE CONTROL",
+          "cost": "1AP",
+          "description": "Select one friendly IMPERIAL NAVY BREACHER C.A.T. UNIT operative. That operative can immediately perform one free action, but it cannot move more than 3\" during that action. This operative cannot perform this action while within control range of an enemy operative, or if a friendly IMPERIAL NAVY BREACHER C.A.T. UNIT operative isn't in the killzone."
+        }
+      ],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "surveyor"
+      ]
+    },
+    {
+      "id": "navis-void-jammer",
+      "name": "Navis Void-Jammer",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "gheistskull-detonator",
+          "name": "Gheistskull detonator",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "blast1",
+            "lethal4",
+            "limited1",
+            "silent",
+            "stun",
+            "detonate"
+          ],
+          "rulesText": "Blast 1\", Lethal 4+, Limited 1, Silent, Stun, Detonate*",
+          "range": 48
+        },
+        {
+          "id": "navis-shotgun-close-range",
+          "name": "Navis shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "navis-shotgun-long-range",
+          "name": "Navis shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "navis-hatchet",
+          "name": "Navis hatchet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "interference-pulse",
+          "name": "INTERFERENCE PULSE",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to and within 8\" of a friendly GHEISTSKULL operative. Roll one D6, adding 1 to the result if that enemy operative is a valid target for that friendly GHEISTSKULL operative: on a 3+, subtract 1 from that enemy operative's APL stat until the end of its next activation. This operative cannot perform this action while within control range of an enemy operative, or if a friendly GHEISTSKULL operative isn't in the killzone."
+        }
+      ],
+      "keywords": [
+        "imperial-navy-breacher",
+        "imperium",
+        "void-jammer"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "void-armour",
+      "name": "Void Armour",
+      "description": "Whenever an operative is shooting a friendly IMPERIAL NAVY BREACHER operative, if the ranged weapon in that sequence has the Blast or Torrent weapon rule (excluding weapons that have a sweeping profile), you can re-roll one of your defence dice, or up to two of your defence dice if that friendly operative is a GRENADIER. Friendly IMPERIAL NAVY BREACHER operatives aren't affected by the x\" Devastating x weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence."
+    },
+    {
+      "id": "breach-and-clear",
+      "name": "Breach and Clear",
+      "description": "Once per turning point, when a ready friendly IMPERIAL NAVY BREACHER operative is activated, you can use this rule. If you do, select one other ready friendly IMPERIAL NAVY BREACHER operative visible to and within 3\" of that operative. When that first friendly operative is expended, you can activate that other friendly operative before your opponent activates. When that other operative is expended, your opponent then activates as normal."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "attack-order",
+      "name": "ATTACK ORDER",
+      "description": "Place your Attack Order marker in the killzone. Whenever a friendly IMPERIAL NAVY BREACHER operative within 3\" of that marker is shooting, fighting or retaliating, its weapons have the Ceaseless weapon rule. In the Ready step of the next Strategy phase, remove that marker. You cannot use this ploy and the Defence Order strategy ploy during the same Strategy phase",
+      "cost": 1
+    },
+    {
+      "id": "defence-order",
+      "name": "DEFENCE ORDER",
+      "description": "Place your Defence Order marker in the killzone. Whenever an operative is shooting a friendly IMPERIAL NAVY BREACHER operative that's within 3\" of that marker, you can re-roll any of your defence dice results of one result (e.g. results of 2). In the Ready step of the next Strategy phase, remove that marker. You cannot use this ploy and the Attack Order strategy ploy during the same Strategy phase.",
+      "cost": 1
+    },
+    {
+      "id": "close-assault",
+      "name": "CLOSE ASSAULT",
+      "description": "Whenever a friendly IMPERIAL NAVY BREACHER operative is fighting or shooting an operative within 3\" of it: Add 1 to both Dmg stats of all profiles of its Navis shotguns or Navis heavy shotguns (if any).If you roll two or more fails, you can discard one of them to retain another as a normal success instead.",
+      "cost": 1
+    },
+    {
+      "id": "brace-for-counterattack",
+      "name": "BRACE FOR COUNTERATTACK",
+      "description": "Whenever an operative is shooting against, fighting against or retaliating against a friendly IMPERIAL NAVY BREACHER operative that's within your territory or that hasn't performed the Charge, Fall Back or Reposition action during this turning point, Normal and Critical Dmg of 3 or more inflicts 1 less damage on that friendly operative.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "overwhelm-target",
+      "name": "OVERWHELM TARGET",
+      "description": "Use this firefight ploy when you activate either friendly IMPERIAL NAVY BREACHER operative while using the Breach and Clear faction rule. Until the end of that operative's activation, add 1 to its APL stat.",
+      "cost": 1
+    },
+    {
+      "id": "blitz",
+      "name": "BLITZ",
+      "description": "Use this firefight ploy when a friendly IMPERIAL NAVY BREACHER operative performs the Shoot or Fight action, and you select an enemy operative within 6\" of it as a valid target or to fight against. If it's the first friendly operative to perform either of those actions during this turning point, its weapons have the Accurate 1 weapon rule for that action. If it's the first friendly operative to be activated during this turning point, its weapons also have the Severe weapon rule for that action.",
+      "cost": 1
+    },
+    {
+      "id": "lock-it-down",
+      "name": "LOCK IT DOWN",
+      "description": "Use this firefight ploy when a friendly IMPERIAL NAVY BREACHER operative is activated. Select one objective marker. Until the end of the battle or until you use this ploy again (whichever comes first), when determining control of that objective marker, treat that friendly operative's APL stat as 1 higher. Note this isn't a change to the APL stat, so any changes are cumulative with this.",
+      "cost": 1
+    },
+    {
+      "id": "deck-hand",
+      "name": "DECK HAND",
+      "description": "Use this firefight ploy during a friendly IMPERIAL NAVY BREACHER operative's activation, before or after it performs an action. That operative can move through one Accessible terrain feature without it counting as an additional 1\" and/or perform a free Operate Hatch action during its activation, and can do so during the Charge or Fall Back action. You cannot use this ploy if the access point has been welded shut (see HATCHCUTTER) unless it's a friendly HATCHCUTTER operative's activation.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "rebreathers",
+      "name": "REBREATHERS",
+      "description": "You can ignore any changes to the APL stat of friendly IMPERIAL NAVY BREACHER operatives, and they aren't affected by enemy operatives' Shock weapon rule."
+    },
+    {
+      "id": "slugs",
+      "name": "SLUGS",
+      "description": "Up to three times per turning point, whenever a friendly IMPERIAL NAVY BREACHER operative is performing the Shoot action and you select a Navis shotgun (long range), you can use this rule. If you do, until the end of that action, improve the Hit stat of that weapon by 1 and add 1 to both of its Dmg stats, and that weapon has the Accurate 1 weapon rule."
+    },
+    {
+      "id": "combat-stimms",
+      "name": "COMBAT STIMMS",
+      "description": "You can ignore any changes to the Move stat of friendly IMPERIAL NAVY BREACHER operatives from being injured."
+    },
+    {
+      "id": "system-override-device",
+      "name": "SYSTEM OVERRIDE DEVICE",
+      "description": "Once per turning point, one friendly IMPERIAL NAVY BREACHER operative can perform the Operate Hatch action for 1 less AP."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "void-armour",
+      "rule": "Void Armour",
+      "trigger": "beforeDefenceRoll",
+      "condition": {
+        "keyword": "imperial-navy-breacher",
+        "weaponHasAnyRule": [
+          "blast",
+          "torrent"
+        ]
+      },
+      "effect": {
+        "type": "rerollDefenceDice",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the sweeping-profile exclusion and the splash-Devastating immunity are not simulated"
+    },
+    {
+      "id": "void-armour-grenadier",
+      "rule": "Void Armour",
+      "trigger": "beforeDefenceRoll",
+      "condition": {
+        "keyword": "grenadier",
+        "weaponHasAnyRule": [
+          "blast",
+          "torrent"
+        ]
+      },
+      "effect": {
+        "type": "rerollDefenceDice",
+        "count": 1
+      }
+    }
+  ]
+}

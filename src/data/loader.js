@@ -1,0 +1,181 @@
+/**
+ * Rule-pack, map and mission loading.
+ *
+ * Two sources, one code path:
+ *   - bundled JSON under /data (fetched at runtime)
+ *   - user-supplied JSON (file drop or paste), which stays in the browser
+ *
+ * Imported packs are parsed as data and validated before use. Nothing here
+ * fetches remote JavaScript or evaluates pack content (§34).
+ */
+import { validateTeamPack, validateMap, validateMission, isStale, dataAgeDays } from './validators.js';
+import { SUPPORT_LEVELS, sanitizeText } from './schema.js';
+
+export class DataLoadError extends Error {
+  constructor(message, report) {
+    super(message);
+    this.name = 'DataLoadError';
+    this.report = report;
+  }
+}
+
+async function fetchJson(url) {
+  const res = await fetch(url, { cache: 'no-cache' });
+  if (!res.ok) throw new DataLoadError(`Failed to load ${url}: ${res.status} ${res.statusText}`);
+  return res.json();
+}
+
+export class DataRepository {
+  constructor({ baseUrl = './data' } = {}) {
+    this.baseUrl = baseUrl;
+    this.factions = null;
+    this.teams = new Map();     // id -> pack
+    this.maps = new Map();
+    this.missions = new Map();
+    this.reports = new Map();   // id -> validation report
+    this.customTeams = new Set(); // ids the user supplied locally
+    this.reference = null;
+  }
+
+  async loadCatalogue() {
+    this.factions = await fetchJson(`${this.baseUrl}/factions.json`);
+    return this.factions;
+  }
+
+  /**
+   * The reference catalogue names real teams and links to their official
+   * source. It carries no stats by design — see data/reference-teams.json.
+   */
+  async loadReference() {
+    try {
+      this.reference = await fetchJson(`${this.baseUrl}/reference-teams.json`);
+    } catch {
+      this.reference = null; // Optional file; the app works without it.
+    }
+    return this.reference;
+  }
+
+  /** Every team id referenced by the catalogue. */
+  catalogueTeamIds() {
+    return (this.factions?.factions || []).flatMap((f) => f.teams || []);
+  }
+
+  async loadTeam(id) {
+    if (this.teams.has(id)) return this.teams.get(id);
+    const pack = await fetchJson(`${this.baseUrl}/teams/${id}.json`);
+    return this.registerTeam(pack, { source: 'bundled' });
+  }
+
+  async loadMap(id) {
+    if (this.maps.has(id)) return this.maps.get(id);
+    const map = await fetchJson(`${this.baseUrl}/maps/${id}.json`);
+    return this.registerMap(map);
+  }
+
+  async loadMission(id) {
+    if (this.missions.has(id)) return this.missions.get(id);
+    const mission = await fetchJson(`${this.baseUrl}/missions/${id}.json`);
+    return this.registerMission(mission);
+  }
+
+  /**
+   * Register a team pack from any origin. Throws on invalid data so a broken
+   * pack can never reach the engine.
+   */
+  registerTeam(pack, { source = 'imported' } = {}) {
+    const report = validateTeamPack(pack);
+    this.reports.set(`team:${pack?.id}`, report);
+    if (!report.ok) {
+      throw new DataLoadError(
+        `Team pack "${pack?.id ?? 'unknown'}" is invalid:\n  - ${report.errors.join('\n  - ')}`,
+        report
+      );
+    }
+    pack.displayName = sanitizeText(pack.displayName, 80);
+    pack.blurb = sanitizeText(pack.blurb);
+    pack.origin = source;
+    this.teams.set(pack.id, pack);
+    if (source !== 'bundled') this.customTeams.add(pack.id);
+    return pack;
+  }
+
+  registerMap(map) {
+    const report = validateMap(map);
+    this.reports.set(`map:${map?.id}`, report);
+    if (!report.ok) {
+      throw new DataLoadError(
+        `Map "${map?.id ?? 'unknown'}" is invalid:\n  - ${report.errors.join('\n  - ')}`,
+        report
+      );
+    }
+    this.maps.set(map.id, map);
+    return map;
+  }
+
+  registerMission(mission) {
+    const report = validateMission(mission);
+    this.reports.set(`mission:${mission?.id}`, report);
+    if (!report.ok) {
+      throw new DataLoadError(
+        `Mission "${mission?.id ?? 'unknown'}" is invalid:\n  - ${report.errors.join('\n  - ')}`,
+        report
+      );
+    }
+    this.missions.set(mission.id, mission);
+    return mission;
+  }
+
+  /** Parse user-supplied JSON text. Never eval — JSON.parse only. */
+  importJsonText(text) {
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch (err) {
+      throw new DataLoadError(`Not valid JSON: ${err.message}`);
+    }
+    return this.importObject(parsed);
+  }
+
+  /** Route an imported object to the right register by shape. */
+  importObject(obj) {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.importObject(item));
+    }
+    if (obj?.operatives && obj?.roster) {
+      return { kind: 'team', value: this.registerTeam(obj) };
+    }
+    if (obj?.board && (obj?.terrain || obj?.deploymentZones)) {
+      return { kind: 'map', value: this.registerMap(obj) };
+    }
+    if (obj?.scoring) {
+      return { kind: 'mission', value: this.registerMission(obj) };
+    }
+    throw new DataLoadError(
+      'Unrecognised file. Expected a team pack (roster + operatives), a map (board + terrain), or a mission (scoring).'
+    );
+  }
+
+  reportFor(kind, id) {
+    return this.reports.get(`${kind}:${id}`);
+  }
+
+  /** Display metadata for the setup screen's compatibility badge (§10). */
+  badgeFor(teamId) {
+    const pack = this.teams.get(teamId);
+    if (!pack) return null;
+    const level = SUPPORT_LEVELS[pack.supportLevel] ?? SUPPORT_LEVELS[0];
+    const report = this.reportFor('team', teamId);
+    return {
+      level: pack.supportLevel,
+      label: level.label,
+      badge: this.customTeams.has(teamId) ? 'Experimental (imported)' : level.badge,
+      warnings: report?.warnings ?? [],
+      stale: isStale(pack),
+      ageDays: dataAgeDays(pack),
+      dataVersion: pack.dataVersion,
+      sourceUrl: pack.source?.url || '',
+      publisher: pack.source?.publisher || '',
+      checkedAt: pack.source?.checkedAt || '',
+    };
+  }
+}

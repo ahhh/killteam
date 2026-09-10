@@ -1,0 +1,1055 @@
+{
+  "id": "hearthkyn-salvager",
+  "factionId": "leagues-of-votann",
+  "displayName": "Hearthkyn Salvager",
+  "blurb": "Highly adept warriors and explorers of wrecked voidships and abandoned space stations, Hearthkyn Salvagers are tasked with identifying valuable material and marking it for later retrieval. Heavily armed and utterly resolute, Hearthkyn Salvager kill teams seize and defend such claims with the steadfast determination typical of the Kin.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/hearthkyn-salvager/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f7a8a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 10,
+    "selectionRules": [
+      "1 HEARTHKYN SALVAGER THEYN operative with one option from each of the following: Autoch-pattern bolt pistol, Autoch-pattern bolter, bolt revolver, EtaCarn plasma pistol, ion blaster or ion pistol; Concussion gauntlet or plasma weapon",
+      "9 HEARTHKYN SALVAGER operatives selected from the following list: DÔZR; FIELD MEDIC; GRENADIER; GUNNER with one of the following options: EtaCarn plasma beamer; fists; HYLas auto rifle; fists; HYLas rotary cannon; fists; L7 missile launcher; fists; Magna rail rifle; fists; JUMP PACK WARRIOR; KINLYNK*; KOGNITÂAR*; LOKÂTR*; LUGGER*; WARRIOR*"
+    ],
+    "operatives": [
+      {
+        "profileId": "hearthkyn-theyn",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-dozr",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-field-medic",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-grenadier",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-jump-pack-warrior",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-kinlynk",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-kognitaar",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-lokatr",
+        "count": 1
+      },
+      {
+        "profileId": "hearthkyn-lugger",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "hearthkyn-theyn",
+      "name": "Hearthkyn Theyn",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolt-pistol",
+          "name": "Autoch-pattern bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Range 8\", Accurate 1",
+          "range": 8
+        },
+        {
+          "id": "autoch-pattern-bolter",
+          "name": "Autoch-pattern bolter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "bolt-revolver",
+          "name": "Bolt revolver",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "etacarn-plasma-pistol",
+          "name": "EtaCarn plasma pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "ion-blaster",
+          "name": "Ion blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "ion-pistol",
+          "name": "Ion pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "concussion-gauntlet",
+          "name": "Concussion gauntlet",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "brutal",
+            "shock"
+          ],
+          "rulesText": "Brutal, Shock"
+        },
+        {
+          "id": "plasma-weapon",
+          "name": "Plasma weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "leader",
+        "theyn"
+      ]
+    },
+    {
+      "id": "hearthkyn-dozr",
+      "name": "Hearthkyn Dôzr",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolt-pistol",
+          "name": "Autoch-pattern bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Range 8\", Accurate 1",
+          "range": 8
+        },
+        {
+          "id": "concussion-knux",
+          "name": "Concussion knux",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5",
+            "shock"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+, Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "knux-smash",
+          "name": "KNUX SMASH",
+          "cost": "1AP",
+          "description": "Select one enemy operative within this operative's control range. You can move that enemy operative up to 3\" to a location it can be placed. Then inflict D3+1 damage on it (even if you don't move it); if the D3 result is a 3, also subtract 1 from that enemy operative's APL stat until the end of its next activation. This operative can then immediately perform a free Charge action (even if it's already performed the Charge action during that activation), but cannot move more than 3\" during that action. This operative cannot perform this action unless an enemy operative is within its control range."
+        }
+      ],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "dozr"
+      ]
+    },
+    {
+      "id": "hearthkyn-field-medic",
+      "name": "Hearthkyn Field Medic",
+      "role": "support",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "bolt-revolver",
+          "name": "Bolt revolver",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "plasma-knife",
+          "name": "Plasma Knife",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "1AP",
+          "description": "Select one friendly HEARTHKYN SALVAGER operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "medic",
+        "field-medic"
+      ]
+    },
+    {
+      "id": "hearthkyn-grenadier",
+      "name": "Hearthkyn Grenadier",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolt-pistol",
+          "name": "Autoch-pattern bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Range 8\", Accurate 1",
+          "range": 8
+        },
+        {
+          "id": "c8-hx-charge",
+          "name": "C8 HX charge",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "blast1",
+            "heavy:reposition",
+            "limited1",
+            "piercing1",
+            "saturate"
+          ],
+          "rulesText": "Range 4\", Blast 1\", Heavy (Reposition only), Limited 1, Piercing 1, Saturate",
+          "range": 4
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "vayr-3-utility-grenade",
+          "name": "VÂYR-3 UTILITY GRENADE",
+          "cost": "1AP",
+          "description": "Place one of your Utility Grenade markers within 6\" of this operative. It must be visible to this operative, or on Vantage terrain of a terrain feature that's visible to this operative. Whenever an operative is within 3\" of that Utility Grenade marker, its controlling player must spend 1 additional AP for that operative to perform the Pick Up Marker and mission actions. In the Ready step of the next Strategy phase, roll one D3. Remove that Utility Grenade marker after a number of activations equal to the result have been completed, or at the end of the turning point (whichever comes first). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "grenadier"
+      ]
+    },
+    {
+      "id": "hearthkyn-gunner",
+      "name": "Hearthkyn Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "etacarn-plasma-beamer",
+          "name": "EtaCarn plasma beamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1",
+            "beam"
+          ],
+          "rulesText": "Piercing 1, Beam*",
+          "range": 48
+        },
+        {
+          "id": "hylas-auto-rifle",
+          "name": "HYLas auto rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Ceaseless, Rending",
+          "range": 48
+        },
+        {
+          "id": "hylas-rotary-cannon-focused",
+          "name": "HYLas rotary cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "heavy:reposition",
+            "saturate"
+          ],
+          "rulesText": "Ceaseless, Heavy (Reposition only), Saturate",
+          "range": 48
+        },
+        {
+          "id": "hylas-rotary-cannon-sweeping",
+          "name": "HYLas rotary cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "heavy:reposition",
+            "saturate",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Heavy (Reposition only), Saturate, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "l7-missile-launcher-blast",
+          "name": "L7 missile launcher (blast)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "l7-missile-launcher-focused",
+          "name": "L7 missile launcher (focused)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "magna-rail-rifle",
+          "name": "Magna rail rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 2
+          },
+          "rules": [
+            "devastating3",
+            "heavy:dash",
+            "piercing2"
+          ],
+          "rulesText": "Devastating 3, Heavy (Dash only), Piercing 2",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "gunner"
+      ]
+    },
+    {
+      "id": "hearthkyn-jump-pack-warrior",
+      "name": "Hearthkyn Jump Pack Warrior",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolt-pistol",
+          "name": "Autoch-pattern bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Range 8\", Accurate 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-weapon",
+          "name": "Plasma weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5",
+            "forceimpact"
+          ],
+          "rulesText": "Lethal 5+, Force Impact*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "jump-pack-warrior"
+      ]
+    },
+    {
+      "id": "hearthkyn-kinlynk",
+      "name": "Hearthkyn Kinlynk",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolter",
+          "name": "Autoch-pattern bolter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "ion-blaster",
+          "name": "Ion blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly HEARTHKYN SALVAGER operative in the killzone. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "system-jam",
+          "name": "SYSTEM JAM",
+          "cost": "1AP",
+          "description": "Select one enemy operative that's a valid target for this operative and that doesn't have one of your System Jam tokens; it gains one. Until the end of the battle, whenever an enemy operative has one of your System Jam tokens, it cannot be activated until each enemy operative without one is expended. When an enemy operative that has one of your System Jam tokens is activated, remove that token. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "kinlynk"
+      ]
+    },
+    {
+      "id": "hearthkyn-kognitaar",
+      "name": "Hearthkyn Kognitâar",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolter",
+          "name": "Autoch-pattern bolter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "ion-blaster",
+          "name": "Ion blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "accelerated-appraisal",
+          "name": "ACCELERATED APPRAISAL",
+          "cost": "1AP",
+          "description": "If your Attack or Defence marker is in the killzone, remove it. Place your Attack or Defence marker in the killzone. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "kognitaar"
+      ]
+    },
+    {
+      "id": "hearthkyn-lokatr",
+      "name": "Hearthkyn Lokâtr",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolter",
+          "name": "Autoch-pattern bolter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "ion-blaster",
+          "name": "Ion blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly HEARTHKYN SALVAGER operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "pan-spectral-scan",
+          "name": "PAN SPECTRAL SCAN",
+          "cost": "1AP",
+          "description": "Place your Pan Spectral Scan marker in the killzone. Whenever a friendly HEARTHKYN SALVAGER operative is shooting an enemy operative that's within 3\" of that marker, that friendly operative's ranged weapons have the Accurate 1 and Saturate weapon rules. When this operative is next activated, is incapacitated or performs this action again (whichever comes first), remove that marker. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "lokatr"
+      ]
+    },
+    {
+      "id": "hearthkyn-lugger",
+      "name": "Hearthkyn Lugger",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolter",
+          "name": "Autoch-pattern bolter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "ion-blaster",
+          "name": "Ion blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "lugger"
+      ]
+    },
+    {
+      "id": "hearthkyn-warrior",
+      "name": "Hearthkyn Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autoch-pattern-bolter",
+          "name": "Autoch-pattern bolter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "ion-blaster",
+          "name": "Ion blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hearthkyn-salvager",
+        "leagues-of-votann",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "grudge",
+      "name": "Grudge",
+      "description": "Whenever an enemy operative incapacitates a friendly HEARTHKYN SALVAGER operative, that enemy operative gains one of your Grudge tokens for the battle. Whenever a friendly HEARTHKYN SALVAGER operative is shooting against, fighting against or retaliating against an enemy operative, for each of your Grudge tokens that enemy operative has, you can retain one of your normal successes as a critical success instead (including any normal successes already retained as a result of the Accurate weapon rule). Note that Grudge tokens aren't removed when you do this."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "need-keeps",
+      "name": "NEED KEEPS",
+      "description": "Select one objective marker or one of your mission markers. Whenever determining control of that marker, treat the total APL stat of friendly HEARTHKYN SALVAGER operatives that contest it as 1 higher if at least one friendly HEARTHKYN SALVAGER operative contests that marker. Note this isn't a change to the APL stat, so any changes are cumulative with this.Whenever a friendly HEARTHKYN SALVAGER operative is within 3\" of that marker, add 1 to the Atk stat of its melee weapons (to a maximum of 4); if the weapon already has an Atk stat of 4, it has the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "wrought-defence",
+      "name": "WROUGHT DEFENCE",
+      "description": "Whenever an operative is shooting a friendly HEARTHKYN SALVAGER operative, if you rolled one or less successes (including any re-rolls), you can retain one of your fails as a normal success instead of discarding it.",
+      "cost": 1
+    },
+    {
+      "id": "toil-earns",
+      "name": "TOIL EARNS",
+      "description": "Select one objective marker or one of your mission markers. Whenever an enemy operative is within 3\" of that marker, treat it as having one additional Grudge token.",
+      "cost": 1
+    },
+    {
+      "id": "proximate-firepower",
+      "name": "PROXIMATE FIREPOWER",
+      "description": "Whenever a friendly HEARTHKYN SALVAGER operative is shooting an enemy operative within 6\" of it, improve the Hit stat of that friendly operative's ranged weapons by 1 (to a maximum of 3+). This can allow you to apply or remove the Hit stat change during an action (this takes precedence over the core rules).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "the-ancestors-are-watching",
+      "name": "THE ANCESTORS ARE WATCHING",
+      "description": "Use this firefight ploy during a friendly HEARTHKYN SALVAGER operative's activation. Until the end of that activation, that operative can perform either a free Shoot or a free Fight action.",
+      "cost": 1
+    },
+    {
+      "id": "sturdy",
+      "name": "STURDY",
+      "description": "Use this firefight ploy when an operative is shooting a friendly HEARTHKYN SALVAGER operative, when you collect your defence dice. Change the attacker's retained critical successes to normal successes (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits).",
+      "cost": 1
+    },
+    {
+      "id": "worth-it",
+      "name": "WORTH IT",
+      "description": "Use this firefight ploy when a friendly HEARTHKYN SALVAGER operative is incapacitated. It can perform a free mission action before it's removed from the killzone.",
+      "cost": 1
+    },
+    {
+      "id": "engage-to-acquire",
+      "name": "ENGAGE TO ACQUIRE",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly HEARTHKYN SALVAGER operative, if it's shooting against or fighting against an enemy operative that controls an objective marker or one of your mission markers. You can re-roll any of your attack dice.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "plasma-knives",
+      "name": "PLASMA KNIVES",
+      "description": "Friendly HEARTHKYN SALVAGER operatives have the following melee weapon. Note that the FIELD MEDIC operative already has this weapon but with better stats; in that instance, use the better version. Plasma Knives NAMEATKHITDMGPlasma Knives34+3/5 WRLethal 5+"
+    },
+    {
+      "id": "excavation-tools",
+      "name": "EXCAVATION TOOLS",
+      "description": "Friendly HEARTHKYN SALVAGER operatives can perform the Pick Up Marker action for 1 less AP, and don't have to control the marker to do so (taking precedence over that action's conditions - they only need to contest the marker)."
+    },
+    {
+      "id": "climbing-rigs",
+      "name": "CLIMBING RIGS",
+      "description": "During each friendly HEARTHKYN SALVAGER operative's activation, you can do one of the following: When that operative is climbing up, you can treat the vertical distance as 2\" (regardless of how far the operative actually moves vertically).When that operative is dropping, ignore the vertical distance."
+    },
+    {
+      "id": "writ-of-claim",
+      "name": "WRIT OF CLAIM",
+      "description": "Once per battle, if friendly HEARTHKYN SALVAGER operatives contest two or more objective markers, after rolling off to decide initiative, you can use this rule. If you do, you can re-roll your dice."
+    }
+  ],
+  "ruleHooks": []
+}

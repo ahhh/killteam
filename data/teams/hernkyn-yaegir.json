@@ -1,0 +1,710 @@
+{
+  "id": "hernkyn-yaegir",
+  "factionId": "leagues-of-votann",
+  "displayName": "Hernkyn Yaegir",
+  "blurb": "Bands of Hernkyn serve the Leagues of Votann as scouts and rangers, plying the void and infiltrating worlds in search of raw resources to exploit. Yaegirs are the Hernykn's hardened commandos, responsible for securing and protecting the claims of the Leagues of Votann during the most dangerous missions.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/hernkyn-yaegir/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a2f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 10,
+    "selectionRules": [
+      "1 HERNKYN YAEGIR THEYN operative",
+      "9 HERNKYN YAEGIR operatives selected from the following list: BLADEKYN; BOMBAST; GUNNER; IRONBRAEK; RIFLEKYN; TRACKER; WARRIOR with one of the following options: Bolt revolver; plasma knife; Bolt shotgun; fists"
+    ],
+    "operatives": [
+      {
+        "profileId": "yaegir-theyn",
+        "count": 1
+      },
+      {
+        "profileId": "yaegir-bladekyn",
+        "count": 2
+      },
+      {
+        "profileId": "yaegir-bombast",
+        "count": 2
+      },
+      {
+        "profileId": "yaegir-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "yaegir-ironbraek",
+        "count": 1
+      },
+      {
+        "profileId": "yaegir-riflekyn",
+        "count": 1
+      },
+      {
+        "profileId": "yaegir-tracker",
+        "count": 1
+      },
+      {
+        "profileId": "yaegir-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "yaegir-theyn",
+      "name": "Yaegir Theyn",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "bolt-revolver",
+          "name": "Bolt revolver",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "bolt-shotgun-short-range",
+          "name": "Bolt shotgun (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "bolt-shotgun-long-range",
+          "name": "Bolt shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "plasma-knife",
+          "name": "Plasma Knife",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "leader",
+        "theyn"
+      ]
+    },
+    {
+      "id": "yaegir-bladekyn",
+      "name": "Yaegir Bladekyn",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "throwing-plasma-knife",
+          "name": "Throwing plasma knife",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5",
+            "limited1",
+            "silent"
+          ],
+          "rulesText": "Range 6\", Lethal 5+, Limited 1, Silent",
+          "range": 6
+        },
+        {
+          "id": "dual-plasma-knives",
+          "name": "Dual plasma knives",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "bladekyn"
+      ]
+    },
+    {
+      "id": "yaegir-bombast",
+      "name": "Yaegir Bombast",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "wroughtlock-revolvers",
+          "name": "Wroughtlock revolvers",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Range 9\", Ceaseless, Lethal 5+",
+          "range": 9
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "bombast"
+      ]
+    },
+    {
+      "id": "yaegir-gunner",
+      "name": "Yaegir Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "apm-launcher-armour-piercing",
+          "name": "APM launcher (armour piercing)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercing1",
+            "bipod"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing 1, Bipod*",
+          "range": 48
+        },
+        {
+          "id": "apm-launcher-breaching",
+          "name": "APM launcher (breaching)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "heavy:reposition",
+            "bipod"
+          ],
+          "rulesText": "Blast 2\", Heavy (Reposition only), Bipod*",
+          "range": 48
+        },
+        {
+          "id": "apm-launcher-high-explosive",
+          "name": "APM launcher (high explosive)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast3",
+            "heavy:reposition",
+            "bipod"
+          ],
+          "rulesText": "Blast 3\", Heavy (Reposition only), Bipod*",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "gunner"
+      ]
+    },
+    {
+      "id": "yaegir-ironbraek",
+      "name": "Yaegir Ironbraek",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "bolt-revolver",
+          "name": "Bolt revolver",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "entrencher",
+          "name": "Entrencher",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "ironbraek"
+      ]
+    },
+    {
+      "id": "yaegir-riflekyn",
+      "name": "Yaegir Riflekyn",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "magna-coil-rifle-concealed",
+          "name": "Magna-coil rifle (concealed)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "piercing1",
+            "silent",
+            "concealedposition"
+          ],
+          "rulesText": "Devastating 3, Heavy, Piercing 1, Silent, Concealed Position*",
+          "range": 48
+        },
+        {
+          "id": "magna-coil-rifle-mobile",
+          "name": "Magna-coil rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercing1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "magna-coil-rifle-stationary",
+          "name": "Magna-coil rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "piercing1"
+          ],
+          "rulesText": "Devastating 3, Heavy, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "riflekyn"
+      ]
+    },
+    {
+      "id": "yaegir-tracker",
+      "name": "Yaegir Tracker",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "sinr-handbow",
+          "name": "SiNR handbow",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Silent",
+          "range": 48
+        },
+        {
+          "id": "throwing-hatchet",
+          "name": "Throwing hatchet",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "limited1",
+            "rending",
+            "silent"
+          ],
+          "rulesText": "Range 6\", Limited 1, Rending, Silent",
+          "range": 6
+        },
+        {
+          "id": "hatchet",
+          "name": "Hatchet",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "tracker"
+      ]
+    },
+    {
+      "id": "yaegir-warrior",
+      "name": "Yaegir Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "bolt-revolver",
+          "name": "Bolt revolver",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "bolt-shotgun-short-range",
+          "name": "Bolt shotgun (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "bolt-shotgun-long-range",
+          "name": "Bolt shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "plasma-knife",
+          "name": "Plasma Knife",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "hernkyn-yaegir",
+        "leagues-of-votann",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "resourceful",
+      "name": "Resourceful",
+      "description": "In the Ready step of each Strategy phase after the first, you gain Resourceful points determined by the number of friendly HERNKYN YAEGIR operatives in the killzone that aren't within control range of enemy operatives. At the end of each turning point, discard your Resourceful points. OPERATIVESRESOURCEFUL POINTS5+21-41 You can spend 1 of your Resourceful points during each activation of each friendly HERNKYN YAEGIR operative to do one of the following: Before or after it performs an action, if it's not within control range of enemy operatives, you can use this rule. If you do, add 1 to that friendly operative's APL stat until the end of its activation.When it's activated, if it's not within control range of enemy operatives, it regains up to D3+1 lost wounds."
+    },
+    {
+      "id": "dauntless-explorers",
+      "name": "Dauntless Explorers",
+      "description": "STRATEGIC GAMBIT in the first turning point. Each friendly HERNKYN YAEGIR operative wholly within your drop zone can immediately perform a free Reposition action. Each that does so must end that move wholly within 4\" of your drop zone."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "hidden-engagement",
+      "name": "HIDDEN ENGAGEMENT",
+      "description": "Whenever a friendly HERNKYN YAEGIR operative is shooting, if it's in cover from the target's perspective, that friendly operative's weapons have the Balanced weapon rule. Note that your opponent still determines the targeting lines for this (i.e. they decide which point of their operative's base targeting lines are drawn from).",
+      "cost": 1
+    },
+    {
+      "id": "masterful-bladework",
+      "name": "MASTERFUL BLADEWORK",
+      "description": "Whenever a friendly HERNKYN YAEGIR operative is fighting, or has a Conceal order and is retaliating, add 1 to the Atk stat of its melee weapons (to a maximum of 4) and they have the Balanced weapon rule; if the weapon already has that weapon rule, it has the Ceaseless weapon rule instead of Balanced.",
+      "cost": 1
+    },
+    {
+      "id": "tough-survivalists",
+      "name": "TOUGH SURVIVALISTS",
+      "description": "The first time an attack dice inflicts damage on each friendly HERNKYN YAEGIR operative during the turning point in the Resolve Attack Dice step, you can halve that inflicted damage (rounding up, to a minimum of 2).",
+      "cost": 1
+    },
+    {
+      "id": "in-position",
+      "name": "IN POSITION",
+      "description": "Whenever a friendly HERNKYN YAEGIR operative has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "sturdy",
+      "name": "STURDY",
+      "description": "Use this firefight ploy when an operative is shooting a friendly HERNKYN YAEGIR operative, when you collect your defence dice. Change the attacker's retained critical successes to normal successes (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits).",
+      "cost": 1
+    },
+    {
+      "id": "bonds-that-bind",
+      "name": "BONDS THAT BIND",
+      "description": "Use this firefight ploy when a friendly HERNKYN YAEGIR operative is activated. Select one other ready friendly HERNKYN YAEGIR operative visible to and within 3\" of that operative. When that first friendly operative is expended, you can activate that other friendly operative before your opponent activates. When that other operative is expended, your opponent then activates as normal. Neither operative can be a BOMBAST operative if its Wroughtlock Negotiation STRATEGIC GAMBIT has been used this turning point.",
+      "cost": 1
+    },
+    {
+      "id": "no-kin-left-behind",
+      "name": "NO KIN LEFT BEHIND",
+      "description": "Use this firefight ploy when a friendly HERNKYN YAEGIR operative is incapacitated. Before that operative is removed from the killzone, remove your Fallen Kin marker from the killzone (if any), then place it within that operative's control range. That operative is then removed from the killzone as normal. Whenever a friendly HERNKYN YAEGIR operative within 3\" of your Fallen Kin marker is shooting, fighting or retaliating, in the Roll Attack Dice step, you can retain one of your fails as a normal success instead of discarding it, or retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    },
+    {
+      "id": "stalwart-defence",
+      "name": "STALWART DEFENCE",
+      "description": "Use this firefight ploy when an enemy operative ends a move within control range of a friendly HERNKYN YAEGIR operative. Select one other friendly HERNKYN YAEGIR operative visible to and within 6\" of that friendly operative, but that isn't itself within control range of enemy operatives. The selected operative can perform a free Shoot action. During that action: It can target that enemy operative even though it's within control range of a friendly operative.You cannot select any other enemy operative as a valid target.You cannot select a frag or krak grenade, or a weapon with the Blast or x\" Devastating x weapon rule (i.e. Devastating with a distance).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "plasma-knives",
+      "name": "PLASMA KNIVES",
+      "description": "Friendly HERNKYN YAEGIR operatives have the following melee weapon. Note that some operatives already have this weapon but with better stats; in that instance, use the better version, and that weapon has the Balanced weapon rule for the battle. Plasma Knife NAMEATKHITDMGPlasma Knife34+3/5 WRLethal 5+"
+    },
+    {
+      "id": "stabilised-bolt-shells",
+      "name": "STABILISED BOLT SHELLS",
+      "description": "Up to twice per turning point, whenever a friendly HERNKYN YAEGIR operative is performing the Shoot action and you select a bolt shotgun (long range), you can use this rule. If you do, until the end of that action, improve the Hit stat of that weapon by 1 and add 1 to both of its Dmg stats, and that weapon has the Accurate 1 weapon rule."
+    },
+    {
+      "id": "firestorm-bolt-shells",
+      "name": "FIRESTORM BOLT SHELLS",
+      "description": "Once per turning point, when a friendly HERNKYN YAEGIR operative is performing the Shoot action and you select a bolt shotgun (short range), you can use this rule. If you do, until the end of that action, that weapon has the Blast 1\" weapon rule."
+    },
+    {
+      "id": "kv-ceramide-undersuit",
+      "name": "KV-CERAMIDE UNDERSUIT",
+      "description": "Whenever an operative is shooting a friendly HERNKYN YAEGIR operative, if the ranged weapon in that sequence has the Blast or Torrent weapon rule, you can re-roll one of your defence dice. In addition, friendly HERNKYN YAEGIR operatives aren't affected by the x\" Devastating x weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence."
+    }
+  ],
+  "ruleHooks": []
+}

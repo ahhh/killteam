@@ -1,0 +1,579 @@
+{
+  "id": "void-dancer-troupe",
+  "factionId": "harlequins",
+  "displayName": "Void-dancer Troupe",
+  "blurb": "Even amongst the agile Aeldari, the Harlequins of the Void-dancer Troupes display an almost preternatural level of dexterity and skill. Performance and war merge in their actions, precisely directed to shape the fate of their race.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/void-dancer-troupe/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f3a6a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 8,
+    "selectionRules": [
+      "1 VOID-DANCER TROUPE LEAD PLAYER operative with one option from each of the following: Fusion pistol, neuro disruptor or shuriken pistol; Blade, caress, embrace, kiss or power weapon",
+      "7 VOID-DANCER TROUPE operatives selected from the following list: DEATH JESTER; PLAYER with one option from each of the following: Fusion pistol, neuro disruptor or shuriken pistol; Blade, caress, embrace or kiss; SHADOWSEER with hallucinogen grenade and one of the following options: Neuro disruptor; miststave; Shuriken pistol; miststave"
+    ],
+    "operatives": [
+      {
+        "profileId": "lead-player",
+        "count": 1
+      },
+      {
+        "profileId": "death-jester",
+        "count": 3
+      },
+      {
+        "profileId": "player",
+        "count": 2
+      },
+      {
+        "profileId": "shadowseer",
+        "count": 2
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "lead-player",
+      "name": "Lead Player",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "fusion-pistol",
+          "name": "Fusion pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "piercing2"
+          ],
+          "rulesText": "Range 3\", Devastating 3, Piercing 2",
+          "range": 3
+        },
+        {
+          "id": "neuro-disruptor",
+          "name": "Neuro disruptor",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Stun",
+          "range": 8
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "caress",
+          "name": "Caress",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        },
+        {
+          "id": "embrace",
+          "name": "Embrace",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "kiss",
+          "name": "Kiss",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 7
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "void-dancer-troupe",
+        "aeldari",
+        "harlequin",
+        "leader",
+        "lead-player"
+      ]
+    },
+    {
+      "id": "death-jester",
+      "name": "Death Jester",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "shrieker-cannon-focused",
+          "name": "Shrieker cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending",
+            "heavy:reposition",
+            "humblingcruelty"
+          ],
+          "rulesText": "Rending, Heavy (Reposition only), Humbling Cruelty*",
+          "range": 48
+        },
+        {
+          "id": "shrieker-cannon-sweeping",
+          "name": "Shrieker cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending",
+            "heavy:dash",
+            "torrent2",
+            "humblingcruelty"
+          ],
+          "rulesText": "Rending, Heavy (Dash only), Torrent 2\", Humbling Cruelty*",
+          "range": 48
+        },
+        {
+          "id": "shrieker-blade",
+          "name": "Shrieker blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "void-dancer-troupe",
+        "aeldari",
+        "harlequin",
+        "death-jester"
+      ]
+    },
+    {
+      "id": "player",
+      "name": "Player",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "fusion-pistol",
+          "name": "Fusion pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "piercing2"
+          ],
+          "rulesText": "Range 3\", Devastating 3, Piercing 2",
+          "range": 3
+        },
+        {
+          "id": "neuro-disruptor",
+          "name": "Neuro disruptor",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Stun",
+          "range": 8
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "caress",
+          "name": "Caress",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        },
+        {
+          "id": "embrace",
+          "name": "Embrace",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "kiss",
+          "name": "Kiss",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 7
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "void-dancer-troupe",
+        "aeldari",
+        "harlequin",
+        "player"
+      ]
+    },
+    {
+      "id": "shadowseer",
+      "name": "Shadowseer",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "hallucinogen-grenade",
+          "name": "Hallucinogen grenade",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 1,
+            "critical": 1
+          },
+          "rules": [
+            "blast2",
+            "lethal5",
+            "seeklight",
+            "silent",
+            "stun"
+          ],
+          "rulesText": "Range 6\", Blast 2\", Lethal 5+, Seek Light, Silent, Stun",
+          "range": 6
+        },
+        {
+          "id": "neuro-disruptor",
+          "name": "Neuro disruptor",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Stun",
+          "range": 8
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "miststave",
+          "name": "Miststave",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "fog-of-dreams",
+          "name": "FOG OF DREAMS",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one ready enemy operative visible to this operative and roll one D6. Until the end of the turning point, that enemy operative cannot be activated or perform actions until it's the last enemy operative to be activated, or until your opponent has activated a number of enemy operatives after this action equal to the result of the D6 (whichever comes first). This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "mirror-of-minds",
+          "name": "MIRROR OF MINDS",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one enemy operative that's a valid target for and within 8\" of this operative. Both players roll five D6. Pair your dice with your opponent's dice based on matching results. For each matching pair, inflict D3 damage on that enemy operative (to a maximum of 8). For example, if you rolled 6, 5, 5, 2, 1 and your opponent rolled 6, 5, 4, 3, 1, you would inflict 3D3 damage on that enemy operative. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "void-dancer-troupe",
+        "aeldari",
+        "harlequin",
+        "psyker",
+        "shadowseer"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "saedath",
+      "name": "Saedath",
+      "description": "As a STRATEGIC GAMBIT in the first turning point, you must select an ALLEGORY (Epic or Melodrama below) for your kill team for the battle, and one friendly VOID-DANCER TROUPE operative to have the PIVOTAL ROLE for the battle. Whenever a friendly operative has the PIVOTAL ROLE, it has the ACCOLADE rule of your ALLEGORY for the battle. As a STRATEGIC GAMBIT in each subsequent turning point, you can select one friendly VOID-DANCER TROUPE operative to gain the ACCOLADE rule of your ALLEGORY for the battle. Once per turning point, when a friendly operative that has the PIVOTAL ROLE completes the performance of your ALLEGORY, you can select one friendly VOID-DANCER TROUPE operative to gain the ACCOLADE rule of your ALLEGORY for the battle. EpicPerformance: The operative incapacitates an enemy operative while fighting. Accolade: Whenever this operative is fighting, its melee weapons have the Balanced weapon rule. MelodramaPerformance: The operative incapacitates an enemy operative while shooting. Accolade: The operative's ranged weapons have the Balanced weapon rule."
+    },
+    {
+      "id": "harlequin-s-panoply",
+      "name": "Harlequin's Panoply",
+      "description": "Whenever an operative is shooting a friendly VOID-DANCER TROUPE operative, and no attack dice are retained as critical successes, worsen the x of the Piercing weapon rule by 1 (if any). Note that Piercing 1 would therefore be ignored. Whenever a friendly VOID-DANCER TROUPE operative is climbing up, you can treat the vertical distance as 2\" (regardless of how far the operative actually moves vertically). Friendly VOID-DANCER TROUPE operatives can move within control range of enemy operatives (they must still start and end the move following all requirements for that move)."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "darting-salvo",
+      "name": "DARTING SALVO",
+      "description": "Whenever a friendly VOID-DANCER TROUPE operative performs the Reposition action during its activation, it can perform the Shoot action during that action (it must do so in a location it can be placed, and any remaining move distance it had from that Reposition action can be used after it does so).",
+      "cost": 1
+    },
+    {
+      "id": "rising-crescendo",
+      "name": "RISING CRESCENDO",
+      "description": "Friendly VOID-DANCER TROUPE operatives can perform the Dash action during the same activation in which they performed the Charge action, but not vice versa (i.e. not DASH then CHARGE).",
+      "cost": 1
+    },
+    {
+      "id": "prismatic-blur",
+      "name": "PRISMATIC BLUR",
+      "description": "Whenever an operative is shooting a friendly VOID-DANCER TROUPE operative that performed an action in which it moved during this turning point, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "cegorach-s-jest",
+      "name": "CEGORACH'S JEST",
+      "description": "Whenever a friendly VOID-DANCER TROUPE operative is fighting or retaliating and your opponent strikes with a normal success, you can roll one D6: if the result is less than the Hit stat of your opponent's selected weapon, that strike is allocated to block one of your dice instead (ignore the Brutal weapon rule, if relevant) and you cannot use this rule for the rest of the sequence.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "murderous-entrance",
+      "name": "MURDEROUS ENTRANCE",
+      "description": "Use this firefight ploy when a friendly VOID-DANCER TROUPE operative is fighting during an activation in which it performed the Charge action, after you strike. You can immediately resolve another of your normal successes as a strike (before your opponent), or one of your critical successes if there are none.",
+      "cost": 1
+    },
+    {
+      "id": "the-curtain-falls",
+      "name": "THE CURTAIN FALLS",
+      "description": "Use this firefight ploy when a friendly VOID-DANCER TROUPE operative is fighting, after you strike with a critical success, if the enemy operative isn't incapacitated. End that sequence (any remaining attack dice are discarded) and immediately perform a free Fall Back action up to 3\" with that operative (then the Fight action ends). That operative can do so even if it's performed an action that prevents it from performing the Fall Back action.",
+      "cost": 1
+    },
+    {
+      "id": "elusive-target",
+      "name": "ELUSIVE TARGET",
+      "description": "Use this firefight ploy during a friendly VOID-DANCER TROUPE operative's activation. Until the start of its next activation, while that operative has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
+      "cost": 1
+    },
+    {
+      "id": "domino-field",
+      "name": "DOMINO FIELD",
+      "description": "Use this firefight ploy when an operative is shooting a friendly VOID-DANCER TROUPE operative, during the Resolve Defence Dice step. You can allocate one of your rolled successful dice to block all of your opponent's attack dice with matching results (e.g. one of your successful defence dice results of 5 can be used to block all successful attack dice results of 5).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "wraithbone-talisman",
+      "name": "WRAITHBONE TALISMAN",
+      "description": "Once per turning point, when a friendly VOID-DANCER TROUPE operative is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    },
+    {
+      "id": "shrieker-toxin-rounds",
+      "name": "SHRIEKER TOXIN ROUNDS",
+      "description": "Once per turning point, when a friendly VOID-DANCER TROUPE operative is performing the Shoot action and you select a shuriken pistol or shrieker cannon (focused), you can use this rule. If you do, until the end of that action, that weapon has the Devastating 1 weapon rule."
+    },
+    {
+      "id": "death-mask",
+      "name": "DEATH MASK",
+      "description": "Keep a Tragedy tally. Whenever a friendly VOID-DANCER TROUPE operative that has an ACCOLADE rule is incapacitated, add 1 to your Tragedy tally. When your Tragedy tally reaches 3, you gain 1CP and stop that tally."
+    },
+    {
+      "id": "understudy-s-mask",
+      "name": "UNDERSTUDY'S MASK",
+      "description": "Once per battle, when you activate a friendly VOID-DANCER TROUPE operative, if the friendly operative that has the PIVOTAL ROLE has been incapacitated, you can use this rule. If you do, that activated operative has the PIVOTAL ROLE for the battle."
+    }
+  ],
+  "ruleHooks": []
+}

@@ -1,0 +1,672 @@
+{
+  "id": "wolf-scouts",
+  "factionId": "space-marines",
+  "displayName": "Wolf Scouts",
+  "blurb": "Wolf Scout kill teams are their Great Company's most feared and accomplished hunters, roving far ahead of the Space Wolves' strike forces on solitary, unsupported missions. They cause death and anarchy behind enemy lines through assassination, sabotage and more besides, often while cloaked in strange mists or furious storms.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/wolf-scouts/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#a4443a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [
+      "1 WOLF SCOUT FENRISIAN WOLF",
+      "5 WOLF SCOUT operatives selected from the following list: PACK LEADER; FANGBEARER; FROSTEYE; GUNNER; TRAPMASTER; RUNE PRIEST SKJALD; HUNTER"
+    ],
+    "operatives": [
+      {
+        "profileId": "wolf-scout-fenrisian-wolf",
+        "count": 1
+      },
+      {
+        "profileId": "wolf-scout-pack-leader",
+        "count": 1
+      },
+      {
+        "profileId": "wolf-scout-fangbearer",
+        "count": 1
+      },
+      {
+        "profileId": "wolf-scout-frosteye",
+        "count": 1
+      },
+      {
+        "profileId": "wolf-scout-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "wolf-scout-trapmaster",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "wolf-scout-pack-leader",
+      "name": "Wolf Scout Pack Leader",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "pack",
+        "leader"
+      ]
+    },
+    {
+      "id": "wolf-scout-fangbearer",
+      "name": "Wolf Scout Fangbearer",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "absolvor-bolt-pistol",
+          "name": "Absolvor bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "healing-balms",
+          "name": "HEALING BALMS",
+          "cost": "1AP",
+          "description": "Select one friendly WOLF SCOUT operative within this operative's control range to regain up to D3+3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+        }
+      ],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "fangbearer"
+      ]
+    },
+    {
+      "id": "wolf-scout-frosteye",
+      "name": "Wolf Scout Frosteye",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "instigator-bolt-carbine",
+          "name": "Instigator bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1",
+            "silent"
+          ],
+          "rulesText": "Piercing Crits 1, Silent",
+          "range": 48
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "hunter-s-senses",
+          "name": "HUNTER'S SENSES",
+          "cost": "1AP",
+          "description": "Select one of the following rules for this operative's instigator bolt carbine to have until the start of its next activation:Severe.Saturate, and whenever this operative is shooting with that weapon, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "frosteye"
+      ]
+    },
+    {
+      "id": "wolf-scout-gunner",
+      "name": "Wolf Scout Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "gunner"
+      ]
+    },
+    {
+      "id": "wolf-scout-hunter",
+      "name": "Wolf Scout Hunter",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "hunter"
+      ]
+    },
+    {
+      "id": "wolf-scout-rune-priest-skjald",
+      "name": "Wolf Scout Rune Priest Skjald",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "jaws-of-the-world-wolf",
+          "name": "Jaws of the World Wolf",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "psychic",
+            "blast2",
+            "severe"
+          ],
+          "rulesText": "PSYCHIC, Blast 2\", Severe",
+          "range": 48
+        },
+        {
+          "id": "thunderclap",
+          "name": "Thunderclap",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 2,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "psychic",
+            "saturate",
+            "seeklight",
+            "stun",
+            "torrent2"
+          ],
+          "rulesText": "PSYCHIC, Range 6\", Saturate, Seek Light, Stun, Torrent 2\"",
+          "range": 6
+        },
+        {
+          "id": "runic-stave",
+          "name": "Runic stave",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "psychic",
+            "shock"
+          ],
+          "rulesText": "PSYCHIC, Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "call-the-storm",
+          "name": "CALL THE STORM",
+          "cost": "1AP",
+          "description": "PSYCHIC. Remove your Storm marker from the killzone (if any), then place it in the killzone. PSYCHIC. Alternatively, instead of resolving the above effect, select one friendly WOLF SCOUT operative. Until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first), whenever that friendly operative is wholly within your STORM and more than 3\" from the active operative, it's obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "psyker",
+        "rune-priest-skjald"
+      ]
+    },
+    {
+      "id": "wolf-scout-trapmaster",
+      "name": "Wolf Scout Trapmaster",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "trapmaster"
+      ]
+    },
+    {
+      "id": "wolf-scout-fenrisian-wolf",
+      "name": "Wolf Scout Fenrisian Wolf",
+      "role": "assault",
+      "baseDiameter": 2.36,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 5,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "fangs",
+          "name": "Fangs",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wolf-scout",
+        "imperium",
+        "adeptus-astartes",
+        "space-wolves",
+        "fenrisian-wolf"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "elemental-storm",
+      "name": "Elemental Storm",
+      "description": "STRATEGIC GAMBIT. Remove your Storm marker from the killzone (if any), then place it in the killzone. Whenever an operative is wholly within 6\" horizontally of your Storm marker, it's wholly within your STORM. Each friendly WOLF SCOUT operative can perform the Charge action while it has a Conceal order if it ends that action wholly within your STORM."
+    },
+    {
+      "id": "hunting-astartes",
+      "name": "Hunting Astartes",
+      "description": "During each friendly WOLF SCOUT operative's activation, it can perform either two Shoot actions or two Fight actions. If it's two Shoot actions: 1 additional AP must be spent for the second action if both actions are using a plasma gun or plasma pistol.You cannot select two PSYCHIC ranged weapons.Each friendly WOLF SCOUT operative can counteract regardless of its order. Whenever it does so within your STORM, you can change its order first, or change its order instead of performing an action (for the latter, still treat it as having counteracted this turning point)."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "cloaked-by-the-storm",
+      "name": "CLOAKED BY THE STORM",
+      "description": "Whenever an operative is shooting a friendly WOLF SCOUT operative that's wholly within your STORM, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "storm-s-bite",
+      "name": "STORM'S BITE",
+      "description": "Whenever a friendly WOLF SCOUT operative is fighting against an enemy operative that's wholly within your STORM, subtract 1 from the Atk stat of that enemy operative's melee weapons (to a minimum of 3).",
+      "cost": 1
+    },
+    {
+      "id": "tempestuous-wrath",
+      "name": "TEMPESTUOUS WRATH",
+      "description": "Whenever a friendly WOLF SCOUT operative is fighting or retaliating, if it's wholly within your STORM or was wholly within your STORM at the start of the activation, its melee weapons have the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "savage-fighters",
+      "name": "SAVAGE FIGHTERS",
+      "description": "Whenever a friendly WOLF SCOUT operative finishes retaliating, if it wasn't incapacitated and is still within control range of the enemy operative in that sequence, you can inflict D3+1 damage on that enemy operative.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "acute-senses",
+      "name": "ACUTE SENSES",
+      "description": "Use this firefight ploy when a friendly WOLF SCOUT operative performs the Shoot action and you're selecting a valid target. Until the end of that action, that friendly operative's ranged weapons have the Range 6\" and Seek Light weapon rules and enemy operatives cannot be obscured.",
+      "cost": 1
+    },
+    {
+      "id": "touched-by-lokyar",
+      "name": "TOUCHED BY LOKYAR",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF), if it's fighting more than 5\" from other friendly operatives. You can re-roll any of your attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "counterattack",
+      "name": "COUNTERATTACK",
+      "description": "Use this firefight ploy at the end of an enemy operative's activation, or after an enemy operative performs the Fight action. One friendly WOLF SCOUT operative can immediately perform a free Fight action, but you cannot select any other enemy operative to fight against during that action.",
+      "cost": 1
+    },
+    {
+      "id": "transhuman-physiology",
+      "name": "TRANSHUMAN PHYSIOLOGY",
+      "description": "Use this firefight ploy when an operative is shooting a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF), in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "frost-weapons",
+      "name": "FROST WEAPONS",
+      "description": "Whenever a friendly WOLF SCOUT operative is wholly within your STORM, its combat blade (if any) has the Lethal 5+ weapon rule."
+    },
+    {
+      "id": "wolfteeth-necklaces",
+      "name": "WOLFTEETH NECKLACES",
+      "description": "Once per turning point, when a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF) is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    },
+    {
+      "id": "runic-charms",
+      "name": "RUNIC CHARMS",
+      "description": "Once per turning point, when an operative is shooting a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF) that's wholly within your STORM, at the start of the Roll Defence Dice step, you can use this rule. If you do, worsen the x of the Piercing weapon rule by 1 (if any) until the end of that sequence. Note that Piercing 1 would therefore be ignored."
+    },
+    {
+      "id": "talismanic-trophies",
+      "name": "TALISMANIC TROPHIES",
+      "description": "Whenever a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF) that's wholly within your STORM is fighting or retaliating, in the Resolve Attack Dice step, you can subtract 1 from the damage inflicted on it from one normal success."
+    }
+  ],
+  "ruleHooks": []
+}

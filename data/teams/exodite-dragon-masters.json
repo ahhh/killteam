@@ -1,0 +1,421 @@
+{
+  "id": "exodite-dragon-masters",
+  "factionId": "exodites",
+  "displayName": "Exodite Dragon Masters",
+  "blurb": "The ceremonial positions at the heart of a Dragon Master kill team are bonded in a harmony of martial, spiritual and strategic skills. When bound together, these clan champions form a deadly trinary. Bolstered by the strength and speed of their ferocious drakesteeds, alongside the keen senses of their Drakolithes, no prey can long evade them.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/exodite-dragon-masters/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a6a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 5,
+    "selectionRules": [
+      "1 EXODITE DRAGON MASTER CLANBLADE operative",
+      "1 EXODITE DRAGON MASTER LEYSTALKER operative",
+      "1 EXODITE DRAGON MASTER STONESINGER operative",
+      "2 EXODITE DRAGON MASTER DRAKOLITHE operatives"
+    ],
+    "operatives": [
+      {
+        "profileId": "dragon-master-clanblade",
+        "count": 1
+      },
+      {
+        "profileId": "dragon-master-leystalker",
+        "count": 1
+      },
+      {
+        "profileId": "dragon-master-stonesinger",
+        "count": 1
+      },
+      {
+        "profileId": "drakolithe",
+        "count": 2
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "dragon-master-clanblade",
+      "name": "Dragon Master Clanblade",
+      "role": "assault",
+      "baseDiameter": 2.95,
+      "stats": {
+        "move": 12,
+        "apl": 4,
+        "save": 3,
+        "wounds": 24
+      },
+      "weapons": [
+        {
+          "id": "solar-carbine",
+          "name": "Solar carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating1"
+          ],
+          "rulesText": "Devastating 1",
+          "range": 48
+        },
+        {
+          "id": "drakesteed-fangs-talons",
+          "name": "Drakesteed fangs & talons",
+          "type": "melee",
+          "atk": 6,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "moonblades",
+          "name": "Moonblades",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exodite-dragon-master",
+        "aeldari",
+        "mounted",
+        "clanblade"
+      ]
+    },
+    {
+      "id": "dragon-master-leystalker",
+      "name": "Dragon Master Leystalker",
+      "role": "assault",
+      "baseDiameter": 2.95,
+      "stats": {
+        "move": 12,
+        "apl": 4,
+        "save": 3,
+        "wounds": 24
+      },
+      "weapons": [
+        {
+          "id": "long-rifle-mobile",
+          "name": "Long rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating1"
+          ],
+          "rulesText": "Devastating 1",
+          "range": 48
+        },
+        {
+          "id": "long-rifle-stationary",
+          "name": "Long rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "aimed"
+          ],
+          "rulesText": "Devastating 3, Aimed*",
+          "range": 48
+        },
+        {
+          "id": "drakesteed-fangs-talons",
+          "name": "Drakesteed fangs & talons",
+          "type": "melee",
+          "atk": 6,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "hunting-blade",
+          "name": "Hunting blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exodite-dragon-master",
+        "aeldari",
+        "mounted",
+        "leystalker"
+      ]
+    },
+    {
+      "id": "dragon-master-stonesinger",
+      "name": "Dragon Master Stonesinger",
+      "role": "assault",
+      "baseDiameter": 2.95,
+      "stats": {
+        "move": 12,
+        "apl": 4,
+        "save": 3,
+        "wounds": 24
+      },
+      "weapons": [
+        {
+          "id": "solar-carbine",
+          "name": "Solar carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating1"
+          ],
+          "rulesText": "Devastating 1",
+          "range": 48
+        },
+        {
+          "id": "venomcrest-spit",
+          "name": "Venomcrest spit",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "severe",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Severe, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "drakesteed-fangs-talons",
+          "name": "Drakesteed fangs & talons",
+          "type": "melee",
+          "atk": 6,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "stone-stave",
+          "name": "Stone stave",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "psychic",
+            "lethal5",
+            "shock",
+            "stun"
+          ],
+          "rulesText": "PSYCHIC, Lethal 5+, Shock, Stun"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "song-of-renewal",
+          "name": "SONG OF RENEWAL",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one friendly EXODITE DRAGON MASTER operative visible to this operative. That operative regains up to 2D3 lost wounds. PSYCHIC. Alternatively, each friendly EXODITE DRAGON MASTER operative can regain up to D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point"
+        }
+      ],
+      "keywords": [
+        "exodite-dragon-master",
+        "aeldari",
+        "mounted",
+        "psyker",
+        "stonesinger"
+      ]
+    },
+    {
+      "id": "drakolithe",
+      "name": "Drakolithe",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "fangs-talons",
+          "name": "Fangs & talons",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exodite-dragon-master",
+        "aeldari",
+        "drakolithe"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "drakesteed-agility",
+      "name": "Drakesteed Agility",
+      "description": "EXODITE DRAGON MASTER MOUNTED operatives cannot perform the Charge, Dash, Fall Back or Reposition actions; instead they can perform the Sprint and Turn unique actions.SPRINT0APMove the active operative to a location it can be placed. This must be directly forwards or backwards in one or more straight-line increments, and increments are always rounded up to the nearest inch. It cannot move more than 9\" forwards or 3\" backwards per activation, and it cannot move more than 12\" per turning point. Before or after one of the increments, you can pivot the active operative up to 45°. This doesn't use any of its movement allowance, and it can then continue its movement with any remaining move distance. The active operative cannot climb or finish the move on Vantage terrain higher than 2\" from the killzone floor. It can move through operatives and it treats terrain parts less than 2\" tall as Accessible terrain. Whenever it moves through an equipment terrain feature, remove that terrain feature from the battle. An operative cannot perform this action while counteracting. For the purposes of your opponent's rules, mission rules and killzone rules, this action is treated as the Reposition action, or the Charge action if the active operative ends the action within control range of an enemy operative.TURN1APPivot the active operative up to 45°. This doesn't use any of its movement allowance. An operative cannot perform this action while counteracting. For the purposes of your opponent's rules, mission rules and killzone rules, this action is treated as the Dash action, or the Charge action if the active operative ends the action within control range of an enemy operative."
+    },
+    {
+      "id": "draconic-cavalry-tactics",
+      "name": "Draconic Cavalry Tactics",
+      "description": "When setting up an EXODITE DRAGON MASTER kill team before the battle, the first third of your kill team must be friendly DRAKOLITHE operatives set up as normal. Each friendly EXODITE DRAGON MASTER MOUNTED operative thereafter must be set up in reserve: place it to one side instead of in the killzone. In the first Firefight phase, each friendly EXODITE DRAGON MASTER MOUNTED operative set up in reserve is activated as normal. When it is, set it up in a location it can be placed on the killzone floor with its base touching your killzone edge (it's no longer in reserve). The operative is treated as performing the Turn action (spend the AP accordingly), then continue its activation as normal. Each friendly EXODITE DRAGON MASTER MOUNTED operative is activated twice per turning point (it's only expended after the second activation). You cannot spend more than 3AP for it per activation, or more than its APL stat per turning point. Each friendly EXODITE DRAGON MASTER MOUNTED operative cannot be in cover from or obscured by Light terrain, terrain parts less than 2\" tall or terrain that's not wholly intervening. Whenever a friendly EXODITE DRAGON MASTER MOUNTED operative would perform the Fight action, the distance requirements of its control range can be changed to 1\" horizontally and 4\" vertically until the end of that action."
+    },
+    {
+      "id": "mercurial-speed",
+      "name": "Mercurial Speed",
+      "description": "Each friendly EXODITE DRAGON MASTER operative has a SPEED that has three levels: SPEED 3-, SPEED 4+ and SPEED 7+. An operative can only have one SPEED level at a time, and it starts the battle with SPEED 3-. An EXODITE DRAGON MASTER MOUNTED operative has SPEED 3- if either of the following are true: It ends the Sprint action and it either moved backwards or less than 4\" forwards.It ends its activation without performing the Sprint action. An EXODITE DRAGON MASTER MOUNTED operative has SPEED 4+ if it ends the Sprint action and moved 4\" or more during that action, or SPEED 7+ instead if it moved 7\" or more during that action. Whenever an operative is shooting a friendly EXODITE DRAGON MASTER operative, if that friendly operative has SPEED 4+, you can retain one of your defence dice as a normal success without rolling it; if it has SPEED 7+, you can retain one as a critical success instead. EXODITE DRAGON MASTER DRAKOLITHE operatives' SPEED changes as described on their datacard."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "wind-swift-precision",
+      "name": "WIND-SWIFT PRECISION",
+      "description": "Whenever a friendly EXODITE DRAGON MASTER operative is shooting, if it has SPEED 4+, its ranged weapons have the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "draconic-fury",
+      "name": "DRACONIC FURY",
+      "description": "Whenever a friendly EXODITE DRAGON MASTER operative is fighting: If it has SPEED 4+, its melee weapons have the Balanced weapon rule.If it has SPEED 7+, its melee weapons have the Ceaseless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "sinuous-flux",
+      "name": "SINUOUS FLUX",
+      "description": "Whenever an enemy operative is shooting a friendly EXODITE DRAGON MASTER operative more than 6\" from it, if that friendly operative has SPEED 4+ or SPEED 7+, your opponent cannot re-roll their attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "ride-them-down",
+      "name": "RIDE THEM DOWN",
+      "description": "Once during each friendly EXODITE DRAGON MASTER MOUNTED operative's activation, whenever it ends its move during the Sprint action: If it moved 4\" or more during that action, you can inflict 1 damage on one enemy operative within its control range.If it moved 7\" or more during that action, or it's a CLANBLADE operative, you can inflict D3 damage on one enemy operative within its control range instead.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "survivalist-spirit",
+      "name": "SURVIVALIST SPIRIT",
+      "description": "Use this firefight ploy during a friendly EXODITE DRAGON MASTER MOUNTED operative's activation or counteraction, before or after it performs an action. Until the start of its next activation, you can ignore any changes to that operative's weapon stats from being injured.",
+      "cost": 1
+    },
+    {
+      "id": "leap",
+      "name": "LEAP",
+      "description": "Use this firefight ploy when a friendly EXODITE DRAGON MASTER MOUNTED operative performs the Sprint action. Instead of moving that operative, remove it from the killzone and set it back up in a location it can be placed within 1\" horizontally of its original location. This distance cannot be measured through terrain features more than 2\" tall, and that operative cannot be set up on Vantage terrain higher than 2\" from the killzone floor. That operative is treated as having moved 3\" for the purposes of its movement allowance and has SPEED 3-.",
+      "cost": 1
+    },
+    {
+      "id": "feral-hunger",
+      "name": "FERAL HUNGER",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly EXODITE DRAGON MASTER operative, if it's fighting against a wounded enemy operative with its Drakesteed fangs & talons or fangs & talons. You can re-roll any of your attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "riding-mastery",
+      "name": "RIDING MASTERY",
+      "description": "Use this firefight ploy when a friendly EXODITE DRAGON MASTER MOUNTED operative performs the Sprint action during its activation. During that action, that operative can perform the Pick Up Marker, Place Marker or a mission action (you can determine control during that action to do so), and any remaining move distance it had from that Sprint action can be used after it does so.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "dragonscale-mesh",
+      "name": "DRAGONSCALE MESH",
+      "description": "Once per turning point, when an operative is shooting a friendly EXODITE DRAGON MASTER MOUNTED operative, in the Roll Defence Dice step, you can retain one of your normal successes as a critical success instead."
+    },
+    {
+      "id": "clan-talismans",
+      "name": "CLAN TALISMANS",
+      "description": "Once per turning point, when a friendly EXODITE DRAGON MASTER MOUNTED operative is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    },
+    {
+      "id": "lileathan-crystal-matrices",
+      "name": "LILEATHAN CRYSTAL MATRICES",
+      "description": "Once per turning point, when a friendly EXODITE DRAGON MASTER operative is performing the Shoot action and you select a solar carbine or a profile of its long rifle, you can use this rule. If you do, until the end of that activation, that weapon has the Piercing 1 weapon rule."
+    },
+    {
+      "id": "spirit-stones",
+      "name": "SPIRIT STONES",
+      "description": "Whenever a friendly EXODITE DRAGON MASTER MOUNTED operative is incapacitated, you gain 1CP."
+    }
+  ],
+  "ruleHooks": []
+}

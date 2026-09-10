@@ -1,0 +1,928 @@
+{
+  "id": "deathwatch",
+  "factionId": "space-marines",
+  "displayName": "Deathwatch",
+  "blurb": "Deathwatch kill teams combat the xenos foes of the Imperium with adaptive expertise and specialist weaponry. They wield some of Humanity's most highly advanced weapons alongside more esoteric equipment. Besides their superhuman strength and speed, the Deathwatch bring to the battlefield their hatred of the xenos in all its forms.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/deathwatch/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#a4443a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 5,
+    "selectionRules": [
+      "5 DEATHWATCH operatives selected from the following list: WATCH SERGEANT; AEGIS; BLADEMASTER; BOMBARD; BREACHER; DEMOLISHER; DISRUPTOR; GUNNER; HEADTAKER; HORDE-SLAYER; MARKSMAN"
+    ],
+    "operatives": [
+      {
+        "profileId": "deathwatch-watch-sergeant",
+        "count": 1
+      },
+      {
+        "profileId": "deathwatch-aegis-veteran",
+        "count": 1
+      },
+      {
+        "profileId": "deathwatch-blademaster-veteran",
+        "count": 1
+      },
+      {
+        "profileId": "deathwatch-bombard-veteran",
+        "count": 1
+      },
+      {
+        "profileId": "deathwatch-breacher-veteran",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "deathwatch-watch-sergeant",
+      "name": "Deathwatch Watch Sergeant",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "watch-sergeant"
+      ]
+    },
+    {
+      "id": "deathwatch-aegis-veteran",
+      "name": "Deathwatch Aegis Veteran",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 2,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "power-maul-storm-shield",
+          "name": "Power maul & storm shield",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "shock",
+            "shield"
+          ],
+          "rulesText": "Shock, Shield*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "aegis"
+      ]
+    },
+    {
+      "id": "deathwatch-blademaster-veteran",
+      "name": "Deathwatch Blademaster Veteran",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "special-issue-bolt-pistol",
+          "name": "Special issue bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "xenophase-blade-duel",
+          "name": "Xenophase blade (duel)",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "brutal",
+            "lethal5"
+          ],
+          "rulesText": "Brutal, Lethal 5+"
+        },
+        {
+          "id": "xenophase-blade-phase-sweep",
+          "name": "Xenophase blade (phase sweep)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "brutal",
+            "lethal5",
+            "phasesweep"
+          ],
+          "rulesText": "Brutal, Lethal 5+, Phase Sweep*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "blademaster"
+      ]
+    },
+    {
+      "id": "deathwatch-bombard-veteran",
+      "name": "Deathwatch Bombard Veteran",
+      "role": "ranged",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 5,
+        "apl": 3,
+        "save": 3,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "frag-cannon-shell",
+          "name": "Frag cannon (shell)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "frag-cannon-shrapnel",
+          "name": "Frag cannon (shrapnel)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "torrent2"
+          ],
+          "rulesText": "Torrent 2\"",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "gravis",
+        "bombard"
+      ]
+    },
+    {
+      "id": "deathwatch-breacher-veteran",
+      "name": "Deathwatch Breacher Veteran",
+      "role": "ranged",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 5,
+        "apl": 3,
+        "save": 3,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "auxiliary-grenade-launcher-frag",
+          "name": "Auxiliary grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "auxiliary-grenade-launcher-krak",
+          "name": "Auxiliary grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "hellstorm-bolt-rifle",
+          "name": "Hellstorm bolt rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "torrent1"
+          ],
+          "rulesText": "Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "melta-bomb",
+          "name": "Melta bomb",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy:reposition",
+            "limited1",
+            "piercing2"
+          ],
+          "rulesText": "Range 3\", Devastating 3, Heavy (Reposition only), Limited 1, Piercing 2",
+          "range": 3
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "gravis",
+        "breacher"
+      ]
+    },
+    {
+      "id": "deathwatch-demolisher-veteran",
+      "name": "Deathwatch Demolisher Veteran",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "heavy-thunder-hammer",
+          "name": "Heavy thunder hammer",
+          "type": "melee",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 7
+          },
+          "rules": [
+            "shock",
+            "stun"
+          ],
+          "rulesText": "Shock, Stun"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "demolisher"
+      ]
+    },
+    {
+      "id": "deathwatch-disruptor-veteran",
+      "name": "Deathwatch Disruptor Veteran",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "disruptor"
+      ]
+    },
+    {
+      "id": "deathwatch-gunner-veteran",
+      "name": "Deathwatch Gunner Veteran",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "heavy-plasma-incinerator-standard",
+          "name": "Heavy plasma incinerator (standard)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "heavy-plasma-incinerator-supercharge",
+          "name": "Heavy plasma incinerator (supercharge)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "gunner"
+      ]
+    },
+    {
+      "id": "deathwatch-headtaker-veteran",
+      "name": "Deathwatch Headtaker Veteran",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "special-issue-bolt-pistol",
+          "name": "Special issue bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "combat-knives",
+          "name": "Combat knives",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "headtaker"
+      ]
+    },
+    {
+      "id": "deathwatch-horde-slayer-veteran",
+      "name": "Deathwatch Horde-Slayer Veteran",
+      "role": "ranged",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 5,
+        "apl": 3,
+        "save": 3,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "infernus-heavy-bolter-flame",
+          "name": "Infernus heavy bolter (flame)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "infernus-heavy-bolter-focused-bolt",
+          "name": "Infernus heavy bolter (focused bolt)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "infernus-heavy-bolter-sweeping-bolt",
+          "name": "Infernus heavy bolter (sweeping bolt)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1",
+            "torrent1"
+          ],
+          "rulesText": "Piercing Crits 1, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "gravis",
+        "horde-slayer"
+      ]
+    },
+    {
+      "id": "deathwatch-marksman-veteran",
+      "name": "Deathwatch Marksman Veteran",
+      "role": "sniper",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "stalker-bolt-rifle-mobile",
+          "name": "Stalker bolt rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "stalker-bolt-rifle-heavy",
+          "name": "Stalker bolt rifle (heavy)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "lethal5",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Dash only), Lethal 5+, Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "deathwatch",
+        "imperium",
+        "adeptus-astartes",
+        "marksman"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "veteran-astartes",
+      "name": "Veteran Astartes",
+      "description": "During each friendly DEATHWATCH operative's activation, it can perform either two Shoot actions or two Fight actions. If it's two Shoot actions and an auxiliary grenade launcher, frag cannon, heavy plasma incinerator, infernus heavy bolter, plasma pistol or stalker bolt rifle is selected for both, or if a melta bomb is selected for either, 1 additional AP must be spent for the second action. Each friendly DEATHWATCH operative can counteract regardless of its order. Whenever it does, it can perform an additional 1AP action for free during that counteraction, but both actions must be different and you cannot perform a Fight and Shoot action during the same counteraction."
+    },
+    {
+      "id": "special-issue-ammunition",
+      "name": "Special Issue Ammunition",
+      "description": "Once per turning point, when a friendly DEATHWATCH operative is performing the Shoot action, in the Select Weapon step, you can use this rule. If you do, select one of the following weapon rules for that operative's ranged weapons to have until the end of the action. This rule cannot be used with explosive grenades (see universal equipment) or melta bombs. Blast 1\" (you cannot select this if the weapon profile being used has the Torrent weapon rule)Devastating 1Lethal 5+Piercing Crits 1SaturateSevere"
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "mission-tactics",
+      "name": "MISSION TACTICS",
+      "description": "Select Conceal or Engage. Whenever a friendly DEATHWATCH operative is shooting against or fighting against, or retaliating against an enemy operative that has that order, that friendly operative's weapons have the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "the-shield-that-slays",
+      "name": "THE SHIELD THAT SLAYS",
+      "description": "Whenever a friendly DEATHWATCH operative is wholly within your opponent's territory, Normal Dmg of 4 or more inflicts 1 less damage on it.",
+      "cost": 1
+    },
+    {
+      "id": "the-long-vigil",
+      "name": "THE LONG VIGIL",
+      "description": "Whenever an operative is shooting a friendly DEATHWATCH operative that's wholly within your territory, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "and-they-shall-know-no-fear",
+      "name": "AND THEY SHALL KNOW NO FEAR",
+      "description": "You can ignore any changes to the stats of friendly DEATHWATCH operatives from being injured (including their weapons' stats).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "suffer-not-the-alien",
+      "name": "SUFFER NOT THE ALIEN",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly DEATHWATCH operative, if it's shooting against or fighting, or retaliating against against an operative that doesn't have the CHAOS or IMPERIUM keyword. You can re-roll any of your attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "advanced-auspex-scan",
+      "name": "ADVANCED AUSPEX SCAN",
+      "description": "Use this firefight ploy when a friendly DEATHWATCH operative performs the Shoot action. Until the end of the activation/counteraction, its ranged weapons have the Saturate weapon rule and enemy operatives cannot be obscured.",
+      "cost": 1
+    },
+    {
+      "id": "auspicator-tracking",
+      "name": "AUSPICATOR TRACKING",
+      "description": "Use this firefight ploy when a friendly DEATHWATCH operative is counteracting, before it performs any actions. You can change its order.",
+      "cost": 1
+    },
+    {
+      "id": "transhuman-physiology",
+      "name": "TRANSHUMAN PHYSIOLOGY",
+      "description": "Use this firefight ploy when an operative is shooting a friendly DEATHWATCH operative, in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "digital-weapons",
+      "name": "DIGITAL WEAPONS",
+      "description": "Once per turning point, when a friendly DEATHWATCH operative performs the Fight action, at the start of the Roll Attack Dice step, you can use this rule. If you do, inflict 1 damage on the enemy operative in that sequence."
+    },
+    {
+      "id": "sanctus-v-bioscryer-cuffs",
+      "name": "SANCTUS-V BIOSCRYER CUFFS",
+      "description": "Once during each friendly DEATHWATCH operative's activation, before or after it performs an action, if it's not within control range of enemy operatives, you can use this rule. If you do, select one of the following: That friendly operative regains up to D3 lost wounds.Remove any changes to that friendly operative's APL stat.Remove one of the following tokens that friendly operative has (before that token's activation effects are resolved, if relevant): Neutron Fragment, Poison, Terrorchem."
+    },
+    {
+      "id": "scrutavore-servo-thrall",
+      "name": "SCRUTAVORE SERVO-THRALL",
+      "description": "Once per turning point, during a friendly DEATHWATCH operative's activation, you can use this rule. If you do, during that activation, that operative can perform a mission action for 1 less AP. Having an enemy operative within its control range doesn't prevent that friendly operative from performing that mission action. However, in such an instance, after it does so, you and your opponent roll-off. If your opponent wins, you cannot use this equipment for the rest of the battle."
+    },
+    {
+      "id": "ammunition-reserve",
+      "name": "AMMUNITION RESERVE",
+      "description": "Once per battle, you can use the Special Issue Ammunition faction rule for up to two Shoot actions during one turning point, but you must select different weapon rules for both uses. This takes precedence over the normal Special Issue Ammunition rules."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "astartes-double-action",
+      "rule": "Veteran Astartes",
+      "trigger": "onActionLegality",
+      "condition": {
+        "keyword": "deathwatch"
+      },
+      "effect": {
+        "type": "extraAction",
+        "oneOf": [
+          "shoot",
+          "fight"
+        ],
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the extra AP for a second Shoot with certain heavy weapons, and the bonus free counteract action, are not simulated"
+    }
+  ]
+}

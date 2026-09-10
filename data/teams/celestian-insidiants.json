@@ -1,0 +1,659 @@
+{
+  "id": "celestian-insidiants",
+  "factionId": "adepta-sororitas",
+  "displayName": "Celestian Insidiants",
+  "blurb": "Celestian Insidiant kill teams comprise a range of specialists, each one trained and outfitted to perform a specific role in the pursuit and destruction of sorcerous foes. Some utilise esoteric relic weapons and equipment drawn from the extensive armouries of their Orders Militant, the bearing of which is a great honour.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/celestian-insidiants/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#6a3a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 9,
+    "selectionRules": [
+      "1 CELESTIAN INSIDIANT SUPERIOR operative with one of the following options: Relic condemnor stakethrower; relic bolt pistol; null mace; Inferno pistol; null mace",
+      "8 CELESTIAN INSIDIANT operatives selected from the following list: ABJUROR; CENSOR; CREMATOR; DENUNCIA; MORTISANCTUS; RELIQUARIUS; WARRIOR"
+    ],
+    "operatives": [
+      {
+        "profileId": "insidiant-superior",
+        "count": 1
+      },
+      {
+        "profileId": "insidiant-abjuror",
+        "count": 2
+      },
+      {
+        "profileId": "insidiant-censor",
+        "count": 1
+      },
+      {
+        "profileId": "insidiant-cremator",
+        "count": 1
+      },
+      {
+        "profileId": "insidiant-denuncia",
+        "count": 1
+      },
+      {
+        "profileId": "insidiant-mortisanctus",
+        "count": 1
+      },
+      {
+        "profileId": "insidiant-reliquarius",
+        "count": 1
+      },
+      {
+        "profileId": "insidiant-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "insidiant-superior",
+      "name": "Insidiant Superior",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "inferno-pistol",
+          "name": "Inferno pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 2
+          },
+          "rules": [
+            "devastating3",
+            "piercing2"
+          ],
+          "rulesText": "Range 3\", Devastating 3, Piercing 2",
+          "range": 3
+        },
+        {
+          "id": "relic-bolt-pistol",
+          "name": "Relic bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "relic-condemnor-stakethrower",
+          "name": "Relic condemnor stakethrower",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "devastating2",
+            "lethal5",
+            "piercingcrits1",
+            "silent",
+            "antipsyker"
+          ],
+          "rulesText": "Devastating 2, Lethal 5+, Piercing Crits 1, Silent, Anti-PSYKER*",
+          "range": 48
+        },
+        {
+          "id": "null-mace",
+          "name": "Null mace",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock",
+            "antipsyker"
+          ],
+          "rulesText": "Shock, Anti-PSYKER*"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spiritual-mentor",
+          "name": "SPIRITUAL MENTOR",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. That operative becomes INSPIRING. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+        }
+      ],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "leader",
+        "superior"
+      ]
+    },
+    {
+      "id": "insidiant-abjuror",
+      "name": "Insidiant Abjuror",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 2,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "blessed-sword-praesidium-protectiva-defensive",
+          "name": "Blessed sword & praesidium protectiva (defensive)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "shield"
+          ],
+          "rulesText": "Shield*"
+        },
+        {
+          "id": "blessed-sword-praesidium-protectiva-offensive",
+          "name": "Blessed sword & praesidium protectiva (offensive)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "abjuror"
+      ]
+    },
+    {
+      "id": "insidiant-censor",
+      "name": "Insidiant Censor",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "virge-of-admonition",
+          "name": "Virge of admonition",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 5
+          },
+          "rules": [
+            "brutal",
+            "shock",
+            "antipsyker"
+          ],
+          "rulesText": "Brutal, Shock, Anti-PSYKER*"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "nullifying-ritual",
+          "name": "NULLIFYING RITUAL",
+          "cost": "1AP",
+          "description": "Add 1 to this operative's null range (to a maximum of 5\"). Nullification tokens in the marker/token guide are numbered, so use the numbered token equal to this operative's null range. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+        }
+      ],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "censor"
+      ]
+    },
+    {
+      "id": "insidiant-cremator",
+      "name": "Insidiant Cremator",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "hand-flamer-standard",
+          "name": "Hand flamer (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent1"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 1\"",
+          "range": 6
+        },
+        {
+          "id": "hand-flamer-deluge",
+          "name": "Hand flamer (deluge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "seeklight",
+            "torrent0"
+          ],
+          "rulesText": "Range 4\", Saturate, Seek Light, Torrent 0\"1",
+          "range": 4
+        },
+        {
+          "id": "null-mace",
+          "name": "Null mace",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock",
+            "antipsyker"
+          ],
+          "rulesText": "Shock, Anti-PSYKER*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "cremator"
+      ]
+    },
+    {
+      "id": "insidiant-denuncia",
+      "name": "Insidiant Denuncia",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "voice-of-condemnation",
+          "name": "Voice of condemnation",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 1,
+            "critical": 1
+          },
+          "rules": [
+            "seek",
+            "stun"
+          ],
+          "rulesText": "Range 6\", Seek, Stun",
+          "range": 6
+        },
+        {
+          "id": "staff-of-declamation",
+          "name": "Staff of declamation",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "speak-of-her-deeds",
+          "name": "SPEAK OF HER DEEDS",
+          "cost": "1AP",
+          "description": "SUPPORT. Select an INSPIRING friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. That operative is no longer INSPIRING. Then, select another friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. Resolve one BENEDICTION from the Martyrdom faction rule on that operative (excluding Exigence). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "denuncia"
+      ]
+    },
+    {
+      "id": "insidiant-mortisanctus",
+      "name": "Insidiant Mortisanctus",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "blessed-broadsword",
+          "name": "Blessed broadsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5",
+            "brutal"
+          ],
+          "rulesText": "Lethal 5+, Brutal"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "mortisanctus"
+      ]
+    },
+    {
+      "id": "insidiant-reliquarius",
+      "name": "Insidiant Reliquarius",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "condemnor-stakethrower",
+          "name": "Condemnor stakethrower",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "devastating1",
+            "piercingcrits1",
+            "silent",
+            "antipsyker"
+          ],
+          "rulesText": "Devastating 1, Piercing Crits 1, Silent, Anti-PSYKER*",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "reliquarius"
+      ]
+    },
+    {
+      "id": "insidiant-warrior",
+      "name": "Insidiant Warrior",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "condemnor-stakethrower",
+          "name": "Condemnor stakethrower",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "devastating1",
+            "piercingcrits1",
+            "silent",
+            "antipsyker"
+          ],
+          "rulesText": "Devastating 1, Piercing Crits 1, Silent, Anti-PSYKER*",
+          "range": 48
+        },
+        {
+          "id": "null-mace",
+          "name": "Null mace",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock",
+            "antipsyker"
+          ],
+          "rulesText": "Shock, Anti-PSYKER*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "celestian-insidiant",
+        "imperium",
+        "adepta-sororitas",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "martyrdom",
+      "name": "Martyrdom",
+      "description": "Whenever an INSPIRING friendly CELESTIAN INSIDIANT operative is incapacitated, before it's removed from the killzone, select one other friendly CELESTIAN INSIDIANT operative that operative is visible to or within 6\" of. Then, that selected operative gains one BENEDICTION (incapacitated operatives cannot be selected for a BENEDICTION)."
+    },
+    {
+      "id": "benedictions",
+      "name": "Benedictions",
+      "description": "BENEDICTIONEFFECTArdourUntil the end of the battle, add 1 to that operative's APL stat. You cannot select this BENEDICTION for a SUPERIOR operative.WrathUntil the end of the battle, weapons on that operative's datacard have the Ceaseless weapon ruleRestorationThat operative regains up to D3+2 lost wounds.ExigenceThat operative can immediately perform a free Charge or Dash action (for the former, it cannot move more than 3\"), but must end that move closer to that incapacitated INSPIRING operative."
+    },
+    {
+      "id": "weapons-of-the-witch-hunters",
+      "name": "Weapons of the Witch Hunters",
+      "description": "PSYCHIC ranged weapons cannot inflict damage on friendly CELESTIAN INSIDIANT operatives. For the effects of PSYCHIC actions, friendly CELESTIAN INSIDIANT operatives cannot be selected and are never treated as being within those actions' required distances. Whenever an operative is within 3\" of a friendly CELESTIAN INSIDIANT operative: That operative cannot perform PSYCHIC actions or use PSYCHIC additional rules.That operative cannot use PSYCHIC ranged weapons.PSYCHIC melee weapons have no weapon rules and cannot have Dmg stats higher than 3/4.Some weapons in this team's rules have the Anti-PSYKER weapon rule below. *Anti-PSYKER: Whenever this weapon is being used against an operative that has the PSYKER keyword, it has the Lethal 5+ weapon rule."
+    },
+    {
+      "id": "inspiration",
+      "name": "Inspiration",
+      "description": "Whenever a friendly CELESTIAN INSIDIANT operative: Incapacitates an enemy operative that has a Wounds stat of 6 or more, that friendly operative becomes INSPIRING.Performs the Charge action, before it moves, it becomes INSPIRING.Whenever a friendly CELESTIAN INSIDIANT operative is INSPIRING, weapons on its datacard have the Severe weapon rule."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "suspect-eliminate",
+      "name": "SUSPECT & ELIMINATE",
+      "description": "Select one enemy operative or marker. If you select an enemy operative, that operative and each other enemy operative visible to and within 2\" of it gains one of your Suspicion tokens until the end of the turning point. If you selected a marker, each enemy operative contesting that marker gains one of your Suspicion tokens until the end of the turning point. Whenever a friendly CELESTIAN INSIDIANT operative is shooting against or fighting against an operative that has one of your Suspicion tokens, that friendly operative's weapons have the Punishing weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "suffering-sacrifice",
+      "name": "SUFFERING & SACRIFICE",
+      "description": "Whenever a wounded friendly CELESTIAN INSIDIANT operative is shooting against, fighting against or retaliating against an enemy operative, its weapons have the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "wrathful-determination",
+      "name": "WRATHFUL DETERMINATION",
+      "description": "Whenever an operative is shooting a friendly CELESTIAN INSIDIANT operative that has an Engage order, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "holy-resilience",
+      "name": "HOLY RESILIENCE",
+      "description": "Whenever an INSPIRING friendly CELESTIAN INSIDIANT operative is fighting or retaliating, Normal and Critical Dmg of 4 or more inflicts 1 less damage on that friendly operative.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "glory-to-the-martyrs",
+      "name": "GLORY TO THE MARTYRS",
+      "description": "Use this firefight ploy when a friendly CELESTIAN INSIDIANT operative is incapacitated while fighting or retaliating. You can strike the enemy operative in that sequence with one of your unresolved successes before it's removed from the killzone. If that enemy operative is incapacitated as a result, that friendly operative becomes INSPIRING before it's removed from the killzone and you can resolve the Martyrdom faction rule.",
+      "cost": 1
+    },
+    {
+      "id": "unshakeable-pursuit",
+      "name": "UNSHAKEABLE PURSUIT",
+      "description": "Use this firefight ploy during a friendly CELESTIAN INSIDIANT operative's activation, before or after it performs an action. Until the end of that operative's activation, you can ignore any changes to its Move stat. If that operative is INSPIRING, add 1\" to its Move stat until the end of that activation. If that operative becomes INSPIRING by performing the Charge action, you can use this ploy before it moves to gain the additional movement (this takes precedence over stats not changing during an action).",
+      "cost": 1
+    },
+    {
+      "id": "faith-fury",
+      "name": "FAITH & FURY",
+      "description": "Use this firefight ploy when a friendly CELESTIAN INSIDIANT operative is fighting and you strike the enemy operative in that sequence with a critical success. After resolving that strike, also inflict D3 damage on each other enemy operative visible to and within 2\" of that friendly operative in an order of your choice (roll separately for each). Note that the friendly operative would become INSPIRING if any enemy operatives with a Wounds stat of 6 or more are incapacitated as a result of this damage.",
+      "cost": 1
+    },
+    {
+      "id": "fervent-hate",
+      "name": "FERVENT HATE",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly CELESTIAN INSIDIANT operative, if it's shooting against, fighting against or retaliating against an enemy operative that doesn't have the IMPERIUM keyword. That friendly operative's weapons have the Ceaseless weapon rule until the end of that sequence; if that enemy operative also has the CHAOS and/or PSYKER keyword, that friendly operative's weapons have the Relentless weapon rule until the end of that sequence instead.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "psyk-out-grenades",
+      "name": "PSYK-OUT GRENADES",
+      "description": "This equipment allows you to select two utility grenades from the utility grenades equipment (see universal equipment) and they must all be stun grenades. If you also select that equipment as normal, you cannot select any stun grenades (i.e. to give you more than two). Whenever an operative takes a stun test as a result of a friendly CELESTIAN INSIDIANT operative performing the Stun Grenade action, if the result is a 3+, also inflict damage on it equal to the dice result halved (rounding up). If that first operative has the PSYKER keyword, inflict damage on it equal to the dice result instead."
+    },
+    {
+      "id": "saintly-relics",
+      "name": "SAINTLY RELICS",
+      "description": "Whenever an attack dice would inflict damage on a friendly CELESTIAN INSIDIANT operative, you can use this rule. If you do, roll one D6, or two D6 if that operative is INSPIRING: if any result is a 6, ignore the damage inflicted from that attack dice. You cannot ignore more than one attack dice per action and two attack dice per battle this way."
+    },
+    {
+      "id": "vocifera-mortis",
+      "name": "VOCIFERA MORTIS",
+      "description": "Once per battle, when an INSPIRING friendly CELESTIAN INSIDIANT operative is incapacitated, you can use this rule. If you do, for the Martyrdom faction rule, the other friendly CELESTIAN INSIDIANT operative you select can be one that isn't visible to or within 6\" of that operative."
+    },
+    {
+      "id": "auto-flagellator",
+      "name": "AUTO-FLAGELLATOR",
+      "description": "Whenever a friendly CELESTIAN INSIDIANT operative is activated, you can use this rule. If you do, roll one D6 and inflict damage on that operative equal to half the result (rounding up); on a 4+, that operative also becomes INSPIRING. You cannot make more than one friendly operative INSPIRING using this rule per turning point."
+    }
+  ],
+  "ruleHooks": []
+}

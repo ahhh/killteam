@@ -1,0 +1,515 @@
+{
+  "id": "chaos-cult",
+  "factionId": "cultists",
+  "displayName": "Chaos Cult",
+  "blurb": "Wherever bitterness and discontent fester, so does the worship of the Dark Gods take hold. Zealous bands of cultists throng to the banners of malefic powers. The most monstrous of these zealots are warped beyond recognition, sprouting chitinous claws, leathery wings and all manner of mutations with which to slaughter their enemies.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/chaos-cult/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a6a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 14,
+    "selectionRules": [
+      "1 CULT DEMAGOGUE operative",
+      "2 BLESSED BLADE operatives",
+      "9 CHAOS DEVOTEE operatives",
+      "1 ICONARCH operative",
+      "1 MINDWITCH operative"
+    ],
+    "operatives": [
+      {
+        "profileId": "cult-demagogue",
+        "count": 1
+      },
+      {
+        "profileId": "blessed-blade",
+        "count": 2
+      },
+      {
+        "profileId": "chaos-devotee",
+        "count": 9
+      },
+      {
+        "profileId": "iconarch",
+        "count": 1
+      },
+      {
+        "profileId": "mindwitch",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "cult-demagogue",
+      "name": "Cult Demagogue",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "diabolical-stave-ranged",
+          "name": "Diabolical stave (ranged)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 6
+          },
+          "rules": [
+            "stun"
+          ],
+          "rulesText": "Range 2\", Stun",
+          "range": 2
+        },
+        {
+          "id": "pistol",
+          "name": "Pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "diabolical-stave-melee",
+          "name": "Diabolical stave (melee)",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 6
+          },
+          "rules": [
+            "shock",
+            "stun"
+          ],
+          "rulesText": "Shock, Stun"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "incite-slaughter",
+          "name": "INCITE SLAUGHTER",
+          "cost": "1AP",
+          "description": "SUPPORT. One other friendly CHAOS CULT operative visible to and within 9\" of this operative can immediately perform a free Fight action. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "incite-urgency",
+          "name": "INCITE URGENCY",
+          "cost": "1AP",
+          "description": "SUPPORT. One other friendly CHAOS CULT operative visible to and within 9\" of this operative can immediately perform a free Charge or Dash action (for the former, it cannot move more than 3\"). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "leader",
+        "dark-commune",
+        "cult-demagogue"
+      ]
+    },
+    {
+      "id": "blessed-blade",
+      "name": "Blessed Blade",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "commune-blade",
+          "name": "Commune blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "dark-commune",
+        "blessed-blade"
+      ]
+    },
+    {
+      "id": "iconarch",
+      "name": "Iconarch",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "burning-censer",
+          "name": "Burning censer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 5\", Saturate, Torrent 2\"",
+          "range": 5
+        },
+        {
+          "id": "pistol",
+          "name": "Pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "crude-melee-weapon",
+          "name": "Crude melee weapon",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "ruinous-icon",
+          "name": "RUINOUS ICON",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one of the following effects to last until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first):Invigoration: PSYCHIC. Whenever a friendly CHAOS CULT operative is within 4\" of this operative, Normal and Critical Dmg of 4 or more inflicts 1 less damage on that operative.Deterioration: PSYCHIC. Whenever an enemy operative is within 4\" of this operative, Normal and Critical Dmg inflicts 1 more damage on that operative.This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "dark-commune",
+        "psyker",
+        "iconarch"
+      ]
+    },
+    {
+      "id": "mindwitch",
+      "name": "Mindwitch",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "infernal-gaze",
+          "name": "Infernal gaze",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 0,
+            "critical": 0
+          },
+          "rules": [
+            "psychic",
+            "devastating2",
+            "lethal3"
+          ],
+          "rulesText": "PSYCHIC, Range 6\", Devastating 2, Lethal 3+",
+          "range": 6
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "heinous-deluge",
+          "name": "HEINOUS DELUGE",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one enemy operative that's a valid target for this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "malefic-vortex",
+          "name": "MALEFIC VORTEX",
+          "cost": "1AP",
+          "description": "PSYCHIC. Remove your Malefic Vortex marker from the killzone (if any). Then place your Malefic Vortex marker visible to this operative, or on Vantage terrain of a terrain feature that's visible to this operative. Inflict 1 damage on each enemy operative within 2\" of that marker. In addition, in the Ready step of each Strategy phase, inflict 1 damage on each enemy operative within 2\" of that marker. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "dark-commune",
+        "psyker",
+        "mindwitch"
+      ]
+    },
+    {
+      "id": "chaos-devotee",
+      "name": "Chaos Devotee",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "pistol",
+          "name": "Pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "crude-melee-weapon",
+          "name": "Crude melee weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "devotee"
+      ]
+    },
+    {
+      "id": "chaos-mutant",
+      "name": "Chaos Mutant",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "blasphemous-appendages",
+          "name": "Blasphemous appendages",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Ceaseless, Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "mutant"
+      ]
+    },
+    {
+      "id": "chaos-torment",
+      "name": "Chaos Torment",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "hideous-mutations",
+          "name": "Hideous mutations",
+          "type": "melee",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Ceaseless, Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "chaos-cult",
+        "chaos",
+        "torment"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "accursed-gifts",
+      "name": "Accursed Gifts",
+      "description": "ACCURSED GIFTS are rules that friendly CHAOS CULT operatives gain when they turn into another operative type (see Mutation faction rule). The first time a friendly DEVOTEE operative turns into a MUTANT operative during the battle, select your primary ACCURSED GIFT. The first time a friendly MUTANT operative turns into a TORMENT operative during the battle, select your secondary ACCURSED GIFT. All friendly MUTANT operatives have your primary ACCURSED GIFT, and all friendly TORMENT operatives have your primary and secondary ACCURSED GIFTS. You cannot select the same ACCURSED GIFT more than once per battle. 1. Deformed WingsTattered, leathery wings burst from heaving folds of flesh. These infernal mutations allow their wretched bearer to ascend and drop into the fray with terrifying agility.Whenever this operative is climbing up, you can treat the vertical distance as 2\" (regardless of how far the operative actually moves vertically). Whenever this operative is dropping, ignore the vertical distance. 2. FleetMuscular, misshapen limbs, undulating tentacles and slime-slick extrusions propel mutant Cultists across the battlefield with a speed that is as shocking as it is horrific.Add 1\" to this operative's Move stat. 3. ChitinousHardened plates formed of chitinous, daemonic material erupt from angry, swollen flesh, lending the accursed unholy resilience and turning lasbolts, bullets and blades aside.Improve this operative's Save stat by 1. 4. HornedPairs of sharp, curved horns protrude from the foreheads of some mutant Cultists, used to charge, gore and impale their victims.Whenever this operative ends its move during the Charge action, you can inflict 1 damage on one enemy operative within its control range, or D3 damage instead if this operative is a TORMENT. 5. SinewedWithin this Cultist's twisted form, hardened sinews and tendons bind muscle, lending monstrous strength to each and every strike they make.You can ignore any changes to the Hit stat of this operative's melee weapons from being injured. This operative's melee weapons have the Brutal weapon rule. 6. BarbedThis Cultist's body and weapons are coated with sharp barbs that bite into those nearby, ripping flesh and spilling blood.Whenever this operative is fighting or retaliating: Enemy operatives cannot assist.The first time you strike during that sequence, also inflict 1 damage on each other enemy operative within this operative's control range, or D3 damage instead if this operative is a TORMENT."
+    },
+    {
+      "id": "mutation",
+      "name": "Mutation",
+      "description": "During the battle, friendly CHAOS CULT operatives can MUTATE as follows: As a STRATEGIC GAMBIT, you can MUTATE a number of friendly CHAOS CULT operatives based on the turning point as follows: TP1 = 2, TP2 = 2, TP3 = 3, TP4+ = 4.Whenever a friendly DEVOTEE operative incapacitates an enemy operative within its control range, it can MUTATE.Each operative cannot MUTATE more than once per turning point.Whenever a friendly operative MUTATES, select one of the following: If it's a DEVOTEE operative, turn it into a MUTANT operative.If it's a MUTANT operative, turn it into a TORMENT operative (max twice per turning point).It can regain up to D3+1 lost wounds. You cannot have more than five MUTANT operatives and three TORMENT operatives at once. Whenever a friendly operative turns into a new operative: Swap the miniatures, ensuring the centre of the new miniature's base is as close as possible to where the centre of the old miniature's base was. This can put it within control range of enemy operatives, and if the old miniature was, the new miniature must be if possible.The new operative type loses a number of wounds equal to the lost wounds of its preceding operative type.It's still the same operative for any rules it's already been selected for. The operative is simply a new operative type and will use that new type's miniature and datacard rules."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "exaltation-in-pain",
+      "name": "EXALTATION IN PAIN",
+      "description": "You can ignore any changes to the Hit stat of friendly CHAOS CULT operatives' weapons from being injured. Whenever an operative is shooting a friendly CHAOS CULT operative that's wounded, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "fervent-onslaught",
+      "name": "FERVENT ONSLAUGHT",
+      "description": "Friendly CHAOS CULT operatives' melee weapons have the Accurate 1 weapon rule, or the Accurate 2 weapon rule if that friendly operative is a MUTANT or TORMENT operative.",
+      "cost": 1
+    },
+    {
+      "id": "creatures-of-nightmare",
+      "name": "CREATURES OF NIGHTMARE",
+      "description": "Whenever determining control of a marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 2\" of friendly CHAOS CULT MUTANT or CHAOS CULT TORMENT operatives. Note this isn't a change to the APL stat, so any changes are cumulative with this.",
+      "cost": 1
+    },
+    {
+      "id": "sickening-aura",
+      "name": "SICKENING AURA",
+      "description": "Whenever an enemy operative is within 2\" of friendly CHAOS CULT MUTANT or CHAOS CULT TORMENT operatives, worsen the Hit stat of that enemy operative's weapons by 1. This isn't cumulative with being injured.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "faithful-follower",
+      "name": "FAITHFUL FOLLOWER",
+      "description": "Use this firefight ploy when a friendly CHAOS CULT DARK COMMUNE operative is selected as the valid target of a Shoot action or to fight against during the Fight action. Select one other friendly CHAOS CULT operative (excluding DARK COMMUNE) visible to and within 3\" of that DARK COMMUNE operative to become the valid target or to be fought against (as appropriate) instead (even if it wouldn't normally be valid for this). If it's the Fight action, treat that other operative as being within the fighting operative's control range for the duration of that action. If it's the Shoot action, that other operative is only in cover or obscured if the original target was. This ploy has no effect if it's the Shoot action and the ranged weapon has the Blast or Torrent weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "abhorrent-mutation",
+      "name": "ABHORRENT MUTATION",
+      "description": "Use this firefight ploy when a friendly CHAOS CULT operative (excluding DARK COMMUNE) is activated. Select an ACCURSED GIFT for that operative to gain. This is in addition to any ACCURSED GIFTS it already has. Each friendly operative cannot be selected for this ploy more than once per battle, and if that operative turns into a different one (see Mutation faction rule), it still has that ACCURSED GIFT.",
+      "cost": 1
+    },
+    {
+      "id": "frenzied-demise",
+      "name": "FRENZIED DEMISE",
+      "description": "Use this firefight ploy when a friendly CHAOS CULT MUTANT or CHAOS CULT TORMENT operative is incapacitated, before it's removed from the killzone. Inflict D3 damage (or D6 damage instead if that friendly operative is a TORMENT) on one enemy operative visible to and within 2\" of that friendly operative.",
+      "cost": 1
+    },
+    {
+      "id": "unleash-the-daemon",
+      "name": "UNLEASH THE DAEMON",
+      "description": "Use this firefight ploy during a friendly CHAOS CULT MUTANT or CHAOS CULT TORMENT operative's activation, before or after it performs an action. During that activation, that operative can perform two Fight actions, and one of them can be free.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "baleful-script",
+      "name": "BALEFUL SCRIPT",
+      "description": "Once per battle STRATEGIC GAMBIT. Change one of your ACCURSED GIFTS. Note that if it's an ACCURSED GIFT an operative has from the Abhorrent Mutation firefight ploy, only that operative benefits from this."
+    },
+    {
+      "id": "covert-guises",
+      "name": "COVERT GUISES",
+      "description": "After revealing this equipment option, roll one D3. As a STRATEGIC GAMBIT in the first turning point, a number of friendly CHAOS CULT DEVOTEE operatives equal to the result that are wholly within your drop zone can immediately perform a free Reposition action, but must end that move wholly within 3\" of your drop zone."
+    },
+    {
+      "id": "unholy-talisman",
+      "name": "UNHOLY TALISMAN",
+      "description": "Once per turning point, when an operative is shooting a friendly CHAOS CULT operative, in the Roll Defence Dice step, you can retain one of your normal successes as a critical success instead."
+    },
+    {
+      "id": "vile-blessing",
+      "name": "VILE BLESSING",
+      "description": "Once per battle, when an attack dice inflicts Normal Dmg on a friendly CHAOS CULT operative (excluding DEVOTEE), you can ignore that inflicted damage. If that friendly operative is a MUTANT or TORMENT operative, you cannot roll for the Unnatural Regeneration rule for that attack dice then decide to use this rule on the same dice - you must use one or the other."
+    }
+  ],
+  "ruleHooks": []
+}

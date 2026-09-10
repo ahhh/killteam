@@ -1,0 +1,990 @@
+{
+  "id": "spectre-squad",
+  "factionId": "astra-militarum",
+  "displayName": "Spectre Squad",
+  "blurb": "Spectre Squads wield many of the same weapons borne by rank-and-file Imperial Guardsmen, building on their familiarity with the robust wargear to achieve impressive results. Coupled with their array of highly experienced veteran specialists, this allows Spectre Squads to defeat enemy kill teams that, at first glance, seem far more elite.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/spectre-squad/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#6a3a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 11,
+    "selectionRules": [
+      "1 SPECTRE SQUAD VETERAN SERGEANT",
+      "1 SPECTRE SQUAD VOX-RELAY BEACON",
+      "9 SPECTRE SQUAD operatives selected from the following list: FIELD MEDICAE*; GRENADIER*; GUIDE*; GUNNER with one of the following options: Meltagun; fists; Plasma gun; fists; HEAVY GUNNER; LOADER; SHARPSHOOTER; STUB-GUNNER; TROOPER*; VOX-OPERATOR*"
+    ],
+    "operatives": [
+      {
+        "profileId": "spectre-veteran-sergeant",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-vox-relay-beacon",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-field-medicae",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-grenadier",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-guide",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-heavy-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-loader",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-sharpshooter",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-stub-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "spectre-trooper",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "spectre-veteran-sergeant",
+      "name": "Spectre Veteran Sergeant",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "scoped-lascarbine",
+          "name": "Scoped lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "lethal5",
+            "rending"
+          ],
+          "rulesText": "Lethal 5+, Rending",
+          "range": 48
+        },
+        {
+          "id": "bionic-arm",
+          "name": "Bionic arm",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "issue-mission",
+          "name": "ISSUE MISSION",
+          "cost": "0AP",
+          "description": "Select one expended friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) visible to this operative that hasn't interrupted an enemy operative's activation with the Elite Fieldcraft faction rule this turning point. Until the end of the turning point, that friendly operative can do so even though it's expended (taking precedence over the normal rules). However, if it does, it cannot counteract during the turning point, or perform the Reposition action if it's already done so this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "leader",
+        "veteran-sergeant"
+      ]
+    },
+    {
+      "id": "spectre-vox-relay-beacon",
+      "name": "Spectre Vox-Relay Beacon",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 0,
+        "apl": 1,
+        "save": 5,
+        "wounds": 3
+      },
+      "weapons": [],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "Select one other friendly SPECTRE SQUAD operative within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "vox-relay-beacon"
+      ]
+    },
+    {
+      "id": "spectre-field-medicae",
+      "name": "Spectre Field Medicae",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "lascarbine",
+          "name": "Lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "lasrifle",
+          "name": "Lasrifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "heavy:reposition",
+            "lethal5"
+          ],
+          "rulesText": "Heavy (Reposition only), Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "0AP",
+          "description": "Select one friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "field-medicae"
+      ]
+    },
+    {
+      "id": "spectre-grenadier",
+      "name": "Spectre Grenadier",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "lascarbine",
+          "name": "Lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "lasrifle",
+          "name": "Lasrifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "heavy:reposition",
+            "lethal5"
+          ],
+          "rulesText": "Heavy (Reposition only), Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "grenadier"
+      ]
+    },
+    {
+      "id": "spectre-guide",
+      "name": "Spectre Guide",
+      "role": "support",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "lascarbine",
+          "name": "Lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "lasrifle",
+          "name": "Lasrifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "heavy:reposition",
+            "lethal5"
+          ],
+          "rulesText": "Heavy (Reposition only), Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "guide"
+      ]
+    },
+    {
+      "id": "spectre-gunner",
+      "name": "Spectre Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "gunner"
+      ]
+    },
+    {
+      "id": "spectre-heavy-gunner",
+      "name": "Spectre Heavy Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "laspistol",
+          "name": "Laspistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "missile-launcher-frag",
+          "name": "Missile launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "heavy"
+          ],
+          "rulesText": "Blast 2\", Heavy",
+          "range": 48
+        },
+        {
+          "id": "missile-launcher-krak",
+          "name": "Missile launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "heavy",
+            "piercing1"
+          ],
+          "rulesText": "Heavy, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "heavy-gunner"
+      ]
+    },
+    {
+      "id": "spectre-loader",
+      "name": "Spectre Loader",
+      "role": "support",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "laspistol",
+          "name": "Laspistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "load-weapon",
+          "name": "LOAD WEAPON",
+          "cost": "1AP",
+          "description": "Select one friendly SPECTRE SQUAD operative within this operative's control range and not within 3\" of enemy operatives. That friendly operative can immediately perform a free Shoot action (excluding Guard), and you can change its order to do so. This operative cannot perform this action while within control range of an enemy operative, while counteracting, or during an activation in which it performed the Charge, Dash or Shoot action (or vice versa)."
+        }
+      ],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "loader"
+      ]
+    },
+    {
+      "id": "spectre-sharpshooter",
+      "name": "Spectre Sharpshooter",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "long-las-concealed",
+          "name": "Long-las (concealed)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "silent",
+            "concealedposition"
+          ],
+          "rulesText": "Devastating 3, Heavy, Silent, Concealed Position*",
+          "range": 48
+        },
+        {
+          "id": "long-las-mobile",
+          "name": "Long-las (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "long-las-stationary",
+          "name": "Long-las (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "sharpshooter"
+      ]
+    },
+    {
+      "id": "spectre-stub-gunner",
+      "name": "Spectre Stub-Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autostubber-focused",
+          "name": "Autostubber (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:dash"
+          ],
+          "rulesText": "Heavy (Dash only)",
+          "range": 48
+        },
+        {
+          "id": "autostubber-suppressive",
+          "name": "Autostubber (suppressive)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 5,
+          "damage": {
+            "normal": 0,
+            "critical": 0
+          },
+          "rules": [
+            "heavy",
+            "lethal5",
+            "seeklight",
+            "stun",
+            "torrent1"
+          ],
+          "rulesText": "Heavy, Lethal 5+, Seek Light, Stun, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "autostubber-sweeping",
+          "name": "Autostubber (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:dash",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash only), Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "stub-gunner"
+      ]
+    },
+    {
+      "id": "spectre-trooper",
+      "name": "Spectre Trooper",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "lascarbine",
+          "name": "Lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "lasrifle",
+          "name": "Lasrifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "heavy:reposition",
+            "lethal5"
+          ],
+          "rulesText": "Heavy (Reposition only), Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "trooper"
+      ]
+    },
+    {
+      "id": "spectre-vox-operator",
+      "name": "Spectre Vox-Operator",
+      "role": "support",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "lascarbine",
+          "name": "Lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "lasrifle",
+          "name": "Lasrifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "heavy:reposition",
+            "lethal5"
+          ],
+          "rulesText": "Heavy (Reposition only), Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) visible to this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "spectre-squad",
+        "imperium",
+        "astra-militarum",
+        "vox-operator"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "elite-fieldcraft",
+      "name": "Elite Fieldcraft",
+      "description": "In the Ready step of each Strategy phase, you gain 1 Fieldcraft point, or 2 if a friendly SPECTRE SQUAD VOX-OPERATOR operative is in the killzone and isn't within control range of enemy operatives. At the end of each turning point, discard your Fieldcraft points. After an enemy operative that has an Engage order performs an action during its activation, you can spend 1 of your Fieldcraft points to interrupt that activation. If you do, a ready friendly SPECTRE SQUAD operative that isn't within control range of any other enemy operatives can perform a free Shoot (excluding Guard), Dash or Reposition action. You cannot interrupt each enemy operative's activation more than once per activation (including Guard), and each friendly operative cannot perform more than one free action per turning point as a result of this rule. If it's the Shoot action, you can change that friendly operative's order to perform this action. You cannot select any other enemy operative as a valid target during that action. Being within that enemy operative's control range (but no others) doesn't prevent that friendly operative from performing that action, in which case follow the rules for a point-blank shot from the Guard action. If it's the Reposition action, that friendly operative cannot perform that action again during the turning point. If it's the Dash or Reposition action, that friendly operative cannot end this move closer to that enemy operative or your opponent's drop zone (unless it ends that move wholly within your drop zone). In a killzone that uses the close quarters rules (e.g. Killzone: Tomb World), ignore Wall terrain when determining closer and you cannot teleport."
+    },
+    {
+      "id": "camo-cloaks",
+      "name": "Camo Cloaks",
+      "description": "Whenever an operative is shooting a friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON), if you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn't cumulative with improved cover saves from Vantage terrain."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "disappear",
+      "name": "DISAPPEAR",
+      "description": "One friendly SPECTRE SQUAD operative can immediately perform a free Reposition action. It cannot end that move closer to enemy operatives or your opponent's drop zone (unless it ends that move wholly within your drop zone) and it cannot perform that action again during the turning point. In a killzone that uses the close quarters rules (e.g. Killzone: Tomb World), ignore Wall terrain when determining closer.",
+      "cost": 1
+    },
+    {
+      "id": "hidden-engagement",
+      "name": "HIDDEN ENGAGEMENT",
+      "description": "Whenever a friendly SPECTRE SQUAD operative is shooting, if it's in cover from the target's perspective, that friendly operative's weapons have the Balanced weapon rule. Note that your opponent still determines the targeting lines for this (i.e. they decide which point of their operative's base targeting lines are drawn from).",
+      "cost": 1
+    },
+    {
+      "id": "ambushing-volley",
+      "name": "AMBUSHING VOLLEY",
+      "description": "Whenever a friendly SPECTRE SQUAD operative is activated, if it's more than 3\" from enemy operatives and isn't a valid target for enemy operatives before determining its order, its ranged weapons (excluding the suppressive profile of an autostubber) have the Devastating 1 weapon rule until the end of that activation. If that weapon already had the Devastating x weapon rule, add 1 to the x of its Devastating x weapon rule instead.",
+      "cost": 1
+    },
+    {
+      "id": "patience",
+      "name": "PATIENCE",
+      "description": "In the Firefight phase of this turning point, you can do one of the following: Once, when it's your turn to activate a friendly operative, you can skip that activation. You cannot do this until after your opponent's first activation.When a friendly SPECTRE SQUAD operative performs the Shoot or Fight action during its activation, if it's the last friendly operative to be activated during this turning point, its weapons have the Relentless weapon rule for that action.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "dodge",
+      "name": "DODGE",
+      "description": "Use this firefight ploy during a friendly SPECTRE SQUAD operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
+      "cost": 1
+    },
+    {
+      "id": "silent-killers",
+      "name": "SILENT KILLERS",
+      "description": "Use this firefight ploy during a friendly SPECTRE SQUAD operative's activation before or after it performs an action, if it has a Conceal order and isn't a valid target for enemy operatives. Until the end of that activation, it can perform the Charge action while it has a Conceal order, and the first time it strikes you can inflict 3 additional damage, but cannot resolve any other successes during that sequence.",
+      "cost": 1
+    },
+    {
+      "id": "sharp-reactions",
+      "name": "SHARP REACTIONS",
+      "description": "Use this firefight ploy after an enemy operative that has a Conceal order performs an action during its activation, if it's within 8\" of a friendly SPECTRE SQUAD operative. You can use the Elite Fieldcraft faction rule to interrupt that activation with that friendly SPECTRE SQUAD operative regardless of that enemy operative's order (taking precedence over the normal rules).",
+      "cost": 1
+    },
+    {
+      "id": "prepared-defence",
+      "name": "PREPARED DEFENCE",
+      "description": "Use this firefight ploy when a friendly SPECTRE SQUAD operative that has a Conceal order or is ready is retaliating. You can do one of the following: At the start of the Resolve Attack Dice step, you can resolve one of your successes before the normal order. If you do, that success must be used to block.When you block, that block can be allocated to block two unresolved successes (instead of one).You cannot use this ploy during an activation in which you've interrupted with the Elite Fieldcraft faction rule.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "sniper-overwatch",
+      "name": "SNIPER OVERWATCH",
+      "description": "Once per turning point, a friendly SPECTRE SQUAD operative can use the following ranged weapon: Sniper Overwatch NAMEATKHITDMGSniper Overwatch43+3/3 WRDevastating 2, Heavy (Dash only), Saturate, Silent"
+    },
+    {
+      "id": "tvid-feed-triangulation",
+      "name": "TVID-FEED TRIANGULATION",
+      "description": "Once per turning point, when a friendly SPECTRE SQUAD operative is performing the Shoot action and you're selecting a valid target, you can use this rule. If you do, that target cannot be obscured if either of the following are true: It's also a valid target for another friendly SPECTRE SQUAD operative.It's within 6\" of a friendly VOX-RELAY BEACON operative."
+    },
+    {
+      "id": "starshell-flare",
+      "name": "STARSHELL FLARE",
+      "description": "STRATEGIC GAMBIT. One friendly SPECTRE SQUAD operative can immediately perform a free Stun Grenade action. Performing this action using this rule doesn't count towards its action limits (i.e. if you also select that grenade from equipment). When an enemy operative's APL stat is changed as a result of this STRATEGIC GAMBIT, you cannot use this equipment for the rest of the battle."
+    },
+    {
+      "id": "advanced-camouflage",
+      "name": "ADVANCED CAMOUFLAGE",
+      "description": "Friendly SPECTRE SQUAD operatives (excluding VOX-RELAY BEACON) can perform the following unique action: ADVANCED CAMOUFLAGE1APUntil the start of this operative's next activation, while it has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\". This operative cannot perform this action while visible to and within 3\" of an enemy operative."
+    }
+  ],
+  "ruleHooks": []
+}

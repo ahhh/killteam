@@ -1,0 +1,1028 @@
+{
+  "id": "ratlings",
+  "factionId": "astra-militarum",
+  "displayName": "Ratlings",
+  "blurb": "A Ratling kill team is unlike most others. Its operatives are small in stature (most of them anyway), but big in personality. In a fair fight, they'll be overpowered by those bigger than them, so they must use sneaky and cunning tricks to win",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/ratlings/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a2f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 11,
+    "selectionRules": [
+      "1 RATLING FIXER operative with one of the following options: Battle rifle; fists; Sniper rifle; fists",
+      "10 RATLING operatives selected from the following list: BATTLEMUTT; BULLGRYN* with one option from each of the following: Grenadier gauntlet or power maul; Brute shield or slabshield; OGRYN*; BIG SHOT; BOMBER; HARDBIT; RAIDER; SNEAK; SNIPER; SPOTTER; STASHMASTER; VOX-THIEF"
+    ],
+    "operatives": [
+      {
+        "profileId": "ratling-fixer",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-battlemutt",
+        "count": 1
+      },
+      {
+        "profileId": "bullgryn",
+        "count": 1
+      },
+      {
+        "profileId": "ogryn",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-big-shot",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-bomber",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-hardbit",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-raider",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-sneak",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-sniper",
+        "count": 1
+      },
+      {
+        "profileId": "ratling-spotter",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "ratling-fixer",
+      "name": "Ratling Fixer",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "battle-rifle",
+          "name": "Battle rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "leader",
+        "fixer"
+      ]
+    },
+    {
+      "id": "ratling-battlemutt",
+      "name": "Ratling Battlemutt",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 4
+      },
+      "weapons": [
+        {
+          "id": "bite",
+          "name": "Bite",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "battlemutt"
+      ]
+    },
+    {
+      "id": "bullgryn",
+      "name": "Bullgryn",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 16
+      },
+      "weapons": [
+        {
+          "id": "grenadier-gauntlet",
+          "name": "Grenadier gauntlet",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "power-maul",
+          "name": "Power maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        },
+        {
+          "id": "brute-shield",
+          "name": "Brute shield",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "slabshield",
+          "name": "Slabshield",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "bullgryn"
+      ]
+    },
+    {
+      "id": "ogryn",
+      "name": "Ogryn",
+      "role": "ranged",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 16
+      },
+      "weapons": [
+        {
+          "id": "ripper-gun",
+          "name": "Ripper gun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "punishing"
+          ],
+          "rulesText": "Range 8\", Punishing",
+          "range": 8
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "ogryn"
+      ]
+    },
+    {
+      "id": "ratling-big-shot",
+      "name": "Ratling Big Shot",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "tankstopper-rifle-mobile",
+          "name": "Tankstopper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "devastating1",
+            "heavy:dash",
+            "piercing1"
+          ],
+          "rulesText": "Devastating 1, Heavy (Dash only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "tankstopper-rifle-stationary",
+          "name": "Tankstopper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 2
+          },
+          "rules": [
+            "devastating4",
+            "heavy",
+            "piercing1",
+            "severe"
+          ],
+          "rulesText": "Devastating 4, Heavy, Piercing 1, Severe",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "big-shot"
+      ]
+    },
+    {
+      "id": "ratling-bomber",
+      "name": "Ratling Bomber",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 4,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "explosive-arsenal",
+          "name": "Explosive arsenal",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast1",
+            "heavy:reposition",
+            "limited1",
+            "piercing1",
+            "saturate"
+          ],
+          "rulesText": "Range 3\", Blast 1\", Heavy (Reposition only), Limited 1, Piercing 1, Saturate",
+          "range": 3
+        },
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "bionic-arm",
+          "name": "Bionic arm",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "bomber"
+      ]
+    },
+    {
+      "id": "ratling-hardbit",
+      "name": "Ratling Hardbit",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "battle-rifle",
+          "name": "Battle rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "combat-knife",
+          "name": "Combat knife",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "balanced"
+          ],
+          "rulesText": "Balanced"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "hardbit"
+      ]
+    },
+    {
+      "id": "ratling-raider",
+      "name": "Ratling Raider",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "suppressed-sniper-rifle-mobile",
+          "name": "Suppressed sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Silent",
+          "range": 48
+        },
+        {
+          "id": "suppressed-sniper-rifle-stationary",
+          "name": "Suppressed sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating2",
+            "heavy",
+            "silent"
+          ],
+          "rulesText": "Devastating 2, Heavy, Silent",
+          "range": 48
+        },
+        {
+          "id": "dagger",
+          "name": "Dagger",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "slingshot",
+          "name": "SLINGSHOT",
+          "cost": "1AP",
+          "description": "Select a point on a terrain feature; that point must be visible to and within 6\" of this operative. Remove this operative from the killzone and set it back up in a location it can be placed wholly within 6\" horizontally of that point, not within control range of enemy operatives, and with that point visible to it. This action is treated as a Reposition action. This operative cannot perform this action while within control range of an enemy operative, or during an activation in which it performed the Charge, Fall Back or Shoot action (or vice versa). Grappling Hook: Whenever this operative is climbing up, you can treat the vertical distance as 2\" (regardless of how far the operative actually moves vertically)."
+        }
+      ],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "raider"
+      ]
+    },
+    {
+      "id": "ratling-sneak",
+      "name": "Ratling Sneak",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "suppressed-sniper-rifle-mobile",
+          "name": "Suppressed sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Silent",
+          "range": 48
+        },
+        {
+          "id": "suppressed-sniper-rifle-stationary",
+          "name": "Suppressed sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating2",
+            "heavy",
+            "silent"
+          ],
+          "rulesText": "Devastating 2, Heavy, Silent",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "optics",
+          "name": "OPTICS",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation, whenever it's shooting, enemy operatives cannot be obscured and the stationary profile of this operative's suppressed sniper rifle has the Lethal 5+ weapon rule This operative cannot perform this action while within control range of an enemy operative.Evade: Once per turning point, after an enemy operative performs an action, you can interrupt and perform a free Dash action with this operative. Note this operative cannot use the Scarper faction rule (it has this rule instead)."
+        }
+      ],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "sneak"
+      ]
+    },
+    {
+      "id": "ratling-sniper",
+      "name": "Ratling Sniper",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "sniper"
+      ]
+    },
+    {
+      "id": "ratling-spotter",
+      "name": "Ratling Spotter",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly RATLING operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "spotter"
+      ]
+    },
+    {
+      "id": "ratling-stashmaster",
+      "name": "Ratling Stashmaster",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "stashmaster"
+      ]
+    },
+    {
+      "id": "ratling-vox-thief",
+      "name": "Ratling Vox-Thief",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 5,
+        "apl": 2,
+        "save": 5,
+        "wounds": 6
+      },
+      "weapons": [
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "intercept-communications",
+          "name": "INTERCEPT COMMUNICATIONS",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly RATLING operative visible to and within 6\" of this operative. Until the end of its next activation, add 1 to that operative's APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "ratling",
+        "imperium",
+        "astra-militarum",
+        "vox-thief"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "scarper",
+      "name": "Scarper",
+      "description": "After each enemy operative's activation, before the next operative is activated, you can perform a free Dash action with one friendly RATLING operative (excluding BULLGRYN, OGRYN and SNEAK), but it cannot end that move within 3\" of an enemy operative unless it's not visible to every enemy operative when it ends that move. Each friendly operative can only do this once per turning point, and cannot do so after the final activation of the turning point."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "sniper-positions",
+      "name": "SNIPER POSITIONS",
+      "description": "Whenever a friendly RATLING operative is more than 6\" from enemy operatives and within 1\" of Heavy terrain, the stationary profile of its rifle (if any) has the Silent weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "shifty",
+      "name": "SHIFTY",
+      "description": "Whenever a friendly RATLING operative (excluding OGRYN or BULLGRYN) has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
+      "cost": 1
+    },
+    {
+      "id": "crack-shots",
+      "name": "CRACK SHOTS",
+      "description": "Whenever a friendly RATLING operative is shooting an enemy operative more than 6\" from it, if that friendly operative hasn't performed the Charge, Fall Back or Reposition action during the activation, or if it's a counteraction, its rifle (if any) has the Balanced weapon rule. Note that operative isn't restricted from performing those actions after shooting.",
+      "cost": 1
+    },
+    {
+      "id": "frontline-assault",
+      "name": "FRONTLINE ASSAULT",
+      "description": "Whenever a friendly RATLING BULLGRYN or friendly RATLING OGRYN operative within your opponent's territory or within 3\" of an objective marker is shooting, fighting or retaliating, its weapons have the Balanced weapon rule.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "survival-instincts",
+      "name": "SURVIVAL INSTINCTS",
+      "description": "Use this firefight ploy when an enemy operative is shooting against or fighting against a friendly RATLING operative (excluding OGRYN or BULLGRYN) and you're allocating a dice to block. If it's a normal success, it can block one unresolved critical success; if it's a critical success, it can block two unresolved successes (normal or critical).",
+      "cost": 1
+    },
+    {
+      "id": "larcenous",
+      "name": "LARCENOUS",
+      "description": "Use this firefight ploy during a friendly RATLING operative's activation (excluding OGRYN or BULLGRYN). Until the end of that activation, that operative doesn't have to control a marker to perform the Pick Up Marker or mission actions that usually require this (taking precedence over that action's conditions - it only needs to contest the marker), and having an enemy operative within its control range doesn't prevent it from doing so.",
+      "cost": 1
+    },
+    {
+      "id": "sharpshot",
+      "name": "SHARPSHOT",
+      "description": "Use this firefight ploy when a friendly RATLING operative is performing the Shoot action with a rifle and you're selecting a valid target. Having other friendly RATLING operatives within an enemy operative's control range doesn't prevent that enemy operative from being selected.",
+      "cost": 1
+    },
+    {
+      "id": "shoot-and-hide",
+      "name": "SHOOT AND HIDE",
+      "description": "Use this firefight ploy after a friendly RATLING operative that has an Engage order performs the Shoot action with a rifle. If it's more than 3\" from enemy operatives, or not visible to every enemy operative, you can change its order to Conceal.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "purloined-rations",
+      "name": "PURLOINED RATIONS",
+      "description": "Once per turning point, when a friendly RATLING operative is shooting with a rifle and you've rolled your attack dice, you can use this rule. If you do, improve the Hit stat of its rifle by 1 until the end of that sequence. This can allow you to apply the Hit stat change during an action (this takes precedence over the core rules)."
+    },
+    {
+      "id": "stolen-goods",
+      "name": "STOLEN GOODS",
+      "description": "At the end of the Select Operatives step, roll one D3. If the result is: 1, you lose 1CP.2, you gain 1CP.3, your opponent loses 1CP."
+    },
+    {
+      "id": "lucky-round",
+      "name": "LUCKY ROUND",
+      "description": "Once per turning point, when a friendly RATLING operative is shooting with a rifle and you've rolled your attack dice, you can use this rule. If you do, that weapon has the Severe weapon rule until the end of that sequence."
+    },
+    {
+      "id": "improvised-armour",
+      "name": "IMPROVISED ARMOUR",
+      "description": "Whenever an operative is shooting a friendly RATLING BULLGRYN or friendly RATLING OGRYN operative, defence dice results of 5+ are critical successes."
+    }
+  ],
+  "ruleHooks": []
+}

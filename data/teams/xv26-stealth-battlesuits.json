@@ -1,0 +1,884 @@
+{
+  "id": "xv26-stealth-battlesuits",
+  "factionId": "t-au-empire",
+  "displayName": "XV26 Stealth Battlesuits",
+  "blurb": "Kill teams of XV26 Stealth Battlesuits provide the T'au Empire with experts in innovative tactics considered unconventional - at best - by Fire caste academies. They use infiltration to identify and eliminate key targets, penetrate hostile regions to conduct aggressive reconnaissance, and launch ambushes from within the enemy's own midst.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/xv26-stealth-battlesuits/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f3a6a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 7,
+    "selectionRules": [
+      "1 XV26 STEALTH BATTLESUIT SHAS'VRE with pulse pistol and one of the following options: Burst cannon or fusion blaster",
+      "1 XV26 STEALTH BATTLESUIT MV75 MARKER DRONE",
+      "1 XV26 STEALTH BATTLESUIT MV15 GUN DRONE",
+      "4 XV26 STEALTH BATTLESUIT operatives selected from the following list: DESIGNATOR *; INFILTRATOR *; LIBERATOR *; LODESTAR *; NEUTRALISER *"
+    ],
+    "operatives": [
+      {
+        "profileId": "xv26-shas-vre",
+        "count": 1
+      },
+      {
+        "profileId": "mv75-marker-drone",
+        "count": 1
+      },
+      {
+        "profileId": "mv15-gun-drone",
+        "count": 1
+      },
+      {
+        "profileId": "xv26-designator",
+        "count": 1
+      },
+      {
+        "profileId": "xv26-infiltrator",
+        "count": 1
+      },
+      {
+        "profileId": "xv26-liberator",
+        "count": 1
+      },
+      {
+        "profileId": "xv26-lodestar",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "xv26-shas-vre",
+      "name": "XV26 Shas'Vre",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "burst-cannon-focused",
+          "name": "Burst cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "burst-cannon-sweeping",
+          "name": "Burst cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fusion-blaster-short-range",
+          "name": "Fusion blaster (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "fusion-blaster-long-range",
+          "name": "Fusion blaster (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "pulse-pistol-ranged",
+          "name": "Pulse pistol (ranged)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "pulse-pistol-point-blank",
+          "name": "Pulse pistol (point-blank)",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "leader",
+        "shas-vre"
+      ]
+    },
+    {
+      "id": "xv26-designator",
+      "name": "XV26 Designator",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "burst-cannon-focused",
+          "name": "Burst cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "burst-cannon-sweeping",
+          "name": "Burst cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fusion-blaster-short-range",
+          "name": "Fusion blaster (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "fusion-blaster-long-range",
+          "name": "Fusion blaster (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "focused-markerligh",
+          "name": "FOCUSED MARKERLIGH",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to this operative. Once during this turning point, when a friendly XV26 STEALTH BATTLESUIT operative is shooting that enemy operative, you can use this effect. If you do, improve the Hit stat of ranged weapons on that friendly operative's datacard by 1 until the end of that action. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "designator"
+      ]
+    },
+    {
+      "id": "xv26-infiltrator",
+      "name": "XV26 Infiltrator",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "burst-cannon-focused",
+          "name": "Burst cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "burst-cannon-sweeping",
+          "name": "Burst cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fusion-blaster-short-range",
+          "name": "Fusion blaster (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "fusion-blaster-long-range",
+          "name": "Fusion blaster (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "infiltrator"
+      ]
+    },
+    {
+      "id": "xv26-liberator",
+      "name": "XV26 Liberator",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "burst-cannon-focused",
+          "name": "Burst cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "burst-cannon-sweeping",
+          "name": "Burst cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "emp-bomb",
+          "name": "EMP bomb",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "blast2",
+            "devastating1",
+            "heavy:reposition",
+            "lethal4",
+            "limited1",
+            "saturate"
+          ],
+          "rulesText": "Range 4\", Blast 2\", Devastating 1, Heavy (Reposition only), Lethal 4+, Limited 1, Saturate",
+          "range": 4
+        },
+        {
+          "id": "fusion-blaster-short-range",
+          "name": "Fusion blaster (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "fusion-blaster-long-range",
+          "name": "Fusion blaster (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "liberator"
+      ]
+    },
+    {
+      "id": "xv26-lodestar",
+      "name": "XV26 Lodestar",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "burst-cannon-focused",
+          "name": "Burst cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "burst-cannon-sweeping",
+          "name": "Burst cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fusion-blaster-short-range",
+          "name": "Fusion blaster (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "fusion-blaster-long-range",
+          "name": "Fusion blaster (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "lodestar"
+      ]
+    },
+    {
+      "id": "xv26-neutraliser",
+      "name": "XV26 Neutraliser",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "burst-cannon-focused",
+          "name": "Burst cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "burst-cannon-sweeping",
+          "name": "Burst cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "torrent1"
+          ],
+          "rulesText": "Ceaseless, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "fusion-blaster-short-range",
+          "name": "Fusion blaster (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "fusion-blaster-long-range",
+          "name": "Fusion blaster (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "system-jam",
+          "name": "SYSTEM JAM",
+          "cost": "1/2AP",
+          "description": "Select one enemy operative visible to this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. Whenever this operative has a Conceal order, you must spend 1 additional AP to perform this action. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "neutraliser"
+      ]
+    },
+    {
+      "id": "mv15-gun-drone",
+      "name": "MV15 Gun Drone",
+      "role": "objective-runner",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "twin-pulse-carbine",
+          "name": "Twin pulse carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "ram",
+          "name": "Ram",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "photon-grenade-launcher",
+          "name": "PHOTON GRENADE LAUNCHER",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to this operative and roll one D6: on a 3+, until the end of that operative's next activation, subtract 2\" from its Move stat. This operative cannot perform this action while within control range of an enemy operative.Drone: This operative cannot perform any actions other than Charge, Dash, Fall Back, Fight, Photon Grenade Launcher, Reposition and Shoot.Whenever determining control of an objective marker, treat this operative's APL stat as 1 lower. Note this isn't a change to its APL stat, so any changes are cumulative with this.This operative cannot use any weapons that aren't on its datacard.Whenever determining what's visible to this operative, the round disc at the top of the miniature is its head.This operative is ignored for your opponent's kill/elimination op (when it's incapacitated, and when determining your starting number of operatives). It's also ignored for victory conditions and scoring VPs if either require operatives to 'escape', 'survive' or be incapacitated by enemy operatives (if it escapes/survives/is incapacitated, determining how many operatives must escape/survive/be incapacitated, etc.)."
+        }
+      ],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "mv15-gun",
+        "drone"
+      ]
+    },
+    {
+      "id": "mv75-marker-drone",
+      "name": "MV75 Marker Drone",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "ram",
+          "name": "Ram",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "xv26-stealth-battlesuit",
+        "t-au-empire",
+        "mv75-marker",
+        "drone"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "kauyon",
+      "name": "Kauyon",
+      "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative is shooting an enemy operative, its ranged weapons have the Accurate X weapon rule. X is determined by that enemy operative's location. ENEMY OPERATIVE LOCATIONACCURATE XWithin 3\" of your territoryAccurate 1Within your territoryAccurate 2Within 3\" of your drop zoneAccurate 3"
+    },
+    {
+      "id": "stealth-fields",
+      "name": "Stealth Fields",
+      "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative has a Conceal order, it cannot be visible to enemy operatives more than 3\" from it (this takes precedence over all other rules). Whenever a friendly XV26 STEALTH BATTLESUIT operative has a Conceal order, it can perform the Fall Back action for 1 less AP."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "patient-hunters",
+      "name": "PATIENT HUNTERS",
+      "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative is shooting against or fighting against an expended enemy operative, that friendly operative's weapons have the Balanced weapon rule and its ranged weapons have the Saturate weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "prepare-ambush",
+      "name": "PREPARE AMBUSH",
+      "description": "Place one of your Ambush markers wholly within your territory and more than 2\" from enemy operatives. Whenever a friendly XV26 STEALTH BATTLESUIT operative is shooting an enemy operative that's within 2\" of that marker, you can use this rule. If you do, remove that marker and that friendly operative's ranged weapons have the Seek weapon rule until the end of the action. In the Ready step of the next Strategy phase, if that marker is still in the killzone, remove that marker.",
+      "cost": 1
+    },
+    {
+      "id": "bonds-of-unity",
+      "name": "BONDS OF UNITY",
+      "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative is activated (excluding DRONE), if it's visible to and within 6\" of another friendly XV26 STEALTH BATTLESUIT operative (excluding DRONE), you can ignore any changes to that first friendly operative's APL stat and select one of the following: Ignore any changes to that first friendly operative's Move stat from being injured until the end of that activation.Ignore any changes to the Hit stat of that first friendly operative's weapons from being injured until the end of that activation.",
+      "cost": 1
+    },
+    {
+      "id": "holowave-countermeasures",
+      "name": "HOLOWAVE COUNTERMEASURES",
+      "description": "Whenever an operative is shooting a friendly XV26 STEALTH BATTLESUIT operative more than 6\" from it, in the Roll Attack Dice step, the attacker must discard one of their unresolved normal successes (or one of their critical successes if there are none). This isn't cumulative with being obscured.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "vectored-retro-thrusters",
+      "name": "VECTORED RETRO-THRUSTERS",
+      "description": "Use this firefight ploy when an enemy operative ends the Charge action within control range of a friendly XV26 STEALTH BATTLESUIT operative (excluding DRONE). Interrupt that action to use this rule. If you do, that friendly operative can immediately perform a free Fall Back action, but it cannot move more than 3\" during that action. This action cannot be prevented by your opponent's rules (taking precedence over all such rules). Then, that enemy operative can immediately perform a free Reposition action using any remaining move distance it had from that first Charge action, and can do so even if it's performed an action that prevents it from performing the Reposition action.",
+      "cost": 1
+    },
+    {
+      "id": "engage-jet-pack",
+      "name": "ENGAGE JET PACK",
+      "description": "Use this firefight ploy when a friendly XV26 STEALTH BATTLESUIT operative (excluding DRONE) is activated or counteracts. Until the end of that activation/counteraction, you can ignore the vertical distance it moves during one climb and one drop.",
+      "cost": 1
+    },
+    {
+      "id": "ghostshroud",
+      "name": "GHOSTSHROUD",
+      "description": "Use this firefight ploy at the end of a friendly XV26 STEALTH BATTLESUIT operative's activation. If that operative has an Engage order, change it to Conceal. You cannot use this ploy for each friendly operative more than once per battle.",
+      "cost": 1
+    },
+    {
+      "id": "saviour-protocols",
+      "name": "SAVIOUR PROTOCOLS",
+      "description": "Use this firefight ploy when a friendly XV26 STEALTH BATTLESUIT operative (excluding DRONE) is selected as the valid target of a Shoot action. Select one friendly DRONE operative visible to and within 3\" of that first friendly operative to become the valid target instead (even if it wouldn't normally be valid for this). That friendly DRONE operative is only in cover or obscured if the original target was. This ploy has no effect if the ranged weapon has the Blast or Torrent weapon rule.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "xv26-multitrackers",
+      "name": "XV26 MULTITRACKERS",
+      "description": "Once per turning point, when a friendly XV26 STEALTH BATTLESUIT operative is performing the Shoot action and you select a burst cannon (sweeping), you can use this rule. If you do, select one of the following: Until the end of that action, that weapon has the Torrent 2\" weapon rule.Until the end of that action, that weapon has the Torrent 3\" weapon rule, but you cannot select more than one secondary target."
+    },
+    {
+      "id": "advanced-blacksun-filters",
+      "name": "ADVANCED BLACKSUN FILTERS",
+      "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative is shooting an operative that's obscured, you don't have to discard one success as a result of that rule. All other effects of obscured apply as normal."
+    },
+    {
+      "id": "counter-network-jammers",
+      "name": "COUNTER-NETWORK JAMMERS",
+      "description": "STRATEGIC GAMBIT. Select one objective marker or mission marker. Until the end of the turning point, whenever determining control of that marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 3\" of friendly XV26 STEALTH BATTLESUIT operatives. Note this isn't a change to the APL stat, so any changes are cumulative with this."
+    },
+    {
+      "id": "hardwired-target-locks",
+      "name": "HARDWIRED TARGET LOCKS",
+      "description": "Whenever you would counteract, you can do so with one friendly XV26 STEALTH BATTLESUIT operative that has a Conceal order and is more than 3\" from enemy operatives, but before it counteracts, you must change its order to Engage and it cannot perform any actions other than Shoot during that counteraction."
+    }
+  ],
+  "ruleHooks": []
+}

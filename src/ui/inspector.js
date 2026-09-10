@@ -1,0 +1,177 @@
+/**
+ * Roster panels and the operative/team inspector (§25).
+ *
+ * Uses an original table/card layout. It deliberately does not imitate the
+ * visual arrangement of any published datacard, and shows only what the loaded
+ * pack's data policy permits, along with its source and version metadata.
+ */
+import { effectiveApl, isInjured } from '../rules/effects.js';
+import { SUPPORT_LEVELS } from '../data/schema.js';
+
+/** Build an element with text set safely — never innerHTML for pack content. */
+function h(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function badgeClass(level) {
+  if (level >= 5) return 'support-badge full';
+  if (level >= 3) return 'support-badge partial';
+  return 'support-badge';
+}
+
+export function renderRosterPanel(container, state, playerId, { colors, selectedId, activeId, onSelect }) {
+  container.replaceChildren();
+  const player = state.players[playerId];
+  const pack = state.teamPacks[playerId];
+
+  const head = h('div', 'team-head');
+  const name = h('div', 'team-name');
+  const swatch = h('span', 'team-swatch');
+  swatch.style.background = colors[playerId];
+  name.append(swatch, h('span', null, player.teamName));
+  head.append(name);
+  head.append(h('div', 'team-sub', `${playerId.toUpperCase()} · ${pack.factionId}`));
+  container.append(head);
+
+  const score = h('div', 'scoreline');
+  for (const [key, value] of [['VP', player.victoryPoints], ['CP', player.cp],
+                              ['Alive', Object.values(state.operatives)
+                                .filter((o) => o.playerId === playerId && o.alive).length]]) {
+    const chip = h('div', 'stat-chip');
+    chip.append(h('div', 'k', key), h('div', 'v', String(value)));
+    score.append(chip);
+  }
+  container.append(score);
+
+  container.append(h('div', 'section-title', 'Operatives'));
+
+  const ops = Object.values(state.operatives).filter((o) => o.playerId === playerId);
+  for (const op of ops) {
+    const card = h('button', 'op-card');
+    card.style.borderLeftColor = colors[playerId];
+    if (!op.alive) card.classList.add('down');
+    if (op.id === selectedId) card.classList.add('selected');
+    if (op.id === activeId) card.classList.add('active-now');
+    card.setAttribute('aria-pressed', op.id === selectedId ? 'true' : 'false');
+
+    const row = h('div', 'op-row');
+    row.append(h('span', 'op-name', op.name));
+    const order = h('span', `badge ${op.alive ? op.order : 'down'}`,
+      op.alive ? (op.order === 'engage' ? 'Engage' : 'Conceal') : 'Down');
+    row.append(order);
+    card.append(row);
+
+    const meta = h('div', 'op-meta');
+    meta.append(h('span', null, `${op.woundsRemaining}/${op.wounds} W`));
+    meta.append(h('span', null, `APL ${effectiveApl(op)}`));
+    meta.append(h('span', null, `Sv ${op.save}+`));
+    meta.append(h('span', null, `M ${op.move}"`));
+    if (isInjured(op) && op.alive) meta.append(h('span', null, '· injured'));
+    card.append(meta);
+
+    const track = h('div', 'wound-track');
+    const frac = Math.max(0, op.woundsRemaining / op.wounds);
+    const fill = h('div', `wound-fill${frac <= 0.25 ? ' critical' : frac <= 0.5 ? ' hurt' : ''}`);
+    fill.style.width = `${frac * 100}%`;
+    track.append(fill);
+    card.append(track);
+
+    card.addEventListener('click', () => onSelect?.(op.id));
+    container.append(card);
+  }
+
+  // Data provenance is always visible, never buried (§29).
+  container.append(h('div', 'section-title', 'Data source'));
+  const src = h('div', 'muted');
+  const level = SUPPORT_LEVELS[pack.supportLevel] ?? SUPPORT_LEVELS[0];
+  const badge = h('div', badgeClass(pack.supportLevel), level.badge);
+  src.append(badge);
+  src.append(h('div', null, `${pack.source?.publisher || 'unknown publisher'}`));
+  src.append(h('div', null, `v${pack.dataVersion || '—'} · checked ${pack.source?.checkedAt || '—'}`));
+  if (pack.source?.url) {
+    const link = document.createElement('a');
+    link.href = pack.source.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Official source';
+    src.append(link);
+  }
+  container.append(src);
+}
+
+/** Detail view for one operative, shown in the inspector modal. */
+export function renderOperativeDetail(container, state, operativeId) {
+  const op = state.operatives[operativeId];
+  const pack = state.teamPacks[op.playerId];
+  const profile = pack.operatives.find((p) => p.id === op.profileId);
+  container.replaceChildren();
+
+  const title = h('h2', null, op.name);
+  title.id = 'inspectTitle';
+  container.append(title);
+  container.append(h('p', 'muted',
+    `${pack.displayName} · role: ${op.role} · ${op.alive ? 'active' : 'incapacitated'}`));
+
+  const stats = document.createElement('table');
+  stats.className = 'stats';
+  const head = stats.createTHead().insertRow();
+  for (const label of ['Move', 'APL', 'Save', 'Wounds', 'Order', 'AP left']) {
+    const th = document.createElement('th');
+    th.textContent = label;
+    head.append(th);
+  }
+  const body = stats.createTBody().insertRow();
+  for (const value of [`${op.move}"`, effectiveApl(op), `${op.save}+`,
+                       `${op.woundsRemaining}/${op.wounds}`, op.order, op.apRemaining]) {
+    const td = body.insertCell();
+    td.className = 'num';
+    td.textContent = String(value);
+  }
+  container.append(stats);
+
+  container.append(h('h3', null, 'Weapons'));
+  const weapons = document.createElement('table');
+  weapons.className = 'stats';
+  const wh = weapons.createTHead().insertRow();
+  for (const label of ['Weapon', 'Type', 'Range', 'ATK', 'Hit', 'Damage', 'Rules']) {
+    const th = document.createElement('th');
+    th.textContent = label;
+    wh.append(th);
+  }
+  const wb = weapons.createTBody();
+  for (const w of profile?.weapons || []) {
+    const row = wb.insertRow();
+    const cells = [
+      w.name, w.type, w.type === 'ranged' ? `${w.range}"` : '—',
+      w.atk, `${w.hit}+`, `${w.damage.normal}/${w.damage.critical}`,
+      w.rulesText || (w.rules || []).join(', ') || '—',
+    ];
+    for (const value of cells) {
+      const td = row.insertCell();
+      td.textContent = String(value);
+    }
+  }
+  container.append(weapons);
+
+  if (profile?.abilities?.length) {
+    container.append(h('h3', null, 'Abilities'));
+    const list = document.createElement('ul');
+    for (const ability of profile.abilities) {
+      list.append(h('li', null, typeof ability === 'string' ? ability : ability.name));
+    }
+    container.append(list);
+  }
+
+  container.append(h('h3', null, 'Rules support'));
+  const level = SUPPORT_LEVELS[pack.supportLevel] ?? SUPPORT_LEVELS[0];
+  container.append(h('div', badgeClass(pack.supportLevel), level.badge));
+  container.append(h('p', 'muted',
+    `${level.label}. Anything this pack declares beyond that level is reported in the battle ` +
+    `log as an unsupported rule rather than guessed at.`));
+  container.append(h('p', 'muted',
+    `Data version ${pack.dataVersion || '—'}, checked ${pack.source?.checkedAt || '—'}, ` +
+    `published by ${pack.source?.publisher || '—'}.`));
+}

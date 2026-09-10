@@ -1,0 +1,1062 @@
+{
+  "id": "corsair-voidscarred",
+  "factionId": "corsairs",
+  "displayName": "Corsair Voidscarred",
+  "blurb": "Corsairs are avaricious raiders grouped together by charismatic commanders who draw their members from both craftworlds and the Dark City. The most experienced of Corsairs are the Voidscarred, each of whom possesses their own unique combat skills and have been hardened by several lifetimes of voidfaring and piracy.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/corsair-voidscarred/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#4a7a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 9,
+    "selectionRules": [
+      "1 CORSAIR VOIDSCARRED FELARCH operative with one of the following options: Shuriken rifle; shuriken pistol; power weapon; Neuro disruptor; power weapon",
+      "8 CORSAIR VOIDSCARRED operatives selected from the following list: FATE DEALER; GUNNER with one of the following options: Blaster*; shuriken pistol; fists; Shredder; shuriken pistol; fists; HEAVY GUNNER with one of the following options: Shuriken cannon; shuriken pistol; fists; Shuriken pistol; wraithcannon*; fists; KURNATHI; KURNITE HUNTER; SHADE RUNNER; SOUL WEAVER; STARSTORM DUELLIST; WARRIOR with one of the following options: Shuriken pistol; power weapon; Shuriken rifle; fists; WAY SEEKER"
+    ],
+    "operatives": [
+      {
+        "profileId": "voidscarred-felarch",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-fate-dealer",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-heavy-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-kurnathi",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-kurnite-hunter",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-shade-runner",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-soul-weaver",
+        "count": 1
+      },
+      {
+        "profileId": "voidscarred-starstorm-duellist",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "voidscarred-felarch",
+      "name": "Voidscarred Felarch",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "neuro-disruptor",
+          "name": "Neuro disruptor",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "stun"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Stun",
+          "range": 8
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "shuriken-rifle",
+          "name": "Shuriken rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "leader",
+        "felarch"
+      ]
+    },
+    {
+      "id": "voidscarred-fate-dealer",
+      "name": "Voidscarred Fate Dealer",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "ranger-long-rifle-mobile",
+          "name": "Ranger long rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "ranger-long-rifle-stationary",
+          "name": "Ranger long rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "silent"
+          ],
+          "rulesText": "Devastating 3, Heavy, Silent",
+          "range": 48
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "fate-dealer"
+      ]
+    },
+    {
+      "id": "voidscarred-gunner",
+      "name": "Voidscarred Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "blaster",
+          "name": "Blaster",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing2"
+          ],
+          "rulesText": "Piercing 2",
+          "range": 48
+        },
+        {
+          "id": "shredder",
+          "name": "Shredder",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending",
+            "torrent2"
+          ],
+          "rulesText": "Rending, Torrent 2\"",
+          "range": 48
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "gunner"
+      ]
+    },
+    {
+      "id": "voidscarred-heavy-gunner",
+      "name": "Voidscarred Heavy Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-cannon-focused",
+          "name": "Shuriken cannon (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "rending"
+          ],
+          "rulesText": "Heavy (Dash only), Rending",
+          "range": 48
+        },
+        {
+          "id": "shuriken-cannon-sweeping",
+          "name": "Shuriken cannon (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "rending",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash only), Rending, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "wraithcannon",
+          "name": "Wraithcannon",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "heavy:dash",
+            "piercing2"
+          ],
+          "rulesText": "Devastating 4, Heavy (Dash only), Piercing 2",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "heavy-gunner"
+      ]
+    },
+    {
+      "id": "voidscarred-kurnathi",
+      "name": "Voidscarred Kurnathi",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "dual-power-weapons",
+          "name": "Dual power weapons",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "kurnathi"
+      ]
+    },
+    {
+      "id": "voidscarred-kurnite-hunter",
+      "name": "Voidscarred Kurnite Hunter",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "faolchu",
+          "name": "Faolchú",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [
+            "rending",
+            "saturate",
+            "seeklight",
+            "silent"
+          ],
+          "rulesText": "Rending, Saturate, Seek Light, Silent",
+          "range": 48
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "kurnite-hunter"
+      ]
+    },
+    {
+      "id": "voidscarred-shade-runner",
+      "name": "Voidscarred Shade Runner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "throwing-blades",
+          "name": "Throwing blades",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 6\", Silent",
+          "range": 6
+        },
+        {
+          "id": "hekatarii-blades",
+          "name": "Hekatarii blades",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "shade-runner"
+      ]
+    },
+    {
+      "id": "voidscarred-soul-weaver",
+      "name": "Voidscarred Soul Weaver",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "soul-channel",
+          "name": "SOUL CHANNEL",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one other friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "soul-heal",
+          "name": "SOUL HEAL",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. That operative regains up to 2D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "psyker",
+        "medic",
+        "soul-weaver"
+      ]
+    },
+    {
+      "id": "voidscarred-starstorm-duellist",
+      "name": "Voidscarred Starstorm Duellist",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "fusion-pistol",
+          "name": "Fusion pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "piercing2"
+          ],
+          "rulesText": "Range 3\", Devastating 3, Piercing 2",
+          "range": 3
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "pistol-barrage",
+          "name": "PISTOL BARRAGE",
+          "cost": "1AP",
+          "description": "Perform two free Shoot actions with this operative (this takes precedence over action restrictions). You must select its fusion pistol for one action and its shuriken pistol for the other (in any order). This operative cannot perform this action while it has a Conceal order, or during an activation in which it performed the Shoot action (or vice versa)."
+        }
+      ],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "starstorm-duellist"
+      ]
+    },
+    {
+      "id": "voidscarred-warrior",
+      "name": "Voidscarred Warrior",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "shuriken-rifle",
+          "name": "Shuriken rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "warrior"
+      ]
+    },
+    {
+      "id": "voidscarred-way-seeker",
+      "name": "Voidscarred Way Seeker",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "freezing-grasp",
+          "name": "Freezing grasp",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [
+            "psychic",
+            "severe",
+            "silent",
+            "stun"
+          ],
+          "rulesText": "PSYCHIC, Severe, Silent, Stun",
+          "range": 48
+        },
+        {
+          "id": "lightning-strike",
+          "name": "Lightning strike",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "psychic",
+            "devastating2"
+          ],
+          "rulesText": "PSYCHIC, 2\" Devastating 2",
+          "range": 48
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "witch-staff",
+          "name": "Witch staff",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "psychic",
+            "shock"
+          ],
+          "rulesText": "PSYCHIC, Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "warp-fold",
+          "name": "WARP FOLD",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select two friendly CORSAIR VOIDSCARRED operatives visible to and within 5\" of this operative. Remove them both from the killzone and set them back up in each other's previous locations (in other words, swap their positions). If one of them performed the Charge, Fall Back or Reposition action during this turning point and the other is ready, the other cannot perform any of those actions in its activation during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "warding-shield",
+          "name": "WARDING SHIELD",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. Until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first), the first time an attack dice inflicts Normal Dmg on that friendly operative, ignore that inflicted damage. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "corsair-voidscarred",
+        "aeldari",
+        "anhrathe",
+        "psyker",
+        "way-seeker"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "rifles",
+      "name": "Rifles",
+      "description": "Whenever a friendly CORSAIR VOIDSCARRED operative is shooting with a shuriken rifle or ranger long rifle during an activation in which it hasn't performed the Charge, Fall Back or Reposition action, that weapon has the Accurate 1 weapon rule. Note that operative isn't restricted from performing those actions after shooting."
+    },
+    {
+      "id": "aeldari-raiders",
+      "name": "Aeldari Raiders",
+      "description": "Each friendly CORSAIR VOIDSCARRED operative can perform a free Dash action during their activation."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "plunderers",
+      "name": "PLUNDERERS",
+      "description": "Up to D3 friendly CORSAIR VOIDSCARRED operatives can immediately perform a free Dash action in an order of your choice. This turning point, each that does so cannot perform the Dash action during their activation. You cannot use this ploy during the first turning point.",
+      "cost": 1
+    },
+    {
+      "id": "piratical-profiteers",
+      "name": "PIRATICAL PROFITEERS",
+      "description": "Whenever a friendly CORSAIR VOIDSCARRED operative is shooting, fighting or retaliating, if it or the enemy operative in that sequence contests an objective marker or one of your mission markers, that friendly operative's weapons have the Balanced weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "mobile-engagement",
+      "name": "MOBILE ENGAGEMENT",
+      "description": "Whenever an operative is shooting a friendly CORSAIR VOIDSCARRED operative that performed an action in which it moved during this turning point, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "outcasts",
+      "name": "OUTCASTS",
+      "description": "Whenever a friendly CORSAIR VOIDSCARRED operative is more than 5\" from other friendly operatives, its weapons have the Punishing weapon rule.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "opportunistic-fighters",
+      "name": "OPPORTUNISTIC FIGHTERS",
+      "description": "Use this firefight ploy when an enemy operative performs the Fall Back action. Before it moves, inflict 2D3 damage on that operative for each friendly CORSAIR VOIDSCARRED operative within its control range.",
+      "cost": 1
+    },
+    {
+      "id": "light-fingers",
+      "name": "LIGHT FINGERS",
+      "description": "Use this firefight ploy during a friendly CORSAIR VOIDSCARRED operative's activation. Until the end of that activation, having an enemy operative within its control range doesn't prevent that friendly operative from performing the Pick Up Marker or mission actions.",
+      "cost": 1
+    },
+    {
+      "id": "capricious-flight",
+      "name": "CAPRICIOUS FLIGHT",
+      "description": "Use this firefight ploy during a friendly CORSAIR VOIDSCARRED operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
+      "cost": 1
+    },
+    {
+      "id": "contemptuous-adventurer",
+      "name": "CONTEMPTUOUS ADVENTURER",
+      "description": "Use this firefight ploy when the first friendly CORSAIR VOIDSCARRED operative is activated during the turning point, if it's more than 5\" from other friendly operatives. The first time that operative performs either the Shoot or Fight action during that activation, its weapons have the Relentless weapon rule. Note this ploy cannot come into effect more than once per activation (you cannot use it during both the Shoot and Fight action in the same activation).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "diuturnal-mantles",
+      "name": "DIUTURNAL MANTLES",
+      "description": "Whenever an operative is shooting a friendly CORSAIR VOIDSCARRED operative, if the ranged weapon in that sequence has the Blast or Torrent weapon rule, you can re-roll one of your defence dice. In addition, friendly CORSAIR VOIDSCARRED operatives aren't affected by the x\" Devastating x weapon rule (i.e. Devastating with a distance) unless they are the target during that sequence."
+    },
+    {
+      "id": "mistfield",
+      "name": "MISTFIELD",
+      "description": "Once per turning point, when an operative is shooting a friendly CORSAIR VOIDSCARRED operative more than 3\" from it, at the start of the Roll Defence Dice step, you can use this rule. If you do, worsen the x of the Piercing weapon rule by 1 (if any) until the end of that sequence. Note that Piercing 1 would therefore be ignored."
+    },
+    {
+      "id": "runes-of-guidance",
+      "name": "RUNES OF GUIDANCE",
+      "description": "Once per turning point, when a friendly CORSAIR VOIDSCARRED WAY SEEKER or CORSAIR VOIDSCARRED SOUL WEAVER operative is performing a PSYCHIC unique action (excluding Warp Fold), you can use this rule. If you do, until the end of that action, add 3\" to its distance requirement. Note this has no effect on PSYCHIC weapons (e.g. the Devastating distance requirement of lightning strike)."
+    },
+    {
+      "id": "star-charts",
+      "name": "STAR CHARTS",
+      "description": "STRATEGIC GAMBIT. Roll one D3: if the result is higher than the number of the current turning point, you gain 1CP and cannot use this STRATEGIC GAMBIT for the rest of the battle."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "rifles-accurate",
+      "rule": "Rifles",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "corsair-voidscarred",
+        "weaponType": "ranged",
+        "weaponNameContains": [
+          "shuriken rifle",
+          "ranger long rifle"
+        ],
+        "notPerformedThisActivation": [
+          "charge",
+          "fall_back",
+          "reposition"
+        ]
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "accurate1"
+        ]
+      }
+    },
+    {
+      "id": "aeldari-raiders",
+      "rule": "Aeldari Raiders",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "corsair-voidscarred"
+      },
+      "effect": {
+        "type": "freeAction",
+        "action": "dash"
+      }
+    }
+  ]
+}

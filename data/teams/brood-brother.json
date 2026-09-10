@@ -1,0 +1,1167 @@
+{
+  "id": "brood-brother",
+  "factionId": "genestealer-cults",
+  "displayName": "Brood Brother",
+  "blurb": "The soldiers known as Brood Brothers are xenos-infected turncoat soldiers who secretly serve the Genestealer Cults. Concealing themselves within Imperial military formations, they await the moment to rise up and use their combat experience and weapons training to aid the Cult's rise to power.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/brood-brother/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f6f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 13,
+    "selectionRules": [
+      "1 BROOD BROTHER COMMANDER operative with one of the following options: Bolt pistol; chainsword & claw; Drum-fed autogun; bayonet; Laspistol; power weapon & claw",
+      "3 BROOD BROTHER operatives selected from the following list3: 2 PSYCHIC FAMILIAR operatives (still counts as one selection); MAGUS (counts as two selections)2; PATRIARCH (counts as three selections)2; PRIMUS (counts as two selections)2; TROOPER",
+      "9 BROOD BROTHER operatives selected from the following list: AGITATOR; GUNNER with flamer and bayonet1; GUNNER with grenade launcher and bayonet1; GUNNER with meltagun and bayonet1; GUNNER with plasma gun and bayonet1; ICONWARD; KNIFE FIGHTER; MEDIC; SAPPER; SNIPER1; TROOPER; VETERAN; VOX-OPERATOR"
+    ],
+    "operatives": [
+      {
+        "profileId": "brood-brother-commander",
+        "count": 1
+      },
+      {
+        "profileId": "psychic-familiar",
+        "count": 1
+      },
+      {
+        "profileId": "magus",
+        "count": 1
+      },
+      {
+        "profileId": "patriarch",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-agitator",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-iconward",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-knife-fighter",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-medic",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-sapper",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-sniper",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-trooper",
+        "count": 1
+      },
+      {
+        "profileId": "brood-brother-veteran",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "brood-brother-commander",
+      "name": "Brood Brother Commander",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "drum-fed-autogun",
+          "name": "Drum-fed autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "rulesText": "Ceaseless",
+          "range": 48
+        },
+        {
+          "id": "laspistol",
+          "name": "Laspistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "chainsword-claw",
+          "name": "Chainsword & claw",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "balanced",
+            "rending"
+          ],
+          "rulesText": "Balanced, Rending"
+        },
+        {
+          "id": "power-weapon-claw",
+          "name": "Power weapon & claw",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "balanced",
+            "lethal5"
+          ],
+          "rulesText": "Balanced, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "leader",
+        "commander"
+      ]
+    },
+    {
+      "id": "brood-brother-agitator",
+      "name": "Brood Brother Agitator",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "shock-maul",
+          "name": "Shock maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "agitator"
+      ]
+    },
+    {
+      "id": "brood-brother-gunner",
+      "name": "Brood Brother Gunner",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "grenade-launcher-frag",
+          "name": "Grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "grenade-launcher-krak",
+          "name": "Grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "gunner"
+      ]
+    },
+    {
+      "id": "brood-brother-iconward",
+      "name": "Brood Brother Iconward",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "large-knife",
+          "name": "Large knife",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "iconward"
+      ]
+    },
+    {
+      "id": "brood-brother-knife-fighter",
+      "name": "Brood Brother Knife Fighter",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "poisoned-fighting-knives",
+          "name": "Poisoned fighting knives",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "knife-fighter"
+      ]
+    },
+    {
+      "id": "brood-brother-medic",
+      "name": "Brood Brother Medic",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "gene-needler",
+          "name": "Gene-needler",
+          "type": "melee",
+          "atk": 1,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "lethal5",
+            "limited1"
+          ],
+          "rulesText": "Lethal 5+, Limited 1"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "1AP",
+          "description": "Select one friendly BROOD BROTHER operative (excluding PATRIARCH) within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "medic"
+      ]
+    },
+    {
+      "id": "brood-brother-sapper",
+      "name": "Brood Brother Sapper",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "demolition-charge",
+          "name": "Demolition charge",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "blast2",
+            "heavy:reposition",
+            "limited1",
+            "piercing1",
+            "saturate"
+          ],
+          "rulesText": "Range 3\", Blast 2\", Heavy (Reposition only), Limited 1, Piercing 1, Saturate",
+          "range": 3
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "explosives",
+          "name": "EXPLOSIVES",
+          "cost": "1AP",
+          "description": "The first time this operative performs this action during the battle, place your Explosives marker within its control range. The second time this operative performs this action during the battle, inflict 2D6 damage on each operative within 2\" of that marker (roll separately for each) unless Heavy terrain is wholly intervening between that operative and that marker. This operative cannot perform this action more than twice per battle, while within control range of an enemy operative, or during an activation in which it performed the Charge, Dash or Fall Back action (or vice versa)."
+        }
+      ],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "sapper"
+      ]
+    },
+    {
+      "id": "brood-brother-sniper",
+      "name": "Brood Brother Sniper",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "sniper-rifle-concealed",
+          "name": "Sniper rifle (concealed)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "silent",
+            "concealedposition"
+          ],
+          "rulesText": "Devastating 3, Heavy, Silent, Concealed Position*",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "sniper"
+      ]
+    },
+    {
+      "id": "brood-brother-trooper",
+      "name": "Brood Brother Trooper",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "trooper"
+      ]
+    },
+    {
+      "id": "brood-brother-veteran",
+      "name": "Brood Brother Veteran",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet-claw",
+          "name": "Bayonet & claw",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "balanced"
+          ],
+          "rulesText": "Balanced"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "veteran"
+      ]
+    },
+    {
+      "id": "brood-brother-vox-operator",
+      "name": "Brood Brother Vox-Operator",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly BROODGUARD operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "jam",
+          "name": "JAM",
+          "cost": "1/2AP",
+          "description": "Select one ready enemy operative that's a valid target for this operative, or visible to this operative instead if you spend 1 additional AP. Roll one D6. Until the end of the turning point, that enemy operative cannot be activated or perform actions until it's the last enemy operative to be activated, or until your opponent has activated a number of enemy operatives after this action equal to the result of the D6 (whichever comes first). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodguard",
+        "vox-operator"
+      ]
+    },
+    {
+      "id": "psychic-familiar",
+      "name": "Psychic Familiar",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 3
+      },
+      "weapons": [
+        {
+          "id": "claws",
+          "name": "Claws",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "psychic-familiar"
+      ]
+    },
+    {
+      "id": "magus",
+      "name": "Magus",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "bio-dagger",
+          "name": "Bio dagger",
+          "type": "melee",
+          "atk": 2,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 6
+          },
+          "rules": [
+            "lethal4"
+          ],
+          "rulesText": "Lethal 4+"
+        },
+        {
+          "id": "force-stave",
+          "name": "Force stave",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "psychic",
+            "shock"
+          ],
+          "rulesText": "PSYCHIC, Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "telepathic-overload",
+          "name": "TELEPATHIC OVERLOAD",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one enemy operative that's a valid target for to this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "mental-onslaught",
+          "name": "MENTAL ONSLAUGHT",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one enemy operative that's a valid target for this operative. Inflict 2 damage on it, or 4 damage instead if it's within 6\" of this operative. Then roll one D6: if the result is higher than that enemy operative's APL stat, inflict an additional 2 damage on it, or 4 damage instead if it's within 6\" of this operative. Keep rolling one D6 in this manner until you roll equal to or less than that enemy operative's APL stat, until it's incapacitated, or until you inflict 8 damage on it during this action (whichever comes first). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodcoven",
+        "psyker",
+        "leader",
+        "magus"
+      ]
+    },
+    {
+      "id": "patriarch",
+      "name": "Patriarch",
+      "role": "assault",
+      "baseDiameter": 1.97,
+      "stats": {
+        "move": 6,
+        "apl": 4,
+        "save": 4,
+        "wounds": 21
+      },
+      "weapons": [
+        {
+          "id": "claws",
+          "name": "Claws",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "relentless",
+            "rending"
+          ],
+          "rulesText": "Relentless, Rending"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "into-shadow",
+          "name": "INTO SHADOW",
+          "cost": "1AP",
+          "description": "Change this operative's order. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "mind-control",
+          "name": "MIND CONTROL",
+          "cost": "2AP",
+          "description": "PSYCHIC. Select one enemy operative visible to and within 2\" of this operative. Both players roll one D6 and add their respective operative's APL stat to the total. If your total is higher than your opponent's, you can resolve this action's second effect. Until the end of the activation, that enemy operative is a friendly operative (an enemy operative for your opponent), you can change its order, and it can immediately perform one free action. It cannot perform an action in which it moves other than Dash (in which case specify the location for your opponent to move the operative to). You can only resolve this action's second effect once per battle. This operative cannot perform this action while within control range of an enemy operative, unless the only enemy operative it's within control range of is selected for this action."
+        }
+      ],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodcoven",
+        "psyker",
+        "leader",
+        "patriarch"
+      ]
+    },
+    {
+      "id": "primus",
+      "name": "Primus",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "scoped-needle-pistol-short-range",
+          "name": "Scoped needle pistol (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "silent"
+          ],
+          "rulesText": "Range 8\", Lethal 5+, Silent",
+          "range": 8
+        },
+        {
+          "id": "scoped-needle-pistol-long-range",
+          "name": "Scoped needle pistol (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Silent",
+          "range": 48
+        },
+        {
+          "id": "bonesword-toxin-injector-claw",
+          "name": "Bonesword & toxin injector claw",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5",
+            "rending"
+          ],
+          "rulesText": "Lethal 5+, Rending"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "conspire",
+          "name": "CONSPIRE",
+          "cost": "1AP",
+          "description": "ou gain 1CP. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+        }
+      ],
+      "keywords": [
+        "brood-brother",
+        "tyranid",
+        "genestealer-cult",
+        "broodcoven",
+        "leader",
+        "primus"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "crossfire",
+      "name": "Crossfire",
+      "description": "Whenever a friendly BROOD BROTHER operative is shooting against or fighting against an enemy operative, after resolving all of your attack dice, if that enemy operative isn't incapacitated it gains one of your Crossfire tokens. Whenever a friendly BROOD BROTHER operative is shooting against, fighting against or retaliating against an enemy operative that has any of your Crossfire tokens, you can remove any of those tokens. For each that you do, you can re-roll one of your attack dice."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "pervasive",
+      "name": "PERVASIVE",
+      "description": "During each friendly BROOD BROTHER operative's activation, you can ignore the first vertical distance of 2\" they move during one climb.",
+      "cost": 1
+    },
+    {
+      "id": "uprising",
+      "name": "UPRISING",
+      "description": "The first time each friendly BROOD BROTHER operative performs either the Shoot or Fight action during each of its activations, if its order was changed from Conceal to Engage at the start of that activation, the enemy operative selected as the valid target or to fight against gains one of your Crossfire tokens as soon as it's selected (instead of after resolving your attack dice). This ploy has no effect if that friendly operative was activated within control range of an enemy operative. Note this ploy cannot come into effect more than once per activation (you cannot use it during both the Shoot and Fight action in the same activation).",
+      "cost": 1
+    },
+    {
+      "id": "embedded",
+      "name": "EMBEDDED",
+      "description": "Whenever an enemy operative is shooting a friendly BROOD BROTHER operative, if you can retain any cover saves as a result of Heavy terrain, you can retain one additional cover save.",
+      "cost": 1
+    },
+    {
+      "id": "cult-devotion",
+      "name": "CULT DEVOTION",
+      "description": "Whenever a friendly BROOD BROTHER operative (excluding PATRIARCH) is incapacitated while fighting or retaliating, if you have any unresolved successes, you can roll one D6: if the result is a success as if it were the Roll Attack Dice step of that sequence (i.e. using the same weapon, but with no re-rolls), you can strike the enemy operative in that sequence with one of your unresolved normal successes, or any of your successes instead if the D6 result is a critical success. In either case, that friendly operative is removed from the killzone afterwards.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "ruthless-coordination",
+      "name": "RUTHLESS COORDINATION",
+      "description": "Use this firefight ploy when selecting a valid target for a friendly BROOD BROTHER operative. Until the end of the action, determine visibility as normal, but you can instead determine intervening (for cover and obscured) from another friendly BROOD BROTHER operative that both that friendly operative and the potential valid target are visible to, but that isn't itself within control range of enemy operatives. Note the friendly operative doesn't gain the additional benefits of Vantage terrain if the other friendly operative is on it (e.g. to target an enemy operative that has a Conceal order that's in cover provided only by Light terrain).",
+      "cost": 1
+    },
+    {
+      "id": "unquestioning-loyalty",
+      "name": "UNQUESTIONING LOYALTY",
+      "description": "Use this firefight ploy when a friendly BROOD BROTHER LEADER operative is selected as the valid target of a Shoot action or to fight against during the Fight action. Select one other friendly BROODGUARD operative (excluding LEADER) visible to and within 3\" of that LEADER operative to become the valid target or to be fought against (as appropriate) instead (even if it wouldn't normally be valid for this). If it's the Fight action, treat that other operative as being within the fighting operative's control range for the duration of that action. This ploy has no effect if it's the Shoot action and the ranged weapon has the Blast or Torrent weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "idolisation",
+      "name": "IDOLISATION",
+      "description": "Use this firefight ploy when a friendly BROOD BROTHER operative (excluding LEADER) within 6\" of a friendly BROOD BROTHER LEADER or BROOD BROTHER ICONWARD operative is shooting, fighting or retaliating, in the Roll Attack Dice step. You can retain one of your fails as a normal success instead of discarding it, or retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    },
+    {
+      "id": "insidious",
+      "name": "INSIDIOUS",
+      "description": "Use this firefight ploy after an activation. Before the next activation, one friendly BROOD BROTHER operative can perform a free Dash action, as long as it's not a valid target for enemy operatives when it starts and ends that action. You cannot use this ploy during the first turning point.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "cult-talisman",
+      "name": "CULT TALISMAN",
+      "description": "Once per turning point, when an operative is shooting a friendly BROOD BROTHER operative (excluding PATRIARCH), in the Roll Defence Dice step, you can retain one of your normal successes as a critical success instead."
+    },
+    {
+      "id": "covert-guises",
+      "name": "COVERT GUISES",
+      "description": "After revealing this equipment option, roll one D3. As a STRATEGIC GAMBIT in the first turning point, a number of friendly BROODGUARD operatives equal to the result that are wholly within your drop zone can immediately perform a free Reposition action, but must end that move wholly within 3\" of your drop zone."
+    },
+    {
+      "id": "cult-knives",
+      "name": "CULT KNIVES",
+      "description": "Friendly BROODGUARD operatives have the following melee weapon: Cult knife NAMEATKHITDMGCult knife34+3/4"
+    },
+    {
+      "id": "lookout",
+      "name": "LOOKOUT",
+      "description": "STRATEGIC GAMBIT. Select one enemy operative visible to a friendly BROOD BROTHER operative to gain one of your Crossfire tokens."
+    }
+  ],
+  "ruleHooks": []
+}

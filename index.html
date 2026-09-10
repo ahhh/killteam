@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kill Team Battle Simulator</title>
+<meta name="description" content="An unofficial, deterministic skirmish battle simulator with a seeded rules engine and utility AI.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="brand">Battle Simulator<small>Deterministic skirmish engine</small></div>
+
+    <div class="field">
+      <label for="mapSelect">Map</label>
+      <select id="mapSelect" aria-label="Battlefield map"></select>
+    </div>
+
+    <div class="field">
+      <label for="seedInput">Seed</label>
+      <input type="text" id="seedInput" class="mono" size="12" value="hive-7782" aria-label="Battle seed">
+      <button id="newSeedBtn" title="Generate a new random seed">New</button>
+    </div>
+
+    <div class="field" role="group" aria-label="Playback speed">
+      <label>Speed</label>
+      <button class="speed" data-speed="1">1x</button>
+      <button class="speed" data-speed="2">2x</button>
+      <button class="speed active" data-speed="4">4x</button>
+      <button class="speed" data-speed="0">Instant</button>
+    </div>
+
+    <div class="field" role="group" aria-label="Simulation controls">
+      <button id="playBtn" class="primary">Play</button>
+      <button id="stepBtn" title="Advance one activation">Step</button>
+      <button id="resetBtn" title="Restart this battle from the same seed">Reset</button>
+    </div>
+
+    <div class="spacer"></div>
+
+    <button id="setupBtn">Teams…</button>
+    <button id="exportBtn" title="Export the replay and battle log">Export</button>
+    <button id="aboutBtn" aria-label="About this project">About</button>
+  </header>
+
+  <div class="main">
+    <aside class="panel" id="panelP1" aria-label="Player 1 roster"></aside>
+
+    <section class="stage">
+      <div class="board-wrap">
+        <svg id="board" role="img" aria-label="Battlefield">
+          <title id="boardTitle">Battlefield</title>
+        </svg>
+      </div>
+      <div class="logbar">
+        <div class="log-head">
+          <span class="title">Battle log</span>
+          <span id="phaseLabel" class="muted"></span>
+          <span class="spacer" style="flex:1"></span>
+          <label class="muted"><input type="checkbox" id="devLogToggle"> Developer log</label>
+          <button id="clearLogBtn">Clear</button>
+        </div>
+        <div class="log-body" id="logBody" aria-live="polite" aria-atomic="false"></div>
+      </div>
+    </section>
+
+    <aside class="panel" id="panelP2" aria-label="Player 2 roster"></aside>
+  </div>
+
+  <div class="footer-note">
+    Unofficial fan project · original interface and artwork · no official rules data is bundled ·
+    <a href="#" id="footerAbout">disclaimer &amp; sources</a>
+  </div>
+</div>
+
+<!-- Setup ------------------------------------------------------------- -->
+<div class="overlay" id="setupOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+    <h2 id="setupTitle">Choose kill teams</h2>
+    <p class="muted">
+      The bundled teams are original demo data written for this engine. They are not
+      transcriptions of any published game's rules.
+    </p>
+
+    <div class="setup-grid">
+      <div class="setup-col" id="setupP1"></div>
+      <div class="setup-col" id="setupP2"></div>
+    </div>
+
+    <h3>Load your own rule pack</h3>
+    <p class="muted">
+      Drop or paste a team, map, or mission JSON file. It is validated, kept in this browser
+      only, and never uploaded. See <span class="mono">docs/rule-pack-format.md</span> for the schema.
+    </p>
+    <textarea class="import-box mono" id="importBox" placeholder='{ "id": "my-team", "operatives": [ … ], "roster": { … } }' aria-label="Rule pack JSON"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+      <button id="importBtn">Import JSON</button>
+      <input type="file" id="importFile" accept="application/json,.json" aria-label="Import a JSON rule pack">
+    </div>
+    <div id="importResult"></div>
+
+    <h3>Reference teams</h3>
+    <div id="referenceList" class="muted"></div>
+
+    <div class="close-row">
+      <button id="setupCancelBtn">Cancel</button>
+      <button id="setupStartBtn" class="primary">Start battle</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inspector --------------------------------------------------------- -->
+<div class="overlay" id="inspectOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="inspectTitle">
+    <div id="inspectBody"></div>
+    <div class="close-row"><button id="inspectCloseBtn" class="primary">Close</button></div>
+  </div>
+</div>
+
+<!-- Result ------------------------------------------------------------ -->
+<div class="overlay" id="resultOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div id="resultBody"></div>
+    <div class="close-row">
+      <button id="resultLogBtn">Export battle log</button>
+      <button id="resultReplayBtn">Replay same seed</button>
+      <button id="resultNewBtn" class="primary">New battle</button>
+    </div>
+  </div>
+</div>
+
+<!-- About ------------------------------------------------------------- -->
+<div class="overlay" id="aboutOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle">About this simulator</h2>
+    <p>
+      This is an unofficial, non-commercial fan-made simulation project. It is not affiliated
+      with, sponsored by, endorsed by, or approved by Games Workshop. Warhammer 40,000, Kill Team,
+      faction names, and related marks and game materials are the property of their respective
+      owners. The project uses original interface artwork and does not reproduce official
+      miniature photography or illustrations. Rules references and compatibility information are
+      provided for identification and educational/simulation purposes only. Where official rules
+      data is required, users should consult the current official Games Workshop sources.
+    </p>
+
+    <h3>What is bundled</h3>
+    <p>
+      Original code, an original interface, original geometric tokens and terrain, and
+      <strong>synthetic demo teams invented for this engine</strong>. No official stat lines,
+      weapon profiles, ploys, or equipment are included.
+    </p>
+
+    <h3>Simulating a real team</h3>
+    <p>
+      Load a rule pack you have sourced yourself through <strong>Teams… → Load your own rule pack</strong>.
+      Imported packs stay in your browser. Check the current official downloads for the live rules:
+      <a href="https://www.warhammer-community.com/en-gb/downloads/kill-team/" target="_blank" rel="noopener noreferrer">official Kill Team downloads</a>.
+    </p>
+
+    <h3>Determinism</h3>
+    <p>
+      Every die roll comes from one seeded generator. The same seed, map, teams, engine version,
+      and AI version always produce an identical battle, so any result can be reproduced and audited.
+    </p>
+
+    <h3>Accessibility</h3>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px">
+      <label><input type="checkbox" id="contrastToggle"> High contrast</label>
+      <label><input type="checkbox" id="motionToggle"> Reduce motion</label>
+    </div>
+
+    <div class="close-row"><button id="aboutCloseBtn" class="primary">Close</button></div>
+  </div>
+</div>
+
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

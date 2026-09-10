@@ -1,0 +1,182 @@
+{
+  "id": "corsair-skirmishers",
+  "factionId": "kindred-corsairs",
+  "displayName": "Kindred Skirmishers",
+  "blurb": "Fast and accurate, but folds under return fire. Wins on tempo.",
+  "edition": "synthetic-1",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Fictional demo team. Not transcribed from any published game."
+  },
+  "colors": {
+    "primary": "#7a5ec4",
+    "accent": "#ded4f5"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "corsair-captain",
+        "count": 1
+      },
+      {
+        "profileId": "corsair-sniper",
+        "count": 1
+      },
+      {
+        "profileId": "corsair",
+        "count": 4
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "corsair-captain",
+      "name": "Corsair Captain",
+      "role": "flexible",
+      "baseDiameter": 1.0,
+      "stats": {
+        "move": 8,
+        "apl": 3,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "w-splinter",
+          "name": "Shard Pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "balanced"
+          ],
+          "range": 8
+        },
+        {
+          "id": "w-glaive",
+          "name": "Void Glaive",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "leader",
+        "kindred"
+      ]
+    },
+    {
+      "id": "corsair-sniper",
+      "name": "Corsair Marksman",
+      "role": "sniper",
+      "baseDiameter": 1.0,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "w-longrifle",
+          "name": "Long Rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ap1",
+            "devastating2"
+          ],
+          "range": 18
+        },
+        {
+          "id": "w-blade",
+          "name": "Kindred Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "kindred"
+      ]
+    },
+    {
+      "id": "corsair",
+      "name": "Corsair",
+      "role": "objective-runner",
+      "baseDiameter": 1.0,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "w-carbine",
+          "name": "Shard Carbine",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "range": 10
+        },
+        {
+          "id": "w-blade",
+          "name": "Kindred Blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "kindred"
+      ]
+    }
+  ],
+  "strategicPloys": [],
+  "firefightPloys": [],
+  "equipment": [],
+  "ruleHooks": []
+}

@@ -1,0 +1,842 @@
+{
+  "id": "nemesis-claw",
+  "factionId": "chaos-space-marines",
+  "displayName": "Nemesis Claw",
+  "blurb": "Savage and sadistic in the extreme, the Night Lords use fear itself as their most potent weapon. The cruelist of these inveterate murderers form kill teams known as Nemesis Claws, achieving their mission objectives through acts of obscene violence and the spreading of abject terror.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 3,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/nemesis-claw/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#4a7a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [
+      "1 NEMESIS CLAW VISIONARY equipped with one of the following options: Bolt pistol; power fist; Bolt pistol; power maul; Bolt pistol; power weapon; Plasma pistol; Nostraman chainblade",
+      "5 NEMESIS CLAW operatives selected from the following list: FEARMONGER; GUNNER equipped with one of the following options: Bolt pistol; flamer; fists; Bolt pistol; meltagun; fists; Bolt pistol; plasma gun; fists; HEAVY GUNNER equipped with one of the following options: Bolt pistol; heavy bolter; fists; Bolt pistol; missile launcher; fists; SCREECHER; SKINTHIEF; VENTRILOKAR; WARRIOR equipped with one of the following options: Bolt pistol; chainsword; Boltgun; fists"
+    ],
+    "operatives": [
+      {
+        "profileId": "night-lord-visionary",
+        "count": 1
+      },
+      {
+        "profileId": "night-lord-fearmonger",
+        "count": 1
+      },
+      {
+        "profileId": "night-lord-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "night-lord-heavy-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "night-lord-screecher",
+        "count": 1
+      },
+      {
+        "profileId": "night-lord-skinthief",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "night-lord-visionary",
+      "name": "Night Lord Visionary",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "nostraman-chainblade",
+          "name": "Nostraman chainblade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        },
+        {
+          "id": "power-fist",
+          "name": "Power fist",
+          "type": "melee",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        },
+        {
+          "id": "power-maul",
+          "name": "Power maul",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "premonition",
+          "name": "PREMONITION",
+          "cost": "1AP",
+          "description": "PSYCHIC. Spend 1 of your Prescience points to gain 1CP. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+        }
+      ],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "psyker",
+        "leader",
+        "visionary"
+      ]
+    },
+    {
+      "id": "night-lord-fearmonger",
+      "name": "Night Lord Fearmonger",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "scoped-bolt-pistol-short-range",
+          "name": "Scoped bolt pistol (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "scoped-bolt-pistol-long-range",
+          "name": "Scoped bolt pistol (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "terrorchem-vial",
+          "name": "Terrorchem vial",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 0
+          },
+          "rules": [
+            "blast2",
+            "devastating3",
+            "limited1",
+            "saturate",
+            "terrorchem"
+          ],
+          "rulesText": "Range 6\", Blast 2\", Devastating 3, Limited 1, Saturate, Terrorchem*",
+          "range": 6
+        },
+        {
+          "id": "tainted-blade",
+          "name": "Tainted blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "terrorchem"
+          ],
+          "rulesText": "Terrorchem*"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "poison-objective",
+          "name": "POISON OBJECTIVE",
+          "cost": "1AP",
+          "description": "Select one objective marker this operative controls to gain one of your Terrorchem tokens. It cannot be an objective marker within control range of an enemy operative, or one that already has one of your Terrorchem tokens. The first time an enemy operative that doesn't have one of your Terrorchem tokens contests that objective marker, that operative gains that Terrorchem token, then inflict 2D3 damage on it (if it's during an action, at the end of that action). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "fearmonger"
+      ]
+    },
+    {
+      "id": "night-lord-gunner",
+      "name": "Night Lord Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "gunner"
+      ]
+    },
+    {
+      "id": "night-lord-heavy-gunner",
+      "name": "Night Lord Heavy Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "heavy-bolter-focused",
+          "name": "Heavy bolter (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "heavy-bolter-sweeping",
+          "name": "Heavy bolter (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercingcrits1",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing Crits 1, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "missile-launcher-frag",
+          "name": "Missile launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "heavy:reposition"
+          ],
+          "rulesText": "Blast 2\", Heavy (Reposition only)",
+          "range": 48
+        },
+        {
+          "id": "missile-launcher-krak",
+          "name": "Missile launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercing1"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "heavy-gunner"
+      ]
+    },
+    {
+      "id": "night-lord-screecher",
+      "name": "Night Lord Screecher",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "lightning-claws",
+          "name": "Lightning claws",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "screecher"
+      ]
+    },
+    {
+      "id": "night-lord-skinthief",
+      "name": "Night Lord Skinthief",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "nostraman-chainglaive",
+          "name": "Nostraman chainglaive",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "skinthief"
+      ]
+    },
+    {
+      "id": "night-lord-ventrilokar",
+      "name": "Night Lord Ventrilokar",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "disconcerting-mimicry",
+          "name": "DISCONCERTING MIMICRY",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one enemy operative within 6\" of this operative, then select one of the following for that enemy operative (you can only select each option once per battle): Until the end of its next activation, subtract 1 from its APL stat.Change its order.Perform a free Dash action with it (specify the location for your opponent to move it to). This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "psyker",
+        "ventrilokar"
+      ]
+    },
+    {
+      "id": "night-lord-warrior",
+      "name": "Night Lord Warrior",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "nemesis-claw",
+        "chaos",
+        "heretic-astartes",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "astartes",
+      "name": "Astartes",
+      "description": "During each friendly NEMESIS CLAW operative's activation, it can perform either two Shoot actions or two Fight actions. If it's two Shoot actions, a bolt pistol, boltgun or scoped bolt pistol must be selected for at least one of them. Each friendly NEMESIS CLAW operative can counteract regardless of its order."
+    },
+    {
+      "id": "in-midnight-clad",
+      "name": "In Midnight Clad",
+      "description": "Whenever an enemy operative is shooting a friendly NEMESIS CLAW operative, that friendly operative is obscured if both of the following are true: It's more than 8\" from enemy operatives it's visible to.It's within 1\" of Heavy terrain that's not lower than it, or any part of its base is underneath Vantage terrain."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "we-have-come-for-you",
+      "name": "WE HAVE COME FOR YOU",
+      "description": "Whenever a friendly NEMESIS CLAW operative is activated, if the first action it performs during that activation is the Charge action, when it ends its move during that action, you can inflict D3 damage on one enemy operative within its control range.",
+      "cost": 1
+    },
+    {
+      "id": "the-black-hunt",
+      "name": "THE BLACK HUNT",
+      "description": "Whenever a friendly NEMESIS CLAW operative is shooting against, fighting against or retaliating against a wounded enemy operative, you can re-roll one of your attack dice.",
+      "cost": 1
+    },
+    {
+      "id": "preysight",
+      "name": "PREYSIGHT",
+      "description": "Whenever a friendly NEMESIS CLAW operative performs the Shoot action, you can use this rule. If you do, until the end of that action, that friendly operative's ranged weapons have the Range 6\" and Seek Light weapon rules.",
+      "cost": 1
+    },
+    {
+      "id": "return-to-darkness",
+      "name": "RETURN TO DARKNESS",
+      "description": "One friendly NEMESIS CLAW operative can immediately perform a free Fall Back or Reposition action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot move more than 4\" during that action and it cannot end that move closer to enemy operatives (in a killzone that uses the close quarters rules, e.g. Killzone: Tomb World, ignore Wall terrain when determining this).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "vox-scream",
+      "name": "VOX SCREAM",
+      "description": "Use this firefight ploy when your opponent would activate an enemy operative that's visible to a friendly NEMESIS CLAW operative. Roll one D6; if the result is higher than that enemy operative's APL stat, your opponent cannot activate it during this activation; if the result is less than or equal to that enemy operative's APL stat, this ploy isn't used, the CP spent on it is refunded and you cannot use this ploy again during this turning point. If there are no other enemy operatives eligible to be activated, this ploy has no effect.",
+      "cost": 1
+    },
+    {
+      "id": "death-to-the-false-emperor",
+      "name": "DEATH TO THE FALSE EMPEROR",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly NEMESIS CLAW operative, if it's shooting against, fighting against or retaliating against an enemy operative that has the IMPERIUM keyword. That friendly operative's weapons have the Ceaseless weapon rule until the end of that sequence; if that enemy operative also has the IMPERIUM ADEPTUS ASTARTES keyword, that friendly operative's weapons have the Relentless weapon rule until the end of that sequence instead.",
+      "cost": 1
+    },
+    {
+      "id": "proclivity-for-murder",
+      "name": "PROCLIVITY FOR MURDER",
+      "description": "Use this firefight ploy after a friendly NEMESIS CLAW operative incapacitates an enemy operative within its control range. That friendly operative can immediately perform a free Charge or Dash action (for the former, it cannot move more than 3\"), even if it's performed an action that prevents it from performing those actions.",
+      "cost": 1
+    },
+    {
+      "id": "dirty-fighter",
+      "name": "DIRTY FIGHTER",
+      "description": "Use this firefight ploy when a friendly NEMESIS CLAW operative is retaliating, at the start of the Resolve Attack Dice step. You can resolve one of your successes before the normal order. If you do, you cannot resolve any other successes during that sequence.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "flayed-skin",
+      "name": "FLAYED SKIN",
+      "description": "Whenever an enemy operative is shooting against, fighting against or retaliating against a friendly NEMESIS CLAW operative within 2\" of it, your opponent cannot re-roll their attack dice results of 1."
+    },
+    {
+      "id": "chain-snare",
+      "name": "CHAIN SNARE",
+      "description": "Whenever an enemy operative would perform the Fall Back action while within control range of a friendly NEMESIS CLAW operative, if no other enemy operatives are within that friendly operative's control range, you can use this rule. If you do, roll two D6, or one D6 if that enemy operative has a higher Wounds stat than that friendly operative. If any result is a 4+, that enemy operative cannot perform that action during that activation/counteraction (no AP are spent on it), and you cannot use this rule again during this turning point."
+    },
+    {
+      "id": "grisly-trophy",
+      "name": "GRISLY TROPHY",
+      "description": "Once per battle, when a friendly NEMESIS CLAW operative incapacitates an enemy operative within 2\" of it, you can use this rule. If you do, that friendly operative gains one of your Grisly Trophy tokens (if it doesn't already have one). Whenever a friendly NEMESIS CLAW operative that has one of your Grisly Trophy tokens is visible to and within 2\" of an enemy operative, subtract 1 from the Atk stat of that enemy operative's weapons."
+    },
+    {
+      "id": "comms-jammers",
+      "name": "COMMS JAMMERS",
+      "description": "Whenever an enemy operative is within 3\" of a friendly NEMESIS CLAW operative, that enemy operative's APL stat cannot be added to. Note that this doesn't affect APL stats that have already been changed."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "astartes-double-action",
+      "rule": "Astartes",
+      "trigger": "onActionLegality",
+      "condition": {
+        "keyword": "nemesis-claw"
+      },
+      "effect": {
+        "type": "extraAction",
+        "oneOf": [
+          "shoot",
+          "fight"
+        ],
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the requirement that a bolt weapon be selected for one of two Shoot actions is not enforced"
+    }
+  ]
+}

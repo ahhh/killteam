@@ -1,0 +1,1256 @@
+{
+  "id": "inquisitorial-agent",
+  "factionId": "agents-of-the-imperium",
+  "displayName": "Inquisitorial Agent",
+  "blurb": "The reach of the Inquisition extends across the vastness of the Imperium. Inquisitorial kill teams bring together agents from all strata of Imperial society, from elite soldiers to zealous priests. Together, these disparate elements combine their skills to deadly effect, enabling them to root out and destroy heretics, aliens and the servants of Chaos.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/inquisitorial-agent/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a2f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 7,
+    "selectionRules": [
+      "1 INQUISITORIAL AGENT INTERROGATOR operative",
+      "1 INQUISITORIAL AGENT TOME-SKULL operative",
+      "5 INQUISITORIAL AGENT operatives selected from the following list: AUTOSAVANT; QUESTKEEPER; DEATH WORLD VETERAN; ENLIGHTENER; HEXORCIST; MYSTIC; PENAL LEGIONNAIRE; PISTOLIER; GUN SERVITOR with one of the following options: Heavy bolter; servo-claw; Multi-melta; servo-claw; Plasma cannon; servo-claw",
+      "5 INQUISITORIAL AGENT operatives selected from the list above, or REQUISITIONED operatives from one group in the Inquisitorial Requisition faction rule (you cannot select REQUISITIONED operatives from different groups)."
+    ],
+    "operatives": [
+      {
+        "profileId": "interrogator-agent",
+        "count": 1
+      },
+      {
+        "profileId": "tome-skull",
+        "count": 1
+      },
+      {
+        "profileId": "autosavant-agent",
+        "count": 1
+      },
+      {
+        "profileId": "questkeeper-agent",
+        "count": 1
+      },
+      {
+        "profileId": "death-world-veteran-agent",
+        "count": 1
+      },
+      {
+        "profileId": "enlightener-agent",
+        "count": 1
+      },
+      {
+        "profileId": "hexorcist-agent",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "interrogator-agent",
+      "name": "Interrogator Agent",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "extended-stock-relic-autopistol",
+          "name": "Extended stock relic autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 12\", Lethal 5+",
+          "range": 12
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "leader",
+        "interrogator"
+      ]
+    },
+    {
+      "id": "tome-skull",
+      "name": "Tome-Skull",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 5
+      },
+      "weapons": [],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "tome-skull"
+      ]
+    },
+    {
+      "id": "autosavant-agent",
+      "name": "Autosavant Agent",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "mechanical-appendages",
+          "name": "Mechanical appendages",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 1,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "autosavant"
+      ]
+    },
+    {
+      "id": "death-world-veteran-agent",
+      "name": "Death World Veteran Agent",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "knife",
+          "name": "Knife",
+          "type": "melee",
+          "atk": 1,
+          "hit": 2,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "polearm",
+          "name": "Polearm",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "death-world-veteran"
+      ]
+    },
+    {
+      "id": "enlightener-agent",
+      "name": "Enlightener Agent",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "paired-blades",
+          "name": "Paired blades",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "balanced",
+            "rending"
+          ],
+          "rulesText": "Balanced, Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "enlightener"
+      ]
+    },
+    {
+      "id": "hexorcist-agent",
+      "name": "Hexorcist Agent",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "shotgun",
+          "name": "Shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "chasten",
+          "name": "CHASTEN",
+          "cost": "1AP",
+          "description": "Select one enemy operative that's a valid target for this operative and within 6\" of it, then select one additional rule (including a unique action) that enemy operative has on its datacard (excluding a weapon rule or a rule that states it is ignored for the kill/elimination op). Until the end of that enemy operative's next activation, it's treated as not having that additional rule. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "hexorcist"
+      ]
+    },
+    {
+      "id": "mystic-agent",
+      "name": "Mystic Agent",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "seek"
+          ],
+          "rulesText": "Range 8\", Seek",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "scry",
+          "name": "SCRY",
+          "cost": "1AP",
+          "description": "PSYCHIC. Select one friendly INQUISITORIAL AGENT operative within 6\" of this operative, then select one of the following effects to last until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first):Guidance: PSYCHIC. Whenever the selected operative is shooting, fighting or retaliating, in the Roll Attack Dice step, you can retain one of your fails as a normal success instead of discarding it, or retain one of your normal successes as a critical success instead.Protection: PSYCHIC. Whenever an operative is shooting the selected operative, in the Roll Defence Dice step, you can retain one of your fails as a normal success instead of discarding it, or retain one of your normal successes as a critical success instead. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "psyker",
+        "mystic"
+      ]
+    },
+    {
+      "id": "penal-legionnaire-agent",
+      "name": "Penal Legionnaire Agent",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "hand-flamer",
+          "name": "Hand flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent1"
+          ],
+          "rulesText": "Range 6\", Saturate, Torrent 1\"",
+          "range": 6
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "penal-legionnaire"
+      ]
+    },
+    {
+      "id": "pistolier-agent",
+      "name": "Pistolier Agent",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "scoped-plasma-pistol-standard",
+          "name": "Scoped plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "scoped-plasma-pistol-supercharge",
+          "name": "Scoped plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 12\", Hot, Lethal 5+, Piercing 1",
+          "range": 12
+        },
+        {
+          "id": "suppressed-autopistol",
+          "name": "Suppressed autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 8\", Silent",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "pistol-barrage",
+          "name": "PISTOL BARRAGE",
+          "cost": "1AP",
+          "description": "Perform two free Shoot actions with this operative (this takes precedence over action restrictions). You must select a profile of its scoped plasma pistol for one action and its suppressed autopistol for the other (in any order). This operative cannot perform this action while it has a Conceal order, or during an activation in which it performed the Shoot action (or vice versa)."
+        }
+      ],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "pistolier"
+      ]
+    },
+    {
+      "id": "questkeeper-agent",
+      "name": "Questkeeper Agent",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "eviscerator",
+          "name": "Eviscerator",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "questkeeper"
+      ]
+    },
+    {
+      "id": "requisitioned-gun-servitor",
+      "name": "Requisitioned Gun Servitor",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 5,
+        "apl": 1,
+        "save": 4,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "heavy-bolter-focused",
+          "name": "Heavy bolter (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Dash only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "heavy-bolter-sweeping",
+          "name": "Heavy bolter (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "piercingcrits1",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash only), Piercing Crits 1, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "multi-melta",
+          "name": "Multi-melta",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "heavy:dash",
+            "piercing2"
+          ],
+          "rulesText": "Devastating 4, Heavy (Dash only), Piercing 2",
+          "range": 48
+        },
+        {
+          "id": "plasma-cannon-standard",
+          "name": "Plasma cannon (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "blast2",
+            "heavy:dash",
+            "piercing1"
+          ],
+          "rulesText": "Blast 2\", Heavy (Dash only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-cannon-supercharge",
+          "name": "Plasma cannon (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "blast2",
+            "heavy:dash",
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Blast 2\", Heavy (Dash only), Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "servo-claw",
+          "name": "Servo claw",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "inquisition",
+        "gun-servitor"
+      ]
+    },
+    {
+      "id": "sister-of-silence-prosecutor",
+      "name": "Sister of Silence Prosecutor",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "anathema-psykana",
+        "sister-of-silence",
+        "prosecutor"
+      ]
+    },
+    {
+      "id": "sister-of-silence-vigilator",
+      "name": "Sister of Silence Vigilator",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "executioner-greatblade",
+          "name": "Executioner greatblade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "anathema-psykana",
+        "sister-of-silence",
+        "vigilator"
+      ]
+    },
+    {
+      "id": "sister-of-silence-witchseeker",
+      "name": "Sister of Silence Witchseeker",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "anathema-psykana",
+        "sister-of-silence",
+        "witchseeker"
+      ]
+    },
+    {
+      "id": "tempestus-scion-gunner",
+      "name": "Tempestus Scion Gunner",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "grenade-launcher-frag",
+          "name": "Grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "grenade-launcher-krak",
+          "name": "Grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "hot-shot-volley-gun-focused",
+          "name": "Hot-shot volley gun (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "hot-shot-volley-gun-sweeping",
+          "name": "Hot-shot volley gun (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1",
+            "torrent1"
+          ],
+          "rulesText": "Piercing Crits 1, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "astra-militarum",
+        "tempestus-scion",
+        "gunner"
+      ]
+    },
+    {
+      "id": "tempestus-scion-medic",
+      "name": "Tempestus Scion Medic",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "hot-shot-lasgun",
+          "name": "Hot-shot lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "1AP",
+          "description": "Select one friendly INQUISITORIAL AGENT operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "astra-militarum",
+        "tempestus-scion",
+        "medic"
+      ]
+    },
+    {
+      "id": "tempestus-scion-trooper",
+      "name": "Tempestus Scion Trooper",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "hot-shot-lasgun",
+          "name": "Hot-shot lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "astra-militarum",
+        "tempestus-scion",
+        "trooper"
+      ]
+    },
+    {
+      "id": "tempestus-scion-vox-operator",
+      "name": "Tempestus Scion Vox-Operator",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "hot-shot-lasgun",
+          "name": "Hot-shot lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly INQUISITORIAL AGENT operative in the killzone. Until the end of that operative's next activation, add 1 to its APL stat. This operative can perform this action twice during its activation, but cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "inquisitorial-agent",
+        "imperium",
+        "astra-militarum",
+        "tempestus-scion",
+        "vox-operator"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "inquisitorial-requisition",
+      "name": "Inquisitorial Requisition",
+      "description": "REQUISITIONED operatives can be taken from one of the following groups to supplement an INQUISITORIAL AGENT kill team, as specified in this kill team's selection rules: DEATH KORPSEXACTION SQUADIMPERIAL NAVY BREACHERKASRKINSISTER OF SILENCETEMPESTUS SCIONThese operatives have their faction keyword replaced in all instances on their datacards with INQUISITORIAL AGENT (unless they already have it). You cannot use ploys and equipment associated with a REQUISITIONED operative's former faction keyword, and you cannot use a REQUISITIONED operative's former faction rules unless specified on their Inquisitorial Requisition card (it only applies to those REQUISITIONED operatives). Note that with their new faction keyword, REQUISITIONED operatives can interact with the INQUISITORIAL AGENT rules. For example, a REQUISITIONED VOX-OPERATOR operative from the DEATH KORPS group would have its DEATH KORPS keyword replaced in all instances on its datacard with INQUISITORIAL AGENT. This allows you to select any other friendly INQUISITORIAL AGENT operative for its Signal unique action. However, the Guardsman Orders faction rule isn't permitted, so its Relay Orders additional rule would be ignored. It would now also be a valid operative for the INQUISITORIAL AGENT MYSTIC operative's Scry unique action."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "denounce",
+      "name": "DENOUNCE",
+      "description": "Select one enemy operative and roll one D3. In the Firefight phase of this turning point, that enemy operative cannot be activated or perform actions until it's the last enemy operative to be activated, or your opponent has activated a number of enemy operatives equal to the result of the D3 (whichever comes first). This ploy costs you 1 additional CP for each previous time you've used it during the battle (e.g. 1CP the first time you would use it, 2CP the second time, etc.).",
+      "cost": 1
+    },
+    {
+      "id": "intense-scrutiny",
+      "name": "INTENSE SCRUTINY",
+      "description": "Whenever you're selecting a valid target for a friendly INQUISITORIAL AGENT operative, enemy operatives within 4\" of it cannot be in cover (instead of 2\"). While this can allow such operatives to be targeted (assuming they're visible), it doesn't remove their cover save (if any), unless the friendly INQUISITORIAL AGENT operative is within 2\" as normal.",
+      "cost": 1
+    },
+    {
+      "id": "quarry",
+      "name": "QUARRY",
+      "description": "Select one enemy operative to be your quarry for the turning point. Whenever a friendly INQUISITORIAL AGENT operative is shooting against, fighting against or retaliating against your quarry, that friendly operative's weapons have the Ceaseless weapon rule. Whenever your quarry is incapacitated, you can select a new enemy operative to be your quarry (and can continue to do so during this turning point).",
+      "cost": 1
+    },
+    {
+      "id": "irrefutable-jurisdiction",
+      "name": "IRREFUTABLE JURISDICTION",
+      "description": "Whenever an operative is shooting a friendly INQUISITORIAL AGENT operative that's within 3\" of an objective marker, you can re-roll one of your defence dice. If that friendly operative contests that marker, you can re-roll any of your defence dice results of one result instead (e.g. results of 2).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "absolute-authority1cp",
+      "name": "ABSOLUTE AUTHORITY1CP",
+      "description": "Use this firefight ploy during the battle, when an opponent uses a strategy or firefight ploy (excluding Command Re-roll or one that costs 0CP). Their ploy isn't used, the CP spent on it is refunded and they cannot use that ploy again during this turning point. This ploy cannot be used to stop the same ploy more than once per battle.",
+      "cost": 0
+    },
+    {
+      "id": "relentless-in-pursuit1cp",
+      "name": "RELENTLESS IN PURSUIT1CP",
+      "description": "Use this firefight ploy when an enemy operative within 2\" of a ready friendly INQUISITORIAL AGENT operative performs an action in which it moves. After it moves, that friendly INQUISITORIAL AGENT operative can either perform a free Reposition action, but must end that move within 2\" of that enemy operative, or a free Charge action, but must end that move within control range of that enemy operative. If neither is possible, that friendly operative cannot perform those actions, this ploy isn't used and the CP spent on it is refunded.",
+      "cost": 1
+    },
+    {
+      "id": "the-emperor-s-will1cp",
+      "name": "THE EMPEROR'S WILL1CP",
+      "description": "Use this firefight ploy when a friendly INQUISITORIAL AGENT operative is activated. Until the end of that operative's activation, you can ignore any changes to its stats (including its weapons' stats).",
+      "cost": 1
+    },
+    {
+      "id": "intimidating-presence1cp",
+      "name": "INTIMIDATING PRESENCE1CP",
+      "description": "Use this firefight ploy when an enemy operative visible to and within 3\" of a friendly INQUISITORIAL AGENT operative, or visible to and within 6\" of a friendly MYSTIC operative, performs the Pick Up Marker or a mission action (excluding Operate Hatch). Your opponent must spend 1 additional AP for that enemy operative to perform that action (if they cannot or choose not to, the AP spent on it is refunded).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "inquisitorial-rosette",
+      "name": "INQUISITORIAL ROSETTE",
+      "description": "Once per battle, when a friendly INQUISITORIAL AGENT operative is activated, if you've used the Quarry strategy ploy during this turning point, you can use this rule. If you do, you can select a new enemy operative to be your quarry until the end of the turning point."
+    },
+    {
+      "id": "combat-daggers",
+      "name": "COMBAT DAGGERS",
+      "description": "Friendly INQUISITORIAL AGENT operatives have the following melee weapon. Whenever a friendly SISTER OF SILENCE operative is using it, add 1 to its Atk stat. Combat dagger NAMEATKHITDMGCombat dagger34+3/4"
+    },
+    {
+      "id": "armoured-bodysuits",
+      "name": "ARMOURED BODYSUITS",
+      "description": "Whenever an operative is shooting a friendly INQUISITORIAL AGENT operative (excluding TOME-SKULL) that has a 5+ Save stat, you can retain one of your defence dice results of 4 as a normal success."
+    },
+    {
+      "id": "servo-skull",
+      "name": "SERVO-SKULL",
+      "description": "Once per battle, one friendly INQUISITORIAL AGENT operative can perform a mission action for 1 less AP."
+    }
+  ],
+  "ruleHooks": []
+}

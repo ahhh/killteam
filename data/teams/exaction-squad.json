@@ -1,0 +1,1041 @@
+{
+  "id": "exaction-squad",
+  "factionId": "agents-of-the-imperium",
+  "displayName": "Exaction Squad",
+  "blurb": "It is the responsibility of the Adeptus Arbites to enforce Imperial law. Exaction Squads are formed from the most highly skilled and experienced Arbitrators. They are tasked with hunting down and securing the most heinous of criminals, returning them alive to face the full extent of the Emperor's justice.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/exaction-squad/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f3a6a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 11,
+    "selectionRules": [
+      "1 EXACTION SQUAD PROCTOR-EXACTANT operative with one of the following options: Combat shotgun; repression baton; Shotpistol; dominator maul & assault shield",
+      "10 EXACTION SQUAD operatives selected from the following list: CASTIGATOR; CHIRURGANT; LEASHMASTER; R-VR CYBER-MASTIFF; MALOCATOR; MARKSMAN; REVELATUM; SUBDUCTOR; VIGILANT; VOX-SIGNIFIER; GUNNER with one of the following options: Grenade launcher; repression baton; Heavy stubber; repression baton; Webber; repression baton"
+    ],
+    "operatives": [
+      {
+        "profileId": "arbites-proctor-exactant",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-castigator",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-chirurgant",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-leashmaster",
+        "count": 1
+      },
+      {
+        "profileId": "r-vr-cyber-mastiff",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-malocator",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-marksman",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-revelatum",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-subductor",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-vigilant",
+        "count": 1
+      },
+      {
+        "profileId": "arbites-vox-signifier",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "arbites-proctor-exactant",
+      "name": "Arbites Proctor-exactant",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "shotpistol",
+          "name": "Shotpistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "dominator-maul-assault-shield",
+          "name": "Dominator maul & assault shield",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "shock",
+            "repress"
+          ],
+          "rulesText": "Lethal 5+, Shock, Repress*"
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "deploy-nuncio-aquila",
+          "name": "DEPLOY NUNCIO-AQUILA",
+          "cost": "0AP",
+          "description": "If your Nuncio-aquila marker isn't in the killzone, place it within 6\" horizontally of this operative; otherwise, move your Nuncio-aquila marker up to 6\" horizontally. If this operative is removed from the killzone, remove your Nuncio-aquila marker from the killzone. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "leader",
+        "proctor-exactant"
+      ]
+    },
+    {
+      "id": "arbites-castigator",
+      "name": "Arbites Castigator",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "excruciator-maul",
+          "name": "Excruciator maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 5
+          },
+          "rules": [
+            "rending",
+            "shock"
+          ],
+          "rulesText": "Rending, Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "castigator"
+      ]
+    },
+    {
+      "id": "arbites-chirurgant",
+      "name": "Arbites Chirurgant",
+      "role": "support",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "1AP",
+          "description": "Select one friendly EXACTION SQUAD operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "medic",
+        "chirurgant"
+      ]
+    },
+    {
+      "id": "arbites-gunner",
+      "name": "Arbites Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "grenade-launcher",
+          "name": "Grenade launcher",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "heavy-stubber-focused",
+          "name": "Heavy stubber (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash"
+          ],
+          "rulesText": "Heavy (Dash Only)",
+          "range": 48
+        },
+        {
+          "id": "heavy-stubber-sweeping",
+          "name": "Heavy stubber (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash Only), Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "webber",
+          "name": "Webber",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "severe",
+            "stun"
+          ],
+          "rulesText": "Range 12\", Severe, Stun",
+          "range": 12
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "gunner"
+      ]
+    },
+    {
+      "id": "arbites-leashmaster",
+      "name": "Arbites Leashmaster",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "shotpistol",
+          "name": "Shotpistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "r-vr-command",
+          "name": "R-VR COMMAND",
+          "cost": "0AP",
+          "description": "Select one friendly EXACTION SQUAD R-VR CYBER-MASTIFF operative and change one of its attack pattern."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "leashmaster"
+      ]
+    },
+    {
+      "id": "r-vr-cyber-mastiff",
+      "name": "R-VR Cyber-mastiff",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "mechanical-bite",
+          "name": "Mechanical bite",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "apprehend",
+          "name": "APPREHEND",
+          "cost": "AP",
+          "description": "Select one enemy operative within this operative's control range. Until that enemy operative is no longer within this operative's control range, or until this operative performs this action again (whichever comes first), worsen the Hit stat of that enemy operative's weapons by 1 (this isn't cumulative with being injured); in addition, that enemy operative cannot perform the Fall Back action. This operative cannot perform this action unless an enemy operative is within its control range."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "r-vr-cyber-mastiff"
+      ]
+    },
+    {
+      "id": "arbites-malocator",
+      "name": "Arbites Malocator",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "veriscant",
+          "name": "VERISCANT",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to this operative. Until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first), whenever a friendly EXACTION SQUAD operative is shooting against, fighting against or retaliating against that enemy operative, that friendly operative's weapons have the Lethal 5+ and Severe weapon rules. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "malocator"
+      ]
+    },
+    {
+      "id": "arbites-marksman",
+      "name": "Arbites Marksman",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "executioner-shotgun-concealed",
+          "name": "Executioner shotgun (concealed)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 0
+          },
+          "rules": [
+            "devastating4",
+            "heavy",
+            "silent",
+            "concealedposition"
+          ],
+          "rulesText": "Devastating 4, Heavy, Silent, Concealed Position*",
+          "range": 48
+        },
+        {
+          "id": "executioner-shotgun-mobile",
+          "name": "Executioner shotgun (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "executioner-shotgun-stationary",
+          "name": "Executioner shotgun (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 0
+          },
+          "rules": [
+            "devastating4",
+            "heavy"
+          ],
+          "rulesText": "Devastating 4, Heavy",
+          "range": 48
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "optics",
+          "name": "OPTICS",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation: The concealed and stationary profiles of its executioner shotgun have the Lethal 5+ weapon rule.Whenever it's shooting with its executioner shotgun, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "marksman"
+      ]
+    },
+    {
+      "id": "arbites-revelatum",
+      "name": "Arbites Revelatum",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "scoped-shotpistol-short-range",
+          "name": "Scoped shotpistol (short range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "scoped-shotpistol-long-range",
+          "name": "Scoped shotpistol (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to and within 8\" of this operative. Until the end of the turning point, whenever a friendly EXACTION SQUAD operative is shooting that enemy operative, you can use this effect. If you do: That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "revelatum"
+      ]
+    },
+    {
+      "id": "arbites-subductor",
+      "name": "Arbites Subductor",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shotpistol",
+          "name": "Shotpistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "shock-maul-assault-shield",
+          "name": "Shock maul & assault shield",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "shock",
+            "repress"
+          ],
+          "rulesText": "Shock, Repress*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "subductor"
+      ]
+    },
+    {
+      "id": "arbites-vigilant",
+      "name": "Arbites Vigilant",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "vigilant"
+      ]
+    },
+    {
+      "id": "arbites-vox-signifier",
+      "name": "Arbites Vox-signifier",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun-close-range",
+          "name": "Combat shotgun (close range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "combat-shotgun-long-range",
+          "name": "Combat shotgun (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 5,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "repression-baton",
+          "name": "Repression baton",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly EXACTION SQUAD operative visible to this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "exaction-squad",
+        "imperium",
+        "adeptus-arbites",
+        "vox-signifier"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "ruthless-efficiency",
+      "name": "Ruthless Efficiency",
+      "description": "Whenever a friendly EXACTION SQUAD operative is shooting (excluding with frag or krak grenades) and you're selecting a valid target, you can use this rule. If you do, having other friendly EXACTION SQUAD operatives within an enemy operative's control range doesn't prevent that enemy operative from being selected."
+    },
+    {
+      "id": "marked-for-justice",
+      "name": "Marked for Justice",
+      "description": "STRATEGIC GAMBIT. Select one enemy operative to be your mark for the turning point. Whenever a friendly EXACTION SQUAD operative is shooting against, fighting against or retaliating against your mark, that friendly operative's weapons have the Punishing weapon rule. Whenever your mark is incapacitated, you can select a new enemy operative to be your mark for the turning point (and can continue to do so during this turning point)."
+    },
+    {
+      "id": "repress",
+      "name": "Repress",
+      "description": "Some weapons in this team's rules have the Repress weapon rule below. *Repress: Whenever this operative is using this weapon: Each of your blocks can be allocated to block two unresolved successes (instead of one).If this operative is retaliating, you resolve the first attack dice (i.e. defender instead of attacker)."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "guilt-reveals-itself",
+      "name": "GUILT REVEALS ITSELF",
+      "description": "Whenever you're selecting a valid target for a friendly EXACTION SQUAD operative, enemy operatives within 4\" of it cannot be in cover (instead of 2\"). While this can allow such operatives to be targeted (assuming they're visible), it doesn't remove their cover save (if any), unless the friendly EXACTION SQUAD operative is within 2\" as normal.",
+      "cost": 1
+    },
+    {
+      "id": "inviolate-jurisdiction",
+      "name": "INVIOLATE JURISDICTION",
+      "description": "Whenever an operative is shooting a friendly EXACTION SQUAD operative that's within 2\" of an objective marker or an enemy operative, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "dispense-justice",
+      "name": "DISPENSE JUSTICE",
+      "description": "Whenever a friendly EXACTION SQUAD operative is fighting or retaliating, if it hasn't moved more than its Move stat during the activation, or if it's a counteraction, its melee weapons have the Ceaseless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "terminal-decree",
+      "name": "TERMINAL DECREE",
+      "description": "Whenever a friendly EXACTION SQUAD operative is shooting an enemy operative within 6\" of it, or whenever a friendly EXACTION SQUAD GUNNER operative is shooting, that friendly operative's ranged weapons have the Balanced weapon rule.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "long-arm-of-the-emperor-s-law",
+      "name": "LONG ARM OF THE EMPEROR'S LAW",
+      "description": "Use this firefight ploy when a friendly EXACTION SQUAD operative is performing the Shoot action and you select a weapon with the Range x weapon rule (excluding frag or krak grenade). Until the end of that action, add 3\" to x.",
+      "cost": 1
+    },
+    {
+      "id": "exact-punishment",
+      "name": "EXACT PUNISHMENT",
+      "description": "Use this firefight ploy after an enemy operative shoots against or fights against a friendly EXACTION SQUAD operative within 6\" of it, and that friendly operative isn't incapacitated as a result. That friendly operative can immediately perform either a free Shoot or a free Fight action, but you cannot select any other enemy operative as a valid target or to fight against during that action (note that secondary targets from the Blast weapon rule can still be targeted).",
+      "cost": 1
+    },
+    {
+      "id": "brutal-backup",
+      "name": "BRUTAL BACKUP",
+      "description": "Use this firefight ploy during a friendly EXACTION SQUAD operative's activation, before or after it performs an action. Select one enemy operative within its control range. One other friendly EXACTION SQUAD operative can immediately perform a free Fight action, but you cannot select any other enemy operative to fight against during that action.",
+      "cost": 1
+    },
+    {
+      "id": "execution-order",
+      "name": "EXECUTION ORDER",
+      "description": "Use this firefight ploy when an enemy operative performs a mission action (excluding Operate Hatch). Alternatively, use it at the end of the Firefight phase and select one enemy operative that controls an objective marker. In either case, the next time your opponent would activate that enemy operative, you can interrupt that activation and activate a ready friendly EXACTION SQUAD operative. If you do, during that activation, that friendly operative must shoot against or fight against that enemy operative, and cannot do so against any other enemy operatives until it does (if this isn't possible, that friendly operative's activation is cancelled). After completing that friendly operative's activation, continue that enemy operative's activation (if possible). You cannot use this ploy again until that enemy operative is activated or incapacitated.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "reinforced-mirror-visor",
+      "name": "REINFORCED MIRROR-VISOR",
+      "description": "You can ignore any changes to the APL stat of friendly EXACTION SQUAD operatives, and they aren't affected by enemy operatives' Shock weapon rule."
+    },
+    {
+      "id": "manacles",
+      "name": "MANACLES",
+      "description": "Whenever an enemy operative would perform the Fall Back action while within control range of a friendly EXACTION SQUAD operative, if no other enemy operatives are within that friendly operative's control range, you can use this rule. If you do, roll two D6, or one D6 if that enemy operative has a higher Wounds stat than that friendly operative. If any result is a 4+, that enemy operative cannot perform that action during that activation/counteraction (no AP are spent on it), and you cannot use this rule again during this turning point.."
+    },
+    {
+      "id": "strobing-phosphor-lumen",
+      "name": "STROBING PHOSPHOR-LUMEN",
+      "description": "Whenever an enemy operative is shooting against, fighting against or retaliating against a friendly EXACTION SQUAD operative within 2\" of it, your opponent cannot re-roll their attack dice results of 1."
+    },
+    {
+      "id": "special-issue-shells",
+      "name": "SPECIAL ISSUE SHELLS",
+      "description": "Up to twice per turning point, when a friendly EXACTION SQUAD operative is performing the Shoot action and you select a combat shotgun, executioner shotgun, scoped shotpistol or shotpistol, you can use this rule. If you do, select one of the following weapon rules for that weapon to have until the end of that action: Saturate.Piercing 1, but only if the target has a Save stat of 3+ or better.Torrent 1\", but you cannot select more than one secondary target."
+    }
+  ],
+  "ruleHooks": []
+}

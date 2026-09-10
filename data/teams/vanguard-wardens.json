@@ -1,0 +1,179 @@
+{
+  "id": "vanguard-wardens",
+  "factionId": "vanguard-compact",
+  "displayName": "Vanguard Wardens",
+  "blurb": "Few, armoured and hard to shift. Wins by holding ground.",
+  "edition": "synthetic-1",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Fictional demo team. Not transcribed from any published game."
+  },
+  "colors": {
+    "primary": "#4a7fb5",
+    "accent": "#d8e3ef"
+  },
+  "roster": {
+    "maxOperatives": 5,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "warden-sergeant",
+        "count": 1
+      },
+      {
+        "profileId": "warden-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "warden-trooper",
+        "count": 3
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "warden-sergeant",
+      "name": "Warden Sergeant",
+      "role": "flexible",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "w-boltpistol",
+          "name": "Heavy Pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "balanced"
+          ],
+          "range": 8
+        },
+        {
+          "id": "w-blade",
+          "name": "Power Blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "leader",
+        "vanguard"
+      ]
+    },
+    {
+      "id": "warden-gunner",
+      "name": "Warden Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "w-autocannon",
+          "name": "Support Cannon",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ap1"
+          ],
+          "range": 12
+        },
+        {
+          "id": "w-fists",
+          "name": "Armoured Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "vanguard"
+      ]
+    },
+    {
+      "id": "warden-trooper",
+      "name": "Warden Trooper",
+      "role": "flexible",
+      "baseDiameter": 1.32,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "w-rifle",
+          "name": "Bolt Rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "range": 10
+        },
+        {
+          "id": "w-fists",
+          "name": "Armoured Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "vanguard"
+      ]
+    }
+  ],
+  "strategicPloys": [],
+  "firefightPloys": [],
+  "equipment": [],
+  "ruleHooks": []
+}

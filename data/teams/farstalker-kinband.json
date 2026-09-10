@@ -1,0 +1,845 @@
+{
+  "id": "farstalker-kinband",
+  "factionId": "t-au-empire",
+  "displayName": "Farstalker Kinband",
+  "blurb": "Farstalker Kinbands operate as scouts for the Kroot species. They range far and wide throughout the galaxy, seeking new and valuable genetic material to return to their Shapers. Farstalker Kinbands contain expert trackers, hunters and guerrilla fighters who are capable of matching far more technologically advanced foes.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/farstalker-kinband/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a2f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 12,
+    "selectionRules": [
+      "1 FARSTALKER KINBAND KILL-BROKER operative with one of the following options: Kroot rifle; ritual blade; Pulse weapon; ritual blade",
+      "11 FARSTALKER KINBAND operatives selected from the following list: BOW-HUNTER; COLD-BLOOD; CUT-SKIN; HOUND; LONG-SIGHT; PISTOLIER; STALKER; TRACKER; HEAVY GUNNER with one of the following options: Dvorgite skinner; blade; Londaxi tribalest; blade; WARRIOR with one of the following options: Kroot rifle; blade; Kroot scattergun; blade"
+    ],
+    "operatives": [
+      {
+        "profileId": "kroot-kill-broker",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-bow-hunter",
+        "count": 2
+      },
+      {
+        "profileId": "kroot-cold-blood",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-cut-skin",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-hound",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-long-sight",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-pistolier",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-stalker",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-tracker",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-heavy-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "kroot-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "kroot-kill-broker",
+      "name": "Kroot Kill-Broker",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "kroot-rifle",
+          "name": "Kroot rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "pulse-weapon",
+          "name": "Pulse weapon",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "ritual-blade",
+          "name": "Ritual blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "leader",
+        "kroot",
+        "kill-broker"
+      ]
+    },
+    {
+      "id": "kroot-bow-hunter",
+      "name": "Kroot Bow-Hunter",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "accelerator-bow-fused-arrow",
+          "name": "Accelerator bow (fused arrow)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "accelerator-bow-glide-arrow",
+          "name": "Accelerator bow (glide arrow)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Silent",
+          "range": 48
+        },
+        {
+          "id": "accelerator-bow-voltaic-arrow",
+          "name": "Accelerator bow (voltaic arrow)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast1"
+          ],
+          "rulesText": "Blast 1\"",
+          "range": 48
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "energise",
+          "name": "ENERGISE",
+          "cost": "1AP",
+          "description": "Until the end of the turning point or until this operative has shot with its accelerator bow (whichever comes first), all profiles of its accelerator bow have the Lethal 5+ weapon rule. T his operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "bow-hunter"
+      ]
+    },
+    {
+      "id": "kroot-cold-blood",
+      "name": "Kroot Cold-Blood",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "kroot-rifle",
+          "name": "Kroot rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "cold-blood"
+      ]
+    },
+    {
+      "id": "kroot-cut-skin",
+      "name": "Kroot Cut-Skin",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "cut-skin-s-blades",
+          "name": "Cut-skin's blades",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "cut-skin"
+      ]
+    },
+    {
+      "id": "kroot-heavy-gunner",
+      "name": "Kroot Heavy Gunner",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "dvorgite-skinner",
+          "name": "Dvorgite skinner",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercing2",
+            "torrent2"
+          ],
+          "rulesText": "Range 6\", Heavy (Reposition only), Piercing 2, Torrent 2\"",
+          "range": 6
+        },
+        {
+          "id": "londaxi-tribalest",
+          "name": "Londaxi tribalest",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:reposition",
+            "piercing1",
+            "rending"
+          ],
+          "rulesText": "Heavy (Reposition only), Piercing 1, Rending",
+          "range": 48
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "heavy-gunner"
+      ]
+    },
+    {
+      "id": "kroot-hound",
+      "name": "Kroot Hound",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 8,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "ripping-fangs",
+          "name": "Ripping fangs",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "gather",
+          "name": "GATHER",
+          "cost": "1AP",
+          "description": "Perform a free Dash or Reposition action with this operative. During that move, it can perform a free Pick Up Marker or Place Marker action (you can determine control during that action to do so), and any remaining move distance it had from the Dash or Reposition action can be used after it does so."
+        }
+      ],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "hound"
+      ]
+    },
+    {
+      "id": "kroot-long-sight",
+      "name": "Kroot Long-Sight",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "kroot-hunting-rifle-concealed",
+          "name": "Kroot hunting rifle (concealed)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "heavy",
+            "devastating3",
+            "silent",
+            "concealedposition"
+          ],
+          "rulesText": "Heavy, Devastating 3, Silent, Concealed Position*",
+          "range": 48
+        },
+        {
+          "id": "kroot-hunting-rifle-mobile",
+          "name": "Kroot hunting rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "kroot-hunting-rifle-stationary",
+          "name": "Kroot hunting rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "heavy",
+            "devastating3"
+          ],
+          "rulesText": "Heavy, Devastating 3",
+          "range": 48
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "long-sight",
+          "name": "LONG-SIGHT",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation:The concealed and stationary profiles of its Kroot hunting rifle have the Lethal 5+ weapon rule.Whenever it's shooting with its Kroot hunting rifle, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "long-sight"
+      ]
+    },
+    {
+      "id": "kroot-pistolier",
+      "name": "Kroot Pistolier",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "dual-kroot-pistols-focused",
+          "name": "Dual Kroot pistols (focused)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Ceaseless, Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "dual-kroot-pistols-salvo",
+          "name": "Dual Kroot pistols (salvo)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "salvo"
+          ],
+          "rulesText": "Range 8\", Salvo*",
+          "range": 8
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "pistolier"
+      ]
+    },
+    {
+      "id": "kroot-stalker",
+      "name": "Kroot Stalker",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "kroot-scattergun",
+          "name": "Kroot scattergun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "stalker-s-blade",
+          "name": "Stalker's blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "balanced",
+            "rending"
+          ],
+          "rulesText": "Balanced, Rending"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "stealth-attack",
+          "name": "STEALTH ATTACK",
+          "cost": "2AP",
+          "description": "Perform a free Charge action with this operative, but don't exceed its Move stat (i.e. don't add 2\"). Then immediately perform a free Fight action with this operative. The first time you strike during that action, you can immediately resolve another of your successes as a strike (before your opponent). This operative cannot perform this action while it has an Engage order, while within control range of an enemy operative, or if it isn't within 1\" of Light or Heavy terrain."
+        }
+      ],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "stalker"
+      ]
+    },
+    {
+      "id": "kroot-tracker",
+      "name": "Kroot Tracker",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "kroot-rifle",
+          "name": "Kroot rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "marked-for-the-hunt",
+          "name": "MARKED FOR THE HUNT",
+          "cost": "1AP",
+          "description": "Remove your Pech'ra marker from the killzone (if any). Then place your Pech'ra marker visible to this operative, or on Vantage terrain of a terrain feature that's visible to this operative. Whenever a friendly FARSTALKER KINBAND operative is shooting an enemy operative that has that marker within its control range, that friendly operative's ranged weapons have the Seek Light weapon rule. At the start of this operative's next activation or if it's removed from the killzone (whichever comes first), remove your Pech'ra marker from the killzone. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "from-the-eye-above",
+          "name": "FROM THE EYE ABOVE",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly FARSTALKER KINBAND operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "tracker"
+      ]
+    },
+    {
+      "id": "kroot-warrior",
+      "name": "Kroot Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "kroot-rifle",
+          "name": "Kroot rifle",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "kroot-scattergun",
+          "name": "Kroot scattergun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "blade",
+          "name": "Blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "farstalker-kinband",
+        "t-au-empire",
+        "kroot",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "farstalker",
+      "name": "Farstalker",
+      "description": "In the Ready step of each Strategy phase, you can change the order of up to three friendly FARSTALKER KINBAND operatives that are not within control range of enemy operatives. Whenever it's your turn to counteract, you can change the order of one friendly FARSTALKER KINBAND operative that's not within control range of enemy operatives instead. This still counts as you counteracting (so activation alternates back to your opponent afterwards), but doesn't count as that friendly operative's counteraction for this turning point."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "cut-throats",
+      "name": "CUT-THROATS",
+      "description": "Add 1 to the Atk stat of friendly FARSTALKER KINBAND operatives' melee weapons (to a maximum of 5).",
+      "cost": 1
+    },
+    {
+      "id": "prey",
+      "name": "PREY",
+      "description": "Whenever a friendly FARSTALKER KINBAND operative is shooting during an activation in which it hasn't performed the Charge, Fall Back or Reposition action, its ranged weapons have the Balanced and Severe weapon rules; if the weapon already has the Balanced weapon rule, it has the Ceaseless and Severe weapon rules instead. Note that operative isn't restricted from performing those actions after shooting.",
+      "cost": 1
+    },
+    {
+      "id": "rogue",
+      "name": "ROGUE",
+      "description": "Whenever an operative is shooting a friendly FARSTALKER KINBAND operative: Ignore the Saturate weapon rule.If you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn't cumulative with improved cover saves from Vantage terrain.",
+      "cost": 1
+    },
+    {
+      "id": "bound",
+      "name": "BOUND",
+      "description": "During each friendly FARSTALKER KINBAND operative's activation, you can ignore the first vertical distance of 2\" they move during one climb up.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "savage-ambush",
+      "name": "SAVAGE AMBUSH",
+      "description": "Use this firefight ploy during the Fight action when a ready friendly FARSTALKER KINBAND operative that has Light or Heavy terrain within its control range is selected to fight against. In the Resolve Attack Dice step of that sequence, you resolve the first attack dice (i.e. defender instead of attacker).",
+      "cost": 1
+    },
+    {
+      "id": "poach",
+      "name": "POACH",
+      "description": "Use this firefight ploy during a friendly FARSTALKER KINBAND operative's activation. Until the end of that activation, that operative doesn't have to control a marker to perform the Pick Up Marker or mission actions that usually require this (taking precedence over that action's conditions - it only needs to contest the marker).",
+      "cost": 1
+    },
+    {
+      "id": "slip-away",
+      "name": "SLIP AWAY",
+      "description": "Use this firefight ploy during a friendly FARSTALKER KINBAND operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
+      "cost": 1
+    },
+    {
+      "id": "vengeance-for-the-kinband",
+      "name": "VENGEANCE FOR THE KINBAND",
+      "description": "Use this firefight ploy when a friendly FARSTALKER KINBAND operative is incapacitated by an enemy operative. Until the end of the battle, whenever another friendly FARSTALKER KINBAND operative is shooting against, fighting against or retaliating against that enemy operative, that other friendly operative's weapons have the Relentless weapon rule. You cannot use this ploy again during the battle until that enemy operative is incapacitated.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "piercing-shot",
+      "name": "PIERCING SHOT",
+      "description": "Once per turning point, when a friendly FARSTALKER KINBAND operative is performing the Shoot action and you select a Kroot rifle, Kroot scattergun or dual Kroot pistols (focused), you can use this rule. If you do, until the end of that action, that weapon has the Piercing 1 weapon rule. You cannot use the Piercing Shot and Toxin Shot rule during the same action."
+    },
+    {
+      "id": "meat",
+      "name": "MEAT",
+      "description": "Once per turning point, when a friendly FARSTALKER KINBAND operative (excluding HOUND) is activated, if it's not within control range of enemy operatives, you can use this rule. If you do, that friendly operative regains up to D3+1 lost wounds."
+    },
+    {
+      "id": "toxin-shot",
+      "name": "TOXIN SHOT",
+      "description": "Once per turning point, when a friendly FARSTALKER KINBAND operative is performing the Shoot action and you select a Kroot rifle, Kroot scattergun or dual Kroot pistols (focused), you can use this rule. If you do, until the end of that action, that weapon has the Lethal 5+ and Stun weapon rules. You cannot use the Piercing Shot and Toxin Shot rule during the same action"
+    },
+    {
+      "id": "trophy",
+      "name": "TROPHY",
+      "description": "Once per battle, during a friendly FARSTALKER KINBAND operative's activation (excluding HOUND), before or after it performs an action, if it's not within control range of enemy operatives, you can use this rule. If you do, add 1 to that friendly operative's APL stat until the end of its activation."
+    }
+  ],
+  "ruleHooks": []
+}

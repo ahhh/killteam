@@ -1,0 +1,28 @@
+{
+  "id": "secure-and-hold",
+  "name": "Secure and Hold",
+  "version": 1,
+  "blurb": "Hold markers across four turning points. Kills matter, but ground matters more.",
+  "board": {
+    "width": 30,
+    "height": 22
+  },
+  "turningPoints": 4,
+  "scoring": {
+    "objectives": {
+      "vpPer": 1,
+      "maxPerTurningPoint": 3
+    },
+    "kills": {
+      "vpPer": 1,
+      "maxPerTurningPoint": 2
+    },
+    "endOfBattle": {
+      "wipeoutVp": 3
+    }
+  },
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "checkedAt": "2026-09-10"
+  }
+}

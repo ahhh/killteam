@@ -1,0 +1,911 @@
+{
+  "id": "phobos-strike-team",
+  "factionId": "space-marines",
+  "displayName": "Phobos Strike Team",
+  "blurb": "Masters of stealth and subterfuge, Phobos Strike Teams consist of Space Marine Infiltrators, Incursors and Reivers. Possessed of transhuman strength and equipped with a range of explosives, communications equipment and precise weaponry, they are capable of outmanoeuvring and overwhelming enemy forces many times their own size.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/phobos-strike-team/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f6f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [
+      "1 PHOBOS STRIKE TEAM operative selected from the following list: INFILTRATOR SERGEANT; INCURSOR SERGEANT; REIVER SERGEANT with one of the following options: Special issue bolt pistol; combat knife; Bolt carbine; fists",
+      "5 PHOBOS STRIKE TEAM operatives selected from the following list: INFILTRATOR COMMSMAN; INFILTRATOR HELIX ADEPT; INFILTRATOR SABOTEUR; INFILTRATOR VETERAN; INFILTRATOR VOXBREAKER; INFILTRATOR WARRIOR; INCURSOR MARKSMAN; INCURSOR MINELAYER; INCURSOR WARRIOR; REIVER WARRIOR with one of the following options: Special issue bolt pistol; combat knife; Bolt carbine; fists"
+    ],
+    "operatives": [
+      {
+        "profileId": "infiltrator-sergeant",
+        "count": 1
+      },
+      {
+        "profileId": "infiltrator-commsman",
+        "count": 1
+      },
+      {
+        "profileId": "infiltrator-helix-adept",
+        "count": 1
+      },
+      {
+        "profileId": "infiltrator-saboteur",
+        "count": 1
+      },
+      {
+        "profileId": "infiltrator-veteran",
+        "count": 1
+      },
+      {
+        "profileId": "infiltrator-voxbreaker",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "infiltrator-sergeant",
+      "name": "Infiltrator Sergeant",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "infiltrator",
+        "sergeant"
+      ]
+    },
+    {
+      "id": "infiltrator-commsman",
+      "name": "Infiltrator Commsman",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "infiltrator",
+        "commsman"
+      ]
+    },
+    {
+      "id": "infiltrator-helix-adept",
+      "name": "Infiltrator Helix Adept",
+      "role": "support",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "helix-gauntlet",
+          "name": "HELIX GAUNTLET",
+          "cost": "1AP",
+          "description": "Select one friendly PHOBOS STRIKE TEAM operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "medic",
+        "infiltrator",
+        "helix-adept"
+      ]
+    },
+    {
+      "id": "infiltrator-saboteur",
+      "name": "Infiltrator Saboteur",
+      "role": "sniper",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "remote-detonator",
+          "name": "Remote detonator",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "heavy:dash",
+            "limited1",
+            "piercing1",
+            "silent",
+            "detonate"
+          ],
+          "rulesText": "Heavy (Dash only), Limited 1, Piercing 1, Silent, Detonate*",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "infiltrator",
+        "saboteur"
+      ]
+    },
+    {
+      "id": "infiltrator-veteran",
+      "name": "Infiltrator Veteran",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "custom-bolt-carbine",
+          "name": "Custom bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "custom"
+          ],
+          "rulesText": "Custom*",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "infiltrator",
+        "veteran"
+      ]
+    },
+    {
+      "id": "infiltrator-voxbreaker",
+      "name": "Infiltrator Voxbreaker",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "auspex-scan",
+          "name": "AUSPEX SCAN",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation or until it's incapacitated (whichever comes first), whenever a friendly PHOBOS STRIKE TEAM operative is shooting an enemy operative within 8\" of this operative, that enemy operative cannot be obscured; if that friendly operative is an INCURSOR, its ranged weapons also have the Seek Light weapon rule. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "infiltrator",
+        "voxbreaker"
+      ]
+    },
+    {
+      "id": "infiltrator-warrior",
+      "name": "Infiltrator Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "infiltrator",
+        "warrior"
+      ]
+    },
+    {
+      "id": "incursor-sergeant",
+      "name": "Incursor Sergeant",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "marksman-bolt-carbine",
+          "name": "Marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "incursor",
+        "sergeant"
+      ]
+    },
+    {
+      "id": "incursor-marksman",
+      "name": "Incursor Marksman",
+      "role": "sniper",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "stalker-marksman-bolt-carbine",
+          "name": "Stalker marksman bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "incursor",
+        "marksman"
+      ]
+    },
+    {
+      "id": "incursor-minelayer",
+      "name": "Incursor Minelayer",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "occulus-bolt-carbine",
+          "name": "Occulus bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "saturate"
+          ],
+          "rulesText": "Saturate",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "incursor",
+        "minelayer"
+      ]
+    },
+    {
+      "id": "incursor-warrior",
+      "name": "Incursor Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "occulus-bolt-carbine",
+          "name": "Occulus bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "saturate"
+          ],
+          "rulesText": "Saturate",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "incursor",
+        "warrior"
+      ]
+    },
+    {
+      "id": "reiver-sergeant",
+      "name": "Reiver Sergeant",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "bolt-carbine",
+          "name": "Bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "special-issue-bolt-pistol",
+          "name": "Special issue bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "combat-knife",
+          "name": "Combat knife",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "reiver",
+        "sergeant"
+      ]
+    },
+    {
+      "id": "reiver-warrior",
+      "name": "Reiver Warrior",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "bolt-carbine",
+          "name": "Bolt carbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1"
+          ],
+          "rulesText": "Accurate 1",
+          "range": 48
+        },
+        {
+          "id": "special-issue-bolt-pistol",
+          "name": "Special issue bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "combat-knife",
+          "name": "Combat knife",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "phobos-strike-team",
+        "imperium",
+        "adeptus-astartes",
+        "reiver",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "omni-scrambler",
+      "name": "Omni-Scrambler",
+      "description": "STRATEGIC GAMBIT if a friendly INFILTRATOR operative is in the killzone. Select one enemy operative visible to a friendly INFILTRATOR operative, or within 6\" of a friendly VOXBREAKER operative. In the following Firefight phase, that enemy operative cannot be activated or perform actions until one of the following is true: Your opponent has activated a number of enemy operatives equal to the number of friendly INFILTRATOR operatives in the killzone when this STRATEGIC GAMBIT was used.It's the last enemy operative to be activated."
+    },
+    {
+      "id": "terror",
+      "name": "Terror",
+      "description": "Whenever an enemy operative is within 3\" of friendly REIVER operatives, your opponent must spend 1 additional AP for that enemy operative to perform the Pick Up Marker and mission actions. Whenever determining control of a marker, treat the total APL stat of enemy operatives that contest it as 1 lower if at least one of those enemy operatives is within 3\" of friendly REIVER operatives. Note this isn't a change to the APL stat, so any changes are cumulative with this."
+    },
+    {
+      "id": "astartes",
+      "name": "Astartes",
+      "description": "During each friendly PHOBOS STRIKE TEAM operative's activation, it can perform either two Shoot actions or two Fight actions. If it's two Shoot actions, a bolt weapon must be selected for at least one of them. A bolt weapon is any ranged weapon that includes 'bolt' in its name, e.g. marksman bolt carbine, special issue bolt pistol, etc. Each friendly PHOBOS STRIKE TEAM operative can counteract regardless of its order."
+    },
+    {
+      "id": "multi-spectrum-array",
+      "name": "Multi-Spectrum Array",
+      "description": "Whenever a friendly INCURSOR operative is shooting, enemy operatives cannot be obscured."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "guerrilla-warfare",
+      "name": "GUERRILLA WARFARE",
+      "description": "Friendly PHOBOS STRIKE TEAM operatives can perform the following unique action: GUERRILLA WARFARE1APChange this operative's order. An operative cannot perform this action while within control range of an enemy operative.",
+      "cost": 1
+    },
+    {
+      "id": "and-they-shall-know-no-fear",
+      "name": "AND THEY SHALL KNOW NO FEAR",
+      "description": "You can ignore any changes to the stats of friendly PHOBOS STRIKE TEAM operatives from being injured (including their weapons' stats).",
+      "cost": 1
+    },
+    {
+      "id": "deadly-shots",
+      "name": "DEADLY SHOTS",
+      "description": "Whenever a friendly PHOBOS STRIKE TEAM operative is shooting during an activation in which it hasn't performed the Charge, Fall Back or Reposition action, or against an operative that isn't in cover and is more than 6\" from it, that friendly operative's ranged weapons have the Balanced weapon rule. Note that for the first requirement, that operative isn't restricted from performing those actions after shooting.",
+      "cost": 1
+    },
+    {
+      "id": "lethal-assaults",
+      "name": "LETHAL ASSAULTS",
+      "description": "Whenever a friendly PHOBOS STRIKE TEAM operative is fighting, its melee weapons have the Balanced weapon rule. If that friendly operative is doing so during an activation in which it performed the Charge action, its melee weapons also have the Lethal 5+ weapon rule.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "patient-ambush",
+      "name": "PATIENT AMBUSH",
+      "description": "Use this firefight ploy when it's your turn to activate a friendly operative. You can skip that activation.",
+      "cost": 1
+    },
+    {
+      "id": "critical-shot",
+      "name": "CRITICAL SHOT",
+      "description": "Use this firefight ploy when you resolve a critical success for a friendly PHOBOS STRIKE TEAM operative that's shooting with a bolt weapon. Inflict D3 additional damage.",
+      "cost": 1
+    },
+    {
+      "id": "transhuman-physiology",
+      "name": "TRANSHUMAN PHYSIOLOGY",
+      "description": "Use this firefight ploy when an operative is shooting a friendly PHOBOS STRIKE TEAM operative, in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    },
+    {
+      "id": "stealth-assault",
+      "name": "STEALTH ASSAULT",
+      "description": "Use this firefight ploy when a friendly PHOBOS STRIKE TEAM operative that has a Conceal order is activated, is given an Engage order, performs the Charge and then the Fight action, and you're resolving your first attack dice from this activation. After doing so, you can immediately resolve another of your attack dice (before your opponent). The operative cannot have performed any other actions during this activation (but can do so after resolving this ploy).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "purity-seals",
+      "name": "PURITY SEALS",
+      "description": "Once per turning point, when a friendly PHOBOS STRIKE TEAM operative is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    },
+    {
+      "id": "additional-utility-grenades",
+      "name": "ADDITIONAL UTILITY GRENADES",
+      "description": "This equipment allows you to select four utility grenades from the utility grenades equipment (see universal equipment). You cannot also select that equipment as normal (i.e. to give you six)."
+    },
+    {
+      "id": "combat-blades",
+      "name": "COMBAT BLADES",
+      "description": "Friendly PHOBOS STRIKE TEAM operatives have the following melee weapon: Combat blade NAMEATKHITDMGCombat blade53+3/4"
+    },
+    {
+      "id": "special-issue-ammunition",
+      "name": "SPECIAL ISSUE AMMUNITION",
+      "description": "Once per turning point, when a friendly PHOBOS STRIKE TEAM operative is performing the Shoot action and you select a bolt carbine, marksman bolt carbine or occulus bolt carbine, you can use this rule. If you do, until the end of the turning point, that weapon has the Piercing 1 weapon rule."
+    }
+  ],
+  "ruleHooks": []
+}

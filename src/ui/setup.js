@@ -1,0 +1,230 @@
+/**
+ * Setup screen: faction/team selection, rule-pack import, reference catalogue.
+ *
+ * Adding a team is a data change, never a UI change (#5) — this screen is
+ * built entirely from the catalogue and whatever packs the user has imported.
+ */
+import { DataLoadError } from '../data/loader.js';
+
+function h(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+export class SetupScreen {
+  /**
+   * @param {{repo:DataRepository, roots:{p1:HTMLElement,p2:HTMLElement},
+   *          referenceRoot:HTMLElement, importEls:object}} deps
+   */
+  constructor({ repo, roots, referenceRoot, importEls, onChange }) {
+    this.repo = repo;
+    this.roots = roots;
+    this.referenceRoot = referenceRoot;
+    this.importEls = importEls;
+    this.onChange = onChange;
+    this.selection = { p1: null, p2: null };
+    this._wireImport();
+  }
+
+  /** @returns {{p1:string,p2:string}} the chosen team ids */
+  getSelection() {
+    return { ...this.selection };
+  }
+
+  setSelection(p1, p2) {
+    this.selection = { p1, p2 };
+  }
+
+  async render() {
+    for (const playerId of ['p1', 'p2']) {
+      await this._renderColumn(playerId);
+    }
+    this._renderReference();
+  }
+
+  async _renderColumn(playerId) {
+    const root = this.roots[playerId];
+    root.replaceChildren();
+    root.append(h('h3', null, playerId === 'p1' ? 'Player 1' : 'Player 2'));
+
+    const factions = this.repo.factions?.factions ?? [];
+    const teamIds = new Set(this.repo.catalogueTeamIds());
+    for (const id of this.repo.customTeams) teamIds.add(id);
+
+    const select = document.createElement('select');
+    select.setAttribute('aria-label', `${playerId} kill team`);
+
+    for (const faction of factions) {
+      const group = document.createElement('optgroup');
+      group.label = faction.name;
+      for (const teamId of faction.teams) {
+        const pack = this.repo.teams.get(teamId);
+        const option = document.createElement('option');
+        option.value = teamId;
+        option.textContent = pack?.displayName ?? teamId;
+        group.append(option);
+      }
+      select.append(group);
+    }
+
+    if (this.repo.customTeams.size) {
+      const group = document.createElement('optgroup');
+      group.label = 'Imported';
+      for (const teamId of this.repo.customTeams) {
+        const pack = this.repo.teams.get(teamId);
+        const option = document.createElement('option');
+        option.value = teamId;
+        option.textContent = `${pack?.displayName ?? teamId} (imported)`;
+        group.append(option);
+      }
+      select.append(group);
+    }
+
+    select.value = this.selection[playerId] ?? select.options[0]?.value;
+    this.selection[playerId] = select.value;
+
+    select.addEventListener('change', async () => {
+      this.selection[playerId] = select.value;
+      await this._renderColumn(playerId);
+      this.onChange?.(this.getSelection());
+    });
+    root.append(select);
+
+    const detail = h('div');
+    root.append(detail);
+    this._renderTeamDetail(detail, this.selection[playerId]);
+  }
+
+  _renderTeamDetail(container, teamId) {
+    container.replaceChildren();
+    const pack = this.repo.teams.get(teamId);
+    if (!pack) {
+      container.append(h('p', 'muted', 'Team data not loaded.'));
+      return;
+    }
+
+    const badge = this.repo.badgeFor(teamId);
+    if (badge) {
+      const cls = badge.level >= 5 ? 'support-badge full'
+        : badge.badge.startsWith('Experimental') ? 'support-badge experimental'
+        : badge.level >= 3 ? 'support-badge partial' : 'support-badge';
+      container.append(h('div', cls, badge.badge));
+    }
+
+    if (pack.blurb) container.append(h('p', 'muted', pack.blurb));
+
+    const list = document.createElement('ul');
+    list.className = 'roster-preview';
+    for (const entry of pack.roster.operatives) {
+      const profile = pack.operatives.find((o) => o.id === entry.profileId);
+      const count = entry.count ?? 1;
+      list.append(h('li', null,
+        `${count}× ${profile?.name ?? entry.profileId} — ` +
+        `M ${profile?.stats.move}" · APL ${profile?.stats.apl} · ` +
+        `Sv ${profile?.stats.save}+ · W ${profile?.stats.wounds}`));
+    }
+    container.append(list);
+
+    if (badge?.warnings?.length) {
+      const notice = h('div', 'notice');
+      notice.append(h('div', null, 'This pack loaded with warnings:'));
+      const ul = document.createElement('ul');
+      for (const w of badge.warnings.slice(0, 5)) ul.append(h('li', null, w));
+      notice.append(ul);
+      container.append(notice);
+    }
+    if (badge?.stale) {
+      container.append(h('div', 'notice',
+        `This data was last checked ${badge.ageDays} days ago. Check the official source for updates.`));
+    }
+  }
+
+  _renderReference() {
+    const root = this.referenceRoot;
+    if (!root) return;
+    root.replaceChildren();
+    const catalogue = this.repo.reference;
+    if (!catalogue) return;
+
+    root.append(h('p', 'muted', catalogue.note));
+
+    for (const faction of catalogue.factions) {
+      const line = h('div');
+      line.append(h('strong', null, `${faction.name}: `));
+      line.append(h('span', null, faction.teams.map((t) => t.name).join(', ')));
+      root.append(line);
+    }
+
+    const link = document.createElement('a');
+    link.href = catalogue.officialSource.downloads;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Official downloads (current rules)';
+    const p = h('p');
+    p.append(link);
+    root.append(p);
+  }
+
+  _wireImport() {
+    const { box, button, file, result } = this.importEls;
+
+    const report = (node) => {
+      result.replaceChildren();
+      result.append(node);
+    };
+
+    const doImport = async (text) => {
+      try {
+        const outcome = this.repo.importJsonText(text);
+        const items = Array.isArray(outcome) ? outcome : [outcome];
+        const notice = h('div', 'notice');
+        notice.style.borderColor = '#2f6f4f';
+        notice.style.color = 'var(--good)';
+        notice.style.background = '#101a14';
+        for (const item of items) {
+          notice.append(h('div', null,
+            `Imported ${item.kind}: ${item.value.displayName ?? item.value.name ?? item.value.id}`));
+          const warnings = this.repo.reportFor(item.kind, item.value.id)?.warnings ?? [];
+          if (warnings.length) {
+            const ul = document.createElement('ul');
+            for (const w of warnings.slice(0, 6)) ul.append(h('li', null, w));
+            notice.append(ul);
+          }
+        }
+        report(notice);
+        await this.render();
+        this.onChange?.(this.getSelection());
+      } catch (err) {
+        const notice = h('div', 'notice error');
+        notice.append(h('div', null, err instanceof DataLoadError
+          ? 'This file was rejected:' : 'Import failed:'));
+        for (const line of String(err.message).split('\n')) {
+          notice.append(h('div', 'mono', line));
+        }
+        report(notice);
+      }
+    };
+
+    button?.addEventListener('click', () => {
+      const text = box.value.trim();
+      if (!text) return;
+      doImport(text);
+    });
+
+    file?.addEventListener('change', async () => {
+      const chosen = file.files?.[0];
+      if (!chosen) return;
+      doImport(await chosen.text());
+    });
+
+    // Drag and drop straight onto the textarea.
+    box?.addEventListener('dragover', (e) => { e.preventDefault(); });
+    box?.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      const dropped = e.dataTransfer?.files?.[0];
+      if (dropped) doImport(await dropped.text());
+    });
+  }
+}

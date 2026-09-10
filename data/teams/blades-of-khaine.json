@@ -1,0 +1,639 @@
+{
+  "id": "blades-of-khaine",
+  "factionId": "craftworlds",
+  "displayName": "Blades of Khaine",
+  "blurb": "Athletic, graceful and utterly lethal, the Aeldari warriors that comprise Blades of Khaine kill teams come together to undertake missions of utmost importance on behalf of their craftworlds. They are dispatched to sever specific strands of fate, ensuring that terrible events they have foreseen never come to pass.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/blades-of-khaine/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#8a2f5e",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "dire-avenger-exarch",
+        "count": 1
+      },
+      {
+        "profileId": "dire-avenger-warrior",
+        "count": 1
+      },
+      {
+        "profileId": "howling-banshee-exarch",
+        "count": 1
+      },
+      {
+        "profileId": "howling-banshee-warrior",
+        "count": 1
+      },
+      {
+        "profileId": "striking-scorpion-exarch",
+        "count": 1
+      },
+      {
+        "profileId": "striking-scorpion-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "dire-avenger-exarch",
+      "name": "Dire Avenger Exarch",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "shuriken-catapult",
+          "name": "Shuriken catapult",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "twin-shuriken-catapult",
+          "name": "Twin shuriken catapult",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Ceaseless, Rending",
+          "range": 48
+        },
+        {
+          "id": "diresword",
+          "name": "Diresword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5",
+            "rending"
+          ],
+          "rulesText": "Lethal 5+, Rending"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "gun-butts",
+          "name": "Gun butts",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "blades-of-khaine",
+        "aeldari",
+        "asuryani",
+        "leader",
+        "dire-avenger",
+        "exarch"
+      ]
+    },
+    {
+      "id": "dire-avenger-warrior",
+      "name": "Dire Avenger Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-catapult",
+          "name": "Shuriken catapult",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "blades-of-khaine",
+        "aeldari",
+        "asuryani",
+        "dire-avenger",
+        "warrior"
+      ]
+    },
+    {
+      "id": "howling-banshee-exarch",
+      "name": "Howling Banshee Exarch",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "triskele-throw",
+          "name": "Triskele (throw)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "rending",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Rending, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "executioner",
+          "name": "Executioner",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 7
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "mirrorswords",
+          "name": "Mirrorswords",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "ceaseless",
+            "lethal5"
+          ],
+          "rulesText": "Ceaseless, Lethal 5+"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        },
+        {
+          "id": "triskele-slice",
+          "name": "Triskele (slice)",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "blades-of-khaine",
+        "aeldari",
+        "asuryani",
+        "leader",
+        "howling-banshee",
+        "exarch"
+      ]
+    },
+    {
+      "id": "howling-banshee-warrior",
+      "name": "Howling Banshee Warrior",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "blades-of-khaine",
+        "aeldari",
+        "asuryani",
+        "howling-banshee",
+        "warrior"
+      ]
+    },
+    {
+      "id": "striking-scorpion-exarch",
+      "name": "Striking Scorpion Exarch",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "twin-shuriken-pistols",
+          "name": "Twin shuriken pistols",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Range 8\", Ceaseless, Rending",
+          "range": 8
+        },
+        {
+          "id": "biting-blade",
+          "name": "Biting blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        },
+        {
+          "id": "scorpion-s-claw-and-chainsword",
+          "name": "Scorpion's claw and chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "brutal",
+            "lethal5"
+          ],
+          "rulesText": "Brutal, Lethal 5+"
+        },
+        {
+          "id": "twin-chainswords",
+          "name": "Twin chainswords",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "ceaseless",
+            "rending"
+          ],
+          "rulesText": "Ceaseless, Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "blades-of-khaine",
+        "aeldari",
+        "asuryani",
+        "leader",
+        "striking-scorpion",
+        "exarch"
+      ]
+    },
+    {
+      "id": "striking-scorpion-warrior",
+      "name": "Striking Scorpion Warrior",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 3,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "shuriken-pistol",
+          "name": "Shuriken pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Range 8\", Rending",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "blades-of-khaine",
+        "aeldari",
+        "asuryani",
+        "striking-scorpion",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "aspect-techniques",
+      "name": "Aspect Techniques",
+      "description": "Each ASPECT TECHNIQUE is in a category: Dire Avenger, Howling Banshee and Striking Scorpion. Each ASPECT TECHNIQUE can only be used with a friendly operative that has the matching Aspect keyword, and each will specify when it can be used and what its effects are. In addition: You cannot use more than one ASPECT TECHNIQUE per activation or counteraction.You cannot use each ASPECT TECHNIQUE more than once per turning point.If every friendly BLADES OF KHAINE operative selected for deployment has the same Aspect keyword (e.g. STRIKING SCORPION), you cannot use each ASPECT TECHNIQUE more than twice per turning point (instead of once)."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "forewarned",
+      "name": "FOREWARNED",
+      "description": "Whenever an operative is shooting a ready friendly BLADES OF KHAINE operative, you can re-roll any of your defence dice results of one result (e.g. results of 2).",
+      "cost": 1
+    },
+    {
+      "id": "ruthless-poise",
+      "name": "RUTHLESS POISE",
+      "description": "Whenever a friendly BLADES OF KHAINE operative is fighting a ready enemy operative, that friendly operative's melee weapons have the Ceaseless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "khaine-s-vengeance",
+      "name": "KHAINE'S VENGEANCE",
+      "description": "Whenever a friendly BLADES OF KHAINE operative is shooting an expended enemy operative, that friendly operative's ranged weapons have the Ceaseless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "dance-of-death",
+      "name": "DANCE OF DEATH",
+      "description": "Select two friendly BLADES OF KHAINE operatives visible to and within 6\" of each other. Remove them both from the killzone and set them back up in each other's previous locations (in other words, swap their positions).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "bladewind1cp",
+      "name": "BLADEWIND1CP",
+      "description": "Use this firefight ploy during a friendly BLADES OF KHAINE operative's activation. During that activation, that operative can perform two Fight actions.",
+      "cost": 1
+    },
+    {
+      "id": "starfall1cp",
+      "name": "STARFALL1CP",
+      "description": "Use this firefight ploy during a friendly BLADES OF KHAINE operative's activation. During that activation, that operative can perform two Shoot actions.",
+      "cost": 1
+    },
+    {
+      "id": "fading-light1cp",
+      "name": "FADING LIGHT1CP",
+      "description": "Use this firefight ploy during a friendly BLADES OF KHAINE operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
+      "cost": 1
+    },
+    {
+      "id": "contempt1cp",
+      "name": "CONTEMPT1CP",
+      "description": "Use this firefight ploy when a friendly BLADES OF KHAINE operative is retaliating or an enemy operative is shooting it, after your opponent rolls their attack dice, but before re-rolls. Until the end of the sequence, your opponent cannot re-roll their attack dice (if your opponent declared the use of any firefight ploys during that sequence that would allow them to re-roll, that ploy is cancelled and the CP spent on it is refunded).",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "rune-of-prophecy",
+      "name": "RUNE OF PROPHECY",
+      "description": "Once per battle, after rolling off to decide initiative, you can add D3 to, or subtract D3 from, your result."
+    },
+    {
+      "id": "rune-of-shielding",
+      "name": "RUNE OF SHIELDING",
+      "description": "Once per battle, when an attack dice inflicts Normal Dmg on a friendly BLADES OF KHAINE operative, you can ignore that inflicted damage."
+    },
+    {
+      "id": "rune-of-foresight",
+      "name": "RUNE OF FORESIGHT",
+      "description": "When this equipment is revealed, roll one D3. In the Strategy phase of the turning point equal to the result, you gain 1 additional CP."
+    },
+    {
+      "id": "wraithbone-talisman",
+      "name": "WRAITHBONE TALISMAN",
+      "description": "Once per turning point, when a friendly BLADES OF KHAINE operative is shooting, fighting or retaliating, if you roll two or more fails, you can discard one of them to retain another as a normal success instead."
+    }
+  ],
+  "ruleHooks": []
+}

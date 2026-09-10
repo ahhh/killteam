@@ -1,0 +1,179 @@
+{
+  "id": "ash-cultists",
+  "factionId": "ash-legion",
+  "displayName": "Ash Legion Cultists",
+  "blurb": "Numerous and expendable. Wins by drowning objectives in bodies.",
+  "edition": "synthetic-1",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "url": "",
+    "checkedAt": "2026-09-10",
+    "notes": "Fictional demo team. Not transcribed from any published game."
+  },
+  "colors": {
+    "primary": "#a4443a",
+    "accent": "#f0cfc9"
+  },
+  "roster": {
+    "maxOperatives": 9,
+    "selectionRules": [],
+    "operatives": [
+      {
+        "profileId": "cult-demagogue",
+        "count": 1
+      },
+      {
+        "profileId": "cult-gunner",
+        "count": 2
+      },
+      {
+        "profileId": "cultist",
+        "count": 6
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "cult-demagogue",
+      "name": "Cult Demagogue",
+      "role": "support",
+      "baseDiameter": 1.25,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "w-pistol",
+          "name": "Ash Pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "range": 8
+        },
+        {
+          "id": "w-ritualblade",
+          "name": "Ritual Blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ]
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "leader",
+        "ash-legion"
+      ]
+    },
+    {
+      "id": "cult-gunner",
+      "name": "Cult Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.25,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "w-flamer",
+          "name": "Cinder Sprayer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 2,
+            "critical": 2
+          },
+          "rules": [
+            "saturate"
+          ],
+          "range": 8
+        },
+        {
+          "id": "w-knife",
+          "name": "Rusted Knife",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ash-legion"
+      ]
+    },
+    {
+      "id": "cultist",
+      "name": "Cultist",
+      "role": "objective-runner",
+      "baseDiameter": 1.25,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "w-autogun",
+          "name": "Scrap Autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "ceaseless"
+          ],
+          "range": 12
+        },
+        {
+          "id": "w-knife",
+          "name": "Rusted Knife",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": []
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ash-legion"
+      ]
+    }
+  ],
+  "strategicPloys": [],
+  "firefightPloys": [],
+  "equipment": [],
+  "ruleHooks": []
+}

@@ -1,0 +1,520 @@
+{
+  "id": "raveners",
+  "factionId": "tyranids",
+  "displayName": "Raveners",
+  "blurb": "Ravener kill teams are hyperadapted to such an extent that they are able to overcome all manner of a prey species' defences. Driven by alien synaptic imperatives, Raveners burrow with horrific speed to strike at prey from vulnerable angles, before using razor-sharp talons, chitinous claws and virulent biotoxins to enact the Hive Mind's will.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/raveners/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#6a3a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 5,
+    "selectionRules": [
+      "1 RAVENER PRIME operative",
+      "4 RAVENER operatives selected from the following list: FELLTALON; TREMORSCYTHE; VENOMSPITTER; WARRIOR; WRECKER"
+    ],
+    "operatives": [
+      {
+        "profileId": "ravener-prime",
+        "count": 1
+      },
+      {
+        "profileId": "ravener-felltalon",
+        "count": 1
+      },
+      {
+        "profileId": "ravener-tremorscythe",
+        "count": 1
+      },
+      {
+        "profileId": "ravener-venomspitter",
+        "count": 1
+      },
+      {
+        "profileId": "ravener-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "ravener-prime",
+      "name": "Ravener Prime",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 5,
+        "wounds": 19
+      },
+      "weapons": [
+        {
+          "id": "tail-blade",
+          "name": "Tail blade",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending",
+            "silent"
+          ],
+          "rulesText": "Range 3\", Rending, Silent",
+          "range": 3
+        },
+        {
+          "id": "scything-talons-rending-claws",
+          "name": "Scything talons & rending claws",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ravener",
+        "great-devourer",
+        "tyranid",
+        "leader",
+        "prime"
+      ]
+    },
+    {
+      "id": "ravener-felltalon",
+      "name": "Ravener Felltalon",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 5,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "pincer-tail",
+          "name": "Pincer tail",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 3\", Silent",
+          "range": 3
+        },
+        {
+          "id": "toxic-glands",
+          "name": "Toxic glands",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent",
+            "poison"
+          ],
+          "rulesText": "Range 6\", Silent, Poison*",
+          "range": 6
+        },
+        {
+          "id": "toxic-scythes",
+          "name": "Toxic scythes",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "lethal5",
+            "shock",
+            "poison"
+          ],
+          "rulesText": "Lethal 5+, Shock, Poison*"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "toxic-lunge",
+          "name": "TOXIC LUNGE",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to and within 2\" of this operative. If enemy operatives are within control range of this operative, you cannot select an enemy operative that isn't. Alternatively, if this operative is underground, select one enemy operative on your TUNNEL. Inflict D3+2 damage on that enemy operative and it gains one of your Poison tokens (if it doesn't already have one). This operative can perform this action while underground (this takes precedence over the normal Burrow rules)."
+        }
+      ],
+      "keywords": [
+        "ravener",
+        "great-devourer",
+        "tyranid",
+        "felltalon"
+      ]
+    },
+    {
+      "id": "ravener-tremorscythe",
+      "name": "Ravener Tremorscythe",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 5,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "pincer-tail",
+          "name": "Pincer tail",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 3\", Silent",
+          "range": 3
+        },
+        {
+          "id": "scything-talons-rending-claws",
+          "name": "Scything talons & rending claws",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ravener",
+        "great-devourer",
+        "tyranid",
+        "tremorscythe"
+      ]
+    },
+    {
+      "id": "ravener-venomspitter",
+      "name": "Ravener Venomspitter",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 5,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "pincer-tail",
+          "name": "Pincer tail",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 3\", Silent",
+          "range": 3
+        },
+        {
+          "id": "venom-bolt-blast",
+          "name": "Venom bolt (blast)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "poison"
+          ],
+          "rulesText": "Range 8\", Blast 2\", Poison*",
+          "range": 8
+        },
+        {
+          "id": "venom-bolt-focused",
+          "name": "Venom bolt (focused)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "poison"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Poison*",
+          "range": 8
+        },
+        {
+          "id": "scything-talons",
+          "name": "Scything talons",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "distend-dorsal-sac",
+          "name": "DISTEND DORSAL SAC",
+          "cost": "1AP",
+          "description": "Until this operative has shot with its venom bolt, until it performs this action again or until it performs the Burrow action (whichever comes first), all profiles of its venom bolt have the Lethal 5+ weapon rule, have 1 added to their Atk stat and the Range 8\" weapon rule removed."
+        }
+      ],
+      "keywords": [
+        "ravener",
+        "great-devourer",
+        "tyranid",
+        "venomspitter"
+      ]
+    },
+    {
+      "id": "ravener-warrior",
+      "name": "Ravener Warrior",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 5,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "pincer-tail",
+          "name": "Pincer tail",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 3\", Silent",
+          "range": 3
+        },
+        {
+          "id": "scything-talons",
+          "name": "Scything talons",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ravener",
+        "great-devourer",
+        "tyranid",
+        "warrior"
+      ]
+    },
+    {
+      "id": "ravener-wrecker",
+      "name": "Ravener Wrecker",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 7,
+        "apl": 3,
+        "save": 4,
+        "wounds": 18
+      },
+      "weapons": [
+        {
+          "id": "bone-mace",
+          "name": "Bone mace",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercing1",
+            "silent"
+          ],
+          "rulesText": "Range 3\", Piercing 1, Silent",
+          "range": 3
+        },
+        {
+          "id": "scything-talons-crushing-claws",
+          "name": "Scything talons & crushing claws",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "crush"
+          ],
+          "rulesText": "Crush*"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "ravener",
+        "great-devourer",
+        "tyranid",
+        "wrecker"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "burrow",
+      "name": "Burrow",
+      "description": "When setting up a RAVENER kill team before the battle, your first two operatives must be set up as normal. Each other friendly RAVENER operative thereafter can be set up underground: place it to one side instead of in the killzone. In the Firefight phase, friendly RAVENER operatives set up underground are activated and can counteract as normal. Whenever a friendly RAVENER operative is underground, it cannot perform any actions other than Burrow. At the end of the battle, each friendly RAVENER operative that's underground is incapacitated. Friendly RAVENER operatives can perform the following unique action: BURROW1APIf this operative is underground, set it up on your TUNNEL in a location it can be placed (it's no longer underground, and it can be set up within control range of enemy operatives). Until the end of the activation/counteraction, subtract 2\" from its Move stat. Alternatively, instead of resolving the above effect, if this operative is in the killzone and on your TUNNEL, remove it from the killzone: it's now underground. An operative cannot perform this action while carrying a marker."
+    },
+    {
+      "id": "tunnel",
+      "name": "Tunnel",
+      "description": "At the end of the Set Up Operatives step, place your Tunnel marker numbered '0' on the killzone floor, wholly within your drop zone and touching your killzone edge. As a STRATEGIC GAMBIT in the first four turning points, you can place your next numbered Tunnel marker on the killzone floor wholly within 5\" of your preceding Tunnel marker. This means that, as the battle progresses, you can have a series of sequentially numbered Tunnel markers (0, 1, 2, 3 and 4). Once you have placed five Tunnel markers, don't place any more (i.e. if your battle lasts more than four turning points). Your Tunnel markers and the area between your sequentially numbered markers (i.e. between 0 and 1, 1 and 2, etc.), create your TUNNEL. In a killzone that uses the close quarters rules (e.g. Killzone: Tomb World), your TUNNEL and the distance between your Tunnel markers can be measured through Wall terrain.In a killzone that uses the hazardous areas rules (e.g. Killzone: Bheta Decima), for the purposes of the Restricted Movement rule, parts of a Tunnel marker that are touching a hazardous area are treated as a hazardous area. In this example, operative A is on your TUNNEL as it's on the area between markers 0 and 1. Operative B is also on your TUNNEL as it's touching one of your Tunnel markers. Operative C is not on your TUNNEL as markers 1 and 3 are not sequential, so the area between those markers is not part of your TUNNEL."
+    },
+    {
+      "id": "predatory-instincts",
+      "name": "Predatory Instincts",
+      "description": "During each friendly RAVENER operative's activation, it can perform two Fight actions. Each friendly RAVENER operative can counteract regardless of its order. Whenever it does: You can change its order first, or change its order instead of performing an action (for the latter, still treat it as having counteracted this turning point).During that counteraction, if it doesn't perform a mission action it can perform a free Burrow action."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "death-from-below",
+      "name": "DEATH FROM BELOW",
+      "description": "Whenever a friendly RAVENER operative is fighting: If it's performed the Burrow action during that activation/counteraction, its melee weapons have the Balanced weapon rule.If it's on your TUNNEL, its melee weapons have the Ceaseless weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "whipcord-emergence",
+      "name": "WHIPCORD EMERGENCE",
+      "description": "Whenever an operative is shooting a friendly RAVENER operative: If that friendly operative has performed the Burrow action during that turning point, you can re-roll one of your defence dice.If that friendly operative is on your TUNNEL, you can re-roll any of your defence dice results of one result..",
+      "cost": 1
+    },
+    {
+      "id": "writhe-out-of-sight",
+      "name": "WRITHE OUT OF SIGHT",
+      "description": "Select one friendly RAVENER operative in the killzone. That friendly operative can immediately perform a free Burrow action. If it's within 2\" of your TUNNEL, it can immediately perform a free Fall Back or Reposition action before it does so.",
+      "cost": 1
+    },
+    {
+      "id": "tunnel-lurkers",
+      "name": "TUNNEL LURKERS",
+      "description": "Whenever a friendly RAVENER operative is on your TUNNEL it's in cover, unless it's within 2\" of the active operative. Treat this as cover provided by Light terrain (therefore it's affected by rules that prevent this, e.g. Seek Light and Vantage terrain).",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "slithering-evasion",
+      "name": "SLITHERING EVASION",
+      "description": "Use this firefight ploy during a friendly RAVENER operative's activation or counteraction, before or after it performs an action. During that activation/ counteraction, that operative can: Perform the Fall Back action for 1 less AP.Perform the Charge action while within control range of an enemy operative, and can leave that operative's control range to do so (but then normal requirements for that move apply).",
+      "cost": 1
+    },
+    {
+      "id": "subterranean-horror",
+      "name": "SUBTERRANEAN HORROR",
+      "description": "Use this firefight ploy when an enemy operative is performing the Fight action and selects a friendly RAVENER operative on your TUNNEL to fight against. In the Resolve Attack Dice step of that sequence, you resolve the first attack dice (i.e. defender instead of attacker).",
+      "cost": 1
+    },
+    {
+      "id": "burrowing-strike",
+      "name": "BURROWING STRIKE",
+      "description": "Use this firefight ploy when a friendly RAVENER operative performs the Burrow action. Before that operative is removed from the killzone, or after setting it up on your TUNNEL, inflict D3+1 damage on each enemy operative within its control range (roll separately for each). You cannot use this ploy in the Strategy phase, or during a FELLTALON operative's activation or counteraction if it performs the Toxic Lunge action (and vice versa).",
+      "cost": 1
+    },
+    {
+      "id": "death-frenzy",
+      "name": "DEATH FRENZY",
+      "description": "Use this firefight ploy when a friendly RAVENER operative is incapacitated. Before that operative is removed from the killzone, inflict D3 damage on each enemy operative within its control range (roll separately for each). If that friendly operative is a VENOMSPITTER that's currently benefitting from the effects of its Distend Dorsal Sac action, inflict 2D3 damage instead.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "chromatospore-camouflage",
+      "name": "CHROMATOSPORE CAMOUFLAGE",
+      "description": "Whenever an operative is shooting a friendly RAVENER operative, if you can retain any cover saves, you can retain one additional cover save. This isn't cumulative with improved cover saves from Vantage terrain."
+    },
+    {
+      "id": "acid-blood",
+      "name": "ACID BLOOD",
+      "description": "Whenever a friendly RAVENER operative is fighting or retaliating, whenever an attack dice inflicts damage on it, roll one D6: on a 5+, inflict 1 damage on the enemy operative in that sequence."
+    },
+    {
+      "id": "metamorphic-flesh",
+      "name": "METAMORPHIC FLESH",
+      "description": "Whenever a friendly RAVENER operative is activated, it regains up to D3 lost wounds."
+    },
+    {
+      "id": "heightened-senses",
+      "name": "HEIGHTENED SENSES",
+      "description": "Once per battle, after rolling off to decide initiative, if a friendly RAVENER operative is underground and an enemy operative is within 5\" of your TUNNEL, you can re-roll your dice."
+    }
+  ],
+  "ruleHooks": []
+}

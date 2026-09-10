@@ -1,0 +1,628 @@
+{
+  "id": "scout-squad",
+  "factionId": "space-marines",
+  "displayName": "Scout Squad",
+  "blurb": "Most Space Marines begin their service to the Chapter in the Scout Company. Lightly armed in comparison to their elder brothers, Scout Squads wield a range of specialist weapons and equipment to undertake clandestine operations, often deep behind enemy lines.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/scout-squad/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#6a3a2f",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 9,
+    "selectionRules": [
+      "1 SCOUT SQUAD SERGEANT operative with one of the following options: Astartes shotgun; fists; Boltgun; fists; Bolt pistol; chainsword",
+      "8 SCOUT SQUAD operatives selected from the following list: HEAVY GUNNER with fists, bolt pistol and heavy bolter; HEAVY GUNNER with fists, bolt pistol and missile launcher; HUNTER; SNIPER; TRACKER; WARRIOR with one of the following options: Astartes shotgun; fists; Boltgun; fists; Bolt pistol; combat blade"
+    ],
+    "operatives": [
+      {
+        "profileId": "scout-sergeant",
+        "count": 1
+      },
+      {
+        "profileId": "scout-heavy-gunner",
+        "count": 2
+      },
+      {
+        "profileId": "scout-hunter",
+        "count": 2
+      },
+      {
+        "profileId": "scout-sniper",
+        "count": 2
+      },
+      {
+        "profileId": "scout-tracker",
+        "count": 1
+      },
+      {
+        "profileId": "scout-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "scout-sergeant",
+      "name": "Scout Sergeant",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "astartes-shotgun",
+          "name": "Astartes shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "scout-squad",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "sergeant"
+      ]
+    },
+    {
+      "id": "scout-heavy-gunner",
+      "name": "Scout Heavy Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "heavy-bolter-focused",
+          "name": "Heavy bolter (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "piercingcrits1"
+          ],
+          "rulesText": "Heavy (Dash only), Piercing Crits 1",
+          "range": 48
+        },
+        {
+          "id": "heavy-bolter-sweeping",
+          "name": "Heavy bolter (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "piercingcrits1",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash only), Piercing Crits 1, Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "missile-launcher-frag",
+          "name": "Missile launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "heavy:dash"
+          ],
+          "rulesText": "Blast 2\", Heavy (Dash only)",
+          "range": 48
+        },
+        {
+          "id": "missile-launcher-krak",
+          "name": "Missile launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 5,
+            "critical": 7
+          },
+          "rules": [
+            "heavy:dash",
+            "piercing1"
+          ],
+          "rulesText": "Heavy (Dash only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "scout-squad",
+        "imperium",
+        "adeptus-astartes",
+        "heavy-gunner"
+      ]
+    },
+    {
+      "id": "scout-hunter",
+      "name": "Scout Hunter",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "scout-squad",
+        "imperium",
+        "adeptus-astartes",
+        "hunter"
+      ]
+    },
+    {
+      "id": "scout-sniper",
+      "name": "Scout Sniper",
+      "role": "sniper",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "sniper-rifle-mobile",
+          "name": "Sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sniper-rifle-stationary",
+          "name": "Sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy:dash",
+            "silent"
+          ],
+          "rulesText": "Devastating 3, Heavy (Dash only), Silent",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "optics",
+          "name": "OPTICS",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation, whenever it's shooting, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "scout-squad",
+        "imperium",
+        "adeptus-astartes",
+        "sniper"
+      ]
+    },
+    {
+      "id": "scout-tracker",
+      "name": "Scout Tracker",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "track-enemy",
+          "name": "TRACK ENEMY",
+          "cost": "1AP",
+          "description": "Select one enemy operative within 8\" of this operative. Until the end of the turning point, whenever a friendly SCOUT SQUAD operative is shooting that enemy operative, that friendly operative's ranged weapons have the Seek Light weapon rule. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "auspex-scan",
+          "name": "AUSPEX SCAN",
+          "cost": "1AP",
+          "description": "Until the start of this operative's next activation or until it's incapacitated (whichever comes first), whenever a friendly SCOUT SQUAD operative is shooting an enemy operative within 8\" of this operative, that enemy operative cannot be obscured; if that friendly operative is a SNIPER that's currently benefitting from the effects of its Optics action, its ranged weapons also have the Seek Light weapon rule. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "scout-squad",
+        "imperium",
+        "adeptus-astartes",
+        "tracker"
+      ]
+    },
+    {
+      "id": "scout-warrior",
+      "name": "Scout Warrior",
+      "role": "ranged",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "astartes-shotgun",
+          "name": "Astartes shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "combat-blade",
+          "name": "Combat blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 3,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "scout-squad",
+        "imperium",
+        "adeptus-astartes",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "forward-scouting",
+      "name": "Forward Scouting",
+      "description": "At the end of the Set Up Operatives step, you can select and resolve up to six Forward Scouting options. Each option has a number in brackets, which is the maximum number of times you can select and resolve it for the battle. For example, your six selections could be Reposition (2), Trip Alarm (1), Booby Trap (1) and Diversion (1). If both players have this rule, alternate resolving selection by selection, starting with the player with initiative. Redeploy(1)Change the set up of one third of your operatives (rounding up).Reposition(2)Perform a free Reposition action with one friendly operative that's wholly within your drop zone. It must end that move wholly within 3\" of your drop zone.Trip Alarm(2)Place one of your Trip Alarm markers more than 6\" from your opponent's drop zone. During the first and second turning point, whenever a friendly SCOUT SQUAD operative is shooting an enemy operative that's within 2\" of that marker, that friendly operative's ranged weapons have the Seek weapon rule. In the Ready step of the third Strategy phase, remove that marker.Booby Trap(1)Place one of your Booby Trap markers more than 6\" from your opponent's drop zone and more than 2\" from other markers, access points and Accessible terrain. The first time your Booby Trap marker is within an enemy operative's control range, remove that marker and inflict 2D3 damage on that operative; if it isn't incapacitated, end its action (if any), even if that action's effects aren't fulfilled. If it cannot be placed, move it the minimum amount to do so.Tactical Manoeuvre(1)Twice per battle STRATEGIC GAMBIT. Select one friendly operative. Until the end of that operative's next activation, add 1 to its APL stat.Diversion(1)Once per battle STRATEGIC GAMBIT. Select one enemy operative within 6\" of a killzone edge. Until the end of that operative's next activation, subtract 1 from its APL stat.Devise Plan(1)You gain 1CP.Designate Target(1)Select one enemy operative to gain one of your Target tokens. Whenever a friendly SCOUT SQUAD operative is shooting against, fighting against or retaliating against an enemy operative that has one of your Target tokens, you can re-roll one of your attack dice.Spy(1)Approved Ops only. Your opponent must reveal their selected tac op."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "guerrilla-engagement",
+      "name": "GUERRILLA ENGAGEMENT",
+      "description": "Whenever an enemy operative is shooting a friendly SCOUT SQUAD operative, if that friendly operative is in cover and more than 6\" from enemy operatives it's visible to, you can re-roll one of your defence dice.",
+      "cost": 1
+    },
+    {
+      "id": "ambush",
+      "name": "AMBUSH",
+      "description": "Whenever a friendly SCOUT SQUAD operative is shooting or fighting during its activation, if its order was changed from Conceal to Engage at the start of that activation, or it wasn't visible to enemy operatives at the start of that activation: That friendly operative's weapons have the Balanced weapon rule.If the target is expended, that friendly operative's weapons have the Ceaseless weapon rule instead.",
+      "cost": 1
+    },
+    {
+      "id": "adaptable-training",
+      "name": "ADAPTABLE TRAINING",
+      "description": "You can change the order of up to D3 friendly SCOUT SQUAD operatives that are more than 4\" from enemy operatives.",
+      "cost": 1
+    },
+    {
+      "id": "stealth-relocation",
+      "name": "STEALTH RELOCATION",
+      "description": "Up to D3 friendly SCOUT SQUAD operatives that have a Conceal order and are more than 4\" from enemy operatives can immediately perform a free Dash action. You cannot use this ploy during the first turning point.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "astartes-training",
+      "name": "ASTARTES TRAINING",
+      "description": "Use this firefight ploy during a friendly SCOUT SQUAD operative's activation. Until the end of that activation, that operative can do one of the following: Perform two Fight actions.Perform two Shoot actions if an Astartes shotgun, bolt pistol or boltgun is selected for at least one of them.Perform two Shoot actions with a heavy bolter, missile launcher or sniper rifle, but 1 additional AP must be spent for the second action.",
+      "cost": 1
+    },
+    {
+      "id": "raw-physiology",
+      "name": "RAW PHYSIOLOGY",
+      "description": "Use this firefight ploy during a friendly SCOUT SQUAD operative's activation, before or after it performs an action. Until the start of its next activation, add 1\" to its Move stat and you can ignore any changes to that operative's stats from being injured (including its weapons' stats).",
+      "cost": 1
+    },
+    {
+      "id": "emboldened-aspirant",
+      "name": "EMBOLDENED ASPIRANT",
+      "description": "Use this firefight ploy when a friendly SCOUT SQUAD operative performs the Shoot or Fight action, after any re-rolls. If it's the first friendly operative to perform either of those actions during this turning point, or if the enemy operative in that action (primary target, if relevant) has a higher Wounds stat than that friendly SCOUT SQUAD operative, you can retain one of your normal successes as a critical success instead.",
+      "cost": 1
+    },
+    {
+      "id": "covert-position",
+      "name": "COVERT POSITION",
+      "description": "Use this firefight ploy during a friendly SCOUT SQUAD operative's activation. Until the start of its next activation, while that operative has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "camo-cloak",
+      "name": "CAMO CLOAK",
+      "description": "Whenever an operative is shooting a friendly SCOUT SQUAD operative (excluding SNIPER), if you can retain any cover saves, you can retain one additional cover save. This isn't cumulative with improved cover saves from Vantage terrain."
+    },
+    {
+      "id": "targeting-oculars",
+      "name": "TARGETING OCULARS",
+      "description": "Up to twice per turning point, when a friendly SCOUT SQUAD operative is performing the Shoot action and you're selecting a valid target, you can use this rule. If you do, until the end of that action, that friendly operative's ranged weapons have the Lethal 5+ and Saturate weapon rules."
+    },
+    {
+      "id": "combat-blade",
+      "name": "COMBAT BLADE",
+      "description": "Friendly SCOUT SQUAD operatives have the following melee weapon. Note that some operatives already have this weapon but with better stats; in that instance, use the better version. Combat blade NAMEATKHITDMGCombat blade33+4/5"
+    },
+    {
+      "id": "tactical-vox-link",
+      "name": "TACTICAL VOX-LINK",
+      "description": "Once per turning point, you can use the Astartes Training or Emboldened Aspirant firefight ploy for 0CP if a friendly SERGEANT operative is in the killzone."
+    }
+  ],
+  "ruleHooks": []
+}

@@ -1,0 +1,934 @@
+{
+  "id": "wyrmblade",
+  "factionId": "genestealer-cults",
+  "displayName": "Wyrmblade",
+  "blurb": "Genestealer Cults are insidious broods of Human-xenos hybrids that spread unnoticed on Imperial worlds, sometimes for generations. They infiltrate the Imperium's social, industrial and military fabric, and their elite Wyrmblade kill teams squirm undetected into perfect ambush sites.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-10",
+  "supportLevel": 1,
+  "source": {
+    "publisher": "Games Workshop (rules); transcribed from Wahapedia",
+    "url": "https://wahapedia.ru/kill-team3/kill-teams/wyrmblade/",
+    "checkedAt": "2026-09-10",
+    "notes": "Operative stats, weapon profiles, actions, ploys and equipment transcribed from Wahapedia. Ranged weapons without a printed Range rule are given range 48 (effectively unlimited on a Kill Team board). Consult the official source for the current rules: https://www.warhammer-community.com/en-gb/downloads/kill-team/"
+  },
+  "colors": {
+    "primary": "#2f7a8a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 14,
+    "selectionRules": [
+      "1 WYRMBLADE NEOPHYTE LEADER operative with one of the following options: Autogun; gun butt; Shotgun; gun butt; Or one option from each of the following: Bolt pistol, master-crafted autopistol or web pistol; Chainsword, power maul or power pick",
+      "13 WYRMBLADE operatives selected from the following list: KELERMORPH*; LOCUS*; GUNNER with flamer and gun butt; GUNNER with grenade launcher and gun butt; GUNNER with webber and gun butt; HEAVY GUNNER with heavy stubber and gun butt; HEAVY GUNNER with mining laser and gun butt; HEAVY GUNNER with seismic cannon and gun butt; ICON BEARER with one of the following options: Autogun; gun butt; Shotgun; gun butt; SANCTUS SNIPER*; SANCTUS TALON*; WARRIOR with one of the following options: Autogun; gun butt; Shotgun; gun butt"
+    ],
+    "operatives": [
+      {
+        "profileId": "neophyte-leader",
+        "count": 1
+      },
+      {
+        "profileId": "kelermorph",
+        "count": 2
+      },
+      {
+        "profileId": "locus",
+        "count": 2
+      },
+      {
+        "profileId": "neophyte-gunner",
+        "count": 2
+      },
+      {
+        "profileId": "neophyte-heavy-gunner",
+        "count": 2
+      },
+      {
+        "profileId": "neophyte-icon-bearer",
+        "count": 2
+      },
+      {
+        "profileId": "sanctus-sniper",
+        "count": 1
+      },
+      {
+        "profileId": "sanctus-talon",
+        "count": 1
+      },
+      {
+        "profileId": "neophyte-warrior",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "neophyte-leader",
+      "name": "Neophyte Leader",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autogun",
+          "name": "Autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "master-crafted-autopistol",
+          "name": "Master-crafted autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "shotgun",
+          "name": "Shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "web-pistol",
+          "name": "Web pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "severe",
+            "stun"
+          ],
+          "rulesText": "Range 6\", Severe, Stun",
+          "range": 6
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-maul",
+          "name": "Power maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        },
+        {
+          "id": "power-pick",
+          "name": "Power pick",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "neophyte",
+        "leader"
+      ]
+    },
+    {
+      "id": "kelermorph",
+      "name": "Kelermorph",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "liberator-autostubs-hypersense",
+          "name": "Liberator autostubs (hypersense)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "saturate",
+            "seeklight",
+            "hypersense"
+          ],
+          "rulesText": "Range 6\", Saturate, Seek Light, Hypersense*",
+          "range": 6
+        },
+        {
+          "id": "liberator-autostubs-long-range",
+          "name": "Liberator autostubs (long range)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1",
+            "rending"
+          ],
+          "rulesText": "Piercing Crits 1, Rending",
+          "range": 48
+        },
+        {
+          "id": "liberator-autostubs-short-range",
+          "name": "Liberator autostubs (short range)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercing1",
+            "rending"
+          ],
+          "rulesText": "Range 8\", Piercing 1, Rending",
+          "range": 8
+        },
+        {
+          "id": "kelermorph-knife",
+          "name": "Kelermorph knife",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "rending"
+          ],
+          "rulesText": "Rending"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "cult-agent",
+        "kelermorph"
+      ]
+    },
+    {
+      "id": "locus",
+      "name": "Locus",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "barbed-tail",
+          "name": "Barbed tail",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent"
+          ],
+          "rulesText": "Range 3\", Silent",
+          "range": 3
+        },
+        {
+          "id": "locus-blades",
+          "name": "Locus blades",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "cult-agent",
+        "locus"
+      ]
+    },
+    {
+      "id": "neophyte-gunner",
+      "name": "Neophyte Gunner",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "grenade-launcher-frag",
+          "name": "Grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "grenade-launcher-krak",
+          "name": "Grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "webber",
+          "name": "Webber",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "severe",
+            "stun"
+          ],
+          "rulesText": "Range 12\", Severe, Stun",
+          "range": 12
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "neophyte",
+        "gunner"
+      ]
+    },
+    {
+      "id": "neophyte-heavy-gunner",
+      "name": "Neophyte Heavy Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "heavy-stubber-focused",
+          "name": "Heavy stubber (focused)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash"
+          ],
+          "rulesText": "Heavy (Dash only)",
+          "range": 48
+        },
+        {
+          "id": "heavy-stubber-sweeping",
+          "name": "Heavy stubber (sweeping)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "heavy:dash",
+            "torrent1"
+          ],
+          "rulesText": "Heavy (Dash only), Torrent 1\"",
+          "range": 48
+        },
+        {
+          "id": "mining-laser",
+          "name": "Mining laser",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "heavy:dash",
+            "piercing1"
+          ],
+          "rulesText": "Heavy (Dash only), Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "seismic-cannon-long-wave",
+          "name": "Seismic cannon (long-wave)",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "blast1",
+            "heavy:dash",
+            "stun"
+          ],
+          "rulesText": "Blast 1\", Heavy (Dash only), Stun",
+          "range": 48
+        },
+        {
+          "id": "seismic-cannon-short-wave",
+          "name": "Seismic cannon (short-wave)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "heavy:dash",
+            "piercingcrits1",
+            "stun"
+          ],
+          "rulesText": "Range 6\", Heavy (Dash only), Piercing Crits 1, Stun",
+          "range": 6
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "neophyte",
+        "heavy-gunner"
+      ]
+    },
+    {
+      "id": "neophyte-icon-bearer",
+      "name": "Neophyte Icon Bearer",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autogun",
+          "name": "Autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "shotgun",
+          "name": "Shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "neophyte",
+        "icon-bearer"
+      ]
+    },
+    {
+      "id": "sanctus-sniper",
+      "name": "Sanctus Sniper",
+      "role": "sniper",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "sanctus-sniper-rifle-mobile",
+          "name": "Sanctus sniper rifle (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "sanctus-sniper-rifle-stationary",
+          "name": "Sanctus sniper rifle (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy:dash",
+            "silent"
+          ],
+          "rulesText": "Devastating 3, Heavy (Dash only), Silent",
+          "range": 48
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "target-vulnerability",
+          "name": "TARGET VULNERABILITY",
+          "cost": "1AP",
+          "description": "Until the end of this operative's activation, the stationary profile of its Sanctus sniper rifle has the Lethal 5+ weapon rule. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "familiar-s-soulsight",
+          "name": "FAMILIAR'S SOULSIGHT",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to this operative. Until the end of the battle, or until this action is performed again by a friendly operative (whichever comes first), that enemy operative gains one of your Soulsight tokens. Whenever this operative is shooting an enemy operative that has one of your Soulsight tokens, all profiles of this operative's Sanctus sniper rifle have the Saturate weapon rule and that enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "cult-agent",
+        "sanctus",
+        "sniper"
+      ]
+    },
+    {
+      "id": "sanctus-talon",
+      "name": "Sanctus Talon",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 9
+      },
+      "weapons": [
+        {
+          "id": "sanctus-bio-dagger",
+          "name": "Sanctus bio-dagger",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 6
+          },
+          "rules": [
+            "lethal4",
+            "shock"
+          ],
+          "rulesText": "Lethal 4+, Shock"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "familiar-s-soulsight",
+          "name": "FAMILIAR'S SOULSIGHT",
+          "cost": "1AP",
+          "description": "Select one enemy operative visible to this operative. Until the end of the battle, or until this action is performed again by a friendly operative (whichever comes first), that enemy operative gains one of your Soulsight tokens. Whenever this operative is fighting or retaliating against an enemy operative that has one of your Soulsight tokens, its Sanctus bio-dagger has the Brutal and Balanced weapon rules. This operative cannot perform this action while within control range of an enemy operative."
+        },
+        {
+          "id": "assassinate",
+          "name": "ASSASSINATE",
+          "cost": "2AP",
+          "description": "Select one enemy operative this operative isn't visible to. Perform a free Charge action with this operative, but don't exceed its Move stat (i.e. don't add 2\"), and it must end that move within control range of that enemy operative. Then immediately perform a free Fight action with this operative against that enemy operative. The first time you strike during that action, you can immediately resolve another of your successes as a strike (before your opponent). This operative cannot perform this action while it has an Engage order, or while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "cult-agent",
+        "sanctus",
+        "talon"
+      ]
+    },
+    {
+      "id": "neophyte-warrior",
+      "name": "Neophyte Warrior",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autogun",
+          "name": "Autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "shotgun",
+          "name": "Shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 6\"",
+          "range": 6
+        },
+        {
+          "id": "gun-butt",
+          "name": "Gun butt",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "wyrmblade",
+        "tyranids",
+        "genestealer-cults",
+        "neophyte",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "familiar-territory",
+      "name": "Familiar Territory",
+      "description": "When setting up a WYRMBLADE kill team before the battle, one third of your kill team can be set up in HIDING: place them to one side instead of in the killzone. CULT AGENT operatives cannot be set up in HIDING. In the Firefight phase, friendly WYRMBLADE operatives set up in HIDING are activated as normal. When you do, you can either expend that operative or have it emerge. If it emerges, set it up in the killzone in a location it can be placed as follows (it's no longer set up in HIDING): Wholly within 6\" of your drop zone.More than 6\" from enemy operatives.With an order of your choice. The operative is treated as performing the Reposition action (spend the AP accordingly), then continue its activation as normal. If the operative is a WARRIOR, ignore its Group Activation rule. Friendly operatives still in HIDING at the end of the second turning point are incapacitated."
+    },
+    {
+      "id": "cult-agent",
+      "name": "Cult Agent",
+      "description": "Whenever an operative is shooting a friendly WYRMBLADE CULT AGENT operative: Ignore the Piercing and Saturate weapon rules.If you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn't cumulative with improved cover saves from Vantage terrain."
+    },
+    {
+      "id": "cult-ambush",
+      "name": "Cult Ambush",
+      "description": "Whenever a friendly WYRMBLADE operative is shooting or fighting during its activation, if its order was changed from Conceal to Engage at the start of that activation, or it wasn't visible to enemy operatives at the start of that activation, that friendly operative's weapons have the Ceaseless weapon rule."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "the-day-is-at-hand",
+      "name": "THE DAY IS AT HAND",
+      "description": "Whenever a friendly WYRMBLADE operative is activated, if its order is changed from Conceal to Engage, until the end of that activation: Its ranged weapons have the Rending weapon rule.Add 1 to the Atk stat of its melee weapons (to a maximum of 5).",
+      "cost": 1
+    },
+    {
+      "id": "crossfire",
+      "name": "CROSSFIRE",
+      "description": "Whenever a friendly WYRMBLADE operative is shooting an operative that another friendly WYRMBLADE operative has already shot during this turning point, that first friendly operative's ranged weapons have the Accurate 1 weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "one-with-the-shadows",
+      "name": "ONE WITH THE SHADOWS",
+      "description": "Whenever an operative is shooting a friendly WYRMBLADE operative that has a Conceal order, if Light terrain is intervening, that friendly operative is obscured (unless the intervening Light terrain is within 1\" of either operative).",
+      "cost": 1
+    },
+    {
+      "id": "divert-and-disappear",
+      "name": "DIVERT AND DISAPPEAR",
+      "description": "Up to three friendly WYRMBLADE operatives can immediately perform a free Dash or Charge action in an order of your choice (choose separately for each, and for the latter, it cannot move more than 3\"). If a WYRMBLADE CULT AGENT operative is selected for this ploy, it counts as two operatives, and it can perform a free Fall Back action instead (it cannot move more than 3\"); if it does, subtract 1 from its APL stat until the end of its next activation.",
+      "cost": 1
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "slink-into-darkness",
+      "name": "SLINK INTO DARKNESS",
+      "description": "Use this firefight ploy at the end of a friendly WYRMBLADE operative's activation. If that operative has an Engage order, change it to Conceal. You cannot use this ploy for each friendly operative more than once per battle.",
+      "cost": 1
+    },
+    {
+      "id": "coiled-serpent",
+      "name": "COILED SERPENT",
+      "description": "Use this firefight ploy when a friendly WYRMBLADE operative is shooting or fighting, after rolling your attack dice. If that friendly operative's order was changed from Conceal to Engage at the start of that activation and this is the first time it's performed either the Shoot or Fight action during that activation, you can retain one of your normal successes as a critical success instead. Note this ploy cannot come into effect more than once per activation (you cannot use it during both the Shoot and Fight action in the same activation).",
+      "cost": 1
+    },
+    {
+      "id": "unquestioning-loyalty",
+      "name": "UNQUESTIONING LOYALTY",
+      "description": "Use this firefight ploy when a friendly WYRMBLADE CULT AGENT or WYRMBLADE LEADER operative is selected as the valid target of a Shoot action or to fight against during the Fight action. Select one other friendly WYRMBLADE NEOPHYTE operative (excluding LEADER) visible to and within 3\" of that first friendly operative to become the valid target or to be fought against (as appropriate) instead (even if it wouldn't normally be valid for this). If it's the Fight action, treat that other operative as being within the fighting operative's control range for the duration of that action. If it's the Shoot action, that other operative is only in cover or obscured if the original target was. This ploy has no effect if it's the Shoot action and the ranged weapon has the Blast or Torrent weapon rule.",
+      "cost": 1
+    },
+    {
+      "id": "a-plan-generations-in-the-making",
+      "name": "A PLAN GENERATIONS IN THE MAKING",
+      "description": "Use this firefight ploy when a friendly WYRMBLADE NEOPHYTE operative is incapacitated. It can perform a free mission action before it's removed from the killzone.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "blasting-charges",
+      "name": "BLASTING CHARGES",
+      "description": "Once per turning point, a friendly WYRMBLADE NEOPHYTE operative can use the following ranged weapon: Blasting charge NAMEATKHITDMGBlasting charge44+3/5 WRRange 4\", Blast 1\", Saturate"
+    },
+    {
+      "id": "cult-knives",
+      "name": "CULT KNIVES",
+      "description": "Friendly WYRMBLADE NEOPHYTE operatives have the following melee weapon: Cult knife NAMEATKHITDMGCult knife34+3/4"
+    },
+    {
+      "id": "explosive-traps",
+      "name": "EXPLOSIVE TRAPS",
+      "description": "This equipment allows you to select two mines (see universal equipment). You cannot also select that equipment as normal (i.e. to give you three), and friendly WYRMBLADE operatives are ignored for your mines' effects (i.e. they cannot trigger or take damage from them). This takes precedence over the normal mines rules."
+    },
+    {
+      "id": "spotlights",
+      "name": "SPOTLIGHTS",
+      "description": "Whenever a friendly WYRMBLADE operative is shooting, the target cannot be obscured if it's visible to and within 6\" of a friendly WYRMBLADE NEOPHYTE operative that isn't within control range of enemy operatives."
+    }
+  ],
+  "ruleHooks": []
+}

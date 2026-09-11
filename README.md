@@ -120,6 +120,90 @@ nothing may. It is `src/ui/battlefield.js` remembering what it drew last frame,
 which is why it is not on state and why a battle replays identically whether or
 not anyone was watching.
 
+## Battle animations
+
+Attacks animate. A lasgun draws a line of light, a plasma gun throws a bottled
+star with a comet tail, a bolter fires a rocket-propelled shell that goes off
+inside the target, and an autogun sends a tracer round; a melta lays down a
+short fat column of heat, a psychic power discharges in crooked violet
+lightning, and a rokkit rides a parabola and detonates. A flamer lays a cone
+sized to the range. A blade sweeps through whoever it caught, and the operative
+it caught either swings back or blocks. A ploy leaves a mark — chevrons for an
+offensive one, a hexagonal ward for a defensive one, vox rings for an order,
+rings closing inwards for something worked on the enemy, a green cross for
+wounds healed. And a shield, a team's area buff, an operative on fire or one
+full of Terrorchem keeps looping for exactly as long as the state that caused
+it lasts.
+
+Like facing, **none of it is a rule**. Nothing in `src/rules/` can see it,
+nothing is written to state, and a battle produces the same event digest
+whether or not a single frame was ever drawn — `test/effects.test.mjs` asserts
+both, including that no module under `rules/`, `ai/`, `replay/` or `data/`
+imports anything from `ui/`.
+
+### The sprites are drawn, not generated
+
+`tools/make-effects.py` writes 21 RGBA sprite sheets with Pillow — 521KB for the
+set — and `src/ui/effects.js` plays them back over the SVG board:
+
+```bash
+pip install -r tools/requirements.txt
+python3 tools/make-effects.py                                  # rewrite assets/effects/
+python3 tools/make-effects.py --contact-sheet /tmp/fx.png      # every frame, on its own
+npm start && open http://localhost:8000/tools/effects-preview.html?t=380
+```
+
+A generated picture of an explosion arrives with a background, a light
+direction and a style, and sixteen of them in sequence arrive with sixteen of
+each. These are geometry — a ring, a falloff, a phase — so drawing them means
+the alpha channel is exact, the looping sprites close on themselves without a
+seam, the palette is the one in `styles.css`, and a frame that looks wrong
+costs nothing to redraw.
+
+One sprite is one nested `<svg>` whose `viewBox` selects a cell out of the
+sheet, which makes advancing a frame a single attribute write and needs no
+`<clipPath>` kept alive in `<defs>`. The renderer wipes the board on every
+redraw; the effect nodes are simply re-appended to the fresh layer, so a shot
+in flight is not restarted by somebody clicking an operative. There are two
+layers, because an aura belongs under the figures and an explosion belongs over
+them.
+
+### Nothing is drawn, or loaded, that cannot happen
+
+The generator **scans `data/teams/` before it draws anything**. Weapon names and
+weapon rules decide which shot families exist, ploy hook effect types decide
+which ploy marks exist, and the token kinds a pack declares decide which
+persistent loops exist. A family nothing in the bundled data can produce is
+never drawn and never shipped, so a sheet on disk is evidence that something
+can fire it — and `manifest.json` records how many weapons or ploys asked for
+each one, with examples.
+
+Loading is narrower still. At battle start the app asks `src/ui/effect-map.js`
+which families the **two packs actually being fielded** declare, and warms only
+those: a Kasrkin mirror match fetches neither the warp, nor poison, nor fire on
+an operative, nor the shield. Anything outside that set is refused at spawn
+time as well, so a mis-scan costs a missing animation rather than a surprise
+download mid-battle.
+
+The classification table lives in the generator and is written **into** the
+manifest, so `effect-map.js` sorts a weapon with the same table that decided
+which sheets exist rather than with a second copy that can drift. Two tests
+check it from both ends: every family the bundled packs ask for has been drawn,
+and every sheet that ships is reachable from the bundled data.
+
+Torrent is the interesting case. It is how this game writes "sweeping fire" as
+well as "burning fuel", so a cone off a weapon whose name is not a flame weapon
+is a fan of rounds rather than a jet of flame — a sweeping heavy bolter drawn
+as a flamethrower is the one mistake that would be visible from across the
+room. Blast is the other: it keeps the weapon's own projectile and detonates at
+the end of it, so a plasma cannon is still plasma on the way in.
+
+Everything switches off for **Reduce motion** — the app's own toggle or the
+operating system's — and at instant playback speed, where the whole battle
+resolves inside one synchronous loop and there is no frame to draw into.
+Otherwise the durations are scaled to the playback speed, so nothing is still
+burning when the next operative activates.
+
 ## Run it
 
 The app loads its data with `fetch()`, which browsers block on `file://` URLs,
@@ -133,7 +217,7 @@ npm start           # python3 -m http.server 8000
 ## Develop
 
 ```bash
-npm test            # 205 unit, fixture, determinism, AI and replay tests
+npm test            # 348 unit, fixture, determinism, AI, replay and UI tests
 npm run test:data   # validate every bundled team, map and mission
 npm run smoke       # run one battle headlessly and print the result
 npm run batch 60 vanguard-wardens scrap-raiders   # batch balance harness
@@ -175,7 +259,7 @@ src/
   data/               schema, validators, loader
   maps/geometry.js    all geometry, in inches
   replay/             replay capture, verification, batch harness
-  ui/                 SVG battlefield, roster panels, log, setup, controls
+  ui/                 SVG battlefield, animation layer, panels, log, setup
   app.js              the only module that touches the DOM
 ```
 
@@ -226,6 +310,7 @@ Milestones 0–6 of `plan.md` are implemented and tested:
 - ✅ Three maps: an industrial yard, a space-hulk corridor lattice, a jungle temple
 - ✅ Rule-pack loader, validators, compatibility badges, runtime import
 - ✅ Replay capture and verification, batch balance harness
+- ✅ Battlefield animations: shots, area effects, melee, ploys, persistent buffs
 
 Not yet built: procedural map generation (Milestone 6's generator), the
 Mapforge adapter (Milestone 7), equipment, and operative unique actions.

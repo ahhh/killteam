@@ -1,5 +1,7 @@
-# For tools/make-tokens.py. Nothing here is needed to run or test the app —
-# the game itself has no dependencies at all.
+# For tools/make-tokens.py (opencv, pillow, numpy) and tools/make-effects.py
+# (pillow only). Nothing here is needed to run or test the app — the game
+# itself has no dependencies at all, and both scripts write files that are
+# committed.
 opencv-python-headless>=4.8
 pillow>=10
 numpy>=1.24

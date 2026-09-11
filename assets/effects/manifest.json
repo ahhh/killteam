@@ -1,0 +1,694 @@
+{
+  "version": 1,
+  "note": "Written by tools/make-effects.py. The match tables below are the ones the generator used to decide which sheets exist, so src/ui/effect-map.js classifies with the same table rather than a second copy of it.",
+  "match": {
+    "ranged": [
+      [
+        "\\binferno bolt|\\binferno boltgun",
+        "bolt"
+      ],
+      [
+        "\\bmelta|\\bfusion\\b|\\binferno pistol|\\blascutter|\\bmining laser|\\bthermal",
+        "melta"
+      ],
+      [
+        "\\brokkit|\\bmissile|\\bgrenade\\b|\\bgrenade launcher|\\bgrenadier|\\bmortar|\\bdemolition|\\bbomb\\b|\\bdynamite|\\bcharge\\b|\\bdetonator|\\bapm launcher|\\bl7\\b|\\bexplosiv|\\brocket|\\bmine\\b|\\bfrag cannon",
+        "rocket"
+      ],
+      [
+        "\\bplasma|\\bion (blaster|pistol|rifle)|\\bpulse|\\bphosphor",
+        "plasma"
+      ],
+      [
+        "\\bbolt|\\bbolter|\\bboltgun",
+        "bolt"
+      ],
+      [
+        "\\bflamer|\\bburna|\\bspewer|\\bpyregut|\\bigniter|\\bsprayer|\\bcenser|\\bbrazier|\\bfirestorm|\\bfireblast|\\bwreathe in fire|\\bburning|\\bskinner|\\bspit\\b|\\beffluence|\\bwreathed|\\bskytorch",
+        "flame"
+      ],
+      [
+        "\\bdoombolt|\\bbaleblast|\\bbalesurge|\\bfluxblast|\\binfernal gaze|\\bwarpflame|\\btech curse|\\bplague wind|\\bhorrif|\\bfreezing grasp|\\blife siphon|\\bentropy\\b|\\bmindburn|\\bthunderclap|\\bvoice of condemnation|\\bholy light|\\bgaze of the emperor|\\bjaws of the world wolf|\\bdiabolical stave|\\barcane conduit|\\baeonstave|\\bfaolch|\\bcaress|\\bembrace|\\bicon of khorne|\\bdimensional|\\btransdimensional|\\bneuro disruptor",
+        "psychic"
+      ],
+      [
+        "\\blas\\b|\\blas[a-z]|\\blong las|\\bhot shot|\\bvolley gun|\\blance\\b|\\bblaster\\b|\\bblast pistol|\\barc (pistol|rifle)|\\bheavy arc|\\bvoltaic|\\bstaff of light|\\brail\\b|\\brail rifle|\\bmagna coil|\\btransuranic|\\bwraithcannon|\\bseismic|\\bgalvanic|\\bgauss|\\btesla|\\batomiser|\\bsolar carbine|\\bsynaptic|\\bneutron (blaster|sting)|\\blightning|\\bspark\\b",
+        "las"
+      ]
+    ],
+    "rangedFallback": "solid",
+    "aoeRules": {
+      "torrent": "cone",
+      "twintorrent": "cone",
+      "skytorch": "cone",
+      "blast": "blast",
+      "explosive": "blast",
+      "detonate": "blast",
+      "neutronbombardment": "blast",
+      "splash": "blast"
+    },
+    "cone": {
+      "flame": "flame",
+      "default": "spray"
+    },
+    "ployEffects": {
+      "grantWeaponRule": "warcry",
+      "modifyWeapon": "warcry",
+      "addApl": "warcry",
+      "modifyDefenceDice": "ward",
+      "rerollDefenceDice": "ward",
+      "reduceDamage": "ward",
+      "modifySave": "ward",
+      "ignoreInjured": "ward",
+      "ignoreWeaponRules": "ward",
+      "freeAction": "comms",
+      "extraAction": "comms",
+      "discountAction": "comms",
+      "modifyMove": "comms",
+      "changeOrder": "comms",
+      "allowChargeWhileConceal": "comms",
+      "inflictDamage": "hex",
+      "inflictToken": "hex",
+      "denyTargeting": "hex",
+      "clearTokens": "hex",
+      "healWounds": "mend"
+    },
+    "tokens": {
+      "blaze": "blaze",
+      "poison": "toxin",
+      "toxic": "toxin",
+      "terrorchem": "toxin",
+      "mindburn": "toxin",
+      "humbling-cruelty": "toxin",
+      "neutron-fragment": "toxin"
+    }
+  },
+  "families": {
+    "aura": {
+      "kind": "loop",
+      "sheet": "aura.webp",
+      "cell": 112,
+      "parts": {
+        "loop": {
+          "row": 0,
+          "frames": 16,
+          "ms": 1500
+        }
+      },
+      "about": "A strategic ploy in force over a whole team, in team colour.",
+      "bytes": 32318,
+      "inches": 2.6,
+      "tint": true,
+      "used": {
+        "count": 210,
+        "examples": [
+          "COMBAT DOCTRINE",
+          "AND THEY SHALL KNOW NO FEAR",
+          "INDOMITUS",
+          "ENDLESS NUMBERS"
+        ]
+      }
+    },
+    "blast": {
+      "kind": "burst",
+      "sheet": "blast.webp",
+      "cell": 144,
+      "parts": {
+        "burst": {
+          "row": 0,
+          "frames": 16,
+          "ms": 780
+        }
+      },
+      "about": "A detonation: fireball, shockwave, debris and smoke.",
+      "bytes": 64334,
+      "inches": 3.6,
+      "used": {
+        "count": 69,
+        "examples": [
+          "Auxiliary grenade launcher (frag)",
+          "Bolt sniper rifle (hyperfrag)",
+          "Phosphor blaster",
+          "Diabolyk bomb"
+        ]
+      }
+    },
+    "blaze": {
+      "kind": "loop",
+      "sheet": "blaze.webp",
+      "cell": 72,
+      "parts": {
+        "loop": {
+          "row": 0,
+          "frames": 16,
+          "ms": 1500
+        }
+      },
+      "about": "An operative carrying a Blaze token is on fire.",
+      "bytes": 16764,
+      "inches": 1.8,
+      "used": {
+        "count": 1,
+        "examples": [
+          "sanctifiers: blaze"
+        ]
+      }
+    },
+    "bolt": {
+      "kind": "projectile",
+      "sheet": "bolt.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "A rocket-propelled shell that goes off inside the target.",
+      "bytes": 15850,
+      "inches": 1.8,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 159,
+        "examples": [
+          "Heavy bolt pistol",
+          "Bolt rifle",
+          "Stalker bolt rifle (heavy)",
+          "Stalker bolt rifle (mobile)"
+        ]
+      }
+    },
+    "comms": {
+      "kind": "marker",
+      "sheet": "comms.webp",
+      "cell": 104,
+      "parts": {
+        "mark": {
+          "row": 0,
+          "frames": 14,
+          "ms": 720
+        }
+      },
+      "about": "Orders and tempo: vox rings going out.",
+      "bytes": 22830,
+      "inches": 3.1,
+      "used": {
+        "count": 75,
+        "examples": [
+          "FANATIC SURGE",
+          "BLADEWIND",
+          "STARFALL",
+          "FADING LIGHT"
+        ]
+      }
+    },
+    "flame": {
+      "kind": "cone",
+      "sheet": "flame.webp",
+      "cell": 160,
+      "parts": {
+        "cone": {
+          "row": 0,
+          "frames": 14,
+          "ms": 620
+        }
+      },
+      "about": "A jet of burning fuel, sized to the target.",
+      "bytes": 54152,
+      "used": {
+        "count": 47,
+        "examples": [
+          "Hand flamer",
+          "Cinder Sprayer",
+          "Incendine igniter",
+          "Flamer"
+        ]
+      }
+    },
+    "hex": {
+      "kind": "marker",
+      "sheet": "hex.webp",
+      "cell": 104,
+      "parts": {
+        "mark": {
+          "row": 0,
+          "frames": 14,
+          "ms": 720
+        }
+      },
+      "about": "A ploy worked on the enemy: rings closing inwards.",
+      "bytes": 48502,
+      "inches": 2.7,
+      "used": {
+        "count": 22,
+        "examples": [
+          "SYSTEM EXORCISM",
+          "BITTER DEMISE",
+          "CULT DEVOTION",
+          "GLORY TO THE MARTYRS"
+        ]
+      }
+    },
+    "las": {
+      "kind": "projectile",
+      "sheet": "las.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "A single clean line of coherent light.",
+      "bytes": 12624,
+      "inches": 1.8,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 147,
+        "examples": [
+          "Heavy arc rifle",
+          "Laspistol",
+          "Lasgun",
+          "Long-las (mobile)"
+        ]
+      }
+    },
+    "melta": {
+      "kind": "projectile",
+      "sheet": "melta.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "A short, fat column of heat.",
+      "bytes": 14162,
+      "inches": 1.7,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 39,
+        "examples": [
+          "Lascutter (close range)",
+          "Lascutter (short range)",
+          "Meltagun",
+          "Inferno pistol"
+        ]
+      }
+    },
+    "mend": {
+      "kind": "marker",
+      "sheet": "mend.webp",
+      "cell": 104,
+      "parts": {
+        "mark": {
+          "row": 0,
+          "frames": 14,
+          "ms": 720
+        }
+      },
+      "about": "Wounds healed.",
+      "bytes": 10834,
+      "inches": 2.5,
+      "used": {
+        "count": 4,
+        "examples": [
+          "SURVIVALIST",
+          "SOUL FEAST",
+          "PROGENA",
+          "AMPED UP"
+        ]
+      }
+    },
+    "parry": {
+      "kind": "melee",
+      "sheet": "parry.webp",
+      "cell": 104,
+      "parts": {
+        "swing": {
+          "row": 0,
+          "frames": 8,
+          "ms": 300
+        }
+      },
+      "about": "A block: the counter-attack that cancels a strike.",
+      "bytes": 9446,
+      "inches": 2.3,
+      "used": {
+        "count": 662,
+        "examples": [
+          "Power fist",
+          "Chainsword",
+          "Power weapon",
+          "Thunder hammer"
+        ]
+      }
+    },
+    "plasma": {
+      "kind": "projectile",
+      "sheet": "plasma.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "A bottled star with a comet tail.",
+      "bytes": 12992,
+      "inches": 1.9,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 116,
+        "examples": [
+          "Plasma pistol (standard)",
+          "Plasma pistol (supercharge)",
+          "Phosphor blaster",
+          "Plasma gun (standard)"
+        ]
+      }
+    },
+    "psychic": {
+      "kind": "projectile",
+      "sheet": "psychic.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "The warp: powers, miracles and daemonic gifts.",
+      "bytes": 13450,
+      "inches": 1.9,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 35,
+        "examples": [
+          "Transdimensional isolator",
+          "Gaze of the Emperor",
+          "Voice of condemnation",
+          "Diabolical stave (ranged)"
+        ]
+      }
+    },
+    "rocket": {
+      "kind": "projectile",
+      "sheet": "rocket.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "Lobbed: rokkits, missiles, grenades, demolition charges.",
+      "bytes": 16688,
+      "inches": 1.7,
+      "arc": true,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 71,
+        "examples": [
+          "Auxiliary grenade launcher (frag)",
+          "Auxiliary grenade launcher (krak)",
+          "Diabolyk bomb",
+          "Grenade launcher (frag)"
+        ]
+      }
+    },
+    "shield": {
+      "kind": "loop",
+      "sheet": "shield.webp",
+      "cell": 96,
+      "parts": {
+        "loop": {
+          "row": 0,
+          "frames": 16,
+          "ms": 1500
+        }
+      },
+      "about": "A defensive ploy still in force, turning around its holder.",
+      "bytes": 49336,
+      "inches": 2.2,
+      "used": {
+        "count": 33,
+        "examples": [
+          "TRANSHUMAN PHYSIOLOGY",
+          "PRESS OF BODIES",
+          "AUTO-FERRIC SUPPLICATION",
+          "CONTEMPT"
+        ]
+      }
+    },
+    "solid": {
+      "kind": "projectile",
+      "sheet": "solid.webp",
+      "cell": 72,
+      "parts": {
+        "muzzle": {
+          "row": 0,
+          "frames": 5,
+          "ms": 130
+        },
+        "tracer": {
+          "row": 1,
+          "frames": 4,
+          "ms": 240
+        },
+        "impact": {
+          "row": 2,
+          "frames": 9,
+          "ms": 340
+        }
+      },
+      "about": "A tracer round: autoguns, stubbers, shuriken, splinters.",
+      "bytes": 12596,
+      "inches": 1.6,
+      "travel": {
+        "msPerInch": 13,
+        "min": 110,
+        "max": 520
+      },
+      "used": {
+        "count": 298,
+        "examples": [
+          "Ash Pistol",
+          "Scrap Autogun",
+          "Eradication pistol",
+          "Master-crafted radium pistol"
+        ]
+      }
+    },
+    "spray": {
+      "kind": "cone",
+      "sheet": "spray.webp",
+      "cell": 160,
+      "parts": {
+        "cone": {
+          "row": 0,
+          "frames": 14,
+          "ms": 620
+        }
+      },
+      "about": "Sweeping fire: the Torrent rule on a weapon that isn't a flamer.",
+      "bytes": 34728,
+      "used": {
+        "count": 52,
+        "examples": [
+          "Auto bolt rifle",
+          "Heavy bolter (sweeping)",
+          "Triskele (throw)",
+          "Twin gauss reapers (sweeping)"
+        ]
+      }
+    },
+    "strike": {
+      "kind": "melee",
+      "sheet": "strike.webp",
+      "cell": 104,
+      "parts": {
+        "swing": {
+          "row": 0,
+          "frames": 8,
+          "ms": 300
+        }
+      },
+      "about": "A blade sweeping through the target.",
+      "bytes": 7444,
+      "inches": 2.5,
+      "used": {
+        "count": 662,
+        "examples": [
+          "Power fist",
+          "Chainsword",
+          "Power weapon",
+          "Thunder hammer"
+        ]
+      }
+    },
+    "toxin": {
+      "kind": "loop",
+      "sheet": "toxin.webp",
+      "cell": 72,
+      "parts": {
+        "loop": {
+          "row": 0,
+          "frames": 16,
+          "ms": 1500
+        }
+      },
+      "about": "Poison, Terrorchem, Mindburn: something is eating this one.",
+      "bytes": 22356,
+      "inches": 1.8,
+      "used": {
+        "count": 7,
+        "examples": [
+          "nemesis-claw: terrorchem",
+          "plague-marines: poison",
+          "plague-marines: toxic",
+          "raveners: poison"
+        ]
+      }
+    },
+    "warcry": {
+      "kind": "marker",
+      "sheet": "warcry.webp",
+      "cell": 104,
+      "parts": {
+        "mark": {
+          "row": 0,
+          "frames": 14,
+          "ms": 720
+        }
+      },
+      "about": "An offensive ploy: chevrons rising off the operative.",
+      "bytes": 19010,
+      "inches": 2.7,
+      "used": {
+        "count": 162,
+        "examples": [
+          "COMBAT DOCTRINE",
+          "SHOCK ASSAULT",
+          "FRENZIED RUSH",
+          "NOOSPHERIC POSSESSION"
+        ]
+      }
+    },
+    "ward": {
+      "kind": "marker",
+      "sheet": "ward.webp",
+      "cell": 104,
+      "parts": {
+        "mark": {
+          "row": 0,
+          "frames": 14,
+          "ms": 720
+        }
+      },
+      "about": "A defensive ploy: a hexagonal ward snapping shut.",
+      "bytes": 43460,
+      "inches": 2.7,
+      "used": {
+        "count": 96,
+        "examples": [
+          "AND THEY SHALL KNOW NO FEAR",
+          "INDOMITUS",
+          "TRANSHUMAN PHYSIOLOGY",
+          "ENDLESS NUMBERS"
+        ]
+      }
+    }
+  }
+}

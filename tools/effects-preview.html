@@ -1,0 +1,99 @@
+<!doctype html>
+<!--
+  Every animation family at once, over a real battle, frozen on one frame.
+
+      npm start
+      open http://localhost:8000/tools/effects-preview.html?t=380
+
+  `t` is milliseconds into the sequence — the sprites are ticked by hand rather
+  than by the clock, so a screenshot is reproducible and a frame that looks
+  wrong can be found again. This is the runtime counterpart to
+  `make-effects.py --contact-sheet`, which shows the sprites on their own:
+  this one shows them at the size and over the background they are drawn at,
+  which is the only place some of them turn out to be too big, too dim or too
+  slow. It is a dev page — nothing in the app loads it.
+-->
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;background:var(--bg)}
+  svg{width:1360px;height:840px;display:block}
+  #label{position:fixed;top:4px;left:8px;color:#9aa4b8;font:12px ui-monospace;z-index:9}
+</style></head><body>
+<div id="label">loading…</div>
+<svg id="board"></svg>
+<script type="module">
+import { createBattleState } from '../src/state.js';
+import { step } from '../src/rules/phases.js';
+import { createControllers, AI_VERSION } from '../src/ai/controller.js';
+import { ENGINE_VERSION } from '../src/rules/engine.js';
+import { BattlefieldRenderer } from '../src/ui/battlefield.js';
+import { EffectsLayer } from '../src/ui/effects.js';
+
+const j = (u) => fetch(u).then(r => r.json());
+const [p1, p2, map, mission] = await Promise.all([
+  j('../data/teams/sanctifiers.json'), j('../data/teams/kommandos.json'),
+  j('../data/maps/industrial-001.json'), j('../data/missions/secure-and-hold.json'),
+]);
+
+const state = createBattleState({ seed: 'fx-preview', map, mission,
+  teams: { p1, p2 }, engineVersion: ENGINE_VERSION, aiVersion: AI_VERSION });
+const controllers = createControllers();
+for (let i = 0; i < 14; i++) step(state, controllers);
+
+const fx = new EffectsLayer();
+const renderer = new BattlefieldRenderer(document.getElementById('board'), { effects: fx });
+await fx.prepare(state.teamPacks);
+fx.setTempo(900);
+// Every family at once, frozen mid-animation, so one screenshot shows the lot.
+fx.allowed = new Set(Object.keys(fx.manifest.families));
+
+const ops = Object.values(state.operatives).filter(o => o.placed && o.alive);
+const at = (i) => ops[i % ops.length];
+const pair = (i) => {
+  const a = at(i), b = ops.find(o => o.playerId !== a.playerId && Math.hypot(o.x-a.x,o.y-a.y) > 4) || at(i+3);
+  return [a, b];
+};
+let n = 0;
+const shoot = (name, rules) => {
+  const [a, b] = pair(n++);
+  fx.handle(state, [
+    { type:'ATTACK_ROLLED', attackerId:a.id, targetId:b.id, weapon:name, weaponRules:rules },
+    { type:'DAMAGE_APPLIED', amount:3, source:{ kind:'shoot', attackerId:a.id } },
+  ]);
+};
+for (const [name, rules] of [['Lasgun',[]],['Plasma gun (standard)',[]],['Boltgun',[]],
+    ['Autogun',[]],['Meltagun',[]],['Doombolt',[]],['Frag grenade',['blast2']],
+    ['Flamer',['torrent2']],['Heavy bolter (sweeping)',['torrent2']]]) shoot(name, rules);
+
+const [f1, f2] = pair(n++);
+fx.handle(state, [
+  { type:'ATTACK_ROLLED', kind:'fight', attackerId:f1.id, targetId:f2.id, weapon:'Chainsword' },
+  { type:'DAMAGE_APPLIED', amount:4, source:{ kind:'fight', attackerId:f1.id } },
+  { type:'DAMAGE_APPLIED', amount:2, source:{ kind:'fight', attackerId:f2.id } },
+]);
+const [f3, f4] = pair(n++);
+fx.handle(state, [{ type:'ATTACK_ROLLED', kind:'fight', attackerId:f3.id, targetId:f4.id, weapon:'Choppa' }]);
+
+// One of each ploy mark, on its own operative.
+['warcry','ward','comms','hex','mend'].forEach((fam, i) => {
+  const op = at(i * 3 + 1);
+  fx._spawnAt(fam, 'mark', { x: op.x, y: op.y, delay: 0 });
+});
+// Persistent loops, straight from state so sync() picks them up.
+ops[0].tokens = [{ kind:'blaze' }];
+ops[1].tokens = [{ kind:'poison' }];
+state.players.p1.ploys = { active:['doctrine'], firefight:[] };
+state.players.p2.ploys = { active:[], firefight:[] };
+fx._spawnLoop('shield', 'demo:shield', { x: ops[2].x, y: ops[2].y });
+
+renderer.render(state, { colors: { p1:'var(--p1)', p2:'var(--p2)' } });
+// Freeze mid-flight: no rAF, one hand-driven frame.
+fx._stop();
+// The first tick is what stamps each sprite's birth; the second is the frame.
+fx.tick(0);
+fx.tick(Number(new URLSearchParams(location.search).get('t') || 260));
+document.getElementById('label').textContent =
+  `families loaded: ${[...fx.allowed].sort().join(' ')} — live ${fx.live.length}, loops ${fx.persistent.size}`;
+document.title = 'ready';
+</script></body></html>

@@ -52,9 +52,17 @@ function facingCone(r, angle, spread = 0.48, reach = 0.62) {
 }
 
 export class BattlefieldRenderer {
-  constructor(svg, { onSelectOperative } = {}) {
+  constructor(svg, { onSelectOperative, effects = null } = {}) {
     this.svg = svg;
     this.onSelectOperative = onSelectOperative;
+    /**
+     * The animation layer (ui/effects.js), or null.
+     *
+     * It is handed the two groups below, re-homed on every redraw, and asked
+     * to reconcile its loops with the state. Like facing, it is drawing and
+     * not rules: nothing here reads it back and the engine cannot see it.
+     */
+    this.effects = effects;
     this.selectedId = null;
     this.highlight = null;   // { type:'path'|'shot', ... }
     this.view = { scale: 1, x: 0, y: 0 };
@@ -135,7 +143,13 @@ export class BattlefieldRenderer {
     this._drawTerrain(this.root, state);
     this._drawObjectives(this.root, state, colors);
     this._drawHighlight(this.root, state);
+    // Two animation layers, because an aura belongs under the figures and an
+    // explosion belongs over them.
+    const fxUnder = el('g', {}, this.root);
     this._drawOperatives(this.root, state, colors);
+    const fxOver = el('g', {}, this.root);
+    this.effects?.sync(state);
+    this.effects?.attach(fxUnder, fxOver);
   }
 
   _hatch(defs, id, stroke) {

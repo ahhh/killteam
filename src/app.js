@@ -15,6 +15,7 @@ import { createControllers, AI_VERSION } from './ai/controller.js';
 import { ENGINE_VERSION } from './rules/engine.js';
 import { buildReplay, toBattleLogText, toJson, digestEvents } from './replay/recorder.js';
 import { BattlefieldRenderer } from './ui/battlefield.js';
+import { EffectsLayer } from './ui/effects.js';
 import { renderRosterPanel, renderOperativeDetail } from './ui/inspector.js';
 import { CombatLog } from './ui/combat-log.js';
 import { SetupScreen } from './ui/setup.js';
@@ -58,8 +59,10 @@ class App {
       return;
     }
 
+    this.effects = new EffectsLayer();
     this.renderer = new BattlefieldRenderer($('board'), {
       onSelectOperative: (id) => this.selectOperative(id),
+      effects: this.effects,
     });
     this.log = new CombatLog($('logBody'), { devToggle: $('devLogToggle') });
 
@@ -101,6 +104,7 @@ class App {
     if (this.prefs.seed) $('seedInput').value = this.prefs.seed;
     if (this.prefs.speed !== undefined) this.clock.setSpeed(this.prefs.speed);
     this._syncSpeedButtons();
+    this._syncEffects();
 
     this.newBattle();
     this._openOverlay('setupOverlay');
@@ -155,6 +159,13 @@ class App {
     this.renderer.highlight = null;
     this.log.clear();
 
+    // Warm only the sprite sheets these two packs can actually produce. The
+    // set is usually about half of what ships, and a match-up with no flamers,
+    // no psykers and no grenades fetches none of those three (ui/effects.js).
+    this.effects.reset();
+    this.effects.prepare(this.state.teamPacks);
+    this._syncEffects();
+
     this._savePrefs({ seed: useSeed, teams: selection, mission: missionId, map: mapId });
     this.render();
     this._syncControls();
@@ -202,6 +213,9 @@ class App {
       };
     }
 
+    // The animations read the same events the log does — a shot, a swing, a
+    // ploy — and are pure drawing: the battle is identical without them.
+    this.effects.handle(this.state, fresh);
     this.log.append(events);
     this.render();
   }
@@ -409,6 +423,7 @@ class App {
         this.clock.setSpeed(Number(button.dataset.speed));
         this._savePrefs({ speed: Number(button.dataset.speed) });
         this._syncSpeedButtons();
+        this._syncEffects();
       });
     }
 
@@ -447,6 +462,7 @@ class App {
     $('motionToggle').addEventListener('change', (e) => {
       document.body.classList.toggle('no-motion', e.target.checked);
       this._savePrefs({ reduceMotion: e.target.checked });
+      this._syncEffects();
     });
 
     // Close any overlay with Escape; keyboard shortcuts for playback (§32).
@@ -469,6 +485,27 @@ class App {
     $('playBtn').textContent = this.clock?.playing ? 'Pause' : 'Play';
     $('playBtn').disabled = done;
     $('stepBtn').disabled = done;
+  }
+
+  /**
+   * Whether the battlefield animates, and how fast.
+   *
+   * Off entirely for Reduce motion, whether that is the app's own switch or
+   * the one in the operating system — the sprites are the most motion on this
+   * page by a wide margin — and off at instant speed, where the whole battle
+   * resolves inside one synchronous loop and there is no frame to draw into.
+   * Otherwise the durations are fitted to the step interval so nothing is
+   * still burning when the next operative activates.
+   */
+  _syncEffects() {
+    if (!this.effects) return;
+    const asked = typeof matchMedia === 'function'
+      && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const still = asked
+      || document.body.classList.contains('no-motion')
+      || this.clock.speed === 0;
+    this.effects.setTempo(this.clock.delay);
+    this.effects.setEnabled(!still);
   }
 
   _syncSpeedButtons() {

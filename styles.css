@@ -432,6 +432,20 @@ body.no-motion * { transition: none !important; animation: none !important; }
   color: var(--muted, #9aa4b8);
 }
 
+/* A variant team says what it changed, above its blurb and roster. */
+.variant-note {
+  margin: 8px 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--accent, #6d9bd1);
+  background: #161a24;
+  border-radius: 0 4px 4px 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted, #9aa4b8);
+}
+
+.variant-note strong { color: var(--fg, #e6ebf5); }
+
 /* Operative sheet portrait ------------------------------------------------ */
 /* Art is only ever built when a sheet opens (src/ui/portraits.js), so these
    rules never apply to anything on the battle screen itself. */

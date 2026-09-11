@@ -103,9 +103,9 @@ function reach(state, playerId, hook) {
  */
 function triggerLikelihood(trigger) {
   switch (trigger) {
-    case 'onIncapacitated': return 0.5;
-    case 'afterRetaliation': return 0.45;
-    case 'afterAction': return 0.5;
+    case 'onIncapacitated': return 0.5;   // at most once per operative, ever
+    case 'afterRetaliation': return 0.45;  // only when somebody fights us
+    case 'afterAction': return 0.45;       // one action of one activation
     default: return 1;
   }
 }
@@ -134,8 +134,10 @@ function situationalDiscount(cond) {
   if (cond.withinShadow !== undefined) d *= 0.4;
   if (cond.awayFromEnemies !== undefined) d *= 0.6;
   if (cond.counteracting !== undefined) d *= 0.3;
-  if (cond.actionIs !== undefined) d *= 0.4;
-  if (cond.actionCountAtMost !== undefined) d *= 0.6;
+  // `actionIs` and `actionCountAtMost` are not charged here. They only appear
+  // on an `afterAction` hook, whose trigger likelihood already prices "this
+  // fires once in an activation, for one kind of action" — charging them again
+  // priced a charging herd's charge bonus as a one-in-ten event.
   return d;
 }
 
@@ -202,16 +204,19 @@ function hookValue(hook) {
     case 'grantAllyApl':
       return 2.0;
     case 'inflictDamage':
-      // Damage nobody had to roll attack dice for, so it is priced off the
-      // wounds it deals rather than off a hit rate. `each` reaches a crowd.
-      return 0.7 * expectedRoll(effect.dice || 'D3') *
+      // Damage nobody had to roll attack dice for, and nobody gets a save
+      // against — priced off the wounds it deals rather than a hit rate, and
+      // therefore above a weapon rule that only improves the odds of some.
+      return 0.9 * expectedRoll(effect.dice || 'D3') *
         (effect.scope === 'each' ? 1.6 : 1);
     case 'inflictToken':
       // A token that costs its holder an action is worth roughly what buying
       // ourselves one is; anything else is a lesser nuisance.
       return effect.token?.whileHeld?.aplDelta ? 1.8 : 1.0;
     case 'changeOrder':
-      return 0.9;
+      // Going back to Conceal in cover is not a modifier, it is immunity to
+      // being shot at — worth more than a re-roll and less than an extra AP.
+      return 1.4;
     case 'denyTargeting':
       // Not being shootable at all is the strongest defensive line there is,
       // discounted by needing Conceal and cover to stand up.
@@ -445,7 +450,8 @@ function modeRelevance(mode, hook, context = {}) {
       // Neither needs an attack roll, so neither cares which plan is running.
       return 0.7;
     case 'changeOrder':
-      return mode === 'melee' ? 0.6 : 0.4;
+      // Worth most to the plan that has just made itself visible to shoot.
+      return mode === 'shoot' ? 0.9 : (mode === 'move' ? 0.7 : 0.4);
     default:
       return 0.4;
   }

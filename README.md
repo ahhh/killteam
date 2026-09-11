@@ -211,6 +211,13 @@ raider banks early and empties its hand when it commits; a bulwark team keeps
 it to answer the shot that would kill an operative. 300 of the 415 printed
 ploys are wired up; the rest are named at battle start as unsimulated.
 
+Ploys that fire at a moment rather than across a sequence reach the engine
+through four later triggers: `onIncapacitated` (the death-throe family — the
+Gellerpox bursting, a Khorne Legionary's last swing), `afterAction`,
+`afterRetaliation` and `onTargetSelection`. A firefight ploy may declare
+`timing: "demise"`, bought as its own operative goes down out of the same
+reserve a reaction uses.
+
 Faction rules now run through a declarative `ruleHooks` layer — 16 rules across
 14 teams, which declare `supportLevel: 3`. The other 40 transcribed teams carry
 their faction rules, ploys, equipment and unique actions as reference data only
@@ -236,6 +243,42 @@ Rules that are only half-implemented are marked `partial` in the pack and say
 so in the battle log; three weapons whose enabling markers or actions do not
 exist refuse to fire at all, with a stated reason, rather than guessing. See
 `docs/implemented-rules.md` for the exact inventory.
+
+### Team variants
+
+Six bundled teams can be fielded a second way. A **variant** is not a new kill
+team: it is the same pack's own datacards, a different half of them, and a
+different plan for what to do with them — a different roster, a different
+`aiDisposition`, a different CP doctrine, and a ploy list edited to match. The
+Kommandos can take the field as a gunline that left its choppa boys at home;
+the Novitiates as a melee host that detonates when it dies; Krieg as a
+seven-strong specialist cadre rather than a fourteen-body line.
+
+They are generated, not hand-written, so they cannot drift from the datacards
+they come from — re-run `node tools/make-variants.mjs` after editing a base
+pack. Each one carries `variantOf` and a `variantNote`, which is what the team
+picker shows under the name, and each declares its own `source` block: the
+profiles and weapons are the base team's, but the roster, the disposition, the
+doctrine and any ploy of its own are this project's invention, not a published
+list.
+
+### Missions score ground and blood at the same weight
+
+Secure and Hold pays up to 3 VP a turning point for markers held and, until
+recently, up to 2 for operatives killed. Only the first of those scales with
+roster size — a team with spare bodies parks them on markers — so across a
+2,970-battle round robin, roster size correlated **+0.76** with objective VP,
+**+0.06** with kill VP, and **+0.19** with winning. Teams of 5–6 operatives won
+43% of their games; teams of 12–14 won 58%.
+
+The cap on kills was doing it. Raising it to 4 — which is in practice no cap,
+since one side almost never takes more than four operatives off the board in a
+turning point — lets a team that kills harder be paid for it, and that is the
+half of the game a small elite roster is built to win. Re-scored over the same
+battles, roster size's correlation with win rate falls from +0.100 to +0.019
+and the win-rate gap between the smallest and largest rosters from 7.7 points
+to 1.2. Nothing about objective control changed; it is still total APL within
+1", as printed.
 
 ### Known balance caveat
 

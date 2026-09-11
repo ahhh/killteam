@@ -1,0 +1,1165 @@
+{
+  "id": "death-korps-cadre",
+  "factionId": "astra-militarum",
+  "displayName": "Krieg Veteran Cadre",
+  "blurb": "Seven men where there were fourteen, and every one of them a specialist.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-11",
+  "supportLevel": 4,
+  "source": {
+    "publisher": "Original synthetic data (this project)",
+    "checkedAt": "2026-09-11",
+    "notes": "A variant roster assembled from the Death Korps pack's own datacards. The profiles and weapons are unchanged; the roster, the disposition, the CP doctrine and the ploy list are this project's, not a published list."
+  },
+  "colors": {
+    "primary": "#2f7a8a",
+    "accent": "#e6e6e6"
+  },
+  "roster": {
+    "maxOperatives": 8,
+    "selectionRules": [
+      "1 DEATH KORPS WATCHMASTER operative with the following: Boltgun; bayonet; Or one option from each of the following: Bolt pistol, plasma pistol or relic laspistol; Chainsword or power weapon",
+      "4 TROOPER operatives*",
+      "9 DEATH KORPS operatives selected from the following list: BRUISER; CONFIDANT with one of the following options: Boltgun or lasgun; bayonet; Bolt pistol or relic laspistol; chainsword; GUNNER with bayonet and flamer; GUNNER with bayonet and grenade launcher; GUNNER with bayonet and meltagun; GUNNER with bayonet and plasma gun; MEDIC; SAPPER; SNIPER; SPOTTER; TROOPER; VETERAN; VOX-OPERATOR; ZEALOT"
+    ],
+    "operatives": [
+      {
+        "profileId": "death-korps-watchmaster",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-sniper",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-sapper",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-spotter",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-medic",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-confidant",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-veteran",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "death-korps-watchmaster",
+      "name": "Death Korps Watchmaster",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "plasma-pistol-standard",
+          "name": "Plasma pistol (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "plasma-pistol-supercharge",
+          "name": "Plasma pistol (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Range 8\", Hot, Lethal 5+, Piercing 1",
+          "range": 8
+        },
+        {
+          "id": "relic-laspistol",
+          "name": "Relic laspistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "power-weapon",
+          "name": "Power weapon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "leader",
+        "watchmaster"
+      ]
+    },
+    {
+      "id": "death-korps-bruiser",
+      "name": "Death Korps Bruiser",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "trench-club",
+          "name": "Trench club",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "shock"
+          ],
+          "rulesText": "Shock"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "bruiser"
+      ]
+    },
+    {
+      "id": "death-korps-confidant",
+      "name": "Death Korps Confidant",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "boltgun",
+          "name": "Boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "relic-laspistol",
+          "name": "Relic laspistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Range 8\", Lethal 5+",
+          "range": 8
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "confidant"
+      ]
+    },
+    {
+      "id": "death-korps-gunner",
+      "name": "Death Korps Gunner",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "flamer",
+          "name": "Flamer",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "grenade-launcher-frag",
+          "name": "Grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2"
+          ],
+          "rulesText": "Blast 2\"",
+          "range": 48
+        },
+        {
+          "id": "grenade-launcher-krak",
+          "name": "Grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "meltagun",
+          "name": "Meltagun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 6,
+            "critical": 3
+          },
+          "rules": [
+            "devastating4",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 4, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "plasma-gun-standard",
+          "name": "Plasma gun (standard)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "plasma-gun-supercharge",
+          "name": "Plasma gun (supercharge)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "hot",
+            "lethal5",
+            "piercing1"
+          ],
+          "rulesText": "Hot, Lethal 5+, Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "gunner"
+      ]
+    },
+    {
+      "id": "death-korps-medic",
+      "name": "Death Korps Medic",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "medikit",
+          "name": "MEDIKIT",
+          "cost": "1AP",
+          "description": "Select one friendly DEATH KORPS operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "medic"
+      ]
+    },
+    {
+      "id": "death-korps-sapper",
+      "name": "Death Korps Sapper",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "remote-detonator",
+          "name": "Remote detonator",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "heavy:dash",
+            "limited1",
+            "piercing1",
+            "silent",
+            "detonate"
+          ],
+          "rulesText": "Heavy (Dash only), Limited 1, Piercing 1, Silent, Detonate*",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "sapper"
+      ]
+    },
+    {
+      "id": "death-korps-sniper",
+      "name": "Death Korps Sniper",
+      "role": "sniper",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "long-las-concealed",
+          "name": "Long-las (concealed)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy",
+            "silent",
+            "concealedposition"
+          ],
+          "rulesText": "Devastating 3, Heavy, Silent, Concealed Position*",
+          "range": 48
+        },
+        {
+          "id": "long-las-mobile",
+          "name": "Long-las (mobile)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "long-las-stationary",
+          "name": "Long-las (stationary)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "heavy"
+          ],
+          "rulesText": "Devastating 3, Heavy",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "sniper"
+      ]
+    },
+    {
+      "id": "death-korps-spotter",
+      "name": "Death Korps Spotter",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "mortar-barrage",
+          "name": "Mortar barrage",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "heavy:dash",
+            "silent"
+          ],
+          "rulesText": "Blast 2\", Heavy (Dash only), Silent",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "spot",
+          "name": "SPOT",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly DEATH KORPS operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "spotter"
+      ]
+    },
+    {
+      "id": "death-korps-trooper",
+      "name": "Death Korps Trooper",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "trooper"
+      ]
+    },
+    {
+      "id": "death-korps-veteran",
+      "name": "Death Korps Veteran",
+      "role": "assault",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bionic-arm",
+          "name": "Bionic arm",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "veteran"
+      ]
+    },
+    {
+      "id": "death-korps-vox-operator",
+      "name": "Death Korps Vox-Operator",
+      "role": "support",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "signal",
+          "name": "SIGNAL",
+          "cost": "1AP",
+          "description": "SUPPORT. Select one other friendly DEATH KORPS operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+        }
+      ],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "vox-operator"
+      ]
+    },
+    {
+      "id": "death-korps-zealot",
+      "name": "Death Korps Zealot",
+      "role": "ranged",
+      "baseDiameter": 0.98,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "lasgun",
+          "name": "Lasgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-",
+          "range": 48
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "-"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "death-korps",
+        "imperium",
+        "astra-militarum",
+        "zealot"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "guardsmen-orders",
+      "name": "Guardsmen Orders",
+      "description": "STRATEGIC GAMBIT and SUPPORT. A friendly DEATH KORPS WATCHMASTER operative can issue a GUARDSMAN ORDER. Whenever it does, select one GUARDSMAN ORDER for all friendly DEATH KORPS operatives within 6\" of it to receive. Whenever a friendly operative receives a GUARDSMAN ORDER, apply its rules until the end of the turning point. Operatives cannot benefit from more than one GUARDSMAN ORDER at once; they only benefit from the most recent order they received during the turning point. Take Aim!Outfitted and trained for attritional infantry combat, the soldiers of Krieg have undertaken endless hours of lasgun drills. Ranged weapons of operatives that received this order (excluding mortar barrage and remote detonator) have the Ceaseless weapon rule. Fix Bayonets!The kind of warfare undertaken by the Death Korps of Krieg requires their troopers to be well versed in close-quarters fighting and trench clearance. Melee weapons of operatives that received this order have the Ceaseless weapon rule. Dig In!Obstinate to the last, the soldiers of Krieg establish defensive positions and hold them with grim determination. Whenever an operative is shooting a friendly operative that's received this order, if you can retain any cover saves, you can re-roll any of your defence dice results of one result (e.g. results of 2). Move! Move! Move!Responding to a barked order from their Watchmaster, the soldiers of Krieg pick up the pace and hustle towards their next objective. Whenever an operative that's received this order is performing the Reposition action, add 1\" to its Move stat."
+    },
+    {
+      "id": "unflinching",
+      "name": "Unflinching",
+      "description": "Ignore any changes to the stats of friendly DEATH KORPS operatives from being injured (including their weapons' stats)."
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "siege-warfare",
+      "name": "SIEGE WARFARE",
+      "description": "Friendly DEATH KORPS operatives' ranged weapons have the Saturate and Accurate 1 weapon rules.",
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "saturate",
+              "accurate1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "take-cover",
+      "name": "TAKE COVER",
+      "description": "Whenever an operative is shooting a friendly DEATH KORPS operative, if you can retain any cover saves, improve that friendly operative's Save stat by 1.",
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifySave",
+            "delta": -1
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for \"can retain a cover save\", which the defence roll does not report here"
+        }
+      ]
+    },
+    {
+      "id": "clear-the-line",
+      "name": "CLEAR THE LINE",
+      "description": "Friendly DEATH KORPS operatives' melee weapons have the Accurate 1 weapon rule. Whenever a friendly DEATH KORPS operative is fighting wholly within your territory, or whenever it's retaliating, its melee weapons also have the Severe weapon rule.",
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "regroup",
+      "name": "REGROUP",
+      "description": "SUPPORT. Select one friendly DEATH KORPS operative that's more than 3\" from enemy operatives. Each other friendly DEATH KORPS operative within 5\" of that operative and not within control range of enemy operatives can immediately perform a free Dash action in an order of your choice, but each that does so must end that move closer to that operative. Note that a Comms Device from universal equipment only affects the second distance of this rule. You cannot use this ploy and the Chronometer faction equipment STRATEGIC GAMBIT during the same turning point.",
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "friendlyWithin": 5
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate Dash toward a nominated operative; simulated as a free Dash for operatives that activate in supporting distance"
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "inspirational-leadership",
+      "name": "INSPIRATIONAL LEADERSHIP",
+      "description": "SUPPORT. Use this firefight ploy during a friendly DEATH KORPS WATCHMASTER or DEATH KORPS CONFIDANT operative's activation, before or after it performs an action. It issues a GUARDSMAN ORDER.",
+      "cost": 1
+    },
+    {
+      "id": "combined-arms",
+      "name": "COMBINED ARMS",
+      "description": "Use this firefight ploy after rolling your attack dice for a friendly DEATH KORPS operative, if it's shooting an enemy operative that's been shot by another friendly DEATH KORPS operative during this turning point. You can re-roll any of your attack dice.",
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target was already shot by another operative this turning point is not checked"
+        }
+      ]
+    },
+    {
+      "id": "in-life-shame",
+      "name": "IN LIFE, SHAME",
+      "description": "Use this firefight ploy when a friendly DEATH KORPS operative is activated and given an Engage order. It receives every GUARDSMAN ORDER. This takes precedence over the normal rule that operatives cannot benefit from more than one GUARDSMAN ORDER at once.",
+      "cost": 1
+    },
+    {
+      "id": "in-death-atonement",
+      "name": "IN DEATH, ATONEMENT",
+      "description": "Use this firefight ploy when a ready friendly DEATH KORPS operative is incapacitated, if it isn't within control range of enemy operatives. Before it's removed from the killzone, it can immediately perform one free action and you can change its order to do so. Note that friendly operative is injured for the duration of that action.",
+      "cost": 1
+    }
+  ],
+  "equipment": [
+    {
+      "id": "chronometer",
+      "name": "CHRONOMETER",
+      "description": "Once per battle STRATEGIC GAMBIT in the first or second turning point. Each friendly DEATH KORPS operative wholly within your territory can immediately perform a free Dash action in an order of your choice, but each that does so must end that move closer to an opponent's drop zone or killzone edge. You cannot use this STRATEGIC GAMBIT and the Regroup strategy ploy during the same turning point."
+    },
+    {
+      "id": "comm-beads",
+      "name": "COMM-BEADS",
+      "description": "Whenever a friendly DEATH KORPS WATCHMASTER or friendly DEATH KORPS CONFIDANT operative issues a GUARDSMAN ORDER, you can use this rule. If you do, instead of each friendly DEATH KORPS operative within 6\" of it receiving that order, you can select one friendly DEATH KORPS operative to receive that order."
+    },
+    {
+      "id": "hand-axes",
+      "name": "HAND AXES",
+      "description": "Friendly DEATH KORPS operatives have the following melee weapon: Hand axe NAMEATKHITDMGHand axe34+3/4"
+    },
+    {
+      "id": "gas-bombardment",
+      "name": "GAS BOMBARDMENT",
+      "description": "Once per battle STRATEGIC GAMBIT. Place your Gas marker in the killzone; it cannot be placed underneath Vantage terrain. Whenever an operative is within 3\" of that marker, subtract 1 from its APL stat. In the Ready step of the next Strategy phase, remove that marker. Note that an operative's APL stat is only changed while it's within 3\" of that marker. If it moves more than 3\" from that marker, its APL stat is no longer changed by this rule."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "unflinching",
+      "rule": "Unflinching",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "death-korps"
+      },
+      "effect": {
+        "type": "ignoreInjured"
+      }
+    }
+  ],
+  "weaponRules": {
+    "concealedposition": {
+      "rule": "Concealed Position",
+      "text": "This operative can only use this weapon the first time it's performing the Shoot action during the battle.",
+      "effect": {
+        "type": "firstShootActionOnly"
+      }
+    },
+    "detonate": {
+      "rule": "Detonate",
+      "text": "Don't select a valid target. Instead, shoot against each operative within 2\" of your Mine marker, unless Heavy terrain is wholly intervening between that operative and that marker. Each of those operatives cannot be in cover or obscured. Roll each sequence separately in an order of your choice. This weapon cannot be selected if your Mine marker isn't in the killzone. At the end of the action, remove your Mine marker from the killzone.",
+      "effect": {
+        "type": "unusable",
+        "reason": "needs a Mine marker, and the action that places one is not implemented"
+      }
+    }
+  },
+  "variantOf": "death-korps",
+  "variantOfName": "Death Korps",
+  "variantNote": "The same regiment fielded as a cadre rather than a line: half the bodies, all of the specialists, and no intention of giving ground.",
+  "aiDisposition": "patient",
+  "aiCpDoctrine": "bulwark"
+}

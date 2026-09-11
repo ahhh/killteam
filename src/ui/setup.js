@@ -122,7 +122,12 @@ export class SetupScreen {
         const pack = this.repo.teams.get(teamId);
         const option = document.createElement('option');
         option.value = teamId;
-        option.textContent = pack?.displayName ?? teamId;
+        // A variant sits directly under the team it came from, and says so —
+        // two entries called "Kommandos" and "Dakka Kommandos" are otherwise
+        // indistinguishable until you have already picked one.
+        option.textContent = pack?.variantOfName
+          ? `${pack.displayName} — ${pack.variantOfName} variant`
+          : (pack?.displayName ?? teamId);
         group.append(option);
       }
       select.append(group);
@@ -170,6 +175,15 @@ export class SetupScreen {
         : badge.badge.startsWith('Experimental') ? 'support-badge experimental'
         : badge.level >= 3 ? 'support-badge partial' : 'support-badge';
       container.append(h('div', cls, badge.badge));
+    }
+
+    // What a variant changes, before the player commits to it: the roster
+    // below is the *what*, and this is the why.
+    if (pack.variantNote) {
+      const note = h('div', 'variant-note');
+      note.append(h('strong', null, `Variant of ${pack.variantOfName ?? pack.variantOf}`));
+      note.append(h('span', null, ` — ${pack.variantNote}`));
+      container.append(note);
     }
 
     if (pack.blurb) container.append(h('p', 'muted', pack.blurb));

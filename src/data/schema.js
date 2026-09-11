@@ -54,10 +54,14 @@ export const KNOWN_HOOK_TRIGGERS = [
   'beforeDamageApplied',
   'onActivationStart',
   'onActionLegality',
+  'onTargetSelection',
   'onIncomingAttack',
   'onActivationEnd',
   'onTurningPointStart',
   'onDamageApplied',
+  'afterAction',
+  'afterRetaliation',
+  'onIncapacitated',
 ];
 
 /**

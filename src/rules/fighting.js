@@ -18,7 +18,8 @@ import {
 } from './team-rules.js';
 import { snapshotTokens } from './tokens.js';
 import { diceRerollSpend } from './resources.js';
-import { applyAttackHooks } from './hooks.js';
+import { applyAttackHooks, applyIncomingAttackHooks } from './hooks.js';
+import { expireSequencePloys } from './ploys.js';
 import { applyDamage, applyStun, hitModifierFor } from './effects.js';
 import { withinControlRange } from './visibility.js';
 import { isPositionLegal } from './movement.js';
@@ -108,8 +109,13 @@ export function resolveFight(state, attackerId, targetId, weaponId = null) {
   const tokensAtStart = snapshotTokens(liveOperatives(state));
   const rng = Rng.fromState(state.rng);
 
-  const aWeapon = withGrantedRules(state, attacker, attackerWeapon,
-    applyAttackHooks(state, attacker, attackerWeapon, { target, action: 'fight' }), target);
+  // The operative being fought gets its say first: a reactive ploy bought here
+  // blunts the attack it is about to eat, the way a defensive one does against
+  // a shot.
+  const aWeapon = applyIncomingAttackHooks(state, target,
+    withGrantedRules(state, attacker, attackerWeapon,
+      applyAttackHooks(state, attacker, attackerWeapon, { target, action: 'fight' }), target),
+    { attacker, action: 'fight' });
   const tWeapon = withGrantedRules(state, target, targetWeapon,
     applyAttackHooks(state, target, targetWeapon, { target: attacker, action: 'fight' }), attacker);
 
@@ -321,6 +327,8 @@ export function resolveFight(state, attackerId, targetId, weaponId = null) {
   }
 
   state.rng = rng.getState();
+  // A ploy bought as a reaction was paid for "until the end of that sequence".
+  expireSequencePloys(state);
 
   return {
     ok: true,

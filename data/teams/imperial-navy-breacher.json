@@ -864,25 +864,84 @@
       "id": "attack-order",
       "name": "ATTACK ORDER",
       "description": "Place your Attack Order marker in the killzone. Whenever a friendly IMPERIAL NAVY BREACHER operative within 3\" of that marker is shooting, fighting or retaliating, its weapons have the Ceaseless weapon rule. In the Ready step of the next Strategy phase, remove that marker. You cannot use this ploy and the Defence Order strategy ploy during the same Strategy phase",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the Attack Order marker is not placed; an objective marker stands in for it"
+        }
+      ]
     },
     {
       "id": "defence-order",
       "name": "DEFENCE ORDER",
       "description": "Place your Defence Order marker in the killzone. Whenever an operative is shooting a friendly IMPERIAL NAVY BREACHER operative that's within 3\" of that marker, you can re-roll any of your defence dice results of one result (e.g. results of 2). In the Ready step of the next Strategy phase, remove that marker. You cannot use this ploy and the Attack Order strategy ploy during the same Strategy phase.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 2
+          },
+          "partial": true,
+          "notes": "the Defence Order marker is not placed; an objective marker stands in for it"
+        }
+      ]
     },
     {
       "id": "close-assault",
       "name": "CLOSE ASSAULT",
       "description": "Whenever a friendly IMPERIAL NAVY BREACHER operative is fighting or shooting an operative within 3\" of it: Add 1 to both Dmg stats of all profiles of its Navis shotguns or Navis heavy shotguns (if any).If you roll two or more fails, you can discard one of them to retain another as a normal success instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponNameContains": [
+              "shotgun"
+            ],
+            "targetWithin": 3
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageNormal": 1,
+            "damageCritical": 1
+          },
+          "partial": true,
+          "notes": "the dice-discard half of the ploy is not simulated"
+        }
+      ]
     },
     {
       "id": "brace-for-counterattack",
       "name": "BRACE FOR COUNTERATTACK",
       "description": "Whenever an operative is shooting against, fighting against or retaliating against a friendly IMPERIAL NAVY BREACHER operative that's within your territory or that hasn't performed the Charge, Fall Back or Reposition action during this turning point, Normal and Critical Dmg of 3 or more inflicts 1 less damage on that friendly operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "territory and the \"hasn't moved this turning point\" condition are not checked, and the 3+ damage threshold is not applied"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -890,13 +949,41 @@
       "id": "overwhelm-target",
       "name": "OVERWHELM TARGET",
       "description": "Use this firefight ploy when you activate either friendly IMPERIAL NAVY BREACHER operative while using the Breach and Clear faction rule. Until the end of that operative's activation, add 1 to its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "the Breach and Clear faction rule is not simulated, so any operative may buy this"
+        }
+      ]
     },
     {
       "id": "blitz",
       "name": "BLITZ",
       "description": "Use this firefight ploy when a friendly IMPERIAL NAVY BREACHER operative performs the Shoot or Fight action, and you select an enemy operative within 6\" of it as a valid target or to fight against. If it's the first friendly operative to perform either of those actions during this turning point, its weapons have the Accurate 1 weapon rule for that action. If it's the first friendly operative to be activated during this turning point, its weapons also have the Severe weapon rule for that action.",
-      "cost": 1
+      "cost": 1,
+      "oncePerTurningPoint": true,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          },
+          "partial": true,
+          "notes": "the extra Severe for the first operative activated is not simulated"
+        }
+      ]
     },
     {
       "id": "lock-it-down",

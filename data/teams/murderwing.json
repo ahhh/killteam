@@ -769,7 +769,20 @@
       "id": "predators-above",
       "name": "PREDATORS ABOVE",
       "description": "Whenever a friendly MURDERWING operative is at least 2\" higher than the killzone floor, its weapons have the Balanced weapon rule. Whenever a friendly MURDERWING operative does a BOOST, its weapons have the Balanced weapon rule until the end of that activation.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "height above the killzone floor and BOOST are not simulated, so the rule applies everywhere"
+        }
+      ]
     },
     {
       "id": "cull-the-weak",
@@ -796,13 +809,36 @@
       "id": "nightmare-on-high",
       "name": "NIGHTMARE ON HIGH",
       "description": "Whenever an operative is shooting a friendly MURDERWING operative that's at least 2\" higher than the killzone floor, or that did a BOOST during this turning point, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "height above the killzone floor and BOOST are not simulated"
+        }
+      ]
     },
     {
       "id": "instil-fear",
       "name": "INSTIL FEAR",
       "description": "Whenever a friendly MURDERWING operative is fighting, Normal Dmg of 3 or more inflicts 1 less damage on it",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 1,
+            "perAction": "fight"
+          },
+          "partial": true,
+          "notes": "the printed 3+ damage threshold is not applied"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -828,7 +864,21 @@
       "id": "wings-of-darkness",
       "name": "WINGS OF DARKNESS",
       "description": "Use this firefight ploy when a friendly MURDERWING operative is performing the Fall Back or Reposition action, when it does a BOOST. That operative can be set up an additional 3\" away during that BOOST (adding this to the permitted move distance), but it cannot perform the Shoot, Fight or Carving Blow (see DEPREDATOR operative) action until the next turning point. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "modifyMove",
+            "inches": 3
+          },
+          "partial": true,
+          "notes": "BOOST is not simulated, and the printed cost — no Shoot or Fight until the next turning point — is not applied"
+        }
+      ]
     }
   ],
   "equipment": [

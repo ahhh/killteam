@@ -1189,7 +1189,24 @@
       "id": "intense-scrutiny",
       "name": "INTENSE SCRUTINY",
       "description": "Whenever you're selecting a valid target for a friendly INQUISITORIAL AGENT operative, enemy operatives within 4\" of it cannot be in cover (instead of 2\"). While this can allow such operatives to be targeted (assuming they're visible), it doesn't remove their cover save (if any), unless the friendly INQUISITORIAL AGENT operative is within 2\" as normal.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot",
+            "targetWithin": 4
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seek"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as denying cover for target selection only; simulated as the Seek weapon rule"
+        }
+      ]
     },
     {
       "id": "quarry",
@@ -1237,25 +1254,46 @@
   "firefightPloys": [
     {
       "id": "absolute-authority1cp",
-      "name": "ABSOLUTE AUTHORITY1CP",
+      "name": "ABSOLUTE AUTHORITY",
       "description": "Use this firefight ploy during the battle, when an opponent uses a strategy or firefight ploy (excluding Command Re-roll or one that costs 0CP). Their ploy isn't used, the CP spent on it is refunded and they cannot use that ploy again during this turning point. This ploy cannot be used to stop the same ploy more than once per battle.",
       "cost": 0
     },
     {
       "id": "relentless-in-pursuit1cp",
-      "name": "RELENTLESS IN PURSUIT1CP",
+      "name": "RELENTLESS IN PURSUIT",
       "description": "Use this firefight ploy when an enemy operative within 2\" of a ready friendly INQUISITORIAL AGENT operative performs an action in which it moves. After it moves, that friendly INQUISITORIAL AGENT operative can either perform a free Reposition action, but must end that move within 2\" of that enemy operative, or a free Charge action, but must end that move within control range of that enemy operative. If neither is possible, that friendly operative cannot perform those actions, this ploy isn't used and the CP spent on it is refunded.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "charge"
+          },
+          "partial": true,
+          "notes": "printed as a reaction to an enemy moving nearby; simulated as a free Charge during the agent's own activation"
+        }
+      ]
     },
     {
       "id": "the-emperor-s-will1cp",
-      "name": "THE EMPEROR'S WILL1CP",
+      "name": "THE EMPEROR'S WILL",
       "description": "Use this firefight ploy when a friendly INQUISITORIAL AGENT operative is activated. Until the end of that operative's activation, you can ignore any changes to its stats (including its weapons' stats).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          },
+          "partial": true,
+          "notes": "printed as ignoring every change to its stats; simulated as ignoring the injured penalty"
+        }
+      ]
     },
     {
       "id": "intimidating-presence1cp",
-      "name": "INTIMIDATING PRESENCE1CP",
+      "name": "INTIMIDATING PRESENCE",
       "description": "Use this firefight ploy when an enemy operative visible to and within 3\" of a friendly INQUISITORIAL AGENT operative, or visible to and within 6\" of a friendly MYSTIC operative, performs the Pick Up Marker or a mission action (excluding Operate Hatch). Your opponent must spend 1 additional AP for that enemy operative to perform that action (if they cannot or choose not to, the AP spent on it is refunded).",
       "cost": 1
     }

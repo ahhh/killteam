@@ -973,13 +973,37 @@
       "id": "combat-doctrine",
       "name": "COMBAT DOCTRINE",
       "description": "Select one COMBAT DOCTRINE from those presented below. Whenever a friendly ANGEL OF DEATH operative is x, its weapons have the Balanced weapon rule. X is the COMBAT DOCTRINE you selected. Devastator Doctrine: Shooting an operative more than 6\" from it.Tactical Doctrine: Shooting an operative within 6\" of it.Assault Doctrine: Fighting or retaliating.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "simulated as the Assault Doctrine; the Devastator and Tactical doctrines are not offered as a choice"
+        }
+      ]
     },
     {
       "id": "and-they-shall-know-no-fear",
       "name": "AND THEY SHALL KNOW NO FEAR",
       "description": "You can ignore any changes to the stats of friendly ANGEL OF DEATH operatives from being injured (including their weapons' stats).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          }
+        }
+      ]
     },
     {
       "id": "adaptive-tactics",
@@ -991,7 +1015,18 @@
       "id": "indomitus",
       "name": "INDOMITUS",
       "description": "Whenever an operative is shooting a friendly ANGEL OF DEATH operative, if you roll two or more fails, you can discard one of them to retain another as a normal success instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "printed as discarding a fail to retain another success; simulated as one defence re-roll"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -1005,13 +1040,44 @@
       "id": "transhuman-physiology",
       "name": "TRANSHUMAN PHYSIOLOGY",
       "description": "Use this firefight ploy when an operative is shooting a friendly ANGEL OF DEATH operative, in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as upgrading a normal save to a critical; simulated as an extra defence dice"
+        }
+      ]
     },
     {
       "id": "shock-assault",
       "name": "SHOCK ASSAULT",
       "description": "Use this firefight ploy when a friendly ANGEL OF DEATH operative is performing the Fight action during an activation in which it performed the Charge action, at the start of the Resolve Attack Dice step. Until the end of that action: Its melee weapon has the Shock weapon rule. The first time you strike during that sequence, inflict 1 additional damage (to a maximum of 7).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "shock"
+            ]
+          },
+          "partial": true,
+          "notes": "the extra point of damage on the first strike is not simulated"
+        }
+      ]
     },
     {
       "id": "wrath-of-vengeance",

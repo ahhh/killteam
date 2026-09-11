@@ -62,6 +62,8 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
       /** A shared pool a team spends from — Blooded tokens. */
       resources: startingResources(team, 'player'),
       resourceFirsts: {},
+      /** What this team means to do with its CP this turning point (ai/cp.js). */
+      cpPlan: null,
       vpBreakdown: {},
       colorId: playerId === 'p1' ? 'a' : 'b',
     };
@@ -213,6 +215,7 @@ export const EVENTS = {
   TURN_STARTED: 'TURN_STARTED',
   INITIATIVE_ROLLED: 'INITIATIVE_ROLLED',
   CP_GAINED: 'CP_GAINED',
+  CP_PLAN: 'CP_PLAN',
   OPERATIVE_ACTIVATED: 'OPERATIVE_ACTIVATED',
   ORDER_SELECTED: 'ORDER_SELECTED',
   MOVE_RESOLVED: 'MOVE_RESOLVED',

@@ -518,19 +518,67 @@
       "id": "contagion",
       "name": "CONTAGION",
       "description": "Subtract 2\" from the Move stat of an enemy operative and worsen the Hit stat of its weapons by 1 (this isn't cumulative with being injured) whenever any of the following are true: It has one of your Poison tokens and is visible to (or vice versa) and within 3\" of friendly PLAGUE MARINE operatives.It's visible to (or vice versa) and within 3\" of a friendly PLAGUE MARINE ICON BEARER operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "targetHasToken": "poison"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "hitBonus": 1
+          },
+          "partial": true,
+          "notes": "the 2\" of Move the ploy also takes is not simulated, and the ICON BEARER aura is not checked"
+        }
+      ]
     },
     {
       "id": "lumbering-death",
       "name": "LUMBERING DEATH",
       "description": "Whenever a friendly PLAGUE MARINE operative is shooting or fighting during an activation in which it hasn't moved more than 3\", or whenever it's retaliating, its weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "notPerformedThisActivation": [
+              "charge",
+              "reposition",
+              "fall_back"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as a 3\" movement allowance rather than no movement at all"
+        }
+      ]
     },
     {
       "id": "cloud-of-flies",
       "name": "CLOUD OF FLIES",
       "description": "Place one of your Cloud of Flies markers in the killzone. Whenever an operative is shooting a friendly PLAGUE MARINE operative that's more than 3\" from it, if that friendly operative is wholly within 1\" of that marker, that friendly operative is obscured. In the Ready step of the next Strategy phase, remove that marker.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "targetBeyond": 3
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "the Cloud of Flies marker is not placed; simulated as an extra defence dice against distant shooting"
+        }
+      ]
     },
     {
       "id": "nurglings",
@@ -550,7 +598,19 @@
       "id": "sickening-resilience",
       "name": "SICKENING RESILIENCE",
       "description": "Use this firefight ploy when an attack dice inflicts damage on a friendly PLAGUE MARINE operative. Until the end of the activation or counteraction, for the purposes of the Disgustingly Resilient rule for that operative, always subtract 1 from the damage inflicted (to a minimum of 2) - you don't need to roll.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "printed as a guaranteed Disgustingly Resilient reduction for the rest of the activation; simulated as 1 damage off this sequence"
+        }
+      ]
     },
     {
       "id": "poisonous-demise",
@@ -562,7 +622,23 @@
       "id": "curse-of-rot",
       "name": "CURSE OF ROT",
       "description": "Use this firefight ploy when a friendly PLAGUE MARINE operative is shooting against or fighting against an enemy operative within 3\" of it (or within 7\" of it if that enemy operative has one of your Poison tokens), after your opponent rolls their attack or defence dice. For each result of 3 they roll, inflict 1 damage on that enemy operative, that result cannot be retained as a success and they cannot re-roll it.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWithin": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as punishing every result of 3 the opponent rolls; simulated as the Severe weapon rule at close range"
+        }
+      ]
     }
   ],
   "equipment": [

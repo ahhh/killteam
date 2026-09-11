@@ -997,25 +997,88 @@
       "id": "recon-sweep",
       "name": "RECON SWEEP",
       "description": "Select one killzone edge (excluding your own). Each friendly PATHFINDER operative that's wholly within 6\" of that edge can immediately perform a free Dash action in an order of your choice, but each that does so must end that move wholly within 6\" of a killzone edge (excluding your own). You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "the killzone-edge requirements are not simulated"
+        }
+      ]
     },
     {
       "id": "suppressing-fire",
       "name": "SUPPRESSING FIRE",
       "description": "Whenever an enemy operative is performing the Shoot action, if the target (the primary target if the weapon has the Blast or Torrent weapon rules) isn't the closest valid target, your opponent cannot re-roll their attack dice. Ignore friendly PATHFINDER operatives that have a Conceal order or are obscured when determining this.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "balanced",
+              "ceaseless",
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target was the closest valid one is not checked"
+        }
+      ]
     },
     {
       "id": "bonded",
       "name": "BONDED",
       "description": "Whenever a friendly PATHFINDER operative (excluding DRONE) is shooting or retaliating with a ranged weapon (see Point-Blank Fusillade firefight ploy), if it's within 3\" of another friendly PATHFINDER operative (excluding DRONE), that first friendly operative's ranged weapons have the Accurate 1 weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "friendlyWithin": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          },
+          "partial": true,
+          "notes": "the DRONE exclusion is not checked"
+        }
+      ]
     },
     {
       "id": "take-cover",
       "name": "TAKE COVER",
       "description": "Whenever an operative is shooting a friendly PATHFINDER operative, if you can retain any cover saves, improve that friendly operative's Save stat by 1.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifySave",
+            "delta": -1
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for \"can retain a cover save\", which the defence roll does not report here"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -1035,7 +1098,19 @@
       "id": "saviour-protocols",
       "name": "SAVIOUR PROTOCOLS",
       "description": "Use this firefight ploy when a friendly PATHFINDER operative (excluding DRONE) is selected as the valid target of a Shoot action. Select one friendly PATHFINDER DRONE operative visible to and within 3\" of that first friendly operative to become the valid target instead (even if it wouldn't normally be valid for this). That friendly DRONE operative is only in cover or obscured if the original target was. This ploy has no effect if the ranged weapon has the Blast or Torrent weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          },
+          "partial": true,
+          "notes": "printed as a drone taking the shot instead; simulated as damage the drone absorbs"
+        }
+      ]
     },
     {
       "id": "point-blank-fusillade",

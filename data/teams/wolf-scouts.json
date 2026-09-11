@@ -599,19 +599,60 @@
       "id": "cloaked-by-the-storm",
       "name": "CLOAKED BY THE STORM",
       "description": "Whenever an operative is shooting a friendly WOLF SCOUT operative that's wholly within your STORM, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the STORM is not placed, so the re-roll applies anywhere"
+        }
+      ]
     },
     {
       "id": "storm-s-bite",
       "name": "STORM'S BITE",
       "description": "Whenever a friendly WOLF SCOUT operative is fighting against an enemy operative that's wholly within your STORM, subtract 1 from the Atk stat of that enemy operative's melee weapons (to a minimum of 3).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "fight"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": -1
+          },
+          "partial": true,
+          "notes": "the STORM is not placed, and the printed minimum of 3 Atk is not enforced"
+        }
+      ]
     },
     {
       "id": "tempestuous-wrath",
       "name": "TEMPESTUOUS WRATH",
       "description": "Whenever a friendly WOLF SCOUT operative is fighting or retaliating, if it's wholly within your STORM or was wholly within your STORM at the start of the activation, its melee weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the STORM is not placed, so the rule applies wherever the operative fights"
+        }
+      ]
     },
     {
       "id": "savage-fighters",
@@ -625,25 +666,83 @@
       "id": "acute-senses",
       "name": "ACUTE SENSES",
       "description": "Use this firefight ploy when a friendly WOLF SCOUT operative performs the Shoot action and you're selecting a valid target. Until the end of that action, that friendly operative's ranged weapons have the Range 6\" and Seek Light weapon rules and enemy operatives cannot be obscured.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seeklight",
+              "saturate"
+            ]
+          },
+          "partial": true,
+          "notes": "the printed Range 6\" limit that comes with it is not simulated"
+        }
+      ]
     },
     {
       "id": "touched-by-lokyar",
       "name": "TOUCHED BY LOKYAR",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF), if it's fighting more than 5\" from other friendly operatives. You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "fight",
+            "awayFromFriends": 5
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "counterattack",
       "name": "COUNTERATTACK",
       "description": "Use this firefight ploy at the end of an enemy operative's activation, or after an enemy operative performs the Fight action. One friendly WOLF SCOUT operative can immediately perform a free Fight action, but you cannot select any other enemy operative to fight against during that action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "fight"
+          },
+          "partial": true,
+          "notes": "printed as a reaction at the end of an enemy activation; simulated as a free Fight during the Wolf Scout's own activation"
+        }
+      ]
     },
     {
       "id": "transhuman-physiology",
       "name": "TRANSHUMAN PHYSIOLOGY",
       "description": "Use this firefight ploy when an operative is shooting a friendly WOLF SCOUT operative (excluding FENRISIAN WOLF), in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "notKeyword": "fenrisian-wolf"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as upgrading a normal save to a critical; simulated as an extra defence dice"
+        }
+      ]
     }
   ],
   "equipment": [

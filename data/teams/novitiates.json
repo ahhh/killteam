@@ -823,7 +823,21 @@
       "id": "defenders-of-the-faith",
       "name": "DEFENDERS OF THE FAITH",
       "description": "Whenever an operative is shooting against, fighting against or retaliating against a friendly NOVITIATE operative that contests an objective marker, in the Resolve Attack Dice step of that sequence, you can halve the damage inflicted (rounding up and to a minimum of 2) on that friendly operative from one success.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "condition": {
+            "nearObjective": 2
+          },
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          },
+          "partial": true,
+          "notes": "printed as halving the damage from one success; simulated as 2 damage off each hit while contesting a marker"
+        }
+      ]
     },
     {
       "id": "blessed-rejuvenation",
@@ -835,7 +849,21 @@
       "id": "righteous-advance",
       "name": "RIGHTEOUS ADVANCE",
       "description": "Up to one third of the friendly NOVITIATE operatives in the killzone (rounding down, to a minimum of 1) can immediately perform a free Dash action in an order of your choice, but each that does so must end that move closer to its closest enemy operative, its closest objective marker or your opponent's drop zone (you can choose separately for each). You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed for up to a third of the team in the strategy phase; simulated as a free Dash during each activation"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -855,13 +883,44 @@
       "id": "blinding-aura",
       "name": "BLINDING AURA",
       "description": "Use this firefight ploy when an enemy operative is performing the Shoot action and selects a friendly NOVITIATE operative as the valid target. Until the end of that activation/counteraction, while that friendly operative is more than 2\" from that enemy operative, your opponent cannot select it as a valid target. If there are no other valid targets that your opponent can select, that action ends (it's not cancelled, so that operative has still performed it). Note this ploy has no effect if it's not the selected operative, e.g. if it's a secondary target from the Blast weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "shoot",
+            "targetBeyond": 2
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "hitBonus": 1
+          },
+          "partial": true,
+          "notes": "printed as making the operative untargetable beyond 2\"; simulated as a worsened Hit stat for the attacker"
+        }
+      ]
     },
     {
       "id": "guided-by-faith",
       "name": "GUIDED BY FAITH",
       "description": "Use this firefight ploy when a friendly NOVITIATE operative is performing the Shoot action and you're selecting a ranged weapon. Until the end of that action, whenever that operative is shooting an operative within 6\" of it, that weapon has the Seek Light weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seeklight"
+            ]
+          }
+        }
+      ]
     }
   ],
   "equipment": [

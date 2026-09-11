@@ -811,25 +811,96 @@
       "id": "patient-hunters",
       "name": "PATIENT HUNTERS",
       "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative is shooting against or fighting against an expended enemy operative, that friendly operative's weapons have the Balanced weapon rule and its ranged weapons have the Saturate weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "saturate"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "prepare-ambush",
       "name": "PREPARE AMBUSH",
       "description": "Place one of your Ambush markers wholly within your territory and more than 2\" from enemy operatives. Whenever a friendly XV26 STEALTH BATTLESUIT operative is shooting an enemy operative that's within 2\" of that marker, you can use this rule. If you do, remove that marker and that friendly operative's ranged weapons have the Seek weapon rule until the end of the action. In the Ready step of the next Strategy phase, if that marker is still in the killzone, remove that marker.",
-      "cost": 1
+      "cost": 1,
+      "oncePerTurningPoint": true,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seek"
+            ]
+          },
+          "partial": true,
+          "notes": "the Ambush marker is not placed; the Seek rule is granted once each turning point instead"
+        }
+      ]
     },
     {
       "id": "bonds-of-unity",
       "name": "BONDS OF UNITY",
       "description": "Whenever a friendly XV26 STEALTH BATTLESUIT operative is activated (excluding DRONE), if it's visible to and within 6\" of another friendly XV26 STEALTH BATTLESUIT operative (excluding DRONE), you can ignore any changes to that first friendly operative's APL stat and select one of the following: Ignore any changes to that first friendly operative's Move stat from being injured until the end of that activation.Ignore any changes to the Hit stat of that first friendly operative's weapons from being injured until the end of that activation.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "friendlyWithin": 6,
+            "notKeyword": "drone"
+          },
+          "effect": {
+            "type": "ignoreInjured"
+          }
+        }
+      ]
     },
     {
       "id": "holowave-countermeasures",
       "name": "HOLOWAVE COUNTERMEASURES",
       "description": "Whenever an operative is shooting a friendly XV26 STEALTH BATTLESUIT operative more than 6\" from it, in the Roll Attack Dice step, the attacker must discard one of their unresolved normal successes (or one of their critical successes if there are none). This isn't cumulative with being obscured.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "shoot",
+            "targetBeyond": 6
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": -1
+          },
+          "partial": true,
+          "notes": "printed as discarding a retained success; simulated as one fewer attack dice"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -837,7 +908,22 @@
       "id": "vectored-retro-thrusters",
       "name": "VECTORED RETRO-THRUSTERS",
       "description": "Use this firefight ploy when an enemy operative ends the Charge action within control range of a friendly XV26 STEALTH BATTLESUIT operative (excluding DRONE). Interrupt that action to use this rule. If you do, that friendly operative can immediately perform a free Fall Back action, but it cannot move more than 3\" during that action. This action cannot be prevented by your opponent's rules (taking precedence over all such rules). Then, that enemy operative can immediately perform a free Reposition action using any remaining move distance it had from that first Charge action, and can do so even if it's performed an action that prevents it from performing the Reposition action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "notKeyword": "drone"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "fall_back",
+            "unrestricted": true
+          },
+          "partial": true,
+          "notes": "printed as an interrupt when an enemy charges in; simulated as a free Fall Back during the battlesuit's own activation"
+        }
+      ]
     },
     {
       "id": "engage-jet-pack",
@@ -849,7 +935,21 @@
       "id": "ghostshroud",
       "name": "GHOSTSHROUD",
       "description": "Use this firefight ploy at the end of a friendly XV26 STEALTH BATTLESUIT operative's activation. If that operative has an Engage order, change it to Conceal. You cannot use this ploy for each friendly operative more than once per battle.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as slipping back onto a Conceal order after acting; simulated as an extra defence dice for the activation"
+        }
+      ]
     },
     {
       "id": "saviour-protocols",

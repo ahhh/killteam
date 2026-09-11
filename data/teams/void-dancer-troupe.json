@@ -512,19 +512,54 @@
       "id": "rising-crescendo",
       "name": "RISING CRESCENDO",
       "description": "Friendly VOID-DANCER TROUPE operatives can perform the Dash action during the same activation in which they performed the Charge action, but not vice versa (i.e. not DASH then CHARGE).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "dash",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "printed as permitting a Dash after a Charge; simulated as an extra Dash, which the planner only takes after closing"
+        }
+      ]
     },
     {
       "id": "prismatic-blur",
       "name": "PRISMATIC BLUR",
       "description": "Whenever an operative is shooting a friendly VOID-DANCER TROUPE operative that performed an action in which it moved during this turning point, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "whether the operative moved this turning point is not checked"
+        }
+      ]
     },
     {
       "id": "cegorach-s-jest",
       "name": "CEGORACH'S JEST",
       "description": "Whenever a friendly VOID-DANCER TROUPE operative is fighting or retaliating and your opponent strikes with a normal success, you can roll one D6: if the result is less than the Hit stat of your opponent's selected weapon, that strike is allocated to block one of your dice instead (ignore the Brutal weapon rule, if relevant) and you cannot use this rule for the rest of the sequence.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 1,
+            "perAction": "fight"
+          },
+          "partial": true,
+          "notes": "printed as a D6 roll to turn one strike into a block; simulated as 1 damage off each melee hit"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -532,7 +567,26 @@
       "id": "murderous-entrance",
       "name": "MURDEROUS ENTRANCE",
       "description": "Use this firefight ploy when a friendly VOID-DANCER TROUPE operative is fighting during an activation in which it performed the Charge action, after you strike. You can immediately resolve another of your normal successes as a strike (before your opponent), or one of your critical successes if there are none.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "shock"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as resolving a second strike out of order; simulated as the Shock weapon rule"
+        }
+      ]
     },
     {
       "id": "the-curtain-falls",
@@ -544,13 +598,39 @@
       "id": "elusive-target",
       "name": "ELUSIVE TARGET",
       "description": "Use this firefight ploy during a friendly VOID-DANCER TROUPE operative's activation. Until the start of its next activation, while that operative has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 2
+          },
+          "partial": true,
+          "notes": "printed as being untargetable in cover; simulated as two extra defence dice while concealed"
+        }
+      ]
     },
     {
       "id": "domino-field",
       "name": "DOMINO FIELD",
       "description": "Use this firefight ploy when an operative is shooting a friendly VOID-DANCER TROUPE operative, during the Resolve Defence Dice step. You can allocate one of your rolled successful dice to block all of your opponent's attack dice with matching results (e.g. one of your successful defence dice results of 5 can be used to block all successful attack dice results of 5).",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 2
+          },
+          "partial": true,
+          "notes": "printed as one save blocking every matching attack dice; simulated as two extra defence dice"
+        }
+      ]
     }
   ],
   "equipment": [

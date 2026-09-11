@@ -412,37 +412,69 @@ breakdown.
 
 ## Ploys and CP
 
-CP accrues at 1 per turning point and is spent on **strategic ploys**. A ploy
-becomes playable when its pack gives it `hooks` — the same trigger/condition/
-effect data `ruleHooks` uses — and its effects last until the end of the
-turning point that bought it.
+CP accrues at 1 per turning point, and a team can spend it in three places.
+Each ploy becomes playable when its pack gives it `hooks` — the same trigger/
+condition/effect data `ruleHooks` uses.
 
-Buying is an AI decision (`src/ai/ploys.js`): each ploy is priced by what its
-hooks do, scaled by the share of the living roster that can use them and by the
-team's disposition, so an aggressive melee team buys its melee buff and a
-gunline saves the CP. Conditional ploys are discounted by how often the
-condition is likely to hold, which stops a narrow ploy from being valued like a
-team-wide one. The initiative winner buys first.
+- **Strategic ploys** are bought in the strategy phase and last the turning
+  point, reaching the whole team. The initiative winner buys first.
+- **Firefight ploys with `timing: "activation"`** are bought during one
+  operative's activation as a 0-AP action, and their hooks are scoped to that
+  operative until its activation ends. This is the CP that buys a second Fight
+  action, a heavier swing, an extra point of APL, or a free Dash.
+- **Firefight ploys with `timing: "defence"`** are reactions, bought inside the
+  attack they answer. There is no action layer in the middle of a dice roll, so
+  these follow one published policy (`rules/ploys.js`): at most one per
+  sequence, paid out of the reaction budget the team's doctrine set aside, and
+  only against an attack that clears the doctrine's trigger. `onIncomingAttack`
+  exists for them — it fires before the attack dice are rolled, which is the
+  only window in which "your opponent cannot re-roll their attack dice" means
+  anything.
 
-Every purchase is re-checked by the rules layer, so an unaffordable or
-duplicate pick proposed by the AI is rejected and logged rather than trusted.
+Every purchase is re-checked by the rules layer, so an unaffordable, duplicate
+or mistimed pick proposed by the AI is rejected and logged rather than trusted.
 
-A ploy with no `hooks` is reported once at battle start and never used — see
-"Not implemented" below for which kinds those are.
+### Deciding what CP is for
+
+Pricing one ploy is `src/ai/ploys.js`: what its hooks do, scaled by the share
+of the living roster that can use them and by the team's disposition, with
+conditional ploys discounted by how often the condition is likely to hold.
+
+Deciding whether to spend at all is `src/ai/cp.js`, and it is a per-team
+DOCTRINE — `vanguard`, `gunline`, `raider`, `bulwark` or `tactician` — derived
+from the ploys a pack actually declares plus its disposition, overridable with
+`aiCpDoctrine`. The doctrine answers four questions each turning point: how
+picky to be about strategic ploys, how much to hold back for the fighting, what
+an in-activation ploy has to be worth, and how much is reserved to answer an
+attack.
+
+The strategy phase asks for CP first every turning point, and at one point of
+income that means it would get everything — so the doctrine prices the
+opportunity cost: a strategic ploy has to beat the action ploy some operative
+could buy three activations from now, or the reaction that could save an
+operative on the opponent's turn. That is what makes a Blades of Khaine team
+hold a point for BLADEWIND while a Death Korps team commits it to a team-wide
+buff, and why the last turning point of a scoring mission empties every hand.
+
+The plan is written onto the player as `cpPlan` and logged (developer log), so
+the battle log says what each team meant to do with its CP and why.
 
 ## Not implemented
 
 These are recognised and reported, not simulated:
 
-- Firefight ploys — their timing is reactive ("use this when an attack dice
-  inflicts Normal Dmg"), which needs an interrupt the turn machine does not
-  have. Catalogued, costed and reported, never fired.
+- Ploys whose printed wording has no expression in the hook vocabulary —
+  swapping two operatives' positions, interrupting an opponent's activation,
+  cancelling an opponent's ploy, redirecting a shot onto a bodyguard. Roughly
+  a third of the printed ploys; each is named once at battle start rather than
+  approximated.
 - Equipment — chosen before the battle, and there is no pre-battle selection
   step. Catalogued and reported.
-- Strategic ploys whose printed condition has no expression in the hook
-  vocabulary (team-specific state such as GORE TANK, SERMON or TUNNEL, or
-  board state such as markers the engine does not place). Reported per ploy at
-  battle start rather than approximated.
+- Board state several ploys are printed against — the OBELISK NODE MATRIX, the
+  STORM, a TUNNEL, a Claim or Attack Order marker. Where a ploy leans on one,
+  the hook is marked `partial` and its `notes` say what was approximated (an
+  objective marker standing in for a placed marker, for instance); the notice
+  appears in the battle log's warnings.
 - Operative abilities (unique actions are carried as data but not performable)
 - The 40 teams' faction rules listed as reference-only above
 - Vantage points and elevation — `height` is stored but does not affect LOS

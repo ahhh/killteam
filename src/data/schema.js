@@ -54,6 +54,7 @@ export const KNOWN_HOOK_TRIGGERS = [
   'beforeDamageApplied',
   'onActivationStart',
   'onActionLegality',
+  'onIncomingAttack',
   'onActivationEnd',
   'onTurningPointStart',
   'onDamageApplied',

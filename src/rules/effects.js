@@ -50,7 +50,7 @@ export function isInjured(op) {
 export function effectiveApl(op) {
   return Math.max(1, op.apl
     + (op.aplBonus || 0)
-    - (isInjured(op) ? 1 : 0)
+    - (isInjured(op) && !op.ignoresInjured ? 1 : 0)
     - (isStunned(op) ? 1 : 0)
     - (op.aplPenaltyThisActivation || 0));
 }
@@ -88,7 +88,7 @@ export function applyStun(state, op, source = {}) {
  * operative is still only 1 worse, and the two combine with `max`, not `+`.
  */
 export function hitModifierFor(op) {
-  const injured = isInjured(op) ? 1 : 0;
+  const injured = isInjured(op) && !op.ignoresInjured ? 1 : 0;
   const fromTokens = tokenHitPenalty(op);
   if (!fromTokens) return injured;
   return tokenHitPenaltyIsCapped(op)
@@ -101,7 +101,7 @@ export function hitModifierFor(op) {
  * takes 2" off it for as long as its token is held.
  */
 export function effectiveMove(op) {
-  return Math.max(0, op.move + tokenMoveDelta(op));
+  return Math.max(0, op.move + tokenMoveDelta(op) + (op.moveBonusThisActivation || 0));
 }
 
 export function addStatus(op, status) {

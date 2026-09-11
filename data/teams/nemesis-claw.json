@@ -756,19 +756,60 @@
       "id": "the-black-hunt",
       "name": "THE BLACK HUNT",
       "description": "Whenever a friendly NEMESIS CLAW operative is shooting against, fighting against or retaliating against a wounded enemy operative, you can re-roll one of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "preysight",
       "name": "PREYSIGHT",
       "description": "Whenever a friendly NEMESIS CLAW operative performs the Shoot action, you can use this rule. If you do, until the end of that action, that friendly operative's ranged weapons have the Range 6\" and Seek Light weapon rules.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seeklight"
+            ]
+          },
+          "partial": true,
+          "notes": "the printed Range 6\" limit that comes with it is not simulated"
+        }
+      ]
     },
     {
       "id": "return-to-darkness",
       "name": "RETURN TO DARKNESS",
       "description": "One friendly NEMESIS CLAW operative can immediately perform a free Fall Back or Reposition action, but it must end that move with Heavy terrain within its control range, or any part of its base underneath Vantage terrain. In addition, it cannot move more than 4\" during that action and it cannot end that move closer to enemy operatives (in a killzone that uses the close quarters rules, e.g. Killzone: Tomb World, ignore Wall terrain when determining this).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "reposition"
+          },
+          "partial": true,
+          "notes": "printed as one immediate 4\" move into cover away from the enemy; the destination restrictions are not enforced"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -782,13 +823,41 @@
       "id": "death-to-the-false-emperor",
       "name": "DEATH TO THE FALSE EMPEROR",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly NEMESIS CLAW operative, if it's shooting against, fighting against or retaliating against an enemy operative that has the IMPERIUM keyword. That friendly operative's weapons have the Ceaseless weapon rule until the end of that sequence; if that enemy operative also has the IMPERIUM ADEPTUS ASTARTES keyword, that friendly operative's weapons have the Relentless weapon rule until the end of that sequence instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetKeyword": "imperium"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the upgrade to Relentless against ADEPTUS ASTARTES is not simulated"
+        }
+      ]
     },
     {
       "id": "proclivity-for-murder",
       "name": "PROCLIVITY FOR MURDER",
       "description": "Use this firefight ploy after a friendly NEMESIS CLAW operative incapacitates an enemy operative within its control range. That friendly operative can immediately perform a free Charge or Dash action (for the former, it cannot move more than 3\"), even if it's performed an action that prevents it from performing those actions.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "dash",
+            "unrestricted": true
+          },
+          "partial": true,
+          "notes": "printed as a free Charge or Dash after a kill; simulated as a free Dash available throughout the activation"
+        }
+      ]
     },
     {
       "id": "dirty-fighter",

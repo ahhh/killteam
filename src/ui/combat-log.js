@@ -6,7 +6,7 @@
  */
 import { describeEvent } from '../replay/recorder.js';
 
-const DEV_ONLY = new Set(['AI_PLAN', 'ACTIVATION_ENDED', 'CP_GAINED', 'DEPLOYED']);
+const DEV_ONLY = new Set(['AI_PLAN', 'ACTIVATION_ENDED', 'CP_GAINED', 'DEPLOYED', 'CP_PLAN']);
 
 function classFor(event) {
   switch (event.type) {
@@ -19,7 +19,9 @@ function classFor(event) {
     case 'VP_AWARDED':
     case 'OBJECTIVE_SCORED': return 'score';
     case 'WARNING': return 'warn';
-    case 'AI_PLAN': return 'plan';
+    case 'AI_PLAN':
+    case 'CP_PLAN': return 'plan';
+    case 'PLOY_USED': return 'ploy';
     case 'RULE_APPLIED': return 'rule';
     default: return event.playerId || '';
   }

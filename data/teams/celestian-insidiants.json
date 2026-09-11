@@ -586,7 +586,23 @@
       "id": "suspect-eliminate",
       "name": "SUSPECT & ELIMINATE",
       "description": "Select one enemy operative or marker. If you select an enemy operative, that operative and each other enemy operative visible to and within 2\" of it gains one of your Suspicion tokens until the end of the turning point. If you selected a marker, each enemy operative contesting that marker gains one of your Suspicion tokens until the end of the turning point. Whenever a friendly CELESTIAN INSIDIANT operative is shooting against or fighting against an operative that has one of your Suspicion tokens, that friendly operative's weapons have the Punishing weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWithin": 8
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          },
+          "partial": true,
+          "notes": "Suspicion tokens are not placed; simulated as enemies close enough to have been marked"
+        }
+      ]
     },
     {
       "id": "suffering-sacrifice",
@@ -612,13 +628,37 @@
       "id": "wrathful-determination",
       "name": "WRATHFUL DETERMINATION",
       "description": "Whenever an operative is shooting a friendly CELESTIAN INSIDIANT operative that has an Engage order, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "holy-resilience",
       "name": "HOLY RESILIENCE",
       "description": "Whenever an INSPIRING friendly CELESTIAN INSIDIANT operative is fighting or retaliating, Normal and Critical Dmg of 4 or more inflicts 1 less damage on that friendly operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 1,
+            "perAction": "fight"
+          },
+          "partial": true,
+          "notes": "the INSPIRING condition is not simulated, and the reduction applies to any melee damage rather than only 4+"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -632,7 +672,18 @@
       "id": "unshakeable-pursuit",
       "name": "UNSHAKEABLE PURSUIT",
       "description": "Use this firefight ploy during a friendly CELESTIAN INSIDIANT operative's activation, before or after it performs an action. Until the end of that operative's activation, you can ignore any changes to its Move stat. If that operative is INSPIRING, add 1\" to its Move stat until the end of that activation. If that operative becomes INSPIRING by performing the Charge action, you can use this ploy before it moves to gain the additional movement (this takes precedence over stats not changing during an action).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          },
+          "partial": true,
+          "notes": "the INSPIRING condition and the \"ignore changes to Move\" half are not simulated"
+        }
+      ]
     },
     {
       "id": "faith-fury",
@@ -644,7 +695,23 @@
       "id": "fervent-hate",
       "name": "FERVENT HATE",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly CELESTIAN INSIDIANT operative, if it's shooting against, fighting against or retaliating against an enemy operative that doesn't have the IMPERIUM keyword. That friendly operative's weapons have the Ceaseless weapon rule until the end of that sequence; if that enemy operative also has the CHAOS and/or PSYKER keyword, that friendly operative's weapons have the Relentless weapon rule until the end of that sequence instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetNotKeyword": "imperium"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the upgrade to Relentless against CHAOS or PSYKER targets is not simulated"
+        }
+      ]
     }
   ],
   "equipment": [

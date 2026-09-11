@@ -128,8 +128,15 @@ export function describeEvent(e) {
     case 'TURN_ENDED':
       return `Turning Point ${e.turningPoint} ends. VP ${e.vp.p1}–${e.vp.p2}.`;
     case 'GAME_ENDED': return e.summary;
-    case 'PLOY_USED':
-      return `${e.playerId} uses ${e.ployName} for ${e.cost} CP (${e.cpRemaining} left).`;
+    case 'PLOY_USED': {
+      const who = e.operativeName ? ` on ${e.operativeName}` : '';
+      const when = e.kind === 'firefight'
+        ? (e.timing === 'defence' ? ' as a reaction' : ' mid-activation')
+        : '';
+      return `${e.playerId} uses ${e.ployName}${who} for ${e.cost} CP${when} (${e.cpRemaining} left).`;
+    }
+    case 'CP_PLAN':
+      return `${e.playerId} CP plan — ${e.rationale}`;
     case 'RULE_APPLIED':
       return `${e.rule}: ${e.operativeName ? `${e.operativeName} ` : ''}${e.detail}.`;
     case 'AI_PLAN': return `${e.operativeName} plans: ${e.rationale.join(' · ')}`;

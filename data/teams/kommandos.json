@@ -810,7 +810,20 @@
       "id": "sssshhhh",
       "name": "SSSSHHHH!",
       "description": "Each friendly KOMMANDO operative that's not a valid target for enemy operatives, or has a Conceal order and is more than 6\" from enemy operatives, can immediately perform a free Dash action. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "orderIs": "conceal",
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -818,25 +831,77 @@
       "id": "just-a-scratch",
       "name": "JUST A SCRATCH",
       "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly KOMMANDO operative (excluding BOMB SQUIG and GROT). Ignore that inflicted damage.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 3
+          },
+          "partial": true,
+          "notes": "printed as ignoring one attack dice's Normal Dmg; simulated as 3 damage shrugged off"
+        }
+      ]
     },
     {
       "id": "krump-em",
       "name": "KRUMP 'EM!",
       "description": "Use this firefight ploy at the end of the Firefight phase. Select one friendly KOMMANDO operative. It can immediately perform a free Fight action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "fight"
+          },
+          "partial": true,
+          "notes": "printed at the end of the Firefight phase; simulated as a free Fight during the chosen operative's activation"
+        }
+      ]
     },
     {
       "id": "kunnin-but-brutal",
       "name": "KUNNIN' BUT BRUTAL",
       "description": "Use this firefight ploy when a friendly KOMMANDO operative that has a Conceal order is fighting during an activation in which it performed the Charge action, you're resolving the first attack dice, and it's a strike with a normal success. Treat that normal success as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as upgrading the first strike after a concealed charge; simulated as Rending"
+        }
+      ]
     },
     {
       "id": "shake-it-off",
       "name": "SHAKE IT OFF",
       "description": "Use this firefight ploy when a friendly KOMMANDO operative is activated, or when its APL stat is changed. Until the start of the next turning point, you can ignore any changes to its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          },
+          "partial": true,
+          "notes": "printed as ignoring every change to its APL; simulated as ignoring the injured penalty"
+        }
+      ]
     }
   ],
   "equipment": [

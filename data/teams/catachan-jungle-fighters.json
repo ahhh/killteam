@@ -876,25 +876,82 @@
       "id": "infiltrate",
       "name": "INFILTRATE",
       "cost": 1,
-      "description": "Friendly CATACHAN operatives that are not within Line of Sight of enemy operatives, or have a Conceal order and are more than 6\" from enemy operatives, can immediately perform a free Dash action. You can only use this Strategic Ploy once."
+      "description": "Friendly CATACHAN operatives that are not within Line of Sight of enemy operatives, or have a Conceal order and are more than 6\" from enemy operatives, can immediately perform a free Dash action. You can only use this Strategic Ploy once.",
+      "oncePerBattle": true,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as one immediate Dash for the whole team; simulated as a free Dash for each concealed operative that activates this turning point"
+        }
+      ]
     },
     {
       "id": "suppressive-fire",
       "name": "SUPPRESSIVE FIRE",
       "cost": 1,
-      "description": "Until the end of the Turning Point, each time a friendly CATACHAN operative makes a shooting attack, in the Roll Attack Dice step of that shooting attack, if you retain any critical hits, you can select one of your failed hits to be retained as a successful normal hit."
+      "description": "Until the end of the Turning Point, each time a friendly CATACHAN operative makes a shooting attack, in the Roll Attack Dice step of that shooting attack, if you retain any critical hits, you can select one of your failed hits to be retained as a successful normal hit.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "feed-the-fang",
       "name": "FEED THE FANG",
       "cost": 1,
-      "description": "Until the end of the Turning Point, each time a friendly CATACHAN operative fights in combat, in the Roll Attack Dice step of that combat, if you retain two or more normal hits, you can select one of those hits to be retained as a critical hit instead."
+      "description": "Until the end of the Turning Point, each time a friendly CATACHAN operative fights in combat, in the Roll Attack Dice step of that combat, if you retain two or more normal hits, you can select one of those hits to be retained as a critical hit instead.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "stealth-operator",
       "name": "STEALTH OPERATOR",
       "cost": 1,
-      "description": "Until the end of the Turning Point, each time a shooting attack is made against a friendly CATACHAN operative, before rolling defence dice for that shooting attack, if it has a Conceal order, you can retain one as a successful normal save without rolling it."
+      "description": "Until the end of the Turning Point, each time a shooting attack is made against a friendly CATACHAN operative, before rolling defence dice for that shooting attack, if it has a Conceal order, you can retain one as a successful normal save without rolling it.",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as retaining one save without rolling it; simulated as an extra defence dice"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -902,13 +959,36 @@
       "id": "just-a-scratch",
       "name": "JUST A SCRATCH",
       "cost": 1,
-      "description": "Use this Tactical Ploy in the Resolve Successful Hits step of a shooting attack or combat, when damage would be inflicted on a friendly CATACHAN (excluding ZIPPER REIN) operative from an attack dice. Ignore the damage inflicted from that attack dice."
+      "description": "Use this Tactical Ploy in the Resolve Successful Hits step of a shooting attack or combat, when damage would be inflicted on a friendly CATACHAN (excluding ZIPPER REIN) operative from an attack dice. Ignore the damage inflicted from that attack dice.",
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 3
+          },
+          "partial": true,
+          "notes": "printed as ignoring the damage from one attack dice; simulated as 3 damage shrugged off"
+        }
+      ]
     },
     {
       "id": "jungle-warrior",
       "name": "JUNGLE WARRIOR",
       "cost": 1,
-      "description": "Use this Tactical Ploy at the end of the Firefight Phase. Select one friendly CATACHAN operative. It can perform a free Fight action."
+      "description": "Use this Tactical Ploy at the end of the Firefight Phase. Select one friendly CATACHAN operative. It can perform a free Fight action.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "fight"
+          },
+          "partial": true,
+          "notes": "printed at the end of the Firefight phase; simulated as a free Fight during the chosen operative's activation"
+        }
+      ]
     },
     {
       "id": "tactical-insertion",

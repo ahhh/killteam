@@ -334,19 +334,72 @@ A ploy with **no** `hooks` is not an error — it is one this engine cannot play
 It stays in the catalogue, and `rules/ploys.js` reports it once at battle start
 so an absent rule is visible rather than silently missing.
 
-**Firefight ploys are not simulated.** Their printed timing is reactive ("use
-this when an attack dice inflicts Normal Dmg on a friendly operative"), which
-needs an interrupt the turn machine does not have. They are catalogued, costed
-and reported; declaring `hooks` on one raises a validator warning rather than
-quietly firing it at the wrong moment.
+A **firefight ploy** is bought during the fighting rather than before it, and
+says which window it belongs to with `timing`:
 
-**Equipment is not simulated** either: it is chosen before the battle, and the
-engine has no pre-battle selection step. Each item is reported at battle start.
+| `timing` | When it is bought | Which triggers still fire |
+|---|---|---|
+| `activation` (default) | During a friendly operative's activation, as a 0-AP `{"type":"ploy"}` action the AI plans and the action layer validates | `onActivationStart` (replayed at purchase), `onActionLegality`, and every attack trigger for the rest of the activation |
+| `defence` | When that operative is attacked — a reaction, bought inside somebody else's sequence | `onIncomingAttack`, `beforeDefenceRoll`, `beforeDamageApplied` |
+
+```jsonc
+{
+  "id": "bladewind",
+  "name": "BLADEWIND",
+  "cost": 1,
+  "timing": "activation",         // default; "defence" for a reaction
+  "scope": "operative",           // default; "team" buffs the whole team for that activation
+  "oncePerTurningPoint": false,   // optional, alongside oncePerBattle
+  "description": "During that activation, that operative can perform two Fight actions.",
+  "hooks": [{
+    "trigger": "onActionLegality",
+    "effect": { "type": "extraAction", "action": "fight", "count": 1 }
+  }]
+}
+```
+
+An activation ploy's hooks are scoped to the operative that paid for it and
+lapse when its activation ends. A reaction lasts the sequence it was bought
+against, so one ploy may both add defence dice and blunt the damage that gets
+through.
+
+A reaction has no action layer to ask — there is no AI turn inside an attack —
+so `rules/ploys.js` follows one published policy: at most one reaction per
+sequence, funded by the `reactionBudget` the controller's CP doctrine wrote
+onto the player, and taken only when the attack clears the doctrine's
+`reactionTrigger` (`always`, `wounded`, or `lethal`, which projects the
+attack's damage against the defender's remaining wounds).
+
+**Equipment is not simulated**: it is chosen before the battle, and the engine
+has no pre-battle selection step. Each item is reported at battle start.
 
 The AI values a ploy by what its hooks do, weighted by the share of the roster
 that can use them and the team's disposition (`src/ai/ploys.js`), so a melee
-buff is bought by a team that reaches melee and skipped by a gunline. Nothing
-there is tuned per team: a new ploy gets a sensible valuation from its data.
+buff is bought by a team that reaches melee and skipped by a gunline. A
+firefight ploy is priced for the plan it would buy — a second Fight action is
+worth a CP to an operative that is charging and nothing to one about to shoot.
+Nothing there is tuned per team: a new ploy gets a sensible valuation from its
+data.
+
+### Command Point doctrine (`aiCpDoctrine`)
+
+How much CP a team is willing to let go of, and when, is chosen by
+`src/ai/cp.js`. It is derived from the ploys a pack declares and the team's
+disposition, so a pack needs no field at all; `aiCpDoctrine` overrides it with
+a name (`vanguard`, `gunline`, `raider`, `bulwark`, `tactician`) or an inline
+block of the same knobs.
+
+| Doctrine | Plays CP as |
+|---|---|
+| `vanguard` | Holds it for the fight: a strategic ploy has to beat the second Fight action the same point could buy mid-charge |
+| `gunline` | Buys the turning point it can shoot through, and keeps a point in hand |
+| `raider` | Banks early, empties its hand on the turning point it commits |
+| `bulwark` | Keeps CP to answer the attack that would take an operative off the board |
+| `tactician` | Takes the best buy each turning point |
+
+The doctrine is re-planned every turning point and stored on the player as
+`cpPlan`, which is what lets the rules layer spend a reaction's CP without an
+AI in the loop.
 
 ### Support levels (§10)
 
@@ -356,7 +409,7 @@ there is tuned per team: a new ploy gets a sensible valuation from its data.
 | 1 | Core stats and basic weapons | Core compatible |
 | 2 | Roster restrictions | Core compatible |
 | 3 | Faction rules (via `ruleHooks` or `resources`) and core operative abilities | Mostly supported |
-| 4 | Strategic ploys wired up via `hooks` | Mostly supported |
+| 4 | Ploys wired up via `hooks` — strategic, and firefight ploys with a `timing` | Mostly supported |
 | 5 | Full supported team behaviour | Full engine support |
 
 Declare the level you actually implement. The validator warns when a pack

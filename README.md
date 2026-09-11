@@ -103,6 +103,7 @@ src/
     team-rules.js     the asterisked, team-specific weapon rules
     tokens.js         Poison, Blaze, Mindburn and the rest of the token family
     resources.js      team resource economies: Pain tokens, GORE TANKs, Blooded
+    ploys.js          the CP economy: strategic, in-activation and reactive ploys
     objectives.js     objective control and mission scoring
     effects.js        damage, incapacitation, injured and stunned states
     terrain.js        terrain traits
@@ -113,6 +114,8 @@ src/
     movement.js       candidate destination generation
     tactics.js        faction disposition and per-unit tactics
     spending.js       when to spend a team resource, and on what
+    ploys.js          pricing a ploy for a team, and for one activation
+    cp.js             the Command Point doctrine each team plays to
   data/               schema, validators, loader
   maps/geometry.js    all geometry, in inches
   replay/             replay capture, verification, batch harness
@@ -169,7 +172,17 @@ Milestones 0–6 of `plan.md` are implemented and tested:
 - ✅ Replay capture and verification, batch balance harness
 
 Not yet built: procedural map generation (Milestone 6's generator), the
-Mapforge adapter (Milestone 7), and ploys/equipment/operative abilities.
+Mapforge adapter (Milestone 7), equipment, and operative unique actions.
+
+**Command Points are a real economy.** A team spends CP three ways — strategic
+ploys in the strategy phase, firefight ploys bought mid-activation as a 0-AP
+action, and reactions bought inside an attack somebody else declared — and each
+team runs a CP *doctrine* (`src/ai/cp.js`) derived from the ploys its pack
+declares and the way it fights. A vanguard team holds its point for the second
+Fight action; a gunline commits it to the turning point it can shoot through; a
+raider banks early and empties its hand when it commits; a bulwark team keeps
+it to answer the shot that would kill an operative. 300 of the 415 printed
+ploys are wired up; the rest are named at battle start as unsimulated.
 
 Faction rules now run through a declarative `ruleHooks` layer — 16 rules across
 14 teams, which declare `supportLevel: 3`. The other 40 transcribed teams carry

@@ -968,13 +968,44 @@
       "id": "guilt-reveals-itself",
       "name": "GUILT REVEALS ITSELF",
       "description": "Whenever you're selecting a valid target for a friendly EXACTION SQUAD operative, enemy operatives within 4\" of it cannot be in cover (instead of 2\"). While this can allow such operatives to be targeted (assuming they're visible), it doesn't remove their cover save (if any), unless the friendly EXACTION SQUAD operative is within 2\" as normal.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot",
+            "targetWithin": 4
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seek"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as denying cover for target selection only; simulated as the Seek weapon rule"
+        }
+      ]
     },
     {
       "id": "inviolate-jurisdiction",
       "name": "INVIOLATE JURISDICTION",
       "description": "Whenever an operative is shooting a friendly EXACTION SQUAD operative that's within 2\" of an objective marker or an enemy operative, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "nearObjective": 2
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the \"within 2\\\" of an enemy operative\" half is not simulated"
+        }
+      ]
     },
     {
       "id": "dispense-justice",
@@ -1038,7 +1069,18 @@
       "id": "brutal-backup",
       "name": "BRUTAL BACKUP",
       "description": "Use this firefight ploy during a friendly EXACTION SQUAD operative's activation, before or after it performs an action. Select one enemy operative within its control range. One other friendly EXACTION SQUAD operative can immediately perform a free Fight action, but you cannot select any other enemy operative to fight against during that action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "fight"
+          },
+          "partial": true,
+          "notes": "printed as a free Fight for a different operative; simulated as a free Fight for the one that pays the CP"
+        }
+      ]
     },
     {
       "id": "execution-order",

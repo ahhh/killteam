@@ -490,13 +490,35 @@
       "id": "writhe-out-of-sight",
       "name": "WRITHE OUT OF SIGHT",
       "description": "Select one friendly RAVENER operative in the killzone. That friendly operative can immediately perform a free Burrow action. If it's within 2\" of your TUNNEL, it can immediately perform a free Fall Back or Reposition action before it does so.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "reposition"
+          },
+          "partial": true,
+          "notes": "the Burrow action and the TUNNEL are not simulated; the free move is what remains"
+        }
+      ]
     },
     {
       "id": "tunnel-lurkers",
       "name": "TUNNEL LURKERS",
       "description": "Whenever a friendly RAVENER operative is on your TUNNEL it's in cover, unless it's within 2\" of the active operative. Treat this as cover provided by Light terrain (therefore it's affected by rules that prevent this, e.g. Seek Light and Vantage terrain).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "the TUNNEL is not placed; simulated as the cover it would provide"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -504,7 +526,19 @@
       "id": "slithering-evasion",
       "name": "SLITHERING EVASION",
       "description": "Use this firefight ploy during a friendly RAVENER operative's activation or counteraction, before or after it performs an action. During that activation/ counteraction, that operative can: Perform the Fall Back action for 1 less AP.Perform the Charge action while within control range of an enemy operative, and can leave that operative's control range to do so (but then normal requirements for that move apply).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "the half that lets it Charge out of control range is not simulated"
+        }
+      ]
     },
     {
       "id": "subterranean-horror",
@@ -516,7 +550,22 @@
       "id": "burrowing-strike",
       "name": "BURROWING STRIKE",
       "description": "Use this firefight ploy when a friendly RAVENER operative performs the Burrow action. Before that operative is removed from the killzone, or after setting it up on your TUNNEL, inflict D3+1 damage on each enemy operative within its control range (roll separately for each). You cannot use this ploy in the Strategy phase, or during a FELLTALON operative's activation or counteraction if it performs the Toxic Lunge action (and vice versa).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageNormal": 1,
+            "damageCritical": 1
+          },
+          "partial": true,
+          "notes": "printed as D3+1 damage on emerging from the TUNNEL, which is not simulated; the violence is kept as a heavier melee profile"
+        }
+      ]
     },
     {
       "id": "death-frenzy",

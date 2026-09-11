@@ -1239,25 +1239,96 @@
       "id": "debilitating-irradiation",
       "name": "DEBILITATING IRRADIATION",
       "description": "Whenever an enemy operative is shooting against, fighting against or retaliating against a friendly HUNTER CLADE VANGUARD operative, if that enemy operative is under the effects of the Rad-Saturation rule (see VANGUARD operatives), subtract 1 from the Normal Dmg stat of its weapons (to a minimum of 3).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "keyword": "vanguard"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageNormal": -1
+          },
+          "partial": true,
+          "notes": "the Rad-Saturation condition and the printed minimum of 3 damage are not simulated"
+        }
+      ]
     },
     {
       "id": "neurostatic-interference",
       "name": "NEUROSTATIC INTERFERENCE",
       "description": "Whenever an enemy operative within 6\" of a friendly HUNTER CLADE INFILTRATOR operative is shooting, fighting or retaliating, your opponent cannot re-roll their attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "friendlyWithin": 6
+          },
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "balanced",
+              "ceaseless",
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "the INFILTRATOR keyword is not checked; any friendly operative within 6\" stands in for one"
+        }
+      ]
     },
     {
       "id": "scouting-protocol",
       "name": "SCOUTING PROTOCOL",
       "description": "Each friendly HUNTER CLADE RANGER operative that has a Conceal order and is more than 6\" from enemy operatives can immediately perform a free Dash action in an order of your choice. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "ranger",
+            "orderIs": "conceal",
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate Dash in the strategy phase; simulated as a free Dash during the Ranger's activation"
+        }
+      ]
     },
     {
       "id": "accelerant-agents",
       "name": "ACCELERANT AGENTS",
       "description": "During each friendly HUNTER CLADE RUSTSTALKER operative's activation, it can perform two Fight actions, and one of them can be free.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "condition": {
+            "keyword": "ruststalker"
+          },
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        },
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "ruststalker"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "fight"
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -1277,13 +1348,48 @@
       "id": "command-override",
       "name": "COMMAND OVERRIDE",
       "description": "Use this firefight ploy when you activate a friendly HUNTER CLADE operative. Select a DOCTRINA IMPERATIVE for that operative to have instead of its current one (if any) until the Ready step of the next Strategy phase.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          },
+          "partial": true,
+          "notes": "simulated as switching to the Protector imperative; the other DOCTRINA IMPERATIVES are not offered"
+        }
+      ]
     },
     {
       "id": "omnissiah-s-imperative",
       "name": "OMNISSIAH'S IMPERATIVE",
       "description": "Use this firefight ploy during a friendly HUNTER CLADE operative's activation. Alternatively, use it when an enemy operative is shooting a friendly HUNTER CLADE operative, at the end of the Roll Attack Dice step. Until the Ready step of the next Strategy phase, that friendly operative has an additional rule determined by its current DOCTRINA IMPERATIVE as follows: Protector: This operative's ranged weapons have the Severe weapon rule. Conqueror: Whenever this operative is fighting, after resolving your first attack dice during that sequence, you can immediately resolve another (before your opponent).Bulwark: Improve this operative's Save stat by 1. In addition, whenever an operative is shooting this operative, you can collect and roll one additional defence dice. If you use this ploy during a Shoot action, this operative's Save stat is changed immediately (this takes precedence over the core rules).Aggressor: You can ignore the first vertical distance of 2\" this operative moves during one climb up.Neutral: None.Note that you can use this ploy after rolling attack or defence dice for this operative, or before or after retaining or re-rolling those dice.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifySave",
+            "delta": -1
+          },
+          "partial": true,
+          "notes": "simulated as the Bulwark imperative; the other DOCTRINA IMPERATIVES are not offered"
+        },
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          }
+        }
+      ]
     }
   ],
   "equipment": [

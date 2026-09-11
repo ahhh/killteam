@@ -632,27 +632,71 @@
   "firefightPloys": [
     {
       "id": "bladewind1cp",
-      "name": "BLADEWIND1CP",
+      "name": "BLADEWIND",
       "description": "Use this firefight ploy during a friendly BLADES OF KHAINE operative's activation. During that activation, that operative can perform two Fight actions.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "starfall1cp",
-      "name": "STARFALL1CP",
+      "name": "STARFALL",
       "description": "Use this firefight ploy during a friendly BLADES OF KHAINE operative's activation. During that activation, that operative can perform two Shoot actions.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "shoot",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "fading-light1cp",
-      "name": "FADING LIGHT1CP",
+      "name": "FADING LIGHT",
       "description": "Use this firefight ploy during a friendly BLADES OF KHAINE operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "contempt1cp",
-      "name": "CONTEMPT1CP",
+      "name": "CONTEMPT",
       "description": "Use this firefight ploy when a friendly BLADES OF KHAINE operative is retaliating or an enemy operative is shooting it, after your opponent rolls their attack dice, but before re-rolls. Until the end of the sequence, your opponent cannot re-roll their attack dice (if your opponent declared the use of any firefight ploys during that sequence that would allow them to re-roll, that ploy is cancelled and the CP spent on it is refunded).",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "balanced",
+              "ceaseless",
+              "relentless"
+            ]
+          }
+        }
+      ]
     }
   ],
   "equipment": [

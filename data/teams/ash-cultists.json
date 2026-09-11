@@ -174,8 +174,73 @@
       ]
     }
   ],
-  "strategicPloys": [],
-  "firefightPloys": [],
+  "strategicPloys": [
+    {
+      "id": "endless-numbers",
+      "name": "ENDLESS NUMBERS",
+      "cost": 1,
+      "description": "You can ignore the effects of being injured for friendly ASH LEGION operatives until the end of the turning point.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fanatic-surge",
+      "name": "FANATIC SURGE",
+      "cost": 1,
+      "description": "Each friendly ASH LEGION operative can perform a free Dash action during its activation this turning point. You cannot use this ploy during the first turning point.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          }
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "frenzied-rush",
+      "name": "FRENZIED RUSH",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly ASH LEGION operative's activation. Until the end of that activation, add 1 to its APL stat.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "press-of-bodies",
+      "name": "PRESS OF BODIES",
+      "cost": 1,
+      "description": "Use this firefight ploy when an attack dice inflicts damage on a friendly ASH LEGION operative. Subtract 2 from that inflicted damage.",
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          }
+        }
+      ]
+    }
+  ],
   "equipment": [],
   "ruleHooks": []
 }

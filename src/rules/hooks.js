@@ -15,10 +15,11 @@ import { isWithinShadow } from './terrain.js';
 import { liveOperatives } from '../state.js';
 import { baseDistance } from '../maps/geometry.js';
 import { traceSight } from './visibility.js';
+import { hasToken } from './tokens.js';
 // effects.js imports this module in turn. The cycle resolves because
 // `isInjured` is a hoisted function declaration; keep it one.
 import { isInjured } from './effects.js';
-import { activePloyHooks } from './ploys.js';
+import { activePloyHooks, reactiveDefenceHooks } from './ploys.js';
 
 /** Condition keys a hook may use. Anything else is reported and fails closed. */
 export const HOOK_CONDITIONS = [
@@ -50,6 +51,11 @@ export const HOOK_CONDITIONS = [
   'awayFromFriends',            // more than x" from every other friendly
   'targetReady',                // target is yet to activate (expended = false)
   'selfReady',
+  'hasToken',                   // this operative holds one of our own tokens
+  'targetHasToken',             // the other operative holds one of our tokens
+  'friendlyWithin',             // another friendly is within x"
+  'nearObjective',              // this operative is within x" of an objective
+  'turningPointAtLeast',        // the battle has reached turning point x
 ];
 
 /** Effect types the engine knows how to apply. */
@@ -59,12 +65,19 @@ export const HOOK_EFFECTS = {
   modifyDefenceDice: 'Add or remove defence dice.',
   modifySave: 'Improve or worsen the Save stat for this defence roll.',
   capDamage: 'Cap the damage a single action may inflict on this operative.',
+  reduceDamage: 'Subtract from the damage a single action inflicts on this operative.',
   healWounds: 'Regain lost wounds, up to a dice expression.',
   allowChargeWhileConceal: 'Charge without needing an Engage order.',
   extraAction: 'Allow one action type to be performed more than once per activation.',
   freeAction: 'Grant one action per activation that costs no AP.',
   grantAllyApl: 'Add APL to a friendly operative when this one is activated.',
   rerollDefenceDice: 'Re-roll failed defence dice.',
+  modifyWeapon: 'Bend the weapon profile for this sequence: Atk, Damage, Hit.',
+  addApl: 'Add APL to this operative for its activation.',
+  discountAction: 'One action type costs x less AP this activation (never below 0).',
+  modifyMove: 'Add inches to the Move stat for this activation.',
+  ignoreInjured: 'The operative does not suffer the effects of being injured.',
+  clearTokens: 'Strip the tokens an opponent has hung on this operative.',
 };
 
 /** Triggers, in the order the engine fires them. */
@@ -72,6 +85,7 @@ export const HOOK_TRIGGERS = [
   'onTurningPointStart',
   'onActivationStart',
   'onActionLegality',
+  'onIncomingAttack',
   'beforeAttackRoll',
   'afterAttackRoll',
   'beforeDefenceRoll',
@@ -89,12 +103,14 @@ export function profileOf(state, op) {
   return pack?.operatives.find((o) => o.id === op.profileId) || null;
 }
 
-function hooksOf(state, playerId, trigger) {
+function hooksOf(state, playerId, trigger, operative = null) {
   const pack = state.teamPacks[playerId];
   const own = (pack?.ruleHooks || []).filter((h) => h.trigger === trigger);
-  // A strategic ploy in force is just a hook the player paid CP for, so it
-  // enters here and inherits every condition and effect below.
-  return own.concat(activePloyHooks(state, playerId, trigger));
+  // A ploy in force is just a hook the player paid CP for, so it enters here
+  // and inherits every condition and effect below. A strategic ploy reaches
+  // the whole team; a firefight ploy was bought for one operative's activation
+  // and `activePloyHooks` filters it against the operative asking.
+  return own.concat(activePloyHooks(state, playerId, trigger, operative));
 }
 
 /** Strip a trailing value so `piercing2` matches a `piercing` condition. */
@@ -172,6 +188,28 @@ function matches(state, hook, ctx) {
     if (!other) return false;
     if (isInjured(other) !== cond.targetWounded) return false;
   }
+  // Token conditions: "whenever a friendly operative that has one of YOUR
+  // tokens…". Ownership matters — two teams can be poisoning the same
+  // operative — so both sides are asked about this team's own tokens.
+  if (cond.hasToken && operative &&
+      !hasToken(operative, cond.hasToken, operative.playerId)) return false;
+  if (cond.targetHasToken) {
+    if (!other || !operative) return false;
+    if (!hasToken(other, cond.targetHasToken, operative.playerId)) return false;
+  }
+  if (cond.friendlyWithin !== undefined && operative) {
+    const near = liveOperatives(state, operative.playerId)
+      .some((o) => o.id !== operative.id && baseDistance(operative, o) <= cond.friendlyWithin);
+    if (!near) return false;
+  }
+  if (cond.nearObjective !== undefined && operative) {
+    const markers = state.objectives || [];
+    const near = markers.some(
+      (m) => baseDistance(operative, { x: m.x, y: m.y, baseDiameter: 0 }) <= cond.nearObjective);
+    if (!near) return false;
+  }
+  if (cond.turningPointAtLeast !== undefined &&
+      (state.turningPoint || 0) < cond.turningPointAtLeast) return false;
   if (cond.awayFromFriends !== undefined && operative) {
     const near = liveOperatives(state, operative.playerId)
       .some((o) => o.id !== operative.id && baseDistance(operative, o) <= cond.awayFromFriends);
@@ -189,7 +227,7 @@ function matches(state, hook, ctx) {
 
 /** Every hook on this operative's team that fires for `trigger` and `ctx`. */
 function activeHooks(state, operative, trigger, ctx = {}) {
-  return hooksOf(state, operative.playerId, trigger)
+  return hooksOf(state, operative.playerId, trigger, operative)
     .filter((h) => matches(state, h, { operative, ...ctx }));
 }
 
@@ -269,33 +307,118 @@ export function fireTurningPointStart(state, rng, operatives) {
  * so the action layer can read them without re-evaluating conditions, and so a
  * serialized state replays identically.
  */
-export function fireActivationStart(state, op) {
+export function fireActivationStart(state, op, rng = null) {
   op.freeActions = [];
   op.chargeWhileConceal = false;
   op.extraActionChoice = null;
+  // Allowances a ploy or a rule can buy for one activation. Reset here so a
+  // firefight ploy bought last activation cannot leak into this one.
+  op.actionDiscounts = {};
+  op.moveBonusThisActivation = 0;
+  op.ignoresInjured = false;
 
   for (const hook of activeHooks(state, op, 'onActivationStart')) {
-    notePartial(state, hook);
-    const effect = hook.effect || {};
-    switch (effect.type) {
-      case 'freeAction':
-        grantFreeAction(op, effect.action, { rule: hook.rule || hook.id });
-        noteEffect(state, hook, op, `gains a free ${effect.action}`);
-        break;
-      case 'allowChargeWhileConceal':
-        op.chargeWhileConceal = true;
-        break;
-      case 'grantAllyApl': {
-        const ally = bestAllyForApl(state, op, effect);
-        if (!ally) break;
-        ally.aplBonus = (ally.aplBonus || 0) + (Number(effect.amount) || 1);
-        noteEffect(state, hook, op,
-          `orders ${ally.name} forward: +${Number(effect.amount) || 1} APL`);
-        break;
-      }
-      default:
-        unknownEffect(state, hook);
+    applyActivationStartHook(state, op, hook, rng);
+  }
+}
+
+/**
+ * One activation-start effect, applied to one operative.
+ *
+ * Split out of `fireActivationStart` because a FIREFIGHT PLOY is bought in the
+ * middle of an activation that has already started: the hooks it brings with
+ * it have missed the trigger, so `rules/ploys.js` replays this for them at the
+ * moment the CP is paid. Both paths therefore grant the same things in the
+ * same way — the only difference is when the player decided to pay.
+ */
+export function applyActivationStartHook(state, op, hook, rng = null) {
+  notePartial(state, hook);
+  const effect = hook.effect || {};
+  switch (effect.type) {
+    case 'healWounds': {
+      // Needs dice, and therefore needs the battle stream: an activation-start
+      // heal without one would either be silent or non-deterministic, and both
+      // are worse than declining it.
+      if (!rng) return false;
+      const lost = op.wounds - op.woundsRemaining;
+      if (lost <= 0) return false;
+      const rolled = rollExpression(rng, effect.dice || 'D3');
+      const healed = Math.min(lost, rolled);
+      if (healed <= 0) return false;
+      op.woundsRemaining += healed;
+      noteEffect(state, hook, op, `regains ${healed} lost wound(s) (rolled ${rolled})`);
+      return true;
     }
+    case 'freeAction':
+      grantFreeAction(op, effect.action, {
+        unrestricted: effect.unrestricted === true,
+        rule: hook.rule || hook.id,
+      });
+      noteEffect(state, hook, op, `gains a free ${effect.action}`);
+      return true;
+    case 'allowChargeWhileConceal':
+      op.chargeWhileConceal = true;
+      noteEffect(state, hook, op, 'may Charge from a Conceal order');
+      return true;
+    case 'grantAllyApl': {
+      const ally = bestAllyForApl(state, op, effect);
+      if (!ally) return false;
+      const amount = Number(effect.amount) || 1;
+      ally.aplBonus = (ally.aplBonus || 0) + amount;
+      // An ally that has already begun its activation spends the point now;
+      // one that has not gets it when `apRemaining` is set at activation start.
+      if (ally.apRemaining > 0) ally.apRemaining += amount;
+      noteEffect(state, hook, op, `orders ${ally.name} forward: +${amount} APL`);
+      return true;
+    }
+    case 'addApl': {
+      const amount = Number(effect.amount) || 1;
+      op.aplBonus = (op.aplBonus || 0) + amount;
+      // Bought mid-activation, the point has to be spendable now — otherwise
+      // an action ploy that reads "+1 APL" buys an AP the operative can never
+      // reach, because `apRemaining` was fixed when the activation began.
+      if (op.apRemaining > 0 || (op.usedThisActivation || []).length) {
+        op.apRemaining += amount;
+      }
+      noteEffect(state, hook, op, `+${amount} APL for this activation`);
+      return true;
+    }
+    case 'discountAction': {
+      const action = effect.action;
+      if (!action) return false;
+      const amount = Number(effect.amount) || 1;
+      if (!op.actionDiscounts) op.actionDiscounts = {};
+      op.actionDiscounts[action] = (op.actionDiscounts[action] || 0) + amount;
+      noteEffect(state, hook, op, `${action} costs ${amount} less AP this activation`);
+      return true;
+    }
+    case 'modifyMove': {
+      const inches = Number(effect.inches) || 0;
+      if (!inches) return false;
+      op.moveBonusThisActivation = (op.moveBonusThisActivation || 0) + inches;
+      noteEffect(state, hook, op, `+${inches}" Move this activation`);
+      return true;
+    }
+    case 'clearTokens': {
+      // "Remove one rules effect your opponent has applied to it" — in this
+      // engine an opponent's lasting effect on an operative is a token.
+      const before = (op.tokens || []).length;
+      if (!before) return false;
+      op.tokens = (op.tokens || []).filter(
+        (t) => t.owner === op.playerId || (effect.kind && t.kind !== effect.kind));
+      const shed = before - op.tokens.length;
+      if (!shed) return false;
+      noteEffect(state, hook, op, `sheds ${shed} enemy token(s)`);
+      return true;
+    }
+    case 'ignoreInjured':
+      if (op.ignoresInjured) return false;
+      op.ignoresInjured = true;
+      noteEffect(state, hook, op, 'ignores the effects of being injured');
+      return true;
+    default:
+      unknownEffect(state, hook);
+      return false;
   }
 }
 
@@ -429,6 +552,101 @@ export function applyAttackHooks(state, attacker, weapon, ctx = {}) {
       if (!added.length) continue;
       effective = { ...effective, rules: [...effective.rules, ...added] };
       noteEffect(state, hook, attacker, `${effective.name} gains ${added.join(', ')}`);
+    } else if (effect.type === 'modifyWeapon') {
+      // A copy for this sequence only; the pack's profile is never touched.
+      const atk = Number(effect.atkBonus) || 0;
+      const normal = Number(effect.damageNormal) || 0;
+      const critical = Number(effect.damageCritical) || 0;
+      // "Improve the Hit stat by 1" means a lower number to roll, so a pack
+      // says -1 the way `modifySave` does.
+      const hit = Number(effect.hitBonus) || 0;
+      if (!atk && !normal && !critical && !hit) continue;
+      effective = {
+        ...effective,
+        atk: Math.max(1, effective.atk + atk),
+        hit: Math.max(2, Math.min(6, effective.hit + hit)),
+        damage: {
+          ...effective.damage,
+          normal: Math.max(0, effective.damage.normal + normal),
+          critical: Math.max(0, effective.damage.critical + critical),
+        },
+      };
+      const parts = [];
+      if (atk) parts.push(`${atk > 0 ? '+' : ''}${atk} Atk`);
+      if (hit) parts.push(`Hit ${effective.hit}+`);
+      if (normal || critical) parts.push(`damage ${effective.damage.normal}/${effective.damage.critical}`);
+      noteEffect(state, hook, attacker, `${effective.name}: ${parts.join(', ')}`);
+    } else {
+      unknownEffect(state, hook);
+    }
+  }
+  return effective;
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: onIncomingAttack                                           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The DEFENDER's say in the attack about to be rolled against it.
+ *
+ * `beforeAttackRoll` belongs to the attacker, and by the time the defence roll
+ * comes around the attack dice have already been rolled and re-rolled — so a
+ * rule that reads "your opponent cannot re-roll their attack dice" has no
+ * window there at all. This is that window: it fires immediately before the
+ * attack dice are rolled, reads the defender's hooks, and hands back the
+ * weapon as the attack should see it.
+ *
+ * It is also where a REACTIVE firefight ploy is bought, because that is the
+ * moment a player looks at what is coming and decides whether to pay for it.
+ * The purchase registers for the whole sequence, so a ploy that also adds
+ * defence dice is picked up later by `applyDefenceHooks` without paying twice.
+ */
+export function applyIncomingAttackHooks(state, defender, weapon, ctx = {}) {
+  if (!defender?.alive) return weapon;
+  // Buying comes first, for its effect on this sequence: the purchase registers
+  // the ploy for the rest of the sequence, so `activeHooks` below — and every
+  // later trigger in the same sequence — reads it like any other hook.
+  reactiveDefenceHooks(state, defender, { weapon, ...ctx });
+  const hooks = activeHooks(state, defender, 'onIncomingAttack', { weapon, ...ctx });
+
+  let effective = weapon;
+  for (const hook of hooks) {
+    notePartial(state, hook);
+    const effect = hook.effect || {};
+    if (effect.type === 'ignoreWeaponRules') {
+      const drop = effect.rules || [];
+      const kept = effective.rules.filter((r) => !drop.includes(ruleName(r)));
+      if (kept.length === effective.rules.length) continue;
+      const removed = effective.rules.filter((r) => drop.includes(ruleName(r)));
+      effective = { ...effective, rules: kept };
+      noteEffect(state, hook, defender, `${effective.name} loses ${removed.join(', ')}`);
+    } else if (effect.type === 'grantWeaponRule') {
+      // Granted to the ATTACKER's weapon, which is only ever worth doing with
+      // a rule that hurts to carry: Gellerpox make a lasgun overheat.
+      const added = (effect.rules || []).filter((r) => !effective.rules.includes(r));
+      if (!added.length) continue;
+      effective = { ...effective, rules: [...effective.rules, ...added] };
+      noteEffect(state, hook, defender, `${effective.name} is fouled: ${added.join(', ')}`);
+    } else if (effect.type === 'modifyWeapon') {
+      const atk = Number(effect.atkBonus) || 0;
+      const hit = Number(effect.hitBonus) || 0;
+      const normal = Number(effect.damageNormal) || 0;
+      const critical = Number(effect.damageCritical) || 0;
+      if (!atk && !hit && !normal && !critical) continue;
+      effective = {
+        ...effective,
+        atk: Math.max(1, effective.atk + atk),
+        hit: Math.max(2, Math.min(6, effective.hit + hit)),
+        damage: {
+          ...effective.damage,
+          normal: Math.max(0, effective.damage.normal + normal),
+          critical: Math.max(0, effective.damage.critical + critical),
+        },
+      };
+      noteEffect(state, hook, defender,
+        `the attack is blunted: ${effective.atk} dice, Hit ${effective.hit}+, ` +
+        `damage ${effective.damage.normal}/${effective.damage.critical}`);
     } else {
       unknownEffect(state, hook);
     }
@@ -449,6 +667,10 @@ export function applyDefenceHooks(state, defender, weapon, ctx = {}) {
   let diceDelta = 0;
   let rerolls = 0;
   let saveModifier = 0;
+  // The other window where a team may spend CP on somebody else's turn — for
+  // a reaction with nothing to say before the attack dice are rolled. The
+  // purchase registers the ploy, which `activeHooks` then reads.
+  reactiveDefenceHooks(state, defender, { weapon, ...ctx });
   for (const hook of activeHooks(state, defender, 'beforeDefenceRoll', { weapon, ...ctx })) {
       notePartial(state, hook);
     const effect = hook.effect || {};
@@ -503,6 +725,13 @@ export function applyDamageHooks(state, defender, amount, source = {}) {
       if (!Number.isFinite(max) || result <= max) continue;
       noteEffect(state, hook, defender, `damage capped at ${max} (was ${result})`);
       result = max;
+    } else if (effect.type === 'reduceDamage') {
+      if (effect.perAction && effect.perAction !== source.kind) continue;
+      const amount = Number(effect.amount) || 0;
+      if (amount <= 0 || result <= 0) continue;
+      const after = Math.max(0, result - amount);
+      noteEffect(state, hook, defender, `shrugs off ${result - after} damage (was ${result})`);
+      result = after;
     } else {
       unknownEffect(state, hook);
     }

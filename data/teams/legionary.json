@@ -954,13 +954,40 @@
       "id": "implacable",
       "name": "IMPLACABLE",
       "description": "Whenever an operative is shooting a friendly LEGIONARY operative, weapons with the Piercing 1 weapon rule have the Piercing Crits 1 weapon rule instead. You can ignore any changes to the stats of friendly LEGIONARY NURGLE operatives from being injured (including their weapons' stats).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "piercing"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as downgrading Piercing 1 to Piercing Crits 1; simulated as ignoring it, and the NURGLE injury clause is not simulated"
+        }
+      ]
     },
     {
       "id": "quicksilver-speed",
       "name": "QUICKSILVER SPEED",
       "description": "Whenever a friendly LEGIONARY operative that performed an action in which it moved during this turning point is fighting, worsen the Hit stat of the enemy operative's melee weapons by 1. Whenever an operative is shooting a friendly LEGIONARY SLAANESH operative more than 6\" from it that performed an action in which it moved during this turning point, worsen the Hit stat of the enemy operative's weapons by 1. In all cases for this ploy, this isn't cumulative with being injured.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "fight"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "hitBonus": 1
+          },
+          "partial": true,
+          "notes": "whether the operative moved this turning point is not checked, and the SLAANESH shooting clause is not simulated"
+        }
+      ]
     },
     {
       "id": "fickle-fates",
@@ -987,7 +1014,21 @@
       "id": "blood-for-the-blood-god",
       "name": "BLOOD FOR THE BLOOD GOD",
       "description": "Whenever a friendly LEGIONARY operative (excluding KHORNE) is fighting, the first time you strike during that sequence, inflict 1 additional damage (to a maximum of 7). Add 1 to both Dmg stats of friendly LEGIONARY KHORNE operatives' melee weapons (to a maximum of 7).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageCritical": 1
+          },
+          "partial": true,
+          "notes": "printed as one extra point on the first strike, or +1 to both Dmg stats for KHORNE; simulated as +1 Critical Dmg"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -1001,7 +1042,24 @@
       "id": "malignant-aura",
       "name": "MALIGNANT AURA",
       "description": "Use this firefight ploy when a friendly LEGIONARY NURGLE operative is performing the Shoot action, when you select a valid target. Until the end of that action, whenever that friendly operative is shooting an enemy operative within 3\" of it (i.e. including secondary targets, if any), that friendly operative's ranged weapons have the Piercing 1 weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetWithin": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "piercing1"
+            ]
+          },
+          "partial": true,
+          "notes": "the NURGLE mark is not checked"
+        }
+      ]
     },
     {
       "id": "sickening-captivation",
@@ -1013,7 +1071,18 @@
       "id": "mutability-and-change",
       "name": "MUTABILITY AND CHANGE",
       "description": "Use this firefight ploy when a friendly LEGIONARY TZEENTCH operative is activated. Until the end of that operative's activation, add 1 to its APL stat, but it cannot perform the same action more than once during that activation. If it's a WARRIOR operative, that operative's Marks of Chaos keyword cannot be changed during this turning point (see Infernal Pact additional rule).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "the TZEENTCH mark and the \"no repeated actions\" restriction are not simulated"
+        }
+      ]
     }
   ],
   "equipment": [

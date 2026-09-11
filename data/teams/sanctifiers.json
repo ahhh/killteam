@@ -775,7 +775,21 @@
       "id": "the-emperor-protects",
       "name": "THE EMPEROR PROTECTS",
       "description": "Whenever an operative is shooting a friendly SANCTIFIER operative that's benefitting from the SERMON, you can re-roll any of your defence dice results of one result (e.g. results of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "friendlyWithin": 6
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 2
+          },
+          "partial": true,
+          "notes": "the SERMON is not simulated; standing near another Sanctifier stands in for benefitting from it"
+        }
+      ]
     },
     {
       "id": "fervent-brawl",
@@ -827,7 +841,22 @@
       "id": "rally-the-flock",
       "name": "RALLY THE FLOCK",
       "description": "Each friendly SANCTIFIER operative (excluding ORATOR) that's benefitting from the SERMON can immediately perform a free Dash or Fall Back action in an order of your choice (choose separately for each and, for the latter, it cannot move more than 3\"). Each that does so must end that move closer and visible to (or vice versa) to a friendly ORATOR operative. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "friendlyWithin": 6,
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate move toward an ORATOR; simulated as a free Dash for operatives that activate in supporting distance"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -835,13 +864,41 @@
       "id": "rosarius",
       "name": "ROSARIUS",
       "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly SANCTIFIER operative. Ignore that inflicted damage.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 3
+          },
+          "partial": true,
+          "notes": "printed as ignoring one attack dice's Normal Dmg; simulated as 3 damage shrugged off"
+        }
+      ]
     },
     {
       "id": "ardent-eradication",
       "name": "ARDENT ERADICATION",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly SANCTIFIER operative, if it's shooting against or fighting against an enemy operative that's within 3\" of a friendly ORATOR operative (or 6\" if the ORATOR is a CONFESSOR). You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "friendlyWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "the ORATOR keyword is not checked; the distance is measured to any friendly operative instead of to the target's surroundings"
+        }
+      ]
     },
     {
       "id": "redeemed-through-fire",

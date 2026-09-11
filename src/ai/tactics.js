@@ -122,7 +122,15 @@ export const TEAM_DISPOSITIONS = {
  * @returns {{name:string, label:string, note:string, mods:object}}
  */
 export function dispositionFor(state, playerId) {
-  const pack = state.teamPacks?.[playerId];
+  return dispositionForPack(state.teamPacks?.[playerId]);
+}
+
+/**
+ * The same answer from the pack alone, for callers with no battle in front of
+ * them — the setup screen, which tells a player how a team fights before they
+ * pick it.
+ */
+export function dispositionForPack(pack) {
   const override = pack?.aiDisposition;
 
   if (override && typeof override === 'object') {

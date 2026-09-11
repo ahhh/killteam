@@ -733,25 +733,88 @@
       "id": "elimination-pattern",
       "name": "ELIMINATION PATTERN",
       "description": "Whenever a friendly KASRKIN operative is shooting with a hot-shot weapon against an operative that cannot retain any cover saves or is being scanned (see RECON-TROOPER), that weapon has the Piercing Crits 1 weapon rule, or Piercing 1 instead if it's a hot-shot volley gun.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponNameContains": [
+              "hot-shot"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "piercingcrits1"
+            ]
+          },
+          "partial": true,
+          "notes": "the target's cover and the RECON-TROOPER scan are not checked"
+        }
+      ]
     },
     {
       "id": "engage-from-cover",
       "name": "ENGAGE FROM COVER",
       "description": "Whenever an operative is shooting a friendly KASRKIN operative that's in cover, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for being in cover, which the defence roll does not report here"
+        }
+      ]
     },
     {
       "id": "clearance-sweep",
       "name": "CLEARANCE SWEEP",
       "description": "Place your Clearance Sweep marker in the killzone. Whenever a friendly KASRKIN operative within 5\" horizontally of that marker is shooting an operative also within 5\" horizontally of that marker, that friendly operative's weapons have the Ceaseless weapon rule. In the Ready step of the next Strategy phase, remove that marker.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot",
+            "nearObjective": 5
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the Clearance Sweep marker is not placed; an objective marker stands in for it"
+        }
+      ]
     },
     {
       "id": "relocate",
       "name": "RELOCATE",
       "description": "Select one friendly KASRKIN operative that's more than 3\" from enemy operatives. That operative, and each other friendly KASRKIN operative that's both within 3\" of that operative and more than 3\" from enemy operatives, can immediately perform a free Dash action in an order of your choice. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate Dash for a cluster of operatives; simulated as a free Dash during each activation"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -759,13 +822,40 @@
       "id": "seize-the-initiative",
       "name": "SEIZE THE INITIATIVE",
       "description": "Use this firefight ploy at the start of the Firefight phase. One friendly KASRKIN operative can immediately perform a 1AP action for free, but it cannot move during that action. You cannot use this ploy if you're the player with initiative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "shoot"
+          },
+          "partial": true,
+          "notes": "printed as a free 1AP action at the start of the Firefight phase; simulated as a free Shoot during the operative's activation"
+        }
+      ]
     },
     {
       "id": "neutralise-target",
       "name": "NEUTRALISE TARGET",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly KASRKIN operative, if it's shooting an operative that either cannot retain any cover saves or is being scanned (see RECON-TROOPER). You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "the target's cover and the RECON-TROOPER scan are not checked"
+        }
+      ]
     },
     {
       "id": "cover-retreat",

@@ -129,8 +129,82 @@
       ]
     }
   ],
-  "strategicPloys": [],
-  "firefightPloys": [],
+  "strategicPloys": [
+    {
+      "id": "breach-doctrine",
+      "name": "BREACH DOCTRINE",
+      "cost": 1,
+      "description": "Friendly VANGUARD operatives' melee weapons have the Balanced weapon rule.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "forward-momentum",
+      "name": "FORWARD MOMENTUM",
+      "cost": 1,
+      "description": "Add 1\" to the Move stat of friendly VANGUARD operatives until the end of the turning point.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          }
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "overwhelm",
+      "name": "OVERWHELM",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly VANGUARD operative's activation. During that activation, that operative can perform two Fight actions.",
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "kick-in-the-door",
+      "name": "KICK IN THE DOOR",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly VANGUARD operative's activation. Until the end of that activation, add 1 to the Atk stat of its melee weapons whenever it is fighting after a Charge action.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          }
+        }
+      ]
+    }
+  ],
   "equipment": [],
   "ruleHooks": []
 }

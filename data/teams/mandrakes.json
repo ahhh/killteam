@@ -451,25 +451,80 @@
       "id": "creeping-horror",
       "name": "CREEPING HORROR",
       "description": "After each enemy operative's activation, before the next operative is activated, one friendly MANDRAKE operative that has a Conceal order can perform a free Dash action if it starts and ends that action WITHIN SHADOW. You cannot use this ploy during the first turning point, and you cannot select each friendly operative for this ploy more than once per turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "withinShadow": true,
+            "orderIs": "conceal",
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as a Dash between enemy activations; simulated as a free Dash during the Mandrake's own activation"
+        }
+      ]
     },
     {
       "id": "gloaming-shroud",
       "name": "GLOAMING SHROUD",
       "description": "Whenever an operative is shooting a friendly MANDRAKE operative that's WITHIN SHADOW, you can retain one of your defence dice as a normal success without rolling it (in addition to a cover save, if any).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "withinShadow": true
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as retaining a save without rolling it; simulated as an extra defence dice"
+        }
+      ]
     },
     {
       "id": "blade-in-the-dark",
       "name": "BLADE IN THE DARK",
       "description": "Each friendly MANDRAKE operative can perform the Charge action while it has a Conceal order if it starts or ends that action WITHIN SHADOW.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "withinShadow": true
+          },
+          "effect": {
+            "type": "allowChargeWhileConceal"
+          }
+        }
+      ]
     },
     {
       "id": "inescapable-nightmare",
       "name": "INESCAPABLE NIGHTMARE",
       "description": "Whenever a friendly MANDRAKE operative is shooting, fighting or retaliating, if it's WITHIN SHADOW, you can re-roll one of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "withinShadow": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -483,7 +538,18 @@
       "id": "soul-feast",
       "name": "SOUL FEAST",
       "description": "Use this firefight ploy when a friendly MANDRAKE operative is shooting against, fighting against or retaliating against an enemy operative within 6\" of it, at the end of the Resolve Attack Dice step. That friendly operative regains a number of lost wounds equal to that enemy operative's APL stat, multiplied by the number of your attack dice that inflicted damage during that sequence. Excess attack dice are ignored (i.e. if the enemy operative is incapacitated before remaining attack dice are resolved). You cannot use this ploy if that friendly MANDRAKE operative is incapacitated.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "healWounds",
+            "dice": "D3"
+          },
+          "partial": true,
+          "notes": "printed as draining wounds back in proportion to the damage a sequence inflicts; simulated as D3 wounds at the start of the activation"
+        }
+      ]
     },
     {
       "id": "nowhere-to-hide",

@@ -173,8 +173,87 @@
       ]
     }
   ],
-  "strategicPloys": [],
-  "firefightPloys": [],
+  "strategicPloys": [
+    {
+      "id": "marked-targets",
+      "name": "MARKED TARGETS",
+      "cost": 1,
+      "description": "Whenever a friendly SKY CASTE operative is shooting an enemy operative more than 6\" from it, its ranged weapons have the Balanced weapon rule.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetBeyond": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "overlapping-fields",
+      "name": "OVERLAPPING FIELDS",
+      "cost": 1,
+      "description": "Whenever a friendly SKY CASTE operative within 6\" of another friendly operative is shooting, its ranged weapons have the Seek Light weapon rule.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "friendlyWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "seeklight"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "recalibrate",
+      "name": "RECALIBRATE",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly SKY CASTE operative's activation. During that activation, that operative can perform two Shoot actions.",
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "shoot",
+            "count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "shield-screen",
+      "name": "SHIELD SCREEN",
+      "cost": 1,
+      "description": "Use this firefight ploy when an operative is shooting a friendly SKY CASTE operative. That friendly operative collects one additional defence dice for that sequence.",
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          }
+        }
+      ]
+    }
+  ],
   "equipment": [],
   "ruleHooks": []
 }

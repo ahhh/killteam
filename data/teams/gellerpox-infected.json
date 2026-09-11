@@ -570,13 +570,40 @@
       "id": "drawn-to-the-hum",
       "name": "DRAWN TO THE HUM",
       "description": "Select one objective marker. Whenever a friendly GELLERPOX INFECTED operative performs the Reposition or Charge action during its activation, you can use this rule. If you do, add 1\" to its Move stat until the end of that activation, but it must end that move within 2\" of that objective marker.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          },
+          "partial": true,
+          "notes": "the requirement to end the move near the nominated objective marker is not enforced"
+        }
+      ]
     },
     {
       "id": "blessings-of-infection",
       "name": "BLESSINGS OF INFECTION",
       "description": "Whenever a friendly GELLERPOX INFECTED operative is fighting or retaliating, you can do one of the following: If you roll three or more fails, you can discard one of them to retain another as a normal success instead.If you roll three or more successes, you can discard one of your fails to retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as a choice of two dice manipulations; simulated as Punishing"
+        }
+      ]
     },
     {
       "id": "rust-emanations",
@@ -607,7 +634,22 @@
       "id": "revolting-technology",
       "name": "REVOLTING TECHNOLOGY",
       "description": "Use this firefight ploy when an enemy operative is shooting a friendly GELLERPOX INFECTED operative. That operative's ranged weapons have the Hot weapon rule until the end of that sequence; if the weapon already has that weapon rule, when your opponent rolls one D6 for that weapon rule, you can add or subtract 1 from the result. Note that for the latter you can see the result of your opponent's roll for the Hot weapon rule before deciding to use this ploy.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "hot"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "putrescent-demise",
@@ -625,7 +667,30 @@
       "id": "frightening-onslaught",
       "name": "FRIGHTENING ONSLAUGHT",
       "description": "Use this firefight ploy after a friendly GELLERPOX INFECTED NIGHTMARE HULK operative performs the Fight action, if it isn't incapacitated. It can immediately perform a free Fight action (you don't have to select the same enemy operative to fight against). This takes precedence over action restrictions.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "condition": {
+            "keyword": "nightmare-hulk"
+          },
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        },
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "nightmare-hulk"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "fight"
+          }
+        }
+      ]
     }
   ],
   "equipment": [

@@ -176,8 +176,80 @@
       ]
     }
   ],
-  "strategicPloys": [],
-  "firefightPloys": [],
+  "strategicPloys": [
+    {
+      "id": "tempo-strike",
+      "name": "TEMPO STRIKE",
+      "cost": 1,
+      "description": "Whenever a friendly KINDRED operative is shooting or fighting an expended enemy operative, its weapons have the Balanced weapon rule.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "shadow-step",
+      "name": "SHADOW STEP",
+      "cost": 1,
+      "description": "Each friendly KINDRED operative that has a Conceal order can perform a free Dash action during its activation this turning point.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          }
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "precision-volley",
+      "name": "PRECISION VOLLEY",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly KINDRED operative's activation. During that activation, that operative can perform two Shoot actions.",
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "shoot",
+            "count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "hit-and-run",
+      "name": "HIT AND RUN",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly KINDRED operative's activation. During that activation, that operative can perform the Fall Back action for 1 less AP.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          }
+        }
+      ]
+    }
+  ],
   "equipment": [],
   "ruleHooks": []
 }

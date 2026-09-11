@@ -955,7 +955,24 @@
       "id": "sniper-positions",
       "name": "SNIPER POSITIONS",
       "description": "Whenever a friendly RATLING operative is more than 6\" from enemy operatives and within 1\" of Heavy terrain, the stationary profile of its rifle (if any) has the Silent weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetBeyond": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "silent"
+            ]
+          },
+          "partial": true,
+          "notes": "the requirement to be within 1\" of Heavy terrain is not checked, and it applies to every ranged weapon rather than the rifle's stationary profile"
+        }
+      ]
     },
     {
       "id": "shifty",
@@ -967,13 +984,52 @@
       "id": "crack-shots",
       "name": "CRACK SHOTS",
       "description": "Whenever a friendly RATLING operative is shooting an enemy operative more than 6\" from it, if that friendly operative hasn't performed the Charge, Fall Back or Reposition action during the activation, or if it's a counteraction, its rifle (if any) has the Balanced weapon rule. Note that operative isn't restricted from performing those actions after shooting.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetBeyond": 6,
+            "notPerformedThisActivation": [
+              "charge",
+              "fall_back",
+              "reposition"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "applies to every ranged weapon rather than only the operative's rifle"
+        }
+      ]
     },
     {
       "id": "frontline-assault",
       "name": "FRONTLINE ASSAULT",
       "description": "Whenever a friendly RATLING BULLGRYN or friendly RATLING OGRYN operative within your opponent's territory or within 3\" of an objective marker is shooting, fighting or retaliating, its weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "ogryn",
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the BULLGRYN half and the territory clause are not simulated"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -981,7 +1037,22 @@
       "id": "survival-instincts",
       "name": "SURVIVAL INSTINCTS",
       "description": "Use this firefight ploy when an enemy operative is shooting against or fighting against a friendly RATLING operative (excluding OGRYN or BULLGRYN) and you're allocating a dice to block. If it's a normal success, it can block one unresolved critical success; if it's a critical success, it can block two unresolved successes (normal or critical).",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "notKeyword": "ogryn"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as letting a save block above its weight; simulated as an extra defence dice"
+        }
+      ]
     },
     {
       "id": "larcenous",
@@ -999,7 +1070,22 @@
       "id": "shoot-and-hide",
       "name": "SHOOT AND HIDE",
       "description": "Use this firefight ploy after a friendly RATLING operative that has an Engage order performs the Shoot action with a rifle. If it's more than 3\" from enemy operatives, or not visible to every enemy operative, you can change its order to Conceal.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "targetBeyond": 3
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as slipping back onto a Conceal order after shooting; simulated as an extra defence dice against distant shooting for the activation"
+        }
+      ],
+      "timing": "defence"
     }
   ],
   "equipment": [

@@ -736,19 +736,60 @@
       "id": "from-darkness-death",
       "name": "FROM DARKNESS, DEATH",
       "description": "Whenever a friendly HAND OF THE ARCHON operative is activated, before you determine its order, you can select one enemy operative that friendly operative isn't a valid target for. Until the end of that activation, the first time that friendly operative is shooting against or fighting against that enemy operative, you can retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as one upgrade against a nominated enemy; simulated as Rending for the sequence"
+        }
+      ]
     },
     {
       "id": "merciless-sadists",
       "name": "MERCILESS SADISTS",
       "description": "Whenever a friendly HAND OF THE ARCHON operative is shooting against or fighting against a wounded enemy operative, that friendly operative's weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "denizens-of-night",
       "name": "DENIZENS OF NIGHT",
       "description": "Whenever an enemy operative is shooting a friendly HAND OF THE ARCHON operative that's more than 2\" from enemy operatives, if Heavy or Light terrain is intervening, or any part of that friendly operative's base is underneath Vantage terrain, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "targetBeyond": 2
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the intervening terrain and Vantage conditions are not checked"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -756,7 +797,17 @@
       "id": "cruel-deception",
       "name": "CRUEL DECEPTION",
       "description": "Use this firefight ploy during a friendly HAND OF THE ARCHON operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "heinous-arrogance",
@@ -774,7 +825,21 @@
       "id": "prey-on-the-wounded",
       "name": "PREY ON THE WOUNDED",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly HAND OF THE ARCHON operative, if it's shooting against or fighting against a wounded enemy operative. You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          }
+        }
+      ]
     }
   ],
   "equipment": [

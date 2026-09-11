@@ -5,12 +5,22 @@
  * built entirely from the catalogue and whatever packs the user has imported.
  */
 import { DataLoadError } from '../data/loader.js';
+import { ployCatalogue } from '../rules/ploys.js';
+import { dispositionForPack } from '../ai/tactics.js';
+import { doctrineForPack, ployProfile } from '../ai/cp.js';
 
 function h(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
   if (text !== undefined) node.textContent = text;
   return node;
+}
+
+/** One "label: value" row of the team strategy panel. */
+function line(label, value) {
+  const row = h('div', 'strategy-line');
+  row.append(h('span', 'strategy-label', label), h('span', 'strategy-value', value));
+  return row;
 }
 
 export class SetupScreen {
@@ -164,6 +174,8 @@ export class SetupScreen {
 
     if (pack.blurb) container.append(h('p', 'muted', pack.blurb));
 
+    this._renderStrategy(container, pack);
+
     const list = document.createElement('ul');
     list.className = 'roster-preview';
     for (const entry of pack.roster.operatives) {
@@ -188,6 +200,56 @@ export class SetupScreen {
       container.append(h('div', 'notice',
         `This data was last checked ${badge.ageDays} days ago. Check the official source for updates.`));
     }
+  }
+
+  /**
+   * How this team plays, and what of it this engine actually runs.
+   *
+   * Picking a kill team is a choice between two ways of fighting, and until
+   * now the screen showed only a roster: five lines of stats that say nothing
+   * about whether the team wants to close or hold, or what it does with its
+   * Command Points. Both answers already exist — the AI derives them from the
+   * pack (`ai/tactics.js`, `ai/cp.js`) — so they are shown here rather than
+   * left for the player to infer from four turning points of battle log.
+   *
+   * The ploys listed are the SUPPORTED ones only, and the count of the rest is
+   * shown plainly: a player should know which of a team's printed tricks the
+   * simulator will actually play before they pick it, not afterwards.
+   */
+  _renderStrategy(container, pack) {
+    const disposition = dispositionForPack(pack);
+    const doctrine = doctrineForPack(pack);
+    const box = h('div', 'team-strategy');
+
+    box.append(line('Fights as', `${disposition.label} — ${disposition.note}`));
+    box.append(line('Command points', `${doctrine.label} — ${doctrine.note}`));
+
+    const ploys = ployCatalogue(pack);
+    const supported = ploys.filter((p) => p.supported);
+    const strategic = supported.filter((p) => p.kind === 'strategic');
+    const action = supported.filter((p) => p.kind === 'firefight' && p.timing === 'activation');
+    const reactive = supported.filter((p) => p.kind === 'firefight' && p.timing === 'defence');
+
+    const names = (list) => list.map((p) => p.name).join(', ');
+    if (strategic.length) box.append(line('Strategic ploys', names(strategic)));
+    if (action.length) box.append(line('In the fight', names(action)));
+    if (reactive.length) box.append(line('Held in reserve', names(reactive)));
+
+    // Faction rules and team economies are the other half of what makes a team
+    // feel like itself, and they are named in the pack.
+    const rules = [...new Set((pack.ruleHooks || []).map((r) => r.rule).filter(Boolean))];
+    if (rules.length) box.append(line('Faction rules', rules.join(', ')));
+    const resources = Object.values(pack.resources || {})
+      .map((r) => r.name || r.rule).filter(Boolean);
+    if (resources.length) box.append(line('Economy', resources.join(', ')));
+
+    const unplayed = ploys.length - supported.length;
+    if (unplayed > 0) {
+      box.append(h('div', 'muted', `${unplayed} of ${ploys.length} printed ploys are not simulated.`));
+    } else if (!ploys.length) {
+      box.append(h('div', 'muted', 'This pack declares no ploys, so its CP is spent on nothing.'));
+    }
+    container.append(box);
   }
 
   _renderReference() {

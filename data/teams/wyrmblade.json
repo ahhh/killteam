@@ -861,25 +861,97 @@
       "id": "the-day-is-at-hand",
       "name": "THE DAY IS AT HAND",
       "description": "Whenever a friendly WYRMBLADE operative is activated, if its order is changed from Conceal to Engage, until the end of that activation: Its ranged weapons have the Rending weapon rule.Add 1 to the Atk stat of its melee weapons (to a maximum of 5).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          },
+          "partial": true,
+          "notes": "an Engage order stands in for having changed from Conceal this activation"
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          },
+          "partial": true,
+          "notes": "an Engage order stands in for having changed from Conceal this activation"
+        }
+      ]
     },
     {
       "id": "crossfire",
       "name": "CROSSFIRE",
       "description": "Whenever a friendly WYRMBLADE operative is shooting an operative that another friendly WYRMBLADE operative has already shot during this turning point, that first friendly operative's ranged weapons have the Accurate 1 weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "friendlyWithin": 9
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target was already shot this turning point is not tracked; a supporting operative nearby stands in for it"
+        }
+      ]
     },
     {
       "id": "one-with-the-shadows",
       "name": "ONE WITH THE SHADOWS",
       "description": "Whenever an operative is shooting a friendly WYRMBLADE operative that has a Conceal order, if Light terrain is intervening, that friendly operative is obscured (unless the intervening Light terrain is within 1\" of either operative).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "intervening Light terrain is not checked; simulated as an extra defence dice while concealed"
+        }
+      ]
     },
     {
       "id": "divert-and-disappear",
       "name": "DIVERT AND DISAPPEAR",
       "description": "Up to three friendly WYRMBLADE operatives can immediately perform a free Dash or Charge action in an order of your choice (choose separately for each, and for the latter, it cannot move more than 3\"). If a WYRMBLADE CULT AGENT operative is selected for this ploy, it counts as two operatives, and it can perform a free Fall Back action instead (it cannot move more than 3\"); if it does, subtract 1 from its APL stat until the end of its next activation.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate move for up to three operatives, Charge included; simulated as a free Dash during each activation"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -887,13 +959,44 @@
       "id": "slink-into-darkness",
       "name": "SLINK INTO DARKNESS",
       "description": "Use this firefight ploy at the end of a friendly WYRMBLADE operative's activation. If that operative has an Engage order, change it to Conceal. You cannot use this ploy for each friendly operative more than once per battle.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as slipping back onto a Conceal order after acting; simulated as an extra defence dice for the activation"
+        }
+      ]
     },
     {
       "id": "coiled-serpent",
       "name": "COILED SERPENT",
       "description": "Use this firefight ploy when a friendly WYRMBLADE operative is shooting or fighting, after rolling your attack dice. If that friendly operative's order was changed from Conceal to Engage at the start of that activation and this is the first time it's performed either the Shoot or Fight action during that activation, you can retain one of your normal successes as a critical success instead. Note this ploy cannot come into effect more than once per activation (you cannot use it during both the Shoot and Fight action in the same activation).",
-      "cost": 1
+      "cost": 1,
+      "oncePerTurningPoint": true,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as one normal success upgraded on the first action after breaking cover; simulated as Rending"
+        }
+      ]
     },
     {
       "id": "unquestioning-loyalty",

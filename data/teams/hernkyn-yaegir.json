@@ -637,19 +637,72 @@
       "id": "hidden-engagement",
       "name": "HIDDEN ENGAGEMENT",
       "description": "Whenever a friendly HERNKYN YAEGIR operative is shooting, if it's in cover from the target's perspective, that friendly operative's weapons have the Balanced weapon rule. Note that your opponent still determines the targeting lines for this (i.e. they decide which point of their operative's base targeting lines are drawn from).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for being in cover from the target's perspective"
+        }
+      ]
     },
     {
       "id": "masterful-bladework",
       "name": "MASTERFUL BLADEWORK",
       "description": "Whenever a friendly HERNKYN YAEGIR operative is fighting, or has a Conceal order and is retaliating, add 1 to the Atk stat of its melee weapons (to a maximum of 4) and they have the Balanced weapon rule; if the weapon already has that weapon rule, it has the Ceaseless weapon rule instead of Balanced.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          }
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the upgrade to Ceaseless for weapons that already have Balanced is not simulated"
+        }
+      ]
     },
     {
       "id": "tough-survivalists",
       "name": "TOUGH SURVIVALISTS",
       "description": "The first time an attack dice inflicts damage on each friendly HERNKYN YAEGIR operative during the turning point in the Resolve Attack Dice step, you can halve that inflicted damage (rounding up, to a minimum of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          },
+          "partial": true,
+          "notes": "printed as halving the first damage each operative takes each turning point; simulated as a flat 2 off every hit"
+        }
+      ]
     },
     {
       "id": "in-position",
@@ -663,7 +716,19 @@
       "id": "sturdy",
       "name": "STURDY",
       "description": "Use this firefight ploy when an operative is shooting a friendly HERNKYN YAEGIR operative, when you collect your defence dice. Change the attacker's retained critical successes to normal successes (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits).",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "effect": {
+            "type": "modifyWeapon",
+            "damageCritical": -2
+          },
+          "partial": true,
+          "notes": "printed as downgrading retained critical successes; simulated as blunted critical damage"
+        }
+      ]
     },
     {
       "id": "bonds-that-bind",
@@ -681,7 +746,18 @@
       "id": "stalwart-defence",
       "name": "STALWART DEFENCE",
       "description": "Use this firefight ploy when an enemy operative ends a move within control range of a friendly HERNKYN YAEGIR operative. Select one other friendly HERNKYN YAEGIR operative visible to and within 6\" of that friendly operative, but that isn't itself within control range of enemy operatives. The selected operative can perform a free Shoot action. During that action: It can target that enemy operative even though it's within control range of a friendly operative.You cannot select any other enemy operative as a valid target.You cannot select a frag or krak grenade, or a weapon with the Blast or x\" Devastating x weapon rule (i.e. Devastating with a distance).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "shoot"
+          },
+          "partial": true,
+          "notes": "printed as a covering shot from a second operative when an enemy closes in; simulated as a free Shoot for the one that pays the CP"
+        }
+      ]
     }
   ],
   "equipment": [

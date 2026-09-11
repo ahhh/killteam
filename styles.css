@@ -243,6 +243,8 @@ select, input[type="text"], input[type="number"], textarea {
 .log-line.warn .msg { color: var(--warn); }
 .log-line.rule .msg { color: #cbb8e8; font-style: italic; }
 .log-line.plan .msg { color: var(--text-faint); font-style: italic; }
+/* CP is the one resource both teams spend, so a ploy reads as its own thing. */
+.log-line.ploy .msg { color: #ffd98a; font-weight: 600; }
 
 /* ---------------------------------------------------------------- */
 /* Modals                                                            */
@@ -283,6 +285,17 @@ select, input[type="text"], input[type="number"], textarea {
 
 .roster-preview { margin-top: 8px; font-size: 11.5px; color: var(--text-dim); }
 .roster-preview li { margin: 2px 0; }
+
+/* How a team fights, and what of it this engine plays (setup screen). */
+.team-strategy {
+  margin-top: 8px; padding: 8px 10px; font-size: 11.5px;
+  background: var(--panel-soft, #15171b); border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+.strategy-line { display: flex; gap: 8px; margin: 3px 0; align-items: baseline; }
+.strategy-label { flex: 0 0 92px; color: var(--text-faint); text-transform: uppercase; font-size: 10px; letter-spacing: 0.04em; }
+.strategy-value { flex: 1; color: var(--text-dim); }
+.team-strategy .muted { margin-top: 6px; font-size: 10.5px; }
 
 .notice {
   background: #1b1710; border: 1px solid #4a3c1c; color: var(--warn);

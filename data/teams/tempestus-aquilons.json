@@ -690,25 +690,84 @@
       "id": "sudden-offensive",
       "name": "SUDDEN OFFENSIVE",
       "description": "Count the number of friendly TEMPESTUS AQUILON operatives that aren't incapacitated, then halve the result (rounding up) to give you x. Until the end of their activation, friendly TEMPESTUS AQUILON operatives' weapons have the Balanced weapon rule if they are the first friendly operatives activated this turning point equal to x. For example, if you have five operatives, the first three friendly operatives activated will benefit.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "selfReady": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "printed for the first half of the team activated each turning point; simulated for operatives that have not yet been expended"
+        }
+      ]
     },
     {
       "id": "maintain-momentum",
       "name": "MAINTAIN MOMENTUM",
       "description": "Whenever a friendly TEMPESTUS AQUILON operative is shooting against or fighting against a ready enemy operative, that friendly operative's weapons have the Severe weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetReady": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "eye-above",
       "name": "EYE ABOVE",
       "description": "Select one enemy operative. That operative and each other enemy operative within 3\" of it gains one of your Detected tokens until the end of the turning point. Whenever an enemy operative that has one of your Detected tokens: Is shooting a friendly TEMPESTUS AQUILON operative, you can re-roll one of your defence dice.Is fighting or retaliating against a friendly TEMPESTUS AQUILON operative, one of your blocks can be allocated to block two unresolved successes (instead of one).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "Detected tokens are not placed, so the re-roll applies to any shooting attacker"
+        }
+      ]
     },
     {
       "id": "drop-and-secure",
       "name": "DROP AND SECURE",
       "description": "Select one marker. Until the Ready step of the next Strategy phase, when determining control of that marker, treat the total APL stat of friendly TEMPESTUS AQUILON operatives that contest it as 1 higher if at least one friendly TEMPESTUS AQUILON operative contests that marker. Note this isn't a change to the APL stat, so any changes are cumulative with this.Whenever a friendly TEMPESTUS AQUILON operative is within 3\" of that marker, add 1 to the Atk stat of its melee weapons (to a maximum of 4).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          },
+          "partial": true,
+          "notes": "the nominated marker and its control bonus are not simulated; any objective marker counts"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -716,7 +775,23 @@
       "id": "hot-drop",
       "name": "HOT DROP",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly TEMPESTUS AQUILON operative that's wholly within your opponent's territory, or either landed or dropped from Vantage terrain at least 2\" higher than the killzone floor during this activation. If the target is within 6\" of it, you can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "the territory and Vantage-drop conditions are not simulated"
+        }
+      ]
     },
     {
       "id": "adjust-coordinates",
@@ -728,13 +803,36 @@
       "id": "tempestus-exemplars",
       "name": "TEMPESTUS EXEMPLARS",
       "description": "Use this firefight ploy during a friendly TEMPESTUS AQUILON operative's activation (excluding SERVO-SENTRY and any operative that has an APL stat higher than 2). During that activation, that operative can perform the Pick Up Marker, Place Marker or a mission action for 1 less AP",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "dash",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "printed as a discount on marker and mission actions, which the engine does not model; simulated as a free Dash-priced move"
+        }
+      ]
     },
     {
       "id": "progena",
       "name": "PROGENA",
       "description": "Use this firefight ploy when a friendly TEMPESTUS AQUILON operative (excluding SERVO-SENTRY) is activated. It regains up to 2D3 lost wounds, and during that activation you can ignore any changes to its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "healWounds",
+            "dice": "2D3"
+          },
+          "partial": true,
+          "notes": "the \"ignore changes to its APL\" half is not simulated"
+        }
+      ]
     }
   ],
   "equipment": [

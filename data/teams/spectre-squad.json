@@ -917,25 +917,86 @@
       "id": "disappear",
       "name": "DISAPPEAR",
       "description": "One friendly SPECTRE SQUAD operative can immediately perform a free Reposition action. It cannot end that move closer to enemy operatives or your opponent's drop zone (unless it ends that move wholly within your drop zone) and it cannot perform that action again during the turning point. In a killzone that uses the close quarters rules (e.g. Killzone: Tomb World), ignore Wall terrain when determining closer.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "reposition"
+          },
+          "partial": true,
+          "notes": "printed as one immediate move away from the enemy; the destination restrictions are not enforced"
+        }
+      ]
     },
     {
       "id": "hidden-engagement",
       "name": "HIDDEN ENGAGEMENT",
       "description": "Whenever a friendly SPECTRE SQUAD operative is shooting, if it's in cover from the target's perspective, that friendly operative's weapons have the Balanced weapon rule. Note that your opponent still determines the targeting lines for this (i.e. they decide which point of their operative's base targeting lines are drawn from).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for being in cover from the target's perspective"
+        }
+      ]
     },
     {
       "id": "ambushing-volley",
       "name": "AMBUSHING VOLLEY",
       "description": "Whenever a friendly SPECTRE SQUAD operative is activated, if it's more than 3\" from enemy operatives and isn't a valid target for enemy operatives before determining its order, its ranged weapons (excluding the suppressive profile of an autostubber) have the Devastating 1 weapon rule until the end of that activation. If that weapon already had the Devastating x weapon rule, add 1 to the x of its Devastating x weapon rule instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "orderIs": "conceal",
+            "targetBeyond": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "devastating1"
+            ]
+          },
+          "partial": true,
+          "notes": "\"not a valid target before determining its order\" is approximated by a Conceal order at range"
+        }
+      ]
     },
     {
       "id": "patience",
       "name": "PATIENCE",
       "description": "In the Firefight phase of this turning point, you can do one of the following: Once, when it's your turn to activate a friendly operative, you can skip that activation. You cannot do this until after your opponent's first activation.When a friendly SPECTRE SQUAD operative performs the Shoot or Fight action during its activation, if it's the last friendly operative to be activated during this turning point, its weapons have the Relentless weapon rule for that action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "selfReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "printed for the last operative activated each turning point; simulated for any operative already expended, which counteractions reach"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -943,13 +1004,50 @@
       "id": "dodge",
       "name": "DODGE",
       "description": "Use this firefight ploy during a friendly SPECTRE SQUAD operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "silent-killers",
       "name": "SILENT KILLERS",
       "description": "Use this firefight ploy during a friendly SPECTRE SQUAD operative's activation before or after it performs an action, if it has a Conceal order and isn't a valid target for enemy operatives. Until the end of that activation, it can perform the Charge action while it has a Conceal order, and the first time it strikes you can inflict 3 additional damage, but cannot resolve any other successes during that sequence.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "allowChargeWhileConceal"
+          }
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageNormal": 3,
+            "damageCritical": 3
+          },
+          "partial": true,
+          "notes": "printed as 3 extra damage on the first strike at the cost of every other success; simulated as a heavier melee profile for the sequence"
+        }
+      ]
     },
     {
       "id": "sharp-reactions",
@@ -961,7 +1059,19 @@
       "id": "prepared-defence",
       "name": "PREPARED DEFENCE",
       "description": "Use this firefight ploy when a friendly SPECTRE SQUAD operative that has a Conceal order or is ready is retaliating. You can do one of the following: At the start of the Resolve Attack Dice step, you can resolve one of your successes before the normal order. If you do, that success must be used to block.When you block, that block can be allocated to block two unresolved successes (instead of one).You cannot use this ploy during an activation in which you've interrupted with the Elite Fieldcraft faction rule.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as a block that stops two successes; simulated as an extra defence dice"
+        }
+      ]
     }
   ],
   "equipment": [

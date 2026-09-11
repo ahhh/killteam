@@ -124,8 +124,83 @@
       ]
     }
   ],
-  "strategicPloys": [],
-  "firefightPloys": [],
+  "strategicPloys": [
+    {
+      "id": "scrap-frenzy",
+      "name": "SCRAP FRENZY",
+      "cost": 1,
+      "description": "Friendly SCRAP HORDE operatives' melee weapons have the Ceaseless weapon rule.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "ere-we-go",
+      "name": "'ERE WE GO",
+      "cost": 1,
+      "description": "Friendly SCRAP HORDE operatives can perform the Charge action while they have a Conceal order, and add 1\" to their Move stat.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "allowChargeWhileConceal"
+          }
+        },
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          }
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "krunch",
+      "name": "KRUNCH",
+      "cost": 1,
+      "description": "Use this firefight ploy during a friendly SCRAP HORDE operative's activation. During that activation, that operative can perform two Fight actions.",
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "too-angry-to-die",
+      "name": "TOO ANGRY TO DIE",
+      "cost": 1,
+      "description": "Use this firefight ploy when an attack dice inflicts damage on a friendly SCRAP HORDE operative. Subtract 2 from that inflicted damage.",
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          }
+        }
+      ]
+    }
+  ],
   "equipment": [],
   "ruleHooks": []
 }

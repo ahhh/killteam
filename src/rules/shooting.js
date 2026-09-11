@@ -21,7 +21,10 @@ import {
 } from './team-rules.js';
 import { snapshotTokens, grantToken } from './tokens.js';
 import { diceRerollSpend, grantResourceFromWeapon } from './resources.js';
-import { applyAttackHooks, applyDefenceHooks, rollExpression } from './hooks.js';
+import {
+  applyAttackHooks, applyDefenceHooks, applyIncomingAttackHooks, rollExpression,
+} from './hooks.js';
+import { expireSequencePloys } from './ploys.js';
 import { applyDamage, applyStun, hitModifierFor, effectiveApl } from './effects.js';
 import { isPositionLegal } from './movement.js';
 import { enemiesInControlRange } from './visibility.js';
@@ -308,7 +311,11 @@ function resolveSequence(state, rng, attacker, target, weapon, opts = {}) {
       detail: `sights ${target.name} through ${spotter.operative.name}`,
     });
   }
-  const attackWeapon = withAdjustments(hooked, adjustments);
+  let attackWeapon = withAdjustments(hooked, adjustments);
+  // The defender's last word before the dice leave the attacker's hand — and
+  // the window a reactive firefight ploy is bought in.
+  attackWeapon = applyIncomingAttackHooks(state, target, attackWeapon,
+    { attacker, action: 'shoot' });
 
   const attack = rollAttack(rng, attackWeapon, {
     hitModifier: hitModifierFor(attacker),
@@ -390,6 +397,9 @@ function resolveSequence(state, rng, attacker, target, weapon, opts = {}) {
     ? applyChainOnIncapacitate(state, rng, attacker, target, weapon)
     : null;
   applyResourceGain(state, attacker, weapon, outcome);
+  // A ploy the defender bought as a reaction was paid for "until the end of
+  // that sequence", and this is the end of it.
+  expireSequencePloys(state);
 
   return {
     targetId: target.id,

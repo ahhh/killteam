@@ -836,25 +836,71 @@
       "id": "mission-tactics",
       "name": "MISSION TACTICS",
       "description": "Select Conceal or Engage. Whenever a friendly DEATHWATCH operative is shooting against or fighting against, or retaliating against an enemy operative that has that order, that friendly operative's weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetOrderIs": "engage"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "simulated as naming Engage; the Conceal choice is not offered"
+        }
+      ]
     },
     {
       "id": "the-shield-that-slays",
       "name": "THE SHIELD THAT SLAYS",
       "description": "Whenever a friendly DEATHWATCH operative is wholly within your opponent's territory, Normal Dmg of 4 or more inflicts 1 less damage on it.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "the \"wholly within your opponent's territory\" and \"Normal Dmg of 4 or more\" conditions are not simulated"
+        }
+      ]
     },
     {
       "id": "the-long-vigil",
       "name": "THE LONG VIGIL",
       "description": "Whenever an operative is shooting a friendly DEATHWATCH operative that's wholly within your territory, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "territory is not simulated, so the re-roll applies anywhere"
+        }
+      ]
     },
     {
       "id": "and-they-shall-know-no-fear",
       "name": "AND THEY SHALL KNOW NO FEAR",
       "description": "You can ignore any changes to the stats of friendly DEATHWATCH operatives from being injured (including their weapons' stats).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -862,13 +908,44 @@
       "id": "suffer-not-the-alien",
       "name": "SUFFER NOT THE ALIEN",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly DEATHWATCH operative, if it's shooting against or fighting, or retaliating against against an operative that doesn't have the CHAOS or IMPERIUM keyword. You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetNotKeyword": "imperium"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "only the IMPERIUM half of the printed exclusion is checked"
+        }
+      ]
     },
     {
       "id": "advanced-auspex-scan",
       "name": "ADVANCED AUSPEX SCAN",
       "description": "Use this firefight ploy when a friendly DEATHWATCH operative performs the Shoot action. Until the end of the activation/counteraction, its ranged weapons have the Saturate weapon rule and enemy operatives cannot be obscured.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "saturate",
+              "seek"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "auspicator-tracking",
@@ -880,7 +957,19 @@
       "id": "transhuman-physiology",
       "name": "TRANSHUMAN PHYSIOLOGY",
       "description": "Use this firefight ploy when an operative is shooting a friendly DEATHWATCH operative, in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as upgrading a normal save to a critical; simulated as an extra defence dice"
+        }
+      ]
     }
   ],
   "equipment": [

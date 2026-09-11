@@ -982,13 +982,39 @@
       "id": "need-keeps",
       "name": "NEED KEEPS",
       "description": "Select one objective marker or one of your mission markers. Whenever determining control of that marker, treat the total APL stat of friendly HEARTHKYN SALVAGER operatives that contest it as 1 higher if at least one friendly HEARTHKYN SALVAGER operative contests that marker. Note this isn't a change to the APL stat, so any changes are cumulative with this.Whenever a friendly HEARTHKYN SALVAGER operative is within 3\" of that marker, add 1 to the Atk stat of its melee weapons (to a maximum of 4); if the weapon already has an Atk stat of 4, it has the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          },
+          "partial": true,
+          "notes": "the nominated marker and its control bonus are not simulated; any objective marker counts"
+        }
+      ]
     },
     {
       "id": "wrought-defence",
       "name": "WROUGHT DEFENCE",
       "description": "Whenever an operative is shooting a friendly HEARTHKYN SALVAGER operative, if you rolled one or less successes (including any re-rolls), you can retain one of your fails as a normal success instead of discarding it.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "printed as retaining a fail after a poor roll; simulated as one defence re-roll"
+        }
+      ]
     },
     {
       "id": "toil-earns",
@@ -1000,7 +1026,22 @@
       "id": "proximate-firepower",
       "name": "PROXIMATE FIREPOWER",
       "description": "Whenever a friendly HEARTHKYN SALVAGER operative is shooting an enemy operative within 6\" of it, improve the Hit stat of that friendly operative's ranged weapons by 1 (to a maximum of 3+). This can allow you to apply or remove the Hit stat change during an action (this takes precedence over the core rules).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "hitBonus": -1
+          },
+          "partial": true,
+          "notes": "the printed maximum of 3+ is not enforced"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -1008,13 +1049,36 @@
       "id": "the-ancestors-are-watching",
       "name": "THE ANCESTORS ARE WATCHING",
       "description": "Use this firefight ploy during a friendly HEARTHKYN SALVAGER operative's activation. Until the end of that activation, that operative can perform either a free Shoot or a free Fight action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "shoot"
+          },
+          "partial": true,
+          "notes": "printed as a free Shoot OR Fight; simulated as the free Shoot"
+        }
+      ]
     },
     {
       "id": "sturdy",
       "name": "STURDY",
       "description": "Use this firefight ploy when an operative is shooting a friendly HEARTHKYN SALVAGER operative, when you collect your defence dice. Change the attacker's retained critical successes to normal successes (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits).",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "effect": {
+            "type": "modifyWeapon",
+            "damageCritical": -2
+          },
+          "partial": true,
+          "notes": "printed as downgrading retained critical successes; simulated as blunted critical damage"
+        }
+      ]
     },
     {
       "id": "worth-it",
@@ -1026,7 +1090,23 @@
       "id": "engage-to-acquire",
       "name": "ENGAGE TO ACQUIRE",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly HEARTHKYN SALVAGER operative, if it's shooting against or fighting against an enemy operative that controls an objective marker or one of your mission markers. You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target controls a marker is not checked"
+        }
+      ]
     }
   ],
   "equipment": [

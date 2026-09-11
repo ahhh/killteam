@@ -772,7 +772,19 @@
       "id": "cut-throats",
       "name": "CUT-THROATS",
       "description": "Add 1 to the Atk stat of friendly FARSTALKER KINBAND operatives' melee weapons (to a maximum of 5).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          }
+        }
+      ]
     },
     {
       "id": "prey",
@@ -804,7 +816,20 @@
       "id": "rogue",
       "name": "ROGUE",
       "description": "Whenever an operative is shooting a friendly FARSTALKER KINBAND operative: Ignore the Saturate weapon rule.If you can retain any cover saves, you can retain one additional cover save, or you can retain one cover save as a critical success instead. This isn't cumulative with improved cover saves from Vantage terrain.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "saturate"
+            ]
+          },
+          "partial": true,
+          "notes": "the extra retained cover save is not simulated"
+        }
+      ]
     },
     {
       "id": "bound",
@@ -830,13 +855,37 @@
       "id": "slip-away",
       "name": "SLIP AWAY",
       "description": "Use this firefight ploy during a friendly FARSTALKER KINBAND operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "vengeance-for-the-kinband",
       "name": "VENGEANCE FOR THE KINBAND",
       "description": "Use this firefight ploy when a friendly FARSTALKER KINBAND operative is incapacitated by an enemy operative. Until the end of the battle, whenever another friendly FARSTALKER KINBAND operative is shooting against, fighting against or retaliating against that enemy operative, that other friendly operative's weapons have the Relentless weapon rule. You cannot use this ploy again during the battle until that enemy operative is incapacitated.",
-      "cost": 1
+      "cost": 1,
+      "oncePerBattle": true,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as a grudge against one enemy for the rest of the battle; simulated as Relentless for one operative's activation"
+        }
+      ]
     }
   ],
   "equipment": [

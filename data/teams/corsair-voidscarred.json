@@ -952,19 +952,60 @@
       "id": "plunderers",
       "name": "PLUNDERERS",
       "description": "Up to D3 friendly CORSAIR VOIDSCARRED operatives can immediately perform a free Dash action in an order of your choice. This turning point, each that does so cannot perform the Dash action during their activation. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate Dash for up to D3 operatives; simulated as a free Dash for each operative that activates this turning point"
+        }
+      ]
     },
     {
       "id": "piratical-profiteers",
       "name": "PIRATICAL PROFITEERS",
       "description": "Whenever a friendly CORSAIR VOIDSCARRED operative is shooting, fighting or retaliating, if it or the enemy operative in that sequence contests an objective marker or one of your mission markers, that friendly operative's weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "nearObjective": 2
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "only the attacker's own contesting is checked, not the target's"
+        }
+      ]
     },
     {
       "id": "mobile-engagement",
       "name": "MOBILE ENGAGEMENT",
       "description": "Whenever an operative is shooting a friendly CORSAIR VOIDSCARRED operative that performed an action in which it moved during this turning point, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "whether the operative moved this turning point is not checked"
+        }
+      ]
     },
     {
       "id": "outcasts",
@@ -1004,13 +1045,40 @@
       "id": "capricious-flight",
       "name": "CAPRICIOUS FLIGHT",
       "description": "Use this firefight ploy during a friendly CORSAIR VOIDSCARRED operative's activation, before or after it performs an action. During that activation, that operative can perform the Fall Back action for 1 less AP.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "discountAction",
+            "action": "fall_back",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "contemptuous-adventurer",
       "name": "CONTEMPTUOUS ADVENTURER",
       "description": "Use this firefight ploy when the first friendly CORSAIR VOIDSCARRED operative is activated during the turning point, if it's more than 5\" from other friendly operatives. The first time that operative performs either the Shoot or Fight action during that activation, its weapons have the Relentless weapon rule. Note this ploy cannot come into effect more than once per activation (you cannot use it during both the Shoot and Fight action in the same activation).",
-      "cost": 1
+      "cost": 1,
+      "oncePerTurningPoint": true,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "awayFromFriends": 5
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "printed for the first operative activated each turning point; simulated as once per turning point for whoever buys it"
+        }
+      ]
     }
   ],
   "equipment": [

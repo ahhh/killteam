@@ -948,7 +948,23 @@
       "id": "glory-kill",
       "name": "GLORY KILL",
       "description": "Select one enemy operative. Until the end of the turning point, whenever a friendly BLOODED operative is shooting against, fighting against or retaliating against that enemy operative, that shooting, fighting or retaliating operative's weapons have the Ceaseless weapon rule, or Relentless if it has one of your Blooded tokens.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "targetWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the nominated enemy operative is simulated as any enemy already wounded"
+        }
+      ]
     },
     {
       "id": "reckless-aspirant",
@@ -960,7 +976,21 @@
       "id": "malevolent-grit",
       "name": "MALEVOLENT GRIT",
       "description": "Whenever an operative is shooting a friendly BLOODED operative that has one of your Blooded tokens or is wholly within your opponent's territory, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "hasToken": "blooded"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the \"wholly within your opponent's territory\" half is not simulated"
+        }
+      ]
     },
     {
       "id": "bitter-demise",
@@ -980,7 +1010,19 @@
       "id": "moment-of-repute",
       "name": "MOMENT OF REPUTE",
       "description": "Use this firefight ploy during the activation of a friendly BLOODED operative that's under the GAZE OF THE GODS, before or after it performs an action. Until the end of that operative's activation, add 1 to its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "hasToken": "gaze"
+          },
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "reward-earned",

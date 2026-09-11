@@ -748,13 +748,46 @@
       "id": "ambush",
       "name": "AMBUSH",
       "description": "Whenever a friendly FELLGOR RAVAGER operative is activated, if its order is changed from Conceal to Engage, it's ambushing for that activation. Whenever a friendly FELLGOR RAVAGER operative that's ambushing is fighting, you can retain one of your normal successes as a critical success instead. Note that an operative that has one of your Frenzy tokens cannot ambush.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          },
+          "partial": true,
+          "notes": "an Engage order stands in for having changed from Conceal this activation; Frenzy tokens are not checked"
+        }
+      ]
     },
     {
       "id": "pelting-firepower",
       "name": "PELTING FIREPOWER",
       "description": "Whenever a friendly FELLGOR RAVAGER operative is shooting an enemy operative that's been shot by another friendly FELLGOR RAVAGER operative during this turning point, that first friendly operative's ranged weapons have the Ceaseless weapon rule; if the enemy operative has been shot by more than one other friendly FELLGOR RAVAGER operative during this turning point, that first friendly operative's ranged weapons have the Relentless weapon rule instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target was already shot by another Ravager this turning point is not checked, so the Relentless upgrade never applies"
+        }
+      ]
     },
     {
       "id": "reckless-determination",
@@ -782,19 +815,51 @@
       "id": "ruthless-rampage",
       "name": "RUTHLESS RAMPAGE",
       "description": "Use this firefight ploy after a friendly FELLGOR RAVAGER operative performs the Fight action, if it's no longer within control range of enemy operatives. That friendly operative can immediately perform a free Charge action (even if it's already performed the Charge action during that activation), but cannot move more than 3\" during that action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "charge"
+          },
+          "partial": true,
+          "notes": "printed as a 3\" charge after a Fight; simulated as a free Charge during the activation"
+        }
+      ]
     },
     {
       "id": "wild-rage",
       "name": "WILD RAGE",
       "description": "Use this firefight ploy when a friendly FELLGOR RAVAGER operative is activated. Until the end of that operative's activation, add 1\" to its Move stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          }
+        }
+      ]
     },
     {
       "id": "animalistic-fury",
       "name": "ANIMALISTIC FURY",
       "description": "Use this firefight ploy when a friendly FELLGOR RAVAGER operative is fighting or retaliating and you strike with a critical success. Inflict 1 additional damage with that strike.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageCritical": 1
+          }
+        }
+      ]
     },
     {
       "id": "bloodsense",

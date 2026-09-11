@@ -523,19 +523,57 @@
       "id": "stake-claim",
       "name": "STAKE CLAIM",
       "description": "Place your Claim marker in the killzone. Whenever a friendly ELUCIDIAN STARSTRIDER operative is shooting against, fighting against or retaliating against an enemy operative that's within 3\" of that marker, in the Roll Attack Dice step, you can retain one of your fails as a normal success instead of discarding it, or retain one of your normal successes as a critical success instead. At the end of the turning point, remove your Claim marker from the killzone.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          },
+          "partial": true,
+          "notes": "the Claim marker is not placed; an objective marker stands in for it"
+        }
+      ]
     },
     {
       "id": "undaunted-explorers",
       "name": "UNDAUNTED EXPLORERS",
       "description": "The first time an attack dice inflicts damage on each friendly ELUCIDIAN STARSTRIDER operative during the turning point in the Resolve Attack Dice step, you can halve that inflicted damage (rounding up, to a minimum of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          },
+          "partial": true,
+          "notes": "printed as halving the first damage each operative takes each turning point; simulated as a flat 2 off every hit"
+        }
+      ]
     },
     {
       "id": "quick-march",
       "name": "QUICK MARCH",
       "description": "Whenever a friendly ELUCIDIAN STARSTRIDER operative performs the Reposition action during its activation, you can use this rule. If you do, add 1\" to its Move stat until the end of that activation, but it must end that move closer to your opponent's drop zone and cannot use a PRIVATEER SUPPORT ASSET during that activation.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          },
+          "partial": true,
+          "notes": "the requirement to end the move closer to the opponent's drop zone is not enforced"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -543,19 +581,58 @@
       "id": "combined-arms",
       "name": "COMBINED ARMS",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly ELUCIDIAN STARSTRIDER operative, if it's shooting an enemy operative that's been shot by another friendly ELUCIDIAN STARSTRIDER operative during this turning point. You can re-roll any of your attack dice. You cannot use this ploy while shooting with a PRIVATEER SUPPORT ASSET.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target was already shot by another operative this turning point is not checked"
+        }
+      ]
     },
     {
       "id": "survivalist",
       "name": "SURVIVALIST",
       "description": "Use this firefight ploy when a friendly ELUCIDIAN STARSTRIDER operative is activated. That friendly operative regains up to D3+2 lost wounds and during that activation you can ignore any changes to its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "healWounds",
+            "dice": "D3+2"
+          },
+          "partial": true,
+          "notes": "the \"ignore changes to its APL\" half is not simulated"
+        }
+      ]
     },
     {
       "id": "great-endurance",
       "name": "GREAT ENDURANCE",
       "description": "Use this firefight ploy during a friendly ELUCIDIAN STARSTRIDER NAVIS operative's activation. Until the end of the activation, add 1 to its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "navis"
+          },
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          }
+        }
+      ]
     },
     {
       "id": "well-drilled",

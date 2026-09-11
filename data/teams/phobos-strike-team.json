@@ -844,19 +844,73 @@
       "id": "and-they-shall-know-no-fear",
       "name": "AND THEY SHALL KNOW NO FEAR",
       "description": "You can ignore any changes to the stats of friendly PHOBOS STRIKE TEAM operatives from being injured (including their weapons' stats).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          }
+        }
+      ]
     },
     {
       "id": "deadly-shots",
       "name": "DEADLY SHOTS",
       "description": "Whenever a friendly PHOBOS STRIKE TEAM operative is shooting during an activation in which it hasn't performed the Charge, Fall Back or Reposition action, or against an operative that isn't in cover and is more than 6\" from it, that friendly operative's ranged weapons have the Balanced weapon rule. Note that for the first requirement, that operative isn't restricted from performing those actions after shooting.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "targetBeyond": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the alternative \"hasn't moved this activation\" clause is not simulated"
+        }
+      ]
     },
     {
       "id": "lethal-assaults",
       "name": "LETHAL ASSAULTS",
       "description": "Whenever a friendly PHOBOS STRIKE TEAM operative is fighting, its melee weapons have the Balanced weapon rule. If that friendly operative is doing so during an activation in which it performed the Charge action, its melee weapons also have the Lethal 5+ weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "lethal5"
+            ]
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -870,19 +924,66 @@
       "id": "critical-shot",
       "name": "CRITICAL SHOT",
       "description": "Use this firefight ploy when you resolve a critical success for a friendly PHOBOS STRIKE TEAM operative that's shooting with a bolt weapon. Inflict D3 additional damage.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponNameContains": [
+              "bolt"
+            ]
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageCritical": 2
+          },
+          "partial": true,
+          "notes": "printed as D3 extra damage on each critical; simulated as +2 Critical Dmg"
+        }
+      ]
     },
     {
       "id": "transhuman-physiology",
       "name": "TRANSHUMAN PHYSIOLOGY",
       "description": "Use this firefight ploy when an operative is shooting a friendly PHOBOS STRIKE TEAM operative, in the Roll Defence Dice step. You can retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as upgrading a normal save to a critical; simulated as an extra defence dice"
+        }
+      ]
     },
     {
       "id": "stealth-assault",
       "name": "STEALTH ASSAULT",
       "description": "Use this firefight ploy when a friendly PHOBOS STRIKE TEAM operative that has a Conceal order is activated, is given an Engage order, performs the Charge and then the Fight action, and you're resolving your first attack dice from this activation. After doing so, you can immediately resolve another of your attack dice (before your opponent). The operative cannot have performed any other actions during this activation (but can do so after resolving this ploy).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "shock"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as resolving a second attack dice out of order; simulated as the Shock weapon rule"
+        }
+      ]
     }
   ],
   "equipment": [

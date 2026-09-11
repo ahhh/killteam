@@ -509,13 +509,37 @@
       "id": "tuff-gitz",
       "name": "TUFF GITZ",
       "description": "Whenever an operative is shooting a friendly WRECKA KREW operative that has an Engage order, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "amped-up",
       "name": "AMPED UP",
       "description": "Each friendly WRECKA KREW operative that has an Engage order can immediately regain up to D3+1 lost wounds (roll separately for each).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onTurningPointStart",
+          "condition": {
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "healWounds",
+            "dice": "D3+1"
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -523,13 +547,52 @@
       "id": "just-a-scratch",
       "name": "JUST A SCRATCH",
       "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly WRECKA KREW operative (excluding BOMB SQUIG). Ignore that inflicted damage.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "condition": {
+            "notKeyword": "bomb-squig"
+          },
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 3
+          },
+          "partial": true,
+          "notes": "printed as ignoring one attack dice's Normal Dmg; simulated as 3 damage shrugged off"
+        }
+      ]
     },
     {
       "id": "proppa-scrap",
       "name": "PROPPA SCRAP",
       "description": "Use this firefight ploy during a friendly BREAKA BOY or BOSS NOB operative's activation. During that activation, that operative can perform two FIGHT actions.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "condition": {
+            "keyword": "breaka-boy"
+          },
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        },
+        {
+          "trigger": "onActionLegality",
+          "condition": {
+            "keyword": "boss-nob"
+          },
+          "effect": {
+            "type": "extraAction",
+            "action": "fight",
+            "count": 1
+          }
+        }
+      ]
     },
     {
       "id": "demolition-job",
@@ -541,7 +604,25 @@
       "id": "kaboom",
       "name": "KABOOM!",
       "description": "Use this firefight ploy when a friendly WRECKA KREW operative performs the Shoot action and a weapon with the Blast weapon rule is selected. Until the end of that action, add 1\" to that weapon's Blast and it has the Severe weapon rule when shooting the primary target. You cannot use this ploy and the Drill Rokkits rule during the same action. Note that Severe doesn't generate a Wrecka point (as it's not a 6).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponHasAnyRule": [
+              "blast"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          },
+          "partial": true,
+          "notes": "the extra inch of Blast radius is not simulated"
+        }
+      ]
     }
   ],
   "equipment": [

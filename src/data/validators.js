@@ -228,9 +228,30 @@ export function validateTeamPack(pack) {
         report.error(`${label} "${ploy.id}" has invalid cost ${ploy.cost}`);
       }
       if (!ploy.description) report.warn(`${label} "${ploy.id}" has no printed wording to check against`);
+      // A firefight ploy says when it may be bought: during a friendly
+      // operative's activation (the default) or as a reaction to an attack.
+      if (field === 'firefightPloys' && ploy.timing !== undefined &&
+          !['activation', 'defence'].includes(ploy.timing)) {
+        report.warn(`firefight ploy "${ploy.id}" has unknown timing "${ploy.timing}" ` +
+          '— expected "activation" or "defence"');
+      }
+      if (field === 'strategicPloys' && ploy.timing !== undefined) {
+        report.warn(`strategic ploy "${ploy.id}" declares a timing; strategic ploys are always bought in the strategy phase`);
+      }
+      if (ploy.scope !== undefined && !['operative', 'team'].includes(ploy.scope)) {
+        report.warn(`${label} "${ploy.id}" has unknown scope "${ploy.scope}"`);
+      }
       if (!Array.isArray(ploy.hooks)) continue;
-      if (field === 'firefightPloys' && ploy.hooks.length) {
-        report.warn(`firefight ploy "${ploy.id}" declares hooks, but firefight ploys are reactive and are never used`);
+      // A reaction is bought inside somebody else's attack sequence, so the
+      // only triggers it can still catch are the defender's own.
+      if (field === 'firefightPloys' && ploy.timing === 'defence') {
+        const usable = ['onIncomingAttack', 'beforeDefenceRoll', 'beforeDamageApplied', 'onDamageApplied'];
+        for (const hook of ploy.hooks) {
+          if (hook.trigger && !usable.includes(hook.trigger)) {
+            report.warn(`firefight ploy "${ploy.id}" is a reaction but hooks "${hook.trigger}", ` +
+              'which has already fired by the time it is bought');
+          }
+        }
       }
       for (const hook of ploy.hooks) {
         if (typeof hook.effect === 'string' && /function|=>/.test(hook.effect)) {

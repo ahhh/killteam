@@ -573,7 +573,22 @@
       "id": "prioritised-acquisition",
       "name": "PRIORITISED ACQUISITION",
       "description": "Select one objective marker or one of your mission markers. Whenever determining control of that marker, treat the total APL stat of friendly BATTLECLADE operatives that contest it as 1 higher if at least one friendly BATTLECLADE operative contests that marker. Note this isn't a change to the APL stat, so any changes are cumulative with this.Whenever a friendly BATTLECLADE operative is within 3\" of that marker, add 1 to the Atk stat of its melee weapons (to a maximum of 4).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "nearObjective": 3
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          },
+          "partial": true,
+          "notes": "applies near any objective marker; the nominated marker and its control bonus are not simulated"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -581,7 +596,17 @@
       "id": "system-exorcism",
       "name": "SYSTEM EXORCISM",
       "description": "Use this firefight ploy when you would activate a friendly BATTLECLADE operative. Remove one rules effect or stat change your opponent has applied to it (e.g. Poison token, -1APL, cannot be activated or perform actions, etc.), then activate it. This ploy cannot allow it to regain lost wounds or ignore the effects of being injured, remove mission pack rules.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "clearTokens"
+          },
+          "partial": true,
+          "notes": "printed as removing any one rules effect; simulated as shedding the tokens an opponent has hung on this operative"
+        }
+      ]
     },
     {
       "id": "remote-access",
@@ -593,7 +618,22 @@
       "id": "auto-ferric-supplication",
       "name": "AUTO-FERRIC SUPPLICATION",
       "description": "Use this firefight ploy when an operative is shooting a friendly BATTLECLADE TECH-PRIEST operative, at the start of the Roll Attack Dice step. Until the end of the sequence, ignore the Piercing weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "tech-priest"
+          },
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "piercing"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "servile-surrogacy",

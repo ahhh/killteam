@@ -555,13 +555,45 @@
       "id": "guerrilla-engagement",
       "name": "GUERRILLA ENGAGEMENT",
       "description": "Whenever an enemy operative is shooting a friendly SCOUT SQUAD operative, if that friendly operative is in cover and more than 6\" from enemy operatives it's visible to, you can re-roll one of your defence dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal",
+            "targetBeyond": 6
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for being in cover"
+        }
+      ]
     },
     {
       "id": "ambush",
       "name": "AMBUSH",
       "description": "Whenever a friendly SCOUT SQUAD operative is shooting or fighting during its activation, if its order was changed from Conceal to Engage at the start of that activation, or it wasn't visible to enemy operatives at the start of that activation: That friendly operative's weapons have the Balanced weapon rule.If the target is expended, that friendly operative's weapons have the Ceaseless weapon rule instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "orderIs": "engage",
+            "targetReady": false
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the printed trigger — an order changed this activation, or starting it unseen — is approximated by an Engage order; the weaker Balanced case is not simulated separately"
+        }
+      ]
     },
     {
       "id": "adaptable-training",
@@ -573,7 +605,22 @@
       "id": "stealth-relocation",
       "name": "STEALTH RELOCATION",
       "description": "Up to D3 friendly SCOUT SQUAD operatives that have a Conceal order and are more than 4\" from enemy operatives can immediately perform a free Dash action. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "orderIs": "conceal",
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed for up to D3 operatives in the strategy phase; simulated as a free Dash during each concealed activation"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -581,19 +628,63 @@
       "id": "astartes-training",
       "name": "ASTARTES TRAINING",
       "description": "Use this firefight ploy during a friendly SCOUT SQUAD operative's activation. Until the end of that activation, that operative can do one of the following: Perform two Fight actions.Perform two Shoot actions if an Astartes shotgun, bolt pistol or boltgun is selected for at least one of them.Perform two Shoot actions with a heavy bolter, missile launcher or sniper rifle, but 1 additional AP must be spent for the second action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "effect": {
+            "type": "extraAction",
+            "oneOf": [
+              "fight",
+              "shoot"
+            ],
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the extra AP the heavier weapons must pay for a second Shoot is not charged"
+        }
+      ]
     },
     {
       "id": "raw-physiology",
       "name": "RAW PHYSIOLOGY",
       "description": "Use this firefight ploy during a friendly SCOUT SQUAD operative's activation, before or after it performs an action. Until the start of its next activation, add 1\" to its Move stat and you can ignore any changes to that operative's stats from being injured (including its weapons' stats).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          }
+        },
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "ignoreInjured"
+          }
+        }
+      ]
     },
     {
       "id": "emboldened-aspirant",
       "name": "EMBOLDENED ASPIRANT",
       "description": "Use this firefight ploy when a friendly SCOUT SQUAD operative performs the Shoot or Fight action, after any re-rolls. If it's the first friendly operative to perform either of those actions during this turning point, or if the enemy operative in that action (primary target, if relevant) has a higher Wounds stat than that friendly SCOUT SQUAD operative, you can retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "oncePerTurningPoint": true,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "rending"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as upgrading one normal success against a bigger enemy; simulated as Rending"
+        }
+      ]
     },
     {
       "id": "covert-position",

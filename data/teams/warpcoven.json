@@ -826,7 +826,20 @@
       "id": "aetherial-warding",
       "name": "AETHERIAL WARDING",
       "description": "Whenever an operative is shooting a friendly WARPCOVEN operative, weapons with the Piercing 1 weapon rule have the Piercing Crits 1 weapon rule instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "piercing"
+            ]
+          },
+          "partial": true,
+          "notes": "printed as downgrading Piercing 1 to Piercing Crits 1; simulated as ignoring it"
+        }
+      ]
     },
     {
       "id": "fate-itself-is-my-weapon",
@@ -838,13 +851,48 @@
       "id": "brotherhood-of-sorcerers",
       "name": "BROTHERHOOD OF SORCERERS",
       "description": "Friendly WARPCOVEN SORCERER operatives' PSYCHIC weapons have the Balanced weapon rule, or Ceaseless if another friendly WARPCOVEN SORCERER operative is within 9\" of that operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponHasAnyRule": [
+              "psychic"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the upgrade to Ceaseless near another Sorcerer is not simulated"
+        }
+      ]
     },
     {
       "id": "savage-herd",
       "name": "SAVAGE HERD",
       "description": "Friendly WARPCOVEN TZAANGOR operatives' melee weapons have the Accurate 1 weapon rule. Whenever a friendly WARPCOVEN TZAANGOR operative is assisted by a friendly WARPCOVEN operative, or is fighting while visible to and within 6\" of a friendly WARPCOVEN SORCERER operative, that friendly WARPCOVEN TZAANGOR operative's melee weapons also have the Severe weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "tzaangor",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "accurate1"
+            ]
+          },
+          "partial": true,
+          "notes": "the extra Severe while assisted or near a Sorcerer is not simulated"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -852,13 +900,41 @@
       "id": "all-is-dust",
       "name": "ALL IS DUST",
       "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly WARPCOVEN RUBRIC MARINE operative. That attack dice inflicts 1 damage instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "condition": {
+            "keyword": "rubric-marine"
+          },
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2
+          },
+          "partial": true,
+          "notes": "printed as reducing one attack dice's Normal Dmg to 1; simulated as 2 damage shrugged off"
+        }
+      ]
     },
     {
       "id": "capricious-plan",
       "name": "CAPRICIOUS PLAN",
       "description": "Use this firefight ploy at the end of a friendly WARPCOVEN SORCERER operative's activation. That friendly operative can immediately perform a free Dash action (even if it's performed an action that prevents it from performing the Dash action), or you can change its order instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "sorcerer"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash",
+            "unrestricted": true
+          }
+        }
+      ]
     },
     {
       "id": "psychic-cabal",

@@ -1106,7 +1106,18 @@
       "id": "embedded",
       "name": "EMBEDDED",
       "description": "Whenever an enemy operative is shooting a friendly BROOD BROTHER operative, if you can retain any cover saves as a result of Heavy terrain, you can retain one additional cover save.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "modifyDefenceDice",
+            "delta": 1
+          },
+          "partial": true,
+          "notes": "printed as an extra retained cover save behind Heavy terrain; simulated as an extra defence dice wherever the operative stands"
+        }
+      ]
     },
     {
       "id": "cult-devotion",
@@ -1132,13 +1143,41 @@
       "id": "idolisation",
       "name": "IDOLISATION",
       "description": "Use this firefight ploy when a friendly BROOD BROTHER operative (excluding LEADER) within 6\" of a friendly BROOD BROTHER LEADER or BROOD BROTHER ICONWARD operative is shooting, fighting or retaliating, in the Roll Attack Dice step. You can retain one of your fails as a normal success instead of discarding it, or retain one of your normal successes as a critical success instead.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "friendlyWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "punishing"
+            ]
+          },
+          "partial": true,
+          "notes": "the nearby operative is not checked for the LEADER or ICONWARD keyword, and the normal-to-critical upgrade is not simulated"
+        }
+      ]
     },
     {
       "id": "insidious",
       "name": "INSIDIOUS",
       "description": "Use this firefight ploy after an activation. Before the next activation, one friendly BROOD BROTHER operative can perform a free Dash action, as long as it's not a valid target for enemy operatives when it starts and ends that action. You cannot use this ploy during the first turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "turningPointAtLeast": 2
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          }
+        }
+      ]
     }
   ],
   "equipment": [

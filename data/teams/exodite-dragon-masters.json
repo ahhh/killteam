@@ -348,19 +348,70 @@
       "id": "wind-swift-precision",
       "name": "WIND-SWIFT PRECISION",
       "description": "Whenever a friendly EXODITE DRAGON MASTER operative is shooting, if it has SPEED 4+, its ranged weapons have the Balanced weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the SPEED 4+ condition is not simulated"
+        }
+      ]
     },
     {
       "id": "draconic-fury",
       "name": "DRACONIC FURY",
       "description": "Whenever a friendly EXODITE DRAGON MASTER operative is fighting: If it has SPEED 4+, its melee weapons have the Balanced weapon rule.If it has SPEED 7+, its melee weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the SPEED conditions are not simulated, so the SPEED 7+ upgrade to Ceaseless never applies"
+        }
+      ]
     },
     {
       "id": "sinuous-flux",
       "name": "SINUOUS FLUX",
       "description": "Whenever an enemy operative is shooting a friendly EXODITE DRAGON MASTER operative more than 6\" from it, if that friendly operative has SPEED 4+ or SPEED 7+, your opponent cannot re-roll their attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "shoot",
+            "targetBeyond": 6
+          },
+          "effect": {
+            "type": "ignoreWeaponRules",
+            "rules": [
+              "balanced",
+              "ceaseless",
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "the SPEED condition is not simulated"
+        }
+      ]
     },
     {
       "id": "ride-them-down",
@@ -374,7 +425,20 @@
       "id": "survivalist-spirit",
       "name": "SURVIVALIST SPIRIT",
       "description": "Use this firefight ploy during a friendly EXODITE DRAGON MASTER MOUNTED operative's activation or counteraction, before or after it performs an action. Until the start of its next activation, you can ignore any changes to that operative's weapon stats from being injured.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "mounted"
+          },
+          "effect": {
+            "type": "ignoreInjured"
+          },
+          "partial": true,
+          "notes": "printed for weapon stats only; simulated as ignoring the whole injured penalty for the activation"
+        }
+      ]
     },
     {
       "id": "leap",
@@ -386,7 +450,24 @@
       "id": "feral-hunger",
       "name": "FERAL HUNGER",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly EXODITE DRAGON MASTER operative, if it's fighting against a wounded enemy operative with its Drakesteed fangs & talons or fangs & talons. You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "targetWounded": true
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "the fangs & talons weapon requirement is not checked"
+        }
+      ]
     },
     {
       "id": "riding-mastery",

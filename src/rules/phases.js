@@ -21,7 +21,9 @@ import {
 } from './tokens.js';
 import { fireTurningPointStart, fireActivationStart, hasFreeAction } from './hooks.js';
 import { resourceReadyStep, resetSpendLimits } from './resources.js';
-import { expirePloys, activatePloy, reportUnsupportedPloys } from './ploys.js';
+import {
+  expirePloys, activatePloy, reportUnsupportedPloys, expireActivationPloys,
+} from './ploys.js';
 
 export const MAX_TURNING_POINTS = 4;
 const CP_PER_TURNING_POINT = 1;
@@ -149,8 +151,9 @@ function beginTurningPoint(state, rng, controllers) {
     rolls: { p1: a, p2: b }, winner, turningPoint: state.turningPoint,
   });
 
-  // Last turning point's strategic ploys lapse before this one's are bought.
+  // Last turning point's ploys lapse before this one's are bought.
   expirePloys(state);
+  planCommandPoints(state, controllers);
   buyStrategicPloys(state, controllers);
 
   // Ready step: faction rules that recur each turning point resolve here.
@@ -173,6 +176,31 @@ function beginTurningPoint(state, rng, controllers) {
  * rejected pick is logged rather than silently dropped, because unlike an
  * optional resource spend there is nothing conditional about a ploy purchase.
  */
+/**
+ * Before anything is bought: what each player intends to do with its CP this
+ * turning point.
+ *
+ * The plan is DATA on the player — a doctrine name, a reserve, a trigger — and
+ * it is what lets the CP economy be a strategy rather than a reflex. The
+ * reserve keeps CP back from the strategy phase so an operative can pay for a
+ * firefight ploy mid-fight, and `rules/ploys.js` reads the same block when it
+ * decides whether to react to an attack. A controller that offers no plan
+ * (an old replay, a scripted test) simply has none, and every reserve is zero.
+ */
+function planCommandPoints(state, controllers) {
+  for (const playerId of ['p1', 'p2']) {
+    const plan = controllers?.[playerId]?.planCommandPoints?.(state, playerId) || null;
+    state.players[playerId].cpPlan = plan;
+    if (!plan) continue;
+    logEvent(state, EVENTS.CP_PLAN, {
+      playerId, turningPoint: state.turningPoint,
+      doctrine: plan.doctrine, label: plan.label,
+      reserve: plan.reserve, cp: state.players[playerId].cp,
+      rationale: plan.rationale,
+    });
+  }
+}
+
 function buyStrategicPloys(state, controllers) {
   const order = [state.initiativePlayerId, opponentOf(state.initiativePlayerId)];
   for (const playerId of order) {
@@ -226,7 +254,7 @@ function startActivation(state, op, rng) {
   }
 
   op.apRemaining = effectiveApl(op);
-  fireActivationStart(state, op);
+  fireActivationStart(state, op, rng);
   op.ready = false;
   op.activatedThisTurningPoint = true;
   logEvent(state, EVENTS.OPERATIVE_ACTIVATED, {
@@ -250,6 +278,12 @@ function endActivation(state, op) {
     op.stunnedAtActivationStart = false;
   }
   op.aplPenaltyThisActivation = 0;
+  // "During that activation" — the firefight ploys this operative's team paid
+  // for now lapse, along with the allowances they bought.
+  expireActivationPloys(state, op);
+  op.actionDiscounts = {};
+  op.moveBonusThisActivation = 0;
+  op.ignoresInjured = false;
   expireTokensAtActivationEnd(state, op);
 }
 
@@ -336,7 +370,11 @@ function tryCounteract(state, playerId, controller) {
     // The printed limits are "per activation or counteraction", so a
     // counteraction gets its own allowance of invigorations.
     resetSpendLimits(op);
-    fireActivationStart(state, op);
+    // A start-of-activation hook may roll dice (a ploy that heals), so the
+    // counteraction borrows the battle stream the same way an activation does.
+    const rng = Rng.fromState(state.rng);
+    fireActivationStart(state, op, rng);
+    state.rng = rng.getState();
     const legal = getLegalActions(state, op.id).filter((a) => a.type !== 'pass');
     if (!legal.length) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 

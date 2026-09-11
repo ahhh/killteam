@@ -9,7 +9,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SetupScreen } from '../src/ui/setup.js';
-import { readJson } from './harness.mjs';
+import { readJson, loadTeam } from './harness.mjs';
 
 /* ------------------------------------------------------------------ */
 /* A DOM small enough to read, large enough for this screen            */
@@ -53,21 +53,43 @@ class StubNode {
   get text() {
     return [...this.walk()].map((n) => n.textContent).filter(Boolean).join(' ');
   }
+
+  /** `select.options` — the screen reads it to default the team choice. */
+  get options() {
+    return [...this.walk()].filter((n) => n.tagName === 'OPTION');
+  }
 }
 
 function withStubDom(fn) {
   const previous = globalThis.document;
   globalThis.document = { createElement: (tag) => new StubNode(tag) };
-  try { return fn(); } finally { globalThis.document = previous; }
+  const restore = () => { globalThis.document = previous; };
+  try {
+    const out = fn();
+    // `render` is async, so the stub has to outlive the call that returns a
+    // promise rather than being torn down the moment the body yields.
+    return out instanceof Promise ? out.finally(restore) : (restore(), out);
+  } catch (err) {
+    restore();
+    throw err;
+  }
 }
 
 /** Just enough of DataRepository for the mission half of the screen. */
-function stubRepo() {
+function stubRepo({ teams = [] } = {}) {
   const missions = new Map([
     ['secure-and-hold', readJson('data/missions/secure-and-hold.json')],
     ['annihilation', readJson('data/missions/annihilation.json')],
   ]);
-  return { missions, teams: new Map(), customTeams: new Set(), factions: { factions: [] } };
+  const packs = new Map(teams.map((id) => [id, loadTeam(id)]));
+  return {
+    missions,
+    teams: packs,
+    customTeams: new Set(),
+    factions: { factions: teams.length ? [{ name: 'Test', teams }] : [] },
+    catalogueTeamIds: () => teams,
+    badgeFor: () => null,
+  };
 }
 
 function makeScreen(overrides = {}) {
@@ -145,5 +167,33 @@ test('an unknown mission id is ignored rather than blanking the picker', () => {
 
     assert.equal(screen.getMission(), 'secure-and-hold');
     assert.equal(missionRoot.findAll((n) => n.classList.contains('selected')).length, 1);
+  });
+});
+
+/* --- What a team is, before you pick it -------------------------------- */
+
+test('the team panel says how a team fights and what it spends CP on', async () => {
+  await withStubDom(async () => {
+    const roots = { p1: new StubNode('div'), p2: new StubNode('div') };
+    const screen = new SetupScreen({
+      repo: stubRepo({ teams: ['blades-of-khaine'] }),
+      roots,
+      referenceRoot: null,
+      importEls: {},
+      missionRoot: new StubNode('div'),
+      missionIds: ['secure-and-hold'],
+    });
+    await screen.render();
+
+    const text = roots.p1.text;
+    // The two things a player cannot read off a roster: how it fights, and
+    // what it does with the one resource both teams have.
+    assert.match(text, /Aggressive/);
+    assert.match(text, /Vanguard/);
+    // …and the moves this engine will actually play for them.
+    assert.match(text, /BLADEWIND/, 'names the firefight ploys it can use');
+    assert.match(text, /FOREWARNED/, 'names the strategic ploys it can use');
+    assert.match(text, /CONTEMPT/, 'names the reaction it holds CP for');
+    assert.match(text, /not simulated/, 'and is honest about the rest');
   });
 });

@@ -446,7 +446,18 @@
       "id": "hypershielding",
       "name": "HYPERSHIELDING",
       "description": "Whenever an operative is shooting a friendly CANOPTEK CIRCLE operative, if your OBELISK NODE MATRIX is intervening, or that friendly operative is within your OBELISK NODE MATRIX, you can re-roll any of your defence dice results of one result (e.g. results of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the OBELISK NODE MATRIX is not placed, so the re-roll is cut to one die and applies anywhere"
+        }
+      ]
     },
     {
       "id": "cryptogravitic-repulsion",
@@ -458,13 +469,45 @@
       "id": "transdynamic-amplification",
       "name": "TRANSDYNAMIC AMPLIFICATION",
       "description": "Whenever a friendly CANOPTEK CIRCLE operative is shooting, if your OBELISK NODE MATRIX is intervening, or the target is within your OBELISK NODE MATRIX, that friendly operative's weapons have the Ceaseless weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot",
+            "targetWithin": 9
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "ceaseless"
+            ]
+          },
+          "partial": true,
+          "notes": "the OBELISK NODE MATRIX is not placed; simulated as targets close enough to be inside it"
+        }
+      ]
     },
     {
       "id": "souldrain",
       "name": "SOULDRAIN",
       "description": "Whenever an enemy operative is within your OBELISK NODE MATRIX, or whenever it's fighting or retaliating against a friendly CANOPTEK CIRCLE operative that's within your OBELISK NODE MATRIX, subtract 1 from both Dmg stats of that enemy operative's melee weapons (to a minimum of 2) until the end of the activation/counteraction. Note this means if the enemy operative moves through your OBELISK NODE MATRIX, apply this change at the end of that move action until the end of the activation/counteraction.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncomingAttack",
+          "condition": {
+            "action": "fight"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "damageNormal": -1,
+            "damageCritical": -1
+          },
+          "partial": true,
+          "notes": "the OBELISK NODE MATRIX is not placed, so the drain applies to every melee attack; the printed minimum of 2 damage is not enforced"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -472,7 +515,19 @@
       "id": "shield-flare",
       "name": "SHIELD FLARE",
       "description": "Use this firefight ploy when an attack dice inflicts Normal Dmg on a friendly CANOPTEK CIRCLE operative. If your OBELISK NODE MATRIX is intervening, or that friendly operative is within your OBELISK NODE MATRIX, ignore that inflicted damage. Note your opponent determines intervening (i.e. where on their operative's base to draw the targeting lines from).",
-      "cost": 1
+      "cost": 1,
+      "timing": "defence",
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 3
+          },
+          "partial": true,
+          "notes": "printed as ignoring one attack dice's Normal Dmg inside the matrix; simulated as 3 damage shrugged off"
+        }
+      ]
     },
     {
       "id": "nodal-response",

@@ -1010,7 +1010,21 @@
       "id": "take-cover",
       "name": "TAKE COVER",
       "description": "Whenever an operative is shooting a friendly DEATH KORPS operative, if you can retain any cover saves, improve that friendly operative's Save stat by 1.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "orderIs": "conceal"
+          },
+          "effect": {
+            "type": "modifySave",
+            "delta": -1
+          },
+          "partial": true,
+          "notes": "a Conceal order stands in for \"can retain a cover save\", which the defence roll does not report here"
+        }
+      ]
     },
     {
       "id": "clear-the-line",
@@ -1036,7 +1050,21 @@
       "id": "regroup",
       "name": "REGROUP",
       "description": "SUPPORT. Select one friendly DEATH KORPS operative that's more than 3\" from enemy operatives. Each other friendly DEATH KORPS operative within 5\" of that operative and not within control range of enemy operatives can immediately perform a free Dash action in an order of your choice, but each that does so must end that move closer to that operative. Note that a Comms Device from universal equipment only affects the second distance of this rule. You cannot use this ploy and the Chronometer faction equipment STRATEGIC GAMBIT during the same turning point.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "friendlyWithin": 5
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "printed as an immediate Dash toward a nominated operative; simulated as a free Dash for operatives that activate in supporting distance"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -1050,7 +1078,23 @@
       "id": "combined-arms",
       "name": "COMBINED ARMS",
       "description": "Use this firefight ploy after rolling your attack dice for a friendly DEATH KORPS operative, if it's shooting an enemy operative that's been shot by another friendly DEATH KORPS operative during this turning point. You can re-roll any of your attack dice.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "action": "shoot"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "relentless"
+            ]
+          },
+          "partial": true,
+          "notes": "whether the target was already shot by another operative this turning point is not checked"
+        }
+      ]
     },
     {
       "id": "in-life-shame",

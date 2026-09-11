@@ -508,13 +508,42 @@
       "id": "gory-tenacity",
       "name": "GORY TENACITY",
       "description": "Whenever a friendly GOREMONGER operative is fighting or retaliating, the first time your opponent strikes it during that sequence, halve the damage inflicted (rounding up and to a minimum of 2).",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeDamageApplied",
+          "effect": {
+            "type": "reduceDamage",
+            "amount": 2,
+            "perAction": "fight"
+          },
+          "partial": true,
+          "notes": "printed as halving the first strike of each fight; simulated as 2 damage off every melee hit"
+        }
+      ]
     },
     {
       "id": "hunt-for-blood",
       "name": "HUNT FOR BLOOD",
       "description": "Select one friendly GOREMONGER operative. If it has a Conceal order, change it to Engage. Then it can immediately perform a free Charge action, but cannot move more than 3\" during that action.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "allowChargeWhileConceal"
+          }
+        },
+        {
+          "trigger": "onActivationStart",
+          "effect": {
+            "type": "freeAction",
+            "action": "charge"
+          },
+          "partial": true,
+          "notes": "printed as one immediate 3\" charge by a nominated operative; simulated as a free Charge for each operative that activates this turning point"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -522,7 +551,24 @@
       "id": "unbridled-aggression",
       "name": "UNBRIDLED AGGRESSION",
       "description": "Use this firefight ploy when a friendly GOREMONGER operative is fighting during an activation in which it performed the Charge action, at the end of the Roll Attack Dice step. Until the end of that sequence, that operative's melee weapons have the Severe weapon rule.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "gorethirst",

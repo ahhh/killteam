@@ -25,8 +25,9 @@ import { moveLimitBlocker, moveLimitAfterUse } from './team-rules.js';
 import { updateObjectiveControl } from './objectives.js';
 import {
   timesAllowed, claimExtraAction, consumeFreeAction, chargeIgnoresOrder,
-  hasFreeAction, freeActionIsUnrestricted,
+  hasFreeAction, freeActionIsUnrestricted, applyActivationStartHook,
 } from './hooks.js';
+import { playableFirefightPloys, useFirefightPloy } from './ploys.js';
 import {
   availableSpends, resolveSpend, extraActionsFromSpends, resourceMoveBonus,
   consumeActionBoosts, applyPostActionResources,
@@ -48,7 +49,23 @@ export const ACTION_COST = {
   // choice made "before or after it performs an action", not an action that
   // costs the operative anything (see rules/resources.js).
   spend: 0,
+  // Paying CP for a firefight ploy is the same shape of choice: it is made
+  // during the activation and costs AP nothing, only Command Points.
+  ploy: 0,
 };
+
+/**
+ * What `type` costs this operative right now.
+ *
+ * Normally the printed cost. A ploy or rule that reads "can perform the Fall
+ * Back action for 1 less AP" is a discount held for the activation, which is
+ * why the cost is asked for rather than looked up.
+ */
+export function actionCost(state, op, type) {
+  const listed = ACTION_COST[type];
+  if (listed === undefined) return undefined;
+  return Math.max(0, listed - (Number(op?.actionDiscounts?.[type]) || 0));
+}
 
 /** Actions an operative may only perform once per activation. */
 const ONCE_PER_ACTIVATION = new Set([
@@ -117,6 +134,14 @@ export function getLegalActions(state, operativeId) {
     });
   }
 
+  // Firefight ploys are on the menu for the same reason resource spends are:
+  // they cost no AP, and the decision is the AI's to make.
+  for (const ploy of playableFirefightPloys(state, op)) {
+    actions.push({
+      type: 'ploy', cost: 0, ployId: ploy.id, ployName: ploy.name, cp: ploy.cost,
+    });
+  }
+
   if (op.apRemaining <= 0 && !(op.freeActions || []).length) {
     return [...actions, { type: 'pass', cost: 0 }];
   }
@@ -132,13 +157,13 @@ export function getLegalActions(state, operativeId) {
   const mayMove = (type) => !heavyMoveBlocker(op, type) && usableMoveAllowance(state, op, type) > 0;
 
   if (!isEngaged && mayMove('reposition') && !alreadyUsed(state, op, 'reposition')) {
-    actions.push({ type: 'reposition', cost: 1, allowance: usableMoveAllowance(state, op, 'reposition') });
+    actions.push({ type: 'reposition', cost: actionCost(state, op, 'reposition'), allowance: usableMoveAllowance(state, op, 'reposition') });
   }
   if (!isEngaged && mayMove('dash') && !alreadyUsed(state, op, 'dash')) {
-    actions.push({ type: 'dash', cost: 1, allowance: usableMoveAllowance(state, op, 'dash') });
+    actions.push({ type: 'dash', cost: actionCost(state, op, 'dash'), allowance: usableMoveAllowance(state, op, 'dash') });
   }
   if (isEngaged && mayMove('fall_back') && !alreadyUsed(state, op, 'fall_back')) {
-    actions.push({ type: 'fall_back', cost: 1, allowance: usableMoveAllowance(state, op, 'fall_back') });
+    actions.push({ type: 'fall_back', cost: actionCost(state, op, 'fall_back'), allowance: usableMoveAllowance(state, op, 'fall_back') });
   }
   const mayCharge = op.order === ORDERS.ENGAGE || chargeIgnoresOrder(op);
   if (!isEngaged && !fellBack && mayCharge && mayMove('charge') && !alreadyUsed(state, op, 'charge')) {
@@ -148,7 +173,7 @@ export function getLegalActions(state, operativeId) {
     );
     if (reachable.length) {
       actions.push({
-        type: 'charge', cost: 1, allowance,
+        type: 'charge', cost: actionCost(state, op, 'charge'), allowance,
         targets: reachable.map((e) => e.id),
       });
     }
@@ -167,7 +192,7 @@ export function getLegalActions(state, operativeId) {
         const check = canShoot(state, op.id, op.id, weapon);
         if (check.ok) {
           actions.push({
-            type: 'shoot', cost: 1, weaponId: weapon.id, weaponName: weapon.name,
+            type: 'shoot', cost: actionCost(state, op, 'shoot'), weaponId: weapon.id, weaponName: weapon.name,
             selfDirected: true,
             targets: [{ targetId: op.id, range: 0, inCover: false }],
           });
@@ -184,7 +209,7 @@ export function getLegalActions(state, operativeId) {
         }
       }
       if (targets.length) {
-        actions.push({ type: 'shoot', cost: 1, weaponId: weapon.id, weaponName: weapon.name, targets });
+        actions.push({ type: 'shoot', cost: actionCost(state, op, 'shoot'), weaponId: weapon.id, weaponName: weapon.name, targets });
       }
     }
   }
@@ -195,7 +220,7 @@ export function getLegalActions(state, operativeId) {
       .filter((e) => canFight(state, op.id, e.id).ok)
       .map((e) => ({ targetId: e.id }));
     if (targets.length) {
-      actions.push({ type: 'fight', cost: 1, weaponId: meleeWeapons(state, op)[0].id, targets });
+      actions.push({ type: 'fight', cost: actionCost(state, op, 'fight'), weaponId: meleeWeapons(state, op)[0].id, targets });
     }
   }
 
@@ -215,7 +240,7 @@ export function resolveAction(state, action) {
   if (!op) return { ok: false, reason: 'unknown operative' };
   if (!op.alive) return { ok: false, reason: 'operative is incapacitated' };
 
-  const listedCost = ACTION_COST[action.type];
+  const listedCost = actionCost(state, op, action.type);
   if (listedCost === undefined) {
     warnUnsupported(state, `action:${action.type}`, 'requested by AI');
     return { ok: false, reason: `unknown action "${action.type}"` };
@@ -235,6 +260,7 @@ export function resolveAction(state, action) {
   let result;
   switch (action.type) {
     case 'spend': result = resolveSpend(state, op, action); break;
+    case 'ploy': result = resolvePloyAction(state, op, action); break;
     case 'change_order': result = doChangeOrder(state, op, action); break;
     case 'reposition':
     case 'dash':
@@ -259,9 +285,28 @@ export function resolveAction(state, action) {
   }
   // What the action earned: Power From Pain reads the enemy it left injured,
   // Gore Tanks the operative it left dead at its feet.
-  if (action.type !== 'spend') applyPostActionResources(state, op, seqBefore);
+  if (action.type !== 'spend' && action.type !== 'ploy') {
+    applyPostActionResources(state, op, seqBefore);
+  }
   updateObjectiveControl(state);
   return result;
+}
+
+/**
+ * Buy a firefight ploy mid-activation. `ploys.js` re-checks the CP, the limits
+ * and the timing (#3), so an AI proposing one it cannot afford is rejected
+ * rather than trusted; `applyActivationStartHook` is handed over so the grants
+ * the ploy brings — an extra Fight, a free Dash — land immediately.
+ */
+function resolvePloyAction(state, op, action) {
+  // A ploy that puts wounds back rolls dice, so the battle stream comes with it.
+  const rng = Rng.fromState(state.rng);
+  const result = useFirefightPloy(state, op, action.ployId, {
+    applyStart: (s, o, hook) => applyActivationStartHook(s, o, hook, rng),
+  });
+  state.rng = rng.getState();
+  if (!result.ok) return result;
+  return { ok: true, ploy: result.ploy.id, detail: result.ploy.name };
 }
 
 function doChangeOrder(state, op, action) {

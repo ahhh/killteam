@@ -262,6 +262,20 @@ profiles and weapons are the base team's, but the roster, the disposition, the
 doctrine and any ploy of its own are this project's invention, not a published
 list.
 
+One rule is enforced by the generator and by a test: **a variant never fields
+more operatives than its base.** Kill Team prices a bigger list with points and
+this simulator has none, so "the same team but bigger" is not a variant, it is
+a better list — a nine-strong Legionary Warband won 92% of its games against a
+neutral pool where the six-strong base team won 51%, and trading its champions
+for rank and file did not help. At six it wins 72%, splits its head-to-head
+with the base 3–3, and is a different plan rather than a longer one.
+
+Variants are not balanced against their bases, and are not meant to be. The
+Penitent Host is a large improvement on the Novitiates (31% against the pool
+against the base team's 8%); the Krieg Veteran Cadre is a clear step down from
+the line it comes from (21% against 31%), because Krieg's strength is bodies
+and a cadre gives them up. Those are findings, not defects.
+
 ### Missions score ground and blood at the same weight
 
 Secure and Hold pays up to 3 VP a turning point for markers held and, until
@@ -277,8 +291,14 @@ turning point — lets a team that kills harder be paid for it, and that is the
 half of the game a small elite roster is built to win. Re-scored over the same
 battles, roster size's correlation with win rate falls from +0.100 to +0.019
 and the win-rate gap between the smallest and largest rosters from 7.7 points
-to 1.2. Nothing about objective control changed; it is still total APL within
-1", as printed.
+to 1.2. Re-run live over 976 fresh battles, the correlation came out at +0.037
+and the win rate stopped sloping with size at all. Nothing about objective
+control changed; it is still total APL within 1", as printed.
+
+What did *not* work, recorded so nobody tries it twice: paying kill VP per
+share of the enemy roster removed. It reads like the fix — a kill should hurt a
+five-body team more than a fourteen-body one — and it makes the bias roughly
+four times worse, because a horde also gives away less per body killed.
 
 ### Known balance caveat
 

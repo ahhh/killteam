@@ -2,7 +2,7 @@
   "id": "death-korps-cadre",
   "factionId": "astra-militarum",
   "displayName": "Krieg Veteran Cadre",
-  "blurb": "Seven men where there were fourteen, and every one of them a specialist.",
+  "blurb": "Ten men where there were fourteen, and not a plain trooper among them.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -16,7 +16,7 @@
     "accent": "#e6e6e6"
   },
   "roster": {
-    "maxOperatives": 8,
+    "maxOperatives": 10,
     "selectionRules": [
       "1 DEATH KORPS WATCHMASTER operative with the following: Boltgun; bayonet; Or one option from each of the following: Bolt pistol, plasma pistol or relic laspistol; Chainsword or power weapon",
       "4 TROOPER operatives*",
@@ -53,6 +53,14 @@
       },
       {
         "profileId": "death-korps-veteran",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-vox-operator",
+        "count": 1
+      },
+      {
+        "profileId": "death-korps-bruiser",
         "count": 1
       }
     ]
@@ -1159,7 +1167,7 @@
   },
   "variantOf": "death-korps",
   "variantOfName": "Death Korps",
-  "variantNote": "The same regiment fielded as a cadre rather than a line: half the bodies, all of the specialists, and no intention of giving ground.",
+  "variantNote": "The same regiment fielded as a cadre rather than a line: every specialist on the sheet, none of the rank and file, and no intention of giving ground.",
   "aiDisposition": "patient",
   "aiCpDoctrine": "bulwark"
 }

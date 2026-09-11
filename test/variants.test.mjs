@@ -66,6 +66,18 @@ for (const id of ids) {
   });
 }
 
+test('no variant fields more operatives than the team it came from', () => {
+  // Kill Team prices a bigger list with points and this simulator has none, so
+  // "the same team but bigger" is not a variant — it is a better list, and it
+  // would poison every batch result it appeared in. Measured: a nine-strong
+  // Legionary Warband won 92% against a pool where the six-strong base won 51%.
+  for (const id of ids) {
+    const pack = loadTeam(id);
+    assert.ok(size(pack) <= size(loadTeam(pack.variantOf)),
+      `${id} fields ${size(pack)} against its base's ${size(loadTeam(pack.variantOf))}`);
+  }
+});
+
 test('every variant is listed in the catalogue, next to the team it came from', () => {
   const factions = readJson('data/factions.json').factions;
   for (const id of ids) {

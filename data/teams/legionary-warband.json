@@ -2,7 +2,7 @@
   "id": "legionary-warband",
   "factionId": "chaos-space-marines",
   "displayName": "Legionary Warband",
-  "blurb": "Fewer champions, more bodies — the warband the Chosen actually lead.",
+  "blurb": "No champions. Six of the rank and file, and a single Mark between them.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -16,7 +16,7 @@
     "accent": "#e6e6e6"
   },
   "roster": {
-    "maxOperatives": 9,
+    "maxOperatives": 6,
     "selectionRules": [
       "1 LEGIONARY operative selected from the following list: ASPIRING CHAMPION with one option from each of the following: Plasma pistol or tainted bolt pistol; Power fist, power maul, power weapon or tainted chainsword; CHOSEN with one of the following options: Plasma pistol; daemon blade; Tainted bolt pistol; daemon blade",
       "5 LEGIONARY operatives selected from the following list: ANOINTED; BALEFIRE ACOLYTE; BUTCHER; ICON BEARER with one of the following options: Boltgun; fists; Bolt pistol; chainsword; SHRIVETALON; WARRIOR with one of the following options: Boltgun; fists; Bolt pistol; chainsword; GUNNER with one of the following options: Bolt pistol; flamer; fists; Bolt pistol; meltagun; fists; Bolt pistol; plasma gun; fists; HEAVY GUNNER with one of the following options: Bolt pistol; heavy bolter; fists; Bolt pistol; missile launcher; fists; Bolt pistol; reaper chaincannon; fists"
@@ -32,7 +32,7 @@
       },
       {
         "profileId": "legionary-warrior",
-        "count": 7
+        "count": 4
       }
     ]
   },
@@ -1152,7 +1152,7 @@
   },
   "variantOf": "legionary",
   "variantOfName": "Legionary",
-  "variantNote": "The Legionary squad opened up into a nine-strong warband: the same armour spread thinner — nine rank-and-file where there were six champions, a single Mark rather than four, and none of the ploys the champions brought with them.",
+  "variantNote": "The same six-strong squad with the champions traded for rank and file: no Chosen, no Shrivetalon, no Balefire Acolyte — one Mark rather than four, and none of the ploys the champions brought with them.",
   "aiDisposition": "aggressive",
   "aiCpDoctrine": "tactician"
 }

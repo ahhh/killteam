@@ -16,6 +16,15 @@
  *   ploys           which of the base team's ploys it brings, plus at most one
  *                   of its own, written against the published hook vocabulary
  *
+ * ONE HARD RULE, and it was learned the expensive way: a variant never fields
+ * MORE operatives than its base. Kill Team prices a bigger list with points;
+ * this simulator has none, so "the same team but bigger" is not a variant, it
+ * is a better list. The Legionary Warband began as the squad plus three more
+ * and won 92% of its games against a neutral pool where the base team won 51%.
+ * Trading the champions for rank and file did not help — nine marines beat six
+ * marines whoever they are. It is now six, and the variant is the shape of the
+ * six, which is the only comparison this simulator can make fairly.
+ *
  * Generated rather than hand-written so a variant cannot drift from the
  * datacards it is derived from: re-run this after editing a base pack.
  *
@@ -167,14 +176,16 @@ const VARIANTS = [
     id: 'death-korps-cadre',
     base: 'death-korps',
     displayName: 'Krieg Veteran Cadre',
-    blurb: 'Seven men where there were fourteen, and every one of them a specialist.',
-    note: 'The same regiment fielded as a cadre rather than a line: half the '
-      + 'bodies, all of the specialists, and no intention of giving ground.',
+    blurb: 'Ten men where there were fourteen, and not a plain trooper among them.',
+    note: 'The same regiment fielded as a cadre rather than a line: every '
+      + 'specialist on the sheet, none of the rank and file, and no intention '
+      + 'of giving ground.',
     faction: 'astra-militarum',
     roster: [
       'death-korps-watchmaster', 'death-korps-sniper', 'death-korps-sapper',
       'death-korps-gunner', 'death-korps-spotter', 'death-korps-medic',
-      'death-korps-confidant', 'death-korps-veteran',
+      'death-korps-confidant', 'death-korps-veteran', 'death-korps-vox-operator',
+      'death-korps-bruiser',
     ],
     disposition: 'patient',
     doctrine: 'bulwark',
@@ -193,20 +204,18 @@ const VARIANTS = [
     id: 'legionary-warband',
     base: 'legionary',
     displayName: 'Legionary Warband',
-    blurb: 'Fewer champions, more bodies — the warband the Chosen actually lead.',
-    note: 'The Legionary squad opened up into a nine-strong warband: the same '
-      + 'armour spread thinner — nine rank-and-file where there were six '
-      + 'champions, a single Mark rather than four, and none of the ploys the '
-      + 'champions brought with them.',
+    blurb: 'No champions. Six of the rank and file, and a single Mark between them.',
+    note: 'The same six-strong squad with the champions traded for rank and '
+      + 'file: no Chosen, no Shrivetalon, no Balefire Acolyte — one Mark rather '
+      + 'than four, and none of the ploys the champions brought with them.',
     faction: 'chaos-space-marines',
     // Not the squad plus three more: the squad's champions traded away FOR
     // three more. Keeping them and adding bodies is not a variant, it is a
     // bigger list — and with no points cost in this simulator, bigger wins.
     roster: [
       'legionary-aspiring-champion', 'legionary-gunner',
-      'legionary-warrior', 'legionary-warrior', 'legionary-warrior',
-      'legionary-warrior', 'legionary-warrior', 'legionary-warrior',
-      'legionary-warrior',
+      'legionary-warrior', 'legionary-warrior',
+      'legionary-warrior', 'legionary-warrior',
     ],
     disposition: 'aggressive',
     doctrine: 'tactician',
@@ -280,6 +289,12 @@ for (const spec of VARIANTS) {
     if (!base.operatives.some((o) => o.id === entry.profileId)) {
       throw new Error(`${spec.id}: base pack has no profile "${entry.profileId}"`);
     }
+  }
+  const fielded = roster.reduce((s, e) => s + (e.count ?? 1), 0);
+  const baseline = base.roster.operatives.reduce((s, e) => s + (e.count ?? 1), 0);
+  if (fielded > baseline) {
+    throw new Error(`${spec.id} fields ${fielded} against the base team's ${baseline}. `
+      + 'With no points cost, a bigger list is not a variant — see the note above.');
   }
 
   const pack = {

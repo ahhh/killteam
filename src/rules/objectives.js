@@ -69,10 +69,15 @@ function award(state, playerId, amount, reason) {
 export function scoreTurningPoint(state, killsThisTurn) {
   updateObjectiveControl(state);
   const rules = state.mission.scoring || {};
+  // What each side actually did this turning point, before any cap bites.
+  // Reported whether or not it scored, because "held two markers and was paid
+  // for none of them" is the interesting case when a mission is being tuned.
+  const raw = { held: { p1: 0, p2: 0 }, kills: { p1: 0, p2: 0 } };
 
   for (const playerId of ['p1', 'p2']) {
     if (rules.objectives) {
       const held = objectivesControlledBy(state, playerId);
+      raw.held[playerId] = held.length;
       const per = rules.objectives.vpPer ?? 1;
       const cap = rules.objectives.maxPerTurningPoint ?? Infinity;
       const vp = Math.min(held.length * per, cap);
@@ -86,11 +91,13 @@ export function scoreTurningPoint(state, killsThisTurn) {
 
     if (rules.kills) {
       const kills = killsThisTurn[playerId] || 0;
+      raw.kills[playerId] = kills;
       const per = rules.kills.vpPer ?? 1;
       const cap = rules.kills.maxPerTurningPoint ?? Infinity;
       award(state, playerId, Math.min(kills * per, cap), 'kills');
     }
   }
+  state.lastTurningPointScoring = raw;
 
   for (const key of Object.keys(rules)) {
     if (!['objectives', 'kills', 'endOfBattle'].includes(key)) {

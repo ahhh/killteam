@@ -15,7 +15,8 @@
     },
     "kills": {
       "vpPer": 1,
-      "maxPerTurningPoint": 2
+      "maxPerTurningPoint": 4,
+      "notes": "Raised from 2 after an 880-battle sweep: the objective half of this mission pays up to 3 VP a turning point and scales with body count (roster size correlated +0.73 with objective VP), while the kill half scaled with nothing because the cap bit before lethality could show. At 4 the cap is, in practice, no cap \u2014 one side almost never takes more than four operatives off the board in a turning point \u2014 and roster size's correlation with win rate falls from +0.100 to +0.019."
     },
     "endOfBattle": {
       "wipeoutVp": 3

@@ -11,6 +11,7 @@ import { makeState, opsOf } from './fixtures.mjs';
 import { readJson } from './harness.mjs';
 import {
   step, runToCompletion, turningPointLimit, isLastTeamStanding, MAX_TURNING_POINTS,
+  tallyKills as tallyKillsForTest,
 } from '../src/rules/phases.js';
 import { createControllers } from '../src/ai/controller.js';
 import { validateMission } from '../src/data/validators.js';
@@ -188,4 +189,34 @@ test('with no objectives to take, the AI closes on the enemy instead of standing
   const walked = moves.reduce((total, e) => total + e.distance, 0);
   assert.ok(moves.length > 0, 'the AI moved at all');
   assert.ok(walked > 20, `operatives covered only ${walked.toFixed(1)}" across the battle`);
+});
+
+/* --- Scoring: who is paid for a kill, and how much -------------------- */
+
+test('a kill is credited to whoever inflicted it, not to whoever benefits', () => {
+  const s = makeState({
+    p1: { at: [{ x: 5, y: 11 }, { x: 6, y: 11 }], count: 2, wounds: 4 },
+    p2: { at: [{ x: 20, y: 11 }], wounds: 4 },
+  });
+  const [a, b] = liveOperatives(s, 'p1');
+  const foe = liveOperatives(s, 'p2')[0];
+  s.killsThisTurn = { p1: 0, p2: 0 };
+
+  const from = s.eventLog.length;
+  // A weapon overheating in its bearer's hands, and a friend caught in a Blast.
+  applyDamage(s, a.id, 9, { kind: 'hot', attackerId: a.id });
+  applyDamage(s, b.id, 9, { kind: 'shoot', attackerId: foe.id });
+  tallyKillsForTest(s, from);
+
+  assert.equal(s.killsThisTurn.p2, 1, 'only the one the enemy actually shot');
+  assert.equal(s.killsThisTurn.p1, 0);
+});
+
+test("Secure and Hold pays for every kill a turning point produces", () => {
+  // The cap was 2 while the objective half paid up to 3, and the objective
+  // half is the one that scales with body count — see the mission's own note.
+  const mission = readJson('data/missions/secure-and-hold.json');
+  assert.ok(mission.scoring.kills.maxPerTurningPoint >=
+    mission.scoring.objectives.maxPerTurningPoint,
+    'blood must not be capped below ground in a mission that scores both');
 });

@@ -292,14 +292,28 @@ function endActivation(state, op) {
   expireTokensAtActivationEnd(state, op);
 }
 
-/** Credit kills to the player who inflicted them, for this turning point. */
-function tallyKills(state, fromSeq) {
+/**
+ * Credit kills to the player who inflicted them, for this turning point.
+ *
+ * Not every operative that goes down was killed by the other side. A Hot
+ * weapon that overheats, an Explosive one that goes off in its bearer's hands,
+ * a stray Blast catching a friend — those are self-inflicted, and crediting
+ * them to the opponent paid a team VP for a mistake it had nothing to do with.
+ * Rare (three deaths in six hundred), but a mission that scores kills should
+ * count the ones that were earned.
+ *
+ * A token's damage is the exception that proves it: a Poison token belongs to
+ * the player that hung it there, so those deaths stay with the opponent, which
+ * is where the fallback puts them.
+ */
+export function tallyKills(state, fromSeq) {
   for (let i = fromSeq; i < state.eventLog.length; i++) {
     const e = state.eventLog[i];
-    if (e.type === EVENTS.OPERATIVE_INCAPACITATED) {
-      const killer = opponentOf(e.playerId);
-      state.killsThisTurn[killer] = (state.killsThisTurn[killer] || 0) + 1;
-    }
+    if (e.type !== EVENTS.OPERATIVE_INCAPACITATED) continue;
+    const attacker = e.source?.attackerId ? state.operatives[e.source.attackerId] : null;
+    if (attacker && attacker.playerId === e.playerId) continue; // its own side did this
+    const killer = attacker ? attacker.playerId : opponentOf(e.playerId);
+    state.killsThisTurn[killer] = (state.killsThisTurn[killer] || 0) + 1;
   }
 }
 
@@ -481,6 +495,9 @@ export function step(state, controllers) {
     logEvent(state, EVENTS.TURN_ENDED, {
       turningPoint: state.turningPoint,
       vp: { p1: state.players.p1.victoryPoints, p2: state.players.p2.victoryPoints },
+      // Uncapped, so a mission being tuned can see what its caps threw away.
+      scored: state.lastTurningPointScoring ?? null,
+      alive: { p1: liveOperatives(state, 'p1').length, p2: liveOperatives(state, 'p2').length },
     });
 
     const wiped = ['p1', 'p2'].filter((p) => liveOperatives(state, p).length === 0);

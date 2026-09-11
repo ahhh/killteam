@@ -1,0 +1,58 @@
+{
+  "_comment": "Hand corrections for the few portraits the head finder gets wrong: a banner or raised weapon held above the head reads as the head, and a subject with no head at all -- a drone, a swarm -- gives it nothing to find. Each value is [centre-x, centre-y, side] as FRACTIONS of the source portrait (x and side of its width, y of its height), so a correction survives the portrait being re-installed at a different resolution. Re-run tools/make-tokens.py after editing.",
+  "blades-of-khaine/dire-avenger-warrior": [
+    0.5371,
+    0.3086,
+    0.4492
+  ],
+  "chaos-cult/chaos-mutant": [
+    0.5625,
+    0.2057,
+    0.3906
+  ],
+  "hierotek-circle/chronomancer": [
+    0.498,
+    0.2018,
+    0.3906
+  ],
+  "legionary/legionary-icon-bearer": [
+    0.5469,
+    0.306,
+    0.4102
+  ],
+  "plague-marines/plague-marine-icon-bearer": [
+    0.416,
+    0.3906,
+    0.4102
+  ],
+  "void-dancer-troupe/lead-player": [
+    0.6055,
+    0.1953,
+    0.3711
+  ],
+  "warpcoven/rubric-marine-icon-bearer": [
+    0.5762,
+    0.293,
+    0.3906
+  ],
+  "warpcoven/sorcerer-of-destiny": [
+    0.4785,
+    0.2148,
+    0.3906
+  ],
+  "gellerpox-infected/cursemite": [
+    0.4297,
+    0.3854,
+    0.5938
+  ],
+  "gellerpox-infected/glitchling": [
+    0.5156,
+    0.2917,
+    0.4688
+  ],
+  "pathfinders/mv31-pulse-accelerator-drone": [
+    0.3125,
+    0.3281,
+    0.4844
+  ]
+}

@@ -12,7 +12,7 @@ import {
   operativeResources, playerResources, levelLabel, resourceDef, availableSpends,
 } from '../rules/resources.js';
 import { SUPPORT_LEVELS } from '../data/schema.js';
-import { createPortrait } from './portraits.js';
+import { createPortrait, createOperativeToken } from './portraits.js';
 
 /** Build an element with text set safely — never innerHTML for pack content. */
 function h(tag, className, text) {
@@ -88,6 +88,15 @@ export function renderRosterPanel(container, state, playerId, { colors, selected
     card.setAttribute('aria-pressed', op.id === selectedId ? 'true' : 'false');
 
     const row = h('div', 'op-row');
+    // The head token, where the art pipeline has drawn this operative. It is a
+    // 4.5KB crop rather than the 79KB sheet portrait, which is the only reason
+    // a face per card is affordable at all (see ui/portraits.js).
+    const profile = pack.operatives.find((p) => p.id === op.profileId);
+    const token = createOperativeToken(pack.id, profile, op.id);
+    if (token) {
+      row.append(token);
+      card.classList.add('with-token');
+    }
     row.append(h('span', 'op-name', op.name));
     const order = h('span', `badge ${op.alive ? op.order : 'down'}`,
       op.alive ? (op.order === 'engage' ? 'Engage' : 'Conceal') : 'Down');

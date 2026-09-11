@@ -1,28 +1,31 @@
 /**
- * Operative portrait loading (§25).
+ * Operative art loading (§25).
  *
- * There are 470 portraits under assets/portraits/, roughly 25MB. Loading them
- * with the app would multiply first paint by two orders of magnitude for art
- * that is only ever seen inside a character sheet — so nothing here touches the
- * network until an operative's sheet is actually opened.
+ * Two sizes of the same pictures, with very different budgets:
  *
- * Two levels of laziness, and both matter:
+ *   PORTRAIT  assets/portraits/<team>/<profile>.webp — 512x768, ~79KB, 38MB
+ *             for the set. Only ever seen inside a character sheet, so no
+ *             <img> exists until renderOperativeDetail() asks for one.
+ *   TOKEN     assets/tokens/<team>/<profile>.webp — the same art cropped to
+ *             the operative's head and shrunk to 128px, ~4.5KB. Cheap enough
+ *             to put a face on every card in the roster panels, which is what
+ *             the portraits were far too heavy to do.
  *
- *   1. No <img> exists until renderOperativeDetail() asks for one. The roster
- *      panels, which are on screen for the whole battle, deliberately show no
- *      art at all.
- *   2. The manifest — the index of which operatives have art — is fetched once,
- *      on the FIRST sheet opened, and shared by every sheet after it. Without
- *      it the app would have to probe each URL and eat a 404 per operative that
- *      hasn't been drawn yet.
+ * Tokens are generated from the portraits by tools/make-tokens.py and exist
+ * for exactly the same operatives, so hasPortrait() answers for both and the
+ * manifest needs nothing new. A token that is missing because the art pipeline
+ * ran without the crop step simply removes itself on error.
  *
- * The manifest is written by the art pipeline
- * (image_gen_pipeline/generate_killteam_art.py manifest). If it is missing the
- * app still works: hasPortrait() falls back to optimistic, and a portrait that
- * doesn't exist simply removes itself on error.
+ * The manifest — the index of which operatives have art — is fetched once, on
+ * the first card or sheet that needs it, and shared by everything after it.
+ * Without it the app would have to probe each URL and eat a 404 per operative
+ * that hasn't been drawn yet. It is written by the art pipeline
+ * (image_gen_pipeline/generate_killteam_art.py manifest); if it is missing the
+ * app still works, because hasPortrait() falls back to optimistic.
  */
 
 const PORTRAIT_BASE = './assets/portraits';
+const TOKEN_BASE = './assets/tokens';
 const MANIFEST_URL = `${PORTRAIT_BASE}/manifest.json`;
 
 /** null until the first sheet is opened; then the parsed manifest, or false. */
@@ -58,6 +61,12 @@ export function loadManifest() {
 export function portraitUrl(teamId, profileId) {
   const ext = (manifest && manifest.ext) || '.webp';
   return `${PORTRAIT_BASE}/${encodeURIComponent(teamId)}/${encodeURIComponent(profileId)}${ext}`;
+}
+
+/** The URL for one operative's head token. Does not check that it exists. */
+export function tokenUrl(teamId, profileId) {
+  const ext = (manifest && manifest.ext) || '.webp';
+  return `${TOKEN_BASE}/${encodeURIComponent(teamId)}/${encodeURIComponent(profileId)}${ext}`;
 }
 
 /**
@@ -100,5 +109,55 @@ export function createPortrait(pack, profile) {
   const caption = document.createElement('figcaption');
   caption.textContent = 'Generated illustration · not official artwork';
   figure.append(caption);
+  return figure;
+}
+
+/**
+ * The roster card's head token for one operative, or null if it has no art.
+ *
+ * Cached by operative, and the SAME element is handed back every time. The
+ * roster panel rebuilds itself with replaceChildren() on every action, so a
+ * fresh <img> per render would restart the fade on each shot fired even though
+ * the bytes were already in cache. Re-appending the existing node just moves
+ * it. The key carries the profile as well as the operative id, because ids
+ * repeat across battles while the team behind them does not.
+ *
+ * Note this is unrelated to `rules/tokens.js` — Poison, Blaze and the rest of
+ * the token family are game state, not pictures.
+ */
+const tokenCache = new Map();
+
+export function createOperativeToken(teamId, profile, operativeId) {
+  loadManifest();
+  if (!profile || !hasPortrait(teamId, profile.id)) return null;
+
+  const key = `${operativeId}|${teamId}/${profile.id}`;
+  const cached = tokenCache.get(key);
+  if (cached) return cached;
+
+  const figure = document.createElement('figure');
+  figure.className = 'op-token';
+
+  const img = document.createElement('img');
+  img.src = tokenUrl(teamId, profile.id);
+  // A roster holds a dozen or so of these and the panel scrolls, so let the
+  // browser skip the ones below the fold entirely.
+  img.loading = 'lazy';
+  img.decoding = 'async';
+  img.width = 128;
+  img.height = 128;
+  // The card already says the name, so the token is decoration to a screen
+  // reader rather than a second announcement of it.
+  img.alt = '';
+  img.addEventListener('load', () => figure.classList.add('loaded'));
+  // A token that 404s (crops not generated, or a stale manifest) takes itself
+  // off screen rather than showing a broken-image glyph.
+  img.addEventListener('error', () => {
+    figure.remove();
+    tokenCache.delete(key);
+  });
+  figure.append(img);
+
+  tokenCache.set(key, figure);
   return figure;
 }

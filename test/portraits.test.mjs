@@ -1,9 +1,10 @@
 /**
- * Portrait loading, driven against a hand-rolled DOM stub.
+ * Art loading, driven against a hand-rolled DOM stub.
  *
- * The point of ui/portraits.js is a negative: 470 portraits, ~25MB, must NOT
- * be touched until a character sheet is opened. That is invisible in the UI
- * until someone loads the site on a phone, so it is asserted here — counting
+ * The point of ui/portraits.js is a negative: 484 portraits, ~38MB, must NOT
+ * be touched until a character sheet is opened, and the roster's head tokens
+ * must stay on the cheap side of that line. Both are invisible in the UI until
+ * someone loads the site on a phone, so they are asserted here — counting
  * fetches and <img> src assignments rather than looking at pictures.
  *
  * There is no browser in the test run and no jsdom in this project, so the stub
@@ -21,6 +22,7 @@ import { readJson } from './harness.mjs';
 class StubNode {
   constructor(tag) {
     this.tagName = String(tag).toUpperCase();
+    this.parent = null;
     this.children = [];
     this.className = '';
     this.textContent = '';
@@ -32,7 +34,15 @@ class StubNode {
     };
   }
 
-  append(...nodes) { this.children.push(...nodes); }
+  append(...nodes) {
+    for (const n of nodes) {
+      // Appending MOVES a node, as the real DOM does — ui/portraits.js reuses
+      // one token element across roster rebuilds and relies on it.
+      if (n.parent) n.parent.children = n.parent.children.filter((c) => c !== n);
+      n.parent = this;
+      this.children.push(n);
+    }
+  }
   remove() { this.removed = true; }
   addEventListener(type, fn) { (this.listeners[type] ||= []).push(fn); }
   dispatch(type) { for (const fn of this.listeners[type] || []) fn({}); }
@@ -159,4 +169,72 @@ test('ids with characters that need escaping produce a valid URL', async () => {
       const figure = mod.createPortrait({ id: 'a b' }, { id: 'c d', name: 'C D' });
       assert.equal(imageSources(figure)[0], './assets/portraits/a%20b/c%20d.webp');
     });
+});
+
+/* ------------------------------------------------------------------ */
+/* Roster head tokens                                                  */
+/* ------------------------------------------------------------------ */
+
+test('a roster token points at the cropped art, not the full portrait', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const figure = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1');
+    assert.equal(imageSources(figure)[0],
+      `./assets/tokens/kommandos/${PROFILE.id}.webp`);
+  });
+});
+
+test('a token is lazy, and decorative to a screen reader', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const img = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1')
+      .find((n) => n.tagName === 'IMG');
+    assert.equal(img.loading, 'lazy');
+    assert.equal(img.decoding, 'async');
+    // The card prints the name already; a second announcement is noise.
+    assert.equal(img.alt, '');
+  });
+});
+
+test('an operative missing from the manifest gets no token', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const undrawn = PACK.operatives.find((p) => p.id !== PROFILE.id);
+    assert.equal(mod.createOperativeToken('kommandos', undrawn, 'p1-op2'), null);
+  });
+});
+
+test('rebuilding the roster reuses one element per operative', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const first = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1');
+    for (let i = 0; i < 20; i += 1) {
+      assert.equal(mod.createOperativeToken('kommandos', PROFILE, 'p1-op1'), first,
+        'a fresh <img> per render would restart the fade on every action');
+    }
+    // Two operatives sharing one profile must NOT share one element, or the
+    // second card would steal the first card's picture.
+    assert.notEqual(mod.createOperativeToken('kommandos', PROFILE, 'p1-op2'), first);
+  });
+});
+
+test('a 404 token self-removes and is not handed out again', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const figure = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1');
+    figure.find((n) => n.tagName === 'IMG').dispatch('error');
+    assert.equal(figure.removed, true);
+    assert.notEqual(mod.createOperativeToken('kommandos', PROFILE, 'p1-op1'), figure,
+      'the removed element must not be served from cache');
+  });
+});
+
+test('building a whole roster of tokens fetches only the manifest', async () => {
+  await withStubs(MANIFEST, async (fetched, mod) => {
+    for (let i = 0; i < 12; i += 1) {
+      mod.createOperativeToken('kommandos', PROFILE, `p1-op${i}`);
+    }
+    await mod.loadManifest();
+    assert.equal(fetched.length, 1, 'tokens must not each trigger a fetch()');
+  });
 });

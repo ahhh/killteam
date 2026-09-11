@@ -43,13 +43,39 @@ Each operative's character sheet shows a generated coloured-pencil portrait from
 `assets/portraits/<team-id>/<operative-id>.webp`. The art is **generated, not
 official** — no miniature photography or published illustration is reproduced.
 
-It is loaded lazily and only there. Nothing fetches a portrait until a sheet is
-actually opened: the roster panels that are on screen for the whole battle show
-no art at all, and `assets/portraits/manifest.json` — the index of which
-operatives have been drawn — is fetched once, on the first sheet opened, so a
-portrait that doesn't exist yet costs no request. See `src/ui/portraits.js`;
-`npm test` asserts the laziness, since it is otherwise invisible until someone
-loads the site on a phone.
+Roster cards show the same art as a small head token from
+`assets/tokens/<team-id>/<operative-id>.webp` — the portrait cropped to the
+operative's face and shrunk to 128px, about 4.5KB against the portrait's 79KB.
+That ratio is the whole reason a picture per card is affordable: the full set of
+portraits is 38MB, the full set of tokens is 2.1MB, and a card that scrolls out
+of the panel never loads at all.
+
+Everything is lazy. Nothing fetches a portrait until a sheet is actually opened,
+tokens are `loading="lazy"` and reuse one element per operative across the
+roster's rebuilds, and `assets/portraits/manifest.json` — the index of which
+operatives have been drawn — is fetched once and answers for both sizes, so art
+that doesn't exist yet costs no request. See `src/ui/portraits.js`; `npm test`
+asserts the laziness, since it is otherwise invisible until someone loads the
+site on a phone.
+
+Tokens are derived from the portraits, in this repo:
+
+```bash
+pip install -r tools/requirements.txt             # opencv, pillow, numpy
+python3 tools/make-tokens.py                      # rewrite assets/tokens/
+python3 tools/make-tokens.py --contact-sheet /tmp/sheet.png   # eyeball it
+```
+
+Those are the only dependencies anywhere near this project, and the app itself
+does not need them — committed tokens are what it loads.
+
+Finding the head is the interesting part, and it takes two signals: YuNet face
+detection, which is excellent on the bare human, ork and ratling faces but
+knows nothing about helmets and will happily report the skull on a shoulder pad
+as a face; and silhouette geometry, which reads the head as the first blob below
+the crown wide enough not to be a raised weapon. The silhouette runs first and
+vets the face detector's answer. The handful it still gets wrong — a banner held
+high reads as a head — are pinned by hand in `tools/token-overrides.json`.
 
 The portraits are produced by a separate pipeline that lives outside this repo,
 `image_gen_pipeline/generate_killteam_art.py` (see its
@@ -62,7 +88,8 @@ python3 generate_killteam_art.py regen \
   give him a much bigger hat and less green
 ```
 
-The app works fine with the directory empty or partly filled.
+The app works fine with either directory empty or partly filled. After redrawing
+a portrait, re-run `tools/make-tokens.py` so its token matches.
 
 ## Run it
 

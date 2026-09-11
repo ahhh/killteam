@@ -330,6 +330,13 @@ WITHIN SHADOW). Those packs stay at `supportLevel: 1`.
 - Control by total APL within an objective's control range; equal totals are contested
 - Data-driven mission scoring: per-objective VP with a per-turning-point cap,
   kill VP with a cap, and end-of-battle survivor/wipeout bonuses
+- A kill is credited to whoever inflicted it. A Hot weapon overheating in its
+  bearer's hands, or a Blast catching a friend, is nobody's victory point; a
+  Poison token's damage is still the player's that hung it there
+- `TURN_ENDED` carries the turning point's raw numbers — markers held and
+  operatives killed, before any cap — so a mission's caps can be tuned against
+  what they actually threw away. Secure and Hold's kill cap was raised from 2
+  to 4 on that evidence; see the mission file's own note and the README
 
 ### Maps
 
@@ -430,6 +437,18 @@ condition/effect data `ruleHooks` uses.
   exists for them — it fires before the attack dice are rolled, which is the
   only window in which "your opponent cannot re-roll their attack dice" means
   anything.
+- **Firefight ploys with `timing: "demise"`** are bought as the operative that
+  pays for them goes down, out of the same reserve a reaction uses. There is no
+  judgement about whether the moment is worth it, the way there is for a
+  reaction: an operative that is already down has nothing left to protect and
+  the ploy expires with it, so the only questions are whether the team kept CP
+  back and whether the throes have anybody to reach.
+
+Four triggers exist for ploys that fire at a *moment* rather than across a
+sequence: `onIncapacitated` (the death-throe family), `afterAction`,
+`afterRetaliation`, and `onTargetSelection` — the last of which is a defender's
+veto over being picked at all, asked before Seek or a spotter get their say,
+because SHIFTY and IN POSITION both print that precedence explicitly.
 
 Every purchase is re-checked by the rules layer, so an unaffordable, duplicate
 or mistimed pick proposed by the AI is rejected and logged rather than trusted.
@@ -465,9 +484,13 @@ These are recognised and reported, not simulated:
 
 - Ploys whose printed wording has no expression in the hook vocabulary —
   swapping two operatives' positions, interrupting an opponent's activation,
-  cancelling an opponent's ploy, redirecting a shot onto a bodyguard. Roughly
-  a third of the printed ploys; each is named once at battle start rather than
-  approximated.
+  cancelling an opponent's ploy, redirecting a shot onto a bodyguard, chaining
+  a second friendly activation, skipping one. Each is named once at battle
+  start rather than approximated.
+
+  The bodyguard shape ("select one other friendly operative to become the valid
+  target instead") is the largest remaining group — eight teams print a version
+  of it — and is the obvious next thing to build.
 - Equipment — chosen before the battle, and there is no pre-battle selection
   step. Catalogued and reported.
 - Board state several ploys are printed against — the OBELISK NODE MATRIX, the

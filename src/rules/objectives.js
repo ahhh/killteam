@@ -8,7 +8,29 @@
 import { baseDistance } from '../maps/geometry.js';
 import { CONTROL_RANGE } from './visibility.js';
 import { EVENTS, logEvent, liveOperatives, opponentOf, warnUnsupported } from '../state.js';
-import { effectiveApl } from './effects.js';
+import { effectiveApl, isInjured } from './effects.js';
+import { hasToken, tokenControlAplDelta } from './tokens.js';
+import { profileOf } from './hooks.js';
+
+/**
+ * Conditions a `controlModifiers` entry may carry. All are ANDed, all optional.
+ *
+ * Kill Team writes a surprising number of rules as "treat its APL as one
+ * higher when determining control of markers… this does not change its APL
+ * stat". They cannot be rule hooks: a hook fires at a moment, and control is
+ * recomputed continuously, from wherever the operatives happen to be standing.
+ * So a pack declares them as their own block and this module reads it — data,
+ * never code, and an unknown key is reported once and then ignored.
+ */
+export const CONTROL_CONDITIONS = [
+  'keyword',                 // the contesting operative's profile has this
+  'notKeyword',
+  'hasToken',                // it holds one of its own team's tokens
+  'notHasToken',
+  'friendlyWithin',          // {inches, keyword} — a named friendly is near it
+  'contestedWithKeyword',    // another friendly on the SAME marker has this
+  'wounded',                 // it is Injured (or, false, is not)
+];
 
 /** Operatives contesting a marker, split by player. */
 export function contestants(state, objective) {
@@ -22,8 +44,65 @@ export function contestants(state, objective) {
   return out;
 }
 
-export function controlValue(operatives) {
-  return operatives.reduce((sum, op) => sum + effectiveApl(op), 0);
+/** Does one `controlModifiers` entry apply to this operative on this marker? */
+function modifierApplies(state, mod, op, alliesOnMarker) {
+  const cond = mod.condition || {};
+  for (const key of Object.keys(cond)) {
+    if (!CONTROL_CONDITIONS.includes(key)) {
+      warnUnsupported(state, `control-condition:${key}`,
+        `${mod.rule || mod.id} uses an unknown control condition "${key}"`);
+      return false;
+    }
+  }
+  const keywords = profileOf(state, op)?.keywords || [];
+  if (cond.keyword && !keywords.includes(cond.keyword)) return false;
+  if (cond.notKeyword) {
+    const excluded = Array.isArray(cond.notKeyword) ? cond.notKeyword : [cond.notKeyword];
+    if (excluded.some((k) => keywords.includes(k))) return false;
+  }
+  if (cond.hasToken && !hasToken(op, cond.hasToken, op.playerId)) return false;
+  if (cond.notHasToken && hasToken(op, cond.notHasToken, op.playerId)) return false;
+  if (cond.wounded !== undefined && isInjured(op) !== cond.wounded) return false;
+  if (cond.friendlyWithin !== undefined) {
+    const spec = typeof cond.friendlyWithin === 'object'
+      ? cond.friendlyWithin : { inches: cond.friendlyWithin };
+    const reach = Number(spec.inches) || 0;
+    const near = liveOperatives(state, op.playerId).some((o) => {
+      if (o.id === op.id || baseDistance(op, o) > reach) return false;
+      if (!spec.keyword) return true;
+      return (profileOf(state, o)?.keywords || []).includes(spec.keyword);
+    });
+    if (!near) return false;
+  }
+  if (cond.contestedWithKeyword) {
+    const withHim = alliesOnMarker.some((o) => o.id !== op.id &&
+      (profileOf(state, o)?.keywords || []).includes(cond.contestedWithKeyword));
+    if (!withHim) return false;
+  }
+  return true;
+}
+
+/**
+ * The APL this operative contributes to control of THIS marker.
+ *
+ * `effectiveApl` is what it can act with; this is what it counts for on a
+ * marker, and the two deliberately differ — Loss of Restraint makes a
+ * blood-maddened Marine a poor scorer without taking an action off him.
+ */
+export function controlApl(state, op, alliesOnMarker = []) {
+  let apl = effectiveApl(op) + tokenControlAplDelta(op);
+  const mods = state.teamPacks?.[op.playerId]?.controlModifiers || [];
+  for (const mod of mods) {
+    if (!modifierApplies(state, mod, op, alliesOnMarker)) continue;
+    apl += Number(mod.delta) || 0;
+    if (mod.cap !== undefined) apl = Math.min(apl, Number(mod.cap));
+  }
+  return Math.max(1, apl);
+}
+
+export function controlValue(operatives, state = null) {
+  if (!state) return operatives.reduce((sum, op) => sum + effectiveApl(op), 0);
+  return operatives.reduce((sum, op) => sum + controlApl(state, op, operatives), 0);
 }
 
 /** Recompute `controlledBy` for every objective. Returns changes for logging. */
@@ -31,8 +110,8 @@ export function updateObjectiveControl(state) {
   const changes = [];
   for (const objective of state.objectives) {
     const c = contestants(state, objective);
-    const v1 = controlValue(c.p1);
-    const v2 = controlValue(c.p2);
+    const v1 = controlValue(c.p1, state);
+    const v2 = controlValue(c.p2, state);
     let controller = null;
     if (v1 > v2) controller = 'p1';
     else if (v2 > v1) controller = 'p2';

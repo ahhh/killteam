@@ -89,7 +89,8 @@ RANGED_PATTERNS = [
     # Flame projectors, before the beams — "brazier of holy fire" is not a las.
     (r"\bflamer|\bburna|\bspewer|\bpyregut|\bigniter|\bsprayer|\bcenser"
      r"|\bbrazier|\bfirestorm|\bfireblast|\bwreathe in fire|\bburning"
-     r"|\bskinner|\bspit\b|\beffluence|\bwreathed|\bskytorch", "flame"),
+     r"|\bskinner|\bspit\b|\beffluence|\bwreathed|\bskytorch"
+     r"|\bpyreblaster|\bpurifying flame|\bflame\b", "flame"),
     # The warp: psychic powers, daemonic gifts and miracles. These are not
     # guns, and drawing them as tracer fire is the one thing that would look
     # wrong on every faction that has them.
@@ -98,7 +99,7 @@ RANGED_PATTERNS = [
      r"|\bentropy\b|\bmindburn|\bthunderclap|\bvoice of condemnation|\bholy light"
      r"|\bgaze of the emperor|\bjaws of the world wolf|\bdiabolical stave"
      r"|\barcane conduit|\baeonstave|\bfaolch|\bcaress|\bembrace|\bicon of khorne"
-     r"|\bdimensional|\btransdimensional|\bneuro disruptor", "psychic"),
+     r"|\bdimensional|\btransdimensional|\bneuro disruptor|\bwarp spite", "psychic"),
     # Beam and coil weapons, drawn as one clean line of light.
     (r"\blas\b|\blas[a-z]|\blong las|\bhot shot|\bvolley gun|\blance\b|\bblaster\b"
      r"|\bblast pistol|\barc (pistol|rifle)|\bheavy arc|\bvoltaic|\bstaff of light"

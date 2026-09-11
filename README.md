@@ -22,7 +22,11 @@ official Games Workshop sources.
 
 **Bundled rules data.** Six teams (`vanguard-*`, `ash-cultists`,
 `corsair-skirmishers`, `scrap-raiders`, `skycaste-marksmen`) are original
-synthetic demo teams written for this engine — invented stat lines. Another 48
+synthetic demo teams written for this engine — invented stat lines. Three more
+— `crimson-spear`, `freebooter-boardin-krew` and `covenant-of-the-hidden-word`
+— are **fan-made** kill teams written by the user as design briefs and
+transcribed here; their stat lines, ploys and equipment are the author's
+invention and no part of them comes from a published source. Another 48
 under `data/teams/` were transcribed from [Wahapedia](https://wahapedia.ru/kill-team3/)
 in September 2026 and carry their source URL in each pack's `source` block.
 Those are reproduced for simulation and reference only; Games Workshop holds
@@ -30,7 +34,7 @@ the rights, and the official downloads are authoritative for actual play. This
 goes further than the repository policy in `plan.md` §3, which anticipated that
 real rule data would be loaded locally rather than committed.
 
-`catachan-jungle-fighters` is a **fan-made** kill team, transcribed from
+`catachan-jungle-fighters` is another **fan-made** kill team, transcribed from
 datasheet images supplied by the user rather than from any published source.
 Its sheets are in the 2021 symbol notation, so the pack's `source.notes`
 records the one conversion applied: distances are doubled to the scale the
@@ -297,6 +301,20 @@ nothing in a pack is ever executed. See `docs/rule-pack-format.md`.
 `data/reference-teams.json` is the catalogue: it maps every team name to its
 bundled rule pack and its Wahapedia source URL. It carries no stats itself.
 
+### The team picker is grouped by grand alliance
+
+`data/factions.json` gives every faction a `group` — Imperium, Chaos, Aeldari,
+Xenos, Demo teams — and lists the factions in group order, so every Aeldari
+faction is adjacent to every other and the Chaos Legions sit beside their
+cultists instead of being scattered through an alphabetical list. A `<select>`
+has exactly one level of grouping, so the alliance is a prefix on the optgroup
+label rather than a heading above it: **Aeldari · Craftworlds**, **Aeldari ·
+Drukhari**, **Chaos · Chaos Space Marines**. A faction with no `group` — an
+older catalogue, or one somebody wrote themselves — keeps its own name and
+still loads. `test/setup-screen.test.mjs` asserts that no alliance is split
+across the catalogue, since a run that is broken in two stops reading as a
+group at all.
+
 ## Current status
 
 Milestones 0–6 of `plan.md` are implemented and tested:
@@ -413,6 +431,67 @@ What did *not* work, recorded so nobody tries it twice: paying kill VP per
 share of the enemy roster removed. It reads like the fix — a kill should hurt a
 five-body team more than a fourteen-body one — and it makes the bias roughly
 four times worse, because a horde also gives away less per body killed.
+
+### Three fan-made teams
+
+`crimson-spear` (Blood Angels), `freebooter-boardin-krew` (Ork pirates) and
+`covenant-of-the-hidden-word` (Word Bearers and their cult) were written as
+prose design briefs and transcribed into packs at `supportLevel` 4. Each
+declares what it could not simulate, in the pack and in the battle log: the
+Breacha's MAKE US A DOOR has no terrain to cut, the Cult Cell markers have no
+marker to place, and every printed rule that hangs off Pick Up Marker or a
+mission action has no action in this engine to modify.
+
+Two things came out of building them that the engine kept:
+
+**Marker control is now its own vocabulary.** All three lean on rules written
+as "treat its APL as x when determining control of markers … this does not
+change its APL stat" — the Red Thirst's Loss of Restraint, Heir of Azkaellon,
+Creed of Martyrdom, The Word Made Flesh. A hook fires at a moment and control
+is recomputed continuously, so those became a `controlModifiers` block on the
+pack and a `controlAplDelta` on the token family. See
+`docs/rule-pack-format.md`.
+
+**The AI was ignoring two whole classes of free action.** ASTARTES — "either
+two Shoot actions or two Fight actions" — is an always-on rule hook nobody pays
+for, and the plan builder only ever counted repeats a resource spend or a
+firefight ploy had bought. So every Space Marine team in the bundle walked into
+contact and swung once: across nine battles the Crimson Spear charged seven
+times and fought seven times. A granted free Dash was the same story, read only
+by the action layer, which sees it after the plan is made. Both are now planned
+(`freeRepeats`, `grantedDash` in `src/ai/controller.js`), which is worth about
+twelve points of win rate to the Crimson Spear and lifts Angel of Death,
+Deathwatch, Murderwing and Legionary with it. `AI_VERSION` is 0.3.0 for it.
+
+Where they land, over a 12-team round robin of 6 battles per pair on all three
+maps, both seats:
+
+| | |
+|---|---|
+| deathwatch | 83.3% |
+| legionary | 72.0% |
+| blooded | 71.2% |
+| **crimson-spear** | **65.2%** |
+| death-korps | 64.4% |
+| murderwing | 56.8% |
+| kommandos | 50.0% |
+| wrecka-krew | 48.5% |
+| novitiates | 28.8% |
+| **freebooter-boardin-krew** | **26.5%** |
+| **covenant-of-the-hidden-word** | **25.0%** |
+| chaos-cult | 8.3% |
+
+The Crimson Spear is where its brief asks for it: a notch above Murderwing, even
+with Deathwatch and Legionary head to head, behind Angel of Death. The other
+two are not, and the reason is the same one the harness has reported before —
+**this engine rewards reach far more than the tabletop does**, and both are
+written as short-ranged teams. The Freebooterz' printed guns all stopped inside
+10", which is why three of them reach two inches further here than the brief
+prints; that is recorded in the pack's own `source.notes` with the numbers
+either side and the four fields to revert. The Covenant fields nine mortals
+with 2/3-damage weapons. Both beat the horde teams they are built from —
+the Covenant takes 8W 2D 2L off Chaos Cult — and both lose to elite marines,
+which is the matchup their briefs describe losing.
 
 ### Known balance caveat
 

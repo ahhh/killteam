@@ -157,8 +157,16 @@ effects wired to them yet.
 
 *About this operative:* `keyword`, `notKeyword`, `role`, `orderIs`,
 `selfWounded`, `selfReady`, `awayFromFriends`, `awayFromEnemies`,
-`withinShadow`, `counteracting`, `performedThisActivation`,
-`notPerformedThisActivation`.
+`friendlyWithin`, `hasToken`, `notHasToken`, `nearObjective`,
+`turningPointAtLeast`, `withinShadow`, `counteracting`,
+`performedThisActivation`, `notPerformedThisActivation`.
+
+`friendlyWithin` takes two forms. A bare number is "another friendly operative
+within x\"". The object form names *which* friendly — `{"inches": 6, "keyword":
+"dark-apostle"}` is "visible to and within 6\" of your DARK APOSTLE", which is
+how a printed leash around one named model is written. `notHasToken` is the
+mirror of `hasToken`, for a rule that only applies while the operative has
+*not* picked something up.
 
 *About the action that just finished* (`afterAction` only): `actionIs`,
 `actionCountAtMost` — together these say "if the FIRST action it performs
@@ -207,6 +215,7 @@ operative moves.
 | `capDamage` | `max`, `perAction` | Caps damage from one action |
 | `healWounds` | `dice` | Regains lost wounds, e.g. `"D3+1"` |
 | `allowChargeWhileConceal` | — | Charge without an Engage order |
+| `allowChargeAfterFallBack` | — | Charge later in an activation that already fell back |
 | `extraAction` | `action` or `oneOf[]`, `count` | Repeats an action |
 | `freeAction` | `action` | One action per activation costing no AP |
 | `grantAllyApl` | `amount`, `within`, `keyword` | Hands APL to a friendly operative when this one activates |
@@ -223,6 +232,11 @@ hook rather than per operative, rolled once (`"D3"`) and drawn down as the
 Strategy-phase sweep walks the roster, so "select ONE enemy operative" and "up
 to D3 friendly operatives" both come out right.
 
+`target: "self"` is the third option alongside `"attacker"` and a radius: the
+rule hangs something on the operative whose own action triggered it. The Red
+Thirst is the case it exists for — giving in is a state a Marine puts on
+himself, not something done to an enemy.
+
 `inflictToken` takes the same `token` block weapon rules use (see
 `rules/tokens.js`): `{kind, label, onActivation, whileHeld, expiry}`.
 `whileHeld.aplDelta` is what a printed "subtract 1 from its APL stat" becomes,
@@ -230,6 +244,44 @@ and `expiry.endOfNextActivation` is what makes it lapse when it should.
 
 `extraAction` with `oneOf` models the Astartes shape — *either* two Shoot
 actions *or* two Fight actions: whichever is repeated first claims the grant.
+
+### Marker-control modifiers (`controlModifiers`)
+
+Kill Team writes a surprising number of rules as "treat its APL as one higher
+when determining control of markers", and then goes out of its way to add "this
+does not change its APL stat". They cannot be rule hooks: a hook fires at a
+moment, and control is recomputed continuously from wherever everyone happens
+to be standing. So a pack declares them as their own block, and
+`rules/objectives.js` reads it when it works out who holds what.
+
+```jsonc
+"controlModifiers": [
+  {
+    "id": "heir-of-azkaellon",          // required, unique within the pack
+    "rule": "Heir of Azkaellon",        // the printed rule, for the log
+    "text": "…the printed wording…",
+    "delta": 1,                         // required, non-zero
+    "cap": 4,                           // optional ceiling on the result
+    "condition": {
+      "keyword": "sanguinary-guard",
+      "friendlyWithin": { "inches": 3, "keyword": "leader" }
+    }
+  }
+]
+```
+
+**Conditions** — ANDed, all optional, all about the operative contesting the
+marker: `keyword`, `notKeyword`, `hasToken`, `notHasToken`, `wounded`,
+`friendlyWithin` (a number, or `{inches, keyword}`), and
+`contestedWithKeyword`, which asks about the other friendly operatives *on this
+same marker* — "whenever this operative contests a marker alongside at least
+one friendly CULTIST operative".
+
+An unknown condition is reported once and the modifier never applies, the same
+way an unknown hook condition fails closed. The total a contesting operative
+contributes never falls below 1, matching the floor `effectiveApl` already has.
+A token's `whileHeld.controlAplDelta` is added first, then every modifier that
+matches, then the cap and the floor.
 
 ### Team resource economies (`resources`)
 
@@ -251,6 +303,7 @@ ignored rather than guessed.
     "max": 2,                         // optional cap
     "levels": ["empty", "half", "full"],   // optional: a track, not a count
     "perActivation": 1,               // spends per activation or counteraction
+    "gainsPerTurningPoint": 1,        // optional cap across ALL of its gains
 
     "gains": [
       { "trigger": "enemyInjured", "amount": 1 },
@@ -270,10 +323,11 @@ ignored rather than guessed.
 
 | Trigger | Fields | Pays out when |
 |---|---|---|
-| `readyStep` | `amount` | The Ready step of each turning point |
+| `readyStep` | `amount`, `requireObjectiveControl` | The Ready step of each turning point; with `requireObjectiveControl` only while the team still holds a marker |
 | `enemyInjured` | `amount` | The holder's action left an enemy Injured and alive |
 | `enemyIncapacitated` | `amount`, `bonusIfWoundsAtLeast` | The holder's action killed an enemy |
 | `killWithin` | `within`, `amount` | The holder killed something within x" (control range always counts) |
+| `killNearObjective` | `within`, `amount` | The holder killed something while either of them was within x" of a marker |
 | `firstKillEachTurningPoint` | `amount` | The team's first kill of the turning point |
 | `firstLossNearEnemyEachTurningPoint` | `within`, `amount` | The team's first loss within x" of an enemy |
 
@@ -542,8 +596,17 @@ what makes it resolve.
 `anyDiceResolved` (dice resolved and the target survived).
 
 **Token shape**: `{kind, label, stacks, unique, onActivation: {damage, removal:
-{d6}}, whileHeld: {moveDelta, hitPenalty, notCumulativeWithInjured,
-weaponRules[], weaponType}, expiry: {endOfNextActivation, endOfTurningPoint}}`.
+{d6}}, whileHeld: {aplDelta, controlAplDelta, moveDelta, hitPenalty,
+notCumulativeWithInjured, weaponRules[], weaponType}, expiry:
+{startOfNextActivation, endOfNextActivation, endOfTurningPoint}}`.
+
+`whileHeld.controlAplDelta` is a different number from `aplDelta`: it moves
+what the operative is worth **on a marker** and never touches the AP it gets to
+spend, which is exactly what "treat its APL as 1 when determining control of
+markers … this does not change its APL stat" asks for. `expiry.
+startOfNextActivation` is the shorter of the two activation spans, for a rule
+that lapses as the operative comes to its senses rather than after it has
+acted.
 Damage expressions are `"1"`, `"D3"`, `"2D6"`, `"D3+1"`. A token is usually
 something stuck to an enemy, but `whileHeld.weaponRules` runs the other way: a
 Blooded token assigned to one of your own gives its weapons Accurate 1.

@@ -24,11 +24,11 @@
         "bolt"
       ],
       [
-        "\\bflamer|\\bburna|\\bspewer|\\bpyregut|\\bigniter|\\bsprayer|\\bcenser|\\bbrazier|\\bfirestorm|\\bfireblast|\\bwreathe in fire|\\bburning|\\bskinner|\\bspit\\b|\\beffluence|\\bwreathed|\\bskytorch",
+        "\\bflamer|\\bburna|\\bspewer|\\bpyregut|\\bigniter|\\bsprayer|\\bcenser|\\bbrazier|\\bfirestorm|\\bfireblast|\\bwreathe in fire|\\bburning|\\bskinner|\\bspit\\b|\\beffluence|\\bwreathed|\\bskytorch|\\bpyreblaster|\\bpurifying flame|\\bflame\\b",
         "flame"
       ],
       [
-        "\\bdoombolt|\\bbaleblast|\\bbalesurge|\\bfluxblast|\\binfernal gaze|\\bwarpflame|\\btech curse|\\bplague wind|\\bhorrif|\\bfreezing grasp|\\blife siphon|\\bentropy\\b|\\bmindburn|\\bthunderclap|\\bvoice of condemnation|\\bholy light|\\bgaze of the emperor|\\bjaws of the world wolf|\\bdiabolical stave|\\barcane conduit|\\baeonstave|\\bfaolch|\\bcaress|\\bembrace|\\bicon of khorne|\\bdimensional|\\btransdimensional|\\bneuro disruptor",
+        "\\bdoombolt|\\bbaleblast|\\bbalesurge|\\bfluxblast|\\binfernal gaze|\\bwarpflame|\\btech curse|\\bplague wind|\\bhorrif|\\bfreezing grasp|\\blife siphon|\\bentropy\\b|\\bmindburn|\\bthunderclap|\\bvoice of condemnation|\\bholy light|\\bgaze of the emperor|\\bjaws of the world wolf|\\bdiabolical stave|\\barcane conduit|\\baeonstave|\\bfaolch|\\bcaress|\\bembrace|\\bicon of khorne|\\bdimensional|\\btransdimensional|\\bneuro disruptor|\\bwarp spite",
         "psychic"
       ],
       [
@@ -100,7 +100,7 @@
       "inches": 2.6,
       "tint": true,
       "used": {
-        "count": 210,
+        "count": 223,
         "examples": [
           "COMBAT DOCTRINE",
           "AND THEY SHALL KNOW NO FEAR",
@@ -124,7 +124,7 @@
       "bytes": 64334,
       "inches": 3.6,
       "used": {
-        "count": 69,
+        "count": 72,
         "examples": [
           "Auxiliary grenade launcher (frag)",
           "Bolt sniper rifle (hyperfrag)",
@@ -184,7 +184,7 @@
         "max": 520
       },
       "used": {
-        "count": 159,
+        "count": 167,
         "examples": [
           "Heavy bolt pistol",
           "Bolt rifle",
@@ -208,7 +208,7 @@
       "bytes": 22830,
       "inches": 3.1,
       "used": {
-        "count": 75,
+        "count": 80,
         "examples": [
           "FANATIC SURGE",
           "BLADEWIND",
@@ -231,7 +231,7 @@
       "about": "A jet of burning fuel, sized to the target.",
       "bytes": 54152,
       "used": {
-        "count": 47,
+        "count": 49,
         "examples": [
           "Hand flamer",
           "Cinder Sprayer",
@@ -255,7 +255,7 @@
       "bytes": 48502,
       "inches": 2.7,
       "used": {
-        "count": 22,
+        "count": 23,
         "examples": [
           "SYSTEM EXORCISM",
           "BITTER DEMISE",
@@ -294,7 +294,7 @@
         "max": 520
       },
       "used": {
-        "count": 147,
+        "count": 148,
         "examples": [
           "Heavy arc rifle",
           "Laspistol",
@@ -333,7 +333,7 @@
         "max": 520
       },
       "used": {
-        "count": 39,
+        "count": 41,
         "examples": [
           "Lascutter (close range)",
           "Lascutter (short range)",
@@ -381,7 +381,7 @@
       "bytes": 9446,
       "inches": 2.3,
       "used": {
-        "count": 662,
+        "count": 692,
         "examples": [
           "Power fist",
           "Chainsword",
@@ -420,7 +420,7 @@
         "max": 520
       },
       "used": {
-        "count": 116,
+        "count": 118,
         "examples": [
           "Plasma pistol (standard)",
           "Plasma pistol (supercharge)",
@@ -459,7 +459,7 @@
         "max": 520
       },
       "used": {
-        "count": 35,
+        "count": 36,
         "examples": [
           "Transdimensional isolator",
           "Gaze of the Emperor",
@@ -499,7 +499,7 @@
         "max": 520
       },
       "used": {
-        "count": 71,
+        "count": 76,
         "examples": [
           "Auxiliary grenade launcher (frag)",
           "Auxiliary grenade launcher (krak)",
@@ -562,7 +562,7 @@
         "max": 520
       },
       "used": {
-        "count": 298,
+        "count": 312,
         "examples": [
           "Ash Pistol",
           "Scrap Autogun",
@@ -585,7 +585,7 @@
       "about": "Sweeping fire: the Torrent rule on a weapon that isn't a flamer.",
       "bytes": 34728,
       "used": {
-        "count": 52,
+        "count": 53,
         "examples": [
           "Auto bolt rifle",
           "Heavy bolter (sweeping)",
@@ -609,7 +609,7 @@
       "bytes": 7444,
       "inches": 2.5,
       "used": {
-        "count": 662,
+        "count": 692,
         "examples": [
           "Power fist",
           "Chainsword",
@@ -657,7 +657,7 @@
       "bytes": 19010,
       "inches": 2.7,
       "used": {
-        "count": 162,
+        "count": 170,
         "examples": [
           "COMBAT DOCTRINE",
           "SHOCK ASSAULT",
@@ -681,7 +681,7 @@
       "bytes": 43460,
       "inches": 2.7,
       "used": {
-        "count": 96,
+        "count": 100,
         "examples": [
           "AND THEY SHALL KNOW NO FEAR",
           "INDOMITUS",

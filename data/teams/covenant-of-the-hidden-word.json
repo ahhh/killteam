@@ -1,0 +1,1296 @@
+{
+  "id": "covenant-of-the-hidden-word",
+  "factionId": "chaos-space-marines",
+  "displayName": "Covenant of the Hidden Word",
+  "blurb": "A single warrior-priest of the XVII Legion infiltrates a world decades before open war begins, and around himself gathers the bitter, the desperate and the faithful. A congregation becomes a sect; a sect becomes cells. Then the Word is spoken, and the world discovers that the rebellion has already begun.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-11",
+  "supportLevel": 4,
+  "source": {
+    "publisher": "Fan-made. Not a published Games Workshop kill team.",
+    "url": "",
+    "checkedAt": "2026-09-11",
+    "notes": "Original fan-made kill team supplied by the user as a written design brief and transcribed into this pack. Stat lines, weapon profiles, ploys and equipment are the author's invention, not transcribed from any published source. The brief describes an asymmetric mixed elite/horde team: one extremely powerful Word Bearer and eight fragile mortal cultists who supply activation count, mission actions and disposable bodies."
+  },
+  "colors": {
+    "primary": "#6d1f2b",
+    "accent": "#c9a227"
+  },
+  "aiDisposition": "balanced",
+  "aiCpDoctrine": "tactician",
+  "roster": {
+    "maxOperatives": 9,
+    "selectionRules": [
+      "A COVENANT OF THE HIDDEN WORD kill team consists of 9 operatives: 1 WORD BEARER DARK APOSTLE, 2 CULT DEVOTEE operatives, and 6 different operatives selected from the following list: CELL DEMAGOGUE, ICONARCH, FIREBRAND, SABOTEUR, MALEFIC WITCH, TURNCOAT GUNNER, CELL ENFORCER, SLEEPER AGENT, VOX SEDITIONIST. You cannot select the same specialist more than once.",
+      "The Dark Apostle has the CHAOS, WORD BEARERS, HERETIC ASTARTES, DARK APOSTLE, LEADER keywords. All other operatives have the CHAOS, WORD BEARERS, CULTIST keywords.",
+      "The bundled covenant is one legal nine \u2014 Apostle, Iconarch, Firebrand, Cell Enforcer, Sleeper Agent, Turncoat Gunner and Malefic Witch, plus the two Devotees. It is chosen for this engine rather than from the brief: the Cell Demagogue, the Saboteur and the Vox Seditionist are built around Reveal Cell, Pick Up Marker and mission actions, none of which this engine has, so fielding them spends three of the six specialist slots on bodies with no rules. Swapping them for the six specialists whose abilities do resolve took the covenant from 21% to 43% across 60 battles against Legionary, the Blooded, Chaos Cult, Novitiates and Kommandos. Every one of the nine is still available to a hand-written roster."
+    ],
+    "operatives": [
+      {
+        "profileId": "word-bearer-dark-apostle",
+        "count": 1
+      },
+      {
+        "profileId": "iconarch",
+        "count": 1
+      },
+      {
+        "profileId": "firebrand",
+        "count": 1
+      },
+      {
+        "profileId": "cell-enforcer",
+        "count": 1
+      },
+      {
+        "profileId": "sleeper-agent",
+        "count": 1
+      },
+      {
+        "profileId": "turncoat-gunner",
+        "count": 1
+      },
+      {
+        "profileId": "malefic-witch",
+        "count": 1
+      },
+      {
+        "profileId": "autogun-devotee",
+        "count": 1
+      },
+      {
+        "profileId": "zealot-devotee",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "word-bearer-dark-apostle",
+      "name": "Word Bearer Dark Apostle",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "accursed-crozius",
+          "name": "Accursed crozius",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "heretic-astartes",
+          "name": "HERETIC ASTARTES",
+          "cost": 0,
+          "description": "During this operative's activation, it can perform either two Shoot actions or two Fight actions. If it performs two Shoot actions, both must use its Bolt Pistol."
+        },
+        {
+          "id": "master-of-the-congregation",
+          "name": "MASTER OF THE CONGREGATION",
+          "cost": 0,
+          "description": "Once per Turning Point, when a friendly CULTIST operative that is part of the Congregation activates, you can use this ability. Add 1 to that operative's APL until the end of its activation. Its APL cannot be increased above 3."
+        },
+        {
+          "id": "the-word-made-flesh",
+          "name": "THE WORD MADE FLESH",
+          "cost": 0,
+          "description": "Whenever this operative contests an objective or mission marker alongside at least one friendly CULTIST operative, treat the combined APL of your friendly operatives contesting that marker as 1 higher. This is not a change to any operative's APL."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "heretic-astartes",
+        "dark-apostle",
+        "leader"
+      ]
+    },
+    {
+      "id": "cell-demagogue",
+      "name": "Cell Demagogue",
+      "role": "support",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "ritual-blade",
+          "name": "Ritual blade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "second-voice",
+          "name": "SECOND VOICE",
+          "cost": 0,
+          "description": "If your Dark Apostle has been incapacitated, this operative can select the Dark Creed during subsequent Strategy phases. If it does, CULTIST operatives are part of the Congregation while visible to and within 6\" of this operative, or within 2\" of an Active Cult Cell."
+        },
+        {
+          "id": "incite",
+          "name": "INCITE",
+          "cost": 1,
+          "description": "Select one other friendly CULTIST operative visible to and within 6\". That operative can immediately perform a free 2\" Dash. It cannot enter enemy control range during that move. This action can only be performed once per Turning Point."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "demagogue"
+      ]
+    },
+    {
+      "id": "iconarch",
+      "name": "Iconarch",
+      "role": "objective-runner",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "profane-icon",
+          "name": "Profane icon",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "icon-of-the-eightfold-path",
+          "name": "ICON OF THE EIGHTFOLD PATH",
+          "cost": 0,
+          "description": "Whenever another friendly CULTIST operative within 2\" of this operative fights, it can re-roll one attack die result of 1."
+        },
+        {
+          "id": "undeniable-faith",
+          "name": "UNDENIABLE FAITH",
+          "cost": 0,
+          "description": "While this operative is contesting a marker, friendly CULTIST operatives contesting that same marker cannot have their APL negatively modified for determining control."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "iconarch"
+      ]
+    },
+    {
+      "id": "firebrand",
+      "name": "Firebrand",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "purifying-flame",
+          "name": "Purifying flame",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 2,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "torrent2",
+            "saturate"
+          ],
+          "rulesText": "Range 6\", Torrent 2\", Saturate",
+          "range": 6
+        },
+        {
+          "id": "chainblade",
+          "name": "Chainblade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "burn-the-unbeliever",
+          "name": "BURN THE UNBELIEVER",
+          "cost": 0,
+          "description": "Whenever this operative shoots an enemy operative that is within 2\" of an objective marker, a mission marker, or an Active Cult Cell, its Purifying Flame has Severe."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "firebrand"
+      ]
+    },
+    {
+      "id": "saboteur",
+      "name": "Saboteur",
+      "role": "objective-runner",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "stub-pistol",
+          "name": "Stub pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "improvised-blade",
+          "name": "Improvised blade",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        },
+        {
+          "id": "demolition-charge",
+          "name": "Demolition charge",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "blast2",
+            "piercing1",
+            "limited1"
+          ],
+          "rulesText": "Range 6\", Blast 2\", Piercing 1, Limited 1",
+          "range": 6
+        }
+      ],
+      "abilities": [
+        {
+          "id": "infrastructure-specialist",
+          "name": "INFRASTRUCTURE SPECIALIST",
+          "cost": 0,
+          "description": "Once during each of this operative's activations, it can perform Reveal Cell, Pick Up Marker or a mission action for 1 less AP, to a minimum of 0AP."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "saboteur"
+      ]
+    },
+    {
+      "id": "malefic-witch",
+      "name": "Malefic Witch",
+      "role": "support",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 6,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "warp-spite",
+          "name": "Warp spite",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "devastating1",
+            "psychic"
+          ],
+          "rulesText": "Range 8\", Devastating 1, Psychic",
+          "range": 8
+        },
+        {
+          "id": "ritual-knife",
+          "name": "Ritual knife",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "malefic-whisper",
+          "name": "MALEFIC WHISPER",
+          "cost": 1,
+          "description": "Select one visible enemy operative within 6\". Until the end of that enemy operative's next activation, the first time it performs a Shoot or Fight action, worsen the Hit characteristic of its selected weapon by 1 for that attack. This cannot worsen a Hit characteristic beyond 5+. This action can only be performed once per Turning Point."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "witch",
+        "psyker"
+      ]
+    },
+    {
+      "id": "turncoat-gunner",
+      "name": "Turncoat Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 8
+      },
+      "weapons": [
+        {
+          "id": "grenade-launcher-frag",
+          "name": "Grenade launcher (frag)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2",
+            "saturate"
+          ],
+          "rulesText": "Blast 2\", Saturate",
+          "range": 48
+        },
+        {
+          "id": "grenade-launcher-krak",
+          "name": "Grenade launcher (krak)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1"
+          ],
+          "rulesText": "Piercing 1",
+          "range": 48
+        },
+        {
+          "id": "combat-knife",
+          "name": "Combat knife",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "old-drills-die-hard",
+          "name": "OLD DRILLS DIE HARD",
+          "cost": 0,
+          "description": "Whenever this operative shoots while it has Cover from terrain, its selected weapon has Accurate 1."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "gunner"
+      ]
+    },
+    {
+      "id": "cell-enforcer",
+      "name": "Cell Enforcer",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "combat-shotgun",
+          "name": "Combat shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "shock-maul",
+          "name": "Shock maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "stun"
+          ],
+          "rulesText": "Stun"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "discipline-through-fear",
+          "name": "DISCIPLINE THROUGH FEAR",
+          "cost": 0,
+          "description": "Friendly CULTIST operatives within 2\" of this operative can ignore characteristic changes caused by being injured."
+        },
+        {
+          "id": "hold-the-line",
+          "name": "HOLD THE LINE",
+          "cost": 0,
+          "description": "Once per Turning Point, when an enemy operative ends a Charge action within control range of another friendly CULTIST operative within 2\" of this operative, you can move this operative up to 2\". It must finish that move within control range of that enemy operative if possible."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "enforcer"
+      ]
+    },
+    {
+      "id": "sleeper-agent",
+      "name": "Sleeper Agent",
+      "role": "sniper",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "suppressed-autogun",
+          "name": "Suppressed autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "silent",
+            "heavy:dash"
+          ],
+          "rulesText": "Silent, Heavy (Dash only)",
+          "range": 48
+        },
+        {
+          "id": "concealed-knife",
+          "name": "Concealed knife",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "embedded-agent",
+          "name": "EMBEDDED AGENT",
+          "cost": 0,
+          "description": "After all operatives have been deployed but before the first Turning Point begins, this operative can perform a free move of up to 3\". It must finish this move within 2\" of a Cult Cell, not within enemy control range, and not within the enemy drop zone."
+        },
+        {
+          "id": "perfectly-ordinary-citizen",
+          "name": "PERFECTLY ORDINARY CITIZEN",
+          "cost": 0,
+          "description": "During Turning Point 1, while this operative has a Conceal order, enemy operatives more than 6\" from it cannot treat it as having an Engage order as the result of another rule."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "sleeper"
+      ]
+    },
+    {
+      "id": "vox-seditionist",
+      "name": "Vox Seditionist",
+      "role": "support",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autogun",
+          "name": "Autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "\u2014",
+          "range": 48
+        },
+        {
+          "id": "improvised-weapon",
+          "name": "Improvised weapon",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "false-orders",
+          "name": "FALSE ORDERS",
+          "cost": 1,
+          "description": "Select one visible enemy operative within 6\". The next time that operative performs a Reposition, Dash or Charge action before the beginning of this operative's next activation, subtract 2\" from its move allowance for that action. This cannot reduce its move allowance below 2\". This action can only be performed once per Turning Point."
+        },
+        {
+          "id": "cell-handler",
+          "name": "CELL HANDLER",
+          "cost": 0,
+          "description": "The first time this operative performs Reveal Cell on the Subverted Vox Node, that action costs 0AP."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "vox"
+      ]
+    },
+    {
+      "id": "autogun-devotee",
+      "name": "Cult Devotee (Autogun)",
+      "role": "flexible",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autogun",
+          "name": "Autogun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "\u2014",
+          "range": 48
+        },
+        {
+          "id": "improvised-weapon",
+          "name": "Improvised weapon",
+          "type": "melee",
+          "atk": 3,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "expendable",
+          "name": "EXPENDABLE",
+          "cost": 0,
+          "description": "No special abilities. That is intentional."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "devotee"
+      ]
+    },
+    {
+      "id": "zealot-devotee",
+      "name": "Cult Devotee (Zealot)",
+      "role": "assault",
+      "baseDiameter": 1.1,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 7
+      },
+      "weapons": [
+        {
+          "id": "autopistol",
+          "name": "Autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "brutal-implement",
+          "name": "Brutal implement",
+          "type": "melee",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "expendable",
+          "name": "EXPENDABLE",
+          "cost": 0,
+          "description": "No special abilities. That is intentional."
+        }
+      ],
+      "keywords": [
+        "chaos",
+        "word-bearers",
+        "cultist",
+        "devotee"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "the-hidden-congregation",
+      "name": "The Hidden Congregation",
+      "description": "Before operatives are deployed, place three Cult Cell markers in the killzone: Profane Shrine, Hidden Armoury and Subverted Vox Node. They must be placed in your territory or neutral territory, more than 6\" from the enemy drop zone, more than 4\" from another Cult Cell marker, and somewhere an operative could legally stand adjacent to them. All cells begin Dormant. REVEAL CELL (1AP): a friendly CULTIST operative within 1\" of a Dormant Cult Cell can perform this action; that Cell becomes Active. PURGE CELL (1AP): an enemy operative within 1\" of a Cult Cell can perform this action if it is not within control range of a friendly operative; remove that Cult Cell. PROFANE SHRINE: friendly CULTIST operatives within 2\" can ignore characteristic changes caused by being injured, and once per Turning Point one such operative can re-roll one defence die result of 1. HIDDEN ARMOURY: once per Turning Point, a friendly CULTIST operative within 2\" that performs a Shoot action has Balanced for that attack. SUBVERTED VOX NODE: once per Turning Point, when a friendly CULTIST operative within 2\" activates, you can change its order. IN THIS SIMULATION: Cult Cell markers are placed by the player before deployment and this engine has no custom marker to place, so the killzone's own objective markers stand in for them: a Cell is treated as Active at every marker from the first turning point. That is the cult embedding itself in the ground worth holding, which is where the printed team wants its Cells anyway, but it means Reveal Cell and Purge Cell never happen and the opponent cannot dig a Cell out."
+    },
+    {
+      "id": "the-dark-creed",
+      "name": "The Dark Creed",
+      "description": "At the start of each Strategy phase, if your DARK APOSTLE is alive, select one Dark Creed. It lasts until the end of the Turning Point. A CULTIST operative is part of the Congregation while it is visible to and within 6\" of your Dark Apostle, or within 2\" of an Active Cult Cell. CREED OF HATRED: whenever a CULTIST operative in the Congregation performs its first Fight action during an activation in which it Charged, its selected melee weapon has Balanced. CREED OF MARTYRDOM: CULTIST operatives in the Congregation ignore characteristic changes caused by being injured, and are treated as having +1 APL when determining control of markers. CREED OF INSURRECTION: add 1\" to the move allowance of CULTIST operatives in the Congregation whenever they perform Reposition, Dash or Charge."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "heretic-astartes-double-action",
+      "rule": "Heretic Astartes",
+      "trigger": "onActionLegality",
+      "condition": {
+        "keyword": "dark-apostle"
+      },
+      "effect": {
+        "type": "extraAction",
+        "oneOf": [
+          "shoot",
+          "fight"
+        ],
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the requirement that both Shoot actions use the Bolt pistol is not enforced"
+    },
+    {
+      "id": "master-of-the-congregation",
+      "rule": "Master of the Congregation",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "dark-apostle"
+      },
+      "effect": {
+        "type": "grantAllyApl",
+        "amount": 1,
+        "within": 6,
+        "keyword": "cultist"
+      },
+      "partial": true,
+      "notes": "printed as fired when the CULTIST activates and chosen freely; here the Apostle hands the point over during its own activation, to the readiest cultist nearest the enemy"
+    },
+    {
+      "id": "discipline-through-fear",
+      "rule": "Discipline Through Fear",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "cultist",
+        "friendlyWithin": {
+          "inches": 2,
+          "keyword": "enforcer"
+        }
+      },
+      "effect": {
+        "type": "ignoreInjured"
+      }
+    },
+    {
+      "id": "icon-of-the-eightfold-path",
+      "rule": "Icon of the Eightfold Path",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "cultist",
+        "weaponType": "melee",
+        "friendlyWithin": {
+          "inches": 2,
+          "keyword": "iconarch"
+        }
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "ceaseless"
+        ]
+      },
+      "partial": true,
+      "notes": "printed as a re-roll of ONE attack die result of 1; Ceaseless re-rolls every 1, which is the closest rule in the dice layer and is worth slightly more on a 4-dice profile"
+    },
+    {
+      "id": "burn-the-unbeliever",
+      "rule": "Burn the Unbeliever",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "firebrand",
+        "weaponType": "ranged",
+        "nearObjective": 3
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "severe"
+        ]
+      },
+      "partial": true,
+      "notes": "measured from the Firebrand rather than from its target, and Cult Cells are not placed, so only objective markers qualify"
+    },
+    {
+      "id": "old-drills-die-hard",
+      "rule": "Old Drills Die Hard",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "gunner",
+        "weaponType": "ranged",
+        "orderIs": "conceal"
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "accurate1"
+        ]
+      },
+      "partial": true,
+      "notes": "\"while it has Cover from terrain\" is not known before the target is chosen, so a Conceal order \u2014 the posture a gunner in cover holds \u2014 stands in for it"
+    },
+    {
+      "id": "perfectly-ordinary-citizen",
+      "rule": "Perfectly Ordinary Citizen",
+      "trigger": "onTargetSelection",
+      "condition": {
+        "keyword": "sleeper"
+      },
+      "effect": {
+        "type": "denyTargeting",
+        "requireConceal": true,
+        "requireCover": true,
+        "exceptWithin": 6
+      },
+      "partial": true,
+      "notes": "printed as holding only during Turning Point 1; here it holds all battle, and it is written as the ordinary cannot-be-selected clause rather than as a ban on being treated as Engaged"
+    },
+    {
+      "id": "profane-shrine-resolve",
+      "rule": "Profane Shrine",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "cultist",
+        "nearObjective": 2
+      },
+      "effect": {
+        "type": "ignoreInjured"
+      },
+      "partial": true,
+      "notes": "Cult Cell markers are placed by the player before deployment and this engine has no custom marker to place, so the killzone's own objective markers stand in for them: a Cell is treated as Active at every marker from the first turning point. That is the cult embedding itself in the ground worth holding, which is where the printed team wants its Cells anyway, but it means Reveal Cell and Purge Cell never happen and the opponent cannot dig a Cell out."
+    },
+    {
+      "id": "profane-shrine-ward",
+      "rule": "Profane Shrine",
+      "trigger": "beforeDefenceRoll",
+      "condition": {
+        "keyword": "cultist",
+        "nearObjective": 2
+      },
+      "effect": {
+        "type": "rerollDefenceDice",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "Cult Cell markers are placed by the player before deployment and this engine has no custom marker to place, so the killzone's own objective markers stand in for them: a Cell is treated as Active at every marker from the first turning point. That is the cult embedding itself in the ground worth holding, which is where the printed team wants its Cells anyway, but it means Reveal Cell and Purge Cell never happen and the opponent cannot dig a Cell out. The printed once-per-turning-point limit is not enforced."
+    },
+    {
+      "id": "hidden-armoury",
+      "rule": "Hidden Armoury",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "cultist",
+        "weaponType": "ranged",
+        "nearObjective": 2
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "balanced"
+        ]
+      },
+      "partial": true,
+      "notes": "Cult Cell markers are placed by the player before deployment and this engine has no custom marker to place, so the killzone's own objective markers stand in for them: a Cell is treated as Active at every marker from the first turning point. That is the cult embedding itself in the ground worth holding, which is where the printed team wants its Cells anyway, but it means Reveal Cell and Purge Cell never happen and the opponent cannot dig a Cell out. The printed once-per-turning-point limit is not enforced."
+    },
+    {
+      "id": "subverted-vox-node",
+      "rule": "Subverted Vox Node",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "cultist",
+        "nearObjective": 2,
+        "orderIs": "conceal"
+      },
+      "effect": {
+        "type": "changeOrder",
+        "order": "engage"
+      },
+      "partial": true,
+      "notes": "Cult Cell markers are placed by the player before deployment and this engine has no custom marker to place, so the killzone's own objective markers stand in for them: a Cell is treated as Active at every marker from the first turning point. That is the cult embedding itself in the ground worth holding, which is where the printed team wants its Cells anyway, but it means Reveal Cell and Purge Cell never happen and the opponent cannot dig a Cell out. The free order change is always spent on switching to Engage."
+    }
+  ],
+  "controlModifiers": [
+    {
+      "id": "the-word-made-flesh",
+      "rule": "The Word Made Flesh",
+      "delta": 1,
+      "text": "Whenever the Dark Apostle contests a marker alongside at least one friendly CULTIST operative, treat the combined APL of your operatives contesting that marker as 1 higher.",
+      "condition": {
+        "keyword": "dark-apostle",
+        "contestedWithKeyword": "cultist"
+      }
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "creed-of-hatred",
+      "name": "CREED OF HATRED",
+      "cost": 1,
+      "description": "THE FALSE EMPEROR HAS FAILED YOU. Whenever a CULTIST operative in the Congregation performs its first Fight action during an activation in which it Charged, its selected melee weapon has Balanced.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "cultist",
+            "friendlyWithin": {
+              "inches": 6,
+              "keyword": "dark-apostle"
+            },
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "the Dark Creed is free and exclusive on the tabletop \u2014 one of three, chosen each Strategy phase; here each Creed is a strategic ploy that costs a CP, which is the engine's only Strategy-phase choice. Congregation is the 6\" leash on the Apostle without the line-of-sight test, since Cult Cells are not placed."
+        }
+      ]
+    },
+    {
+      "id": "creed-of-martyrdom",
+      "name": "CREED OF MARTYRDOM",
+      "cost": 1,
+      "description": "SUFFERING IS TESTIMONY. CULTIST operatives in the Congregation ignore characteristic changes caused by being injured, and are treated as having +1 APL when determining control of markers. This does not modify their actual APL characteristic.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "cultist",
+            "friendlyWithin": {
+              "inches": 6,
+              "keyword": "dark-apostle"
+            }
+          },
+          "effect": {
+            "type": "ignoreInjured"
+          },
+          "partial": true,
+          "notes": "the Dark Creed is free and exclusive on the tabletop \u2014 one of three, chosen each Strategy phase; here each Creed is a strategic ploy that costs a CP, which is the engine's only Strategy-phase choice."
+        },
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "cultist",
+            "friendlyWithin": {
+              "inches": 6,
+              "keyword": "dark-apostle"
+            }
+          },
+          "effect": {
+            "type": "inflictToken",
+            "target": "self",
+            "token": {
+              "kind": "martyrdom",
+              "label": "Creed of Martyrdom",
+              "unique": true,
+              "whileHeld": {
+                "controlAplDelta": 1
+              },
+              "expiry": {
+                "endOfTurningPoint": true
+              }
+            }
+          },
+          "partial": true,
+          "notes": "\"treated as having +1 APL when determining control of markers\" is carried as a token the cultist picks up when it activates inside the Congregation, because control is recomputed continuously and a ploy's hooks only fire at an operative's own activation \u2014 so a cultist that has not yet activated this turning point does not have it yet"
+        }
+      ]
+    },
+    {
+      "id": "creed-of-insurrection",
+      "name": "CREED OF INSURRECTION",
+      "cost": 1,
+      "description": "THE HOUR HAS COME. Add 1\" to the move allowance of CULTIST operatives in the Congregation whenever they perform Reposition, Dash or Charge. This cannot increase a Dash above 4\".",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "cultist",
+            "friendlyWithin": {
+              "inches": 6,
+              "keyword": "dark-apostle"
+            }
+          },
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          },
+          "partial": true,
+          "notes": "the Dash cap is not applied. See the note on CREED OF HATRED for how the Creeds are paid for."
+        }
+      ]
+    },
+    {
+      "id": "fanatic-zealotry",
+      "name": "FANATIC ZEALOTRY",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever a friendly CULTIST operative that is part of the Congregation fights, its melee weapon has Severe. If its weapon already has Severe, it can instead re-roll one attack die result of 1.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "cultist",
+            "friendlyWithin": {
+              "inches": 6,
+              "keyword": "dark-apostle"
+            },
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hidden-among-the-faithful",
+      "name": "HIDDEN AMONG THE FAITHFUL",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever an enemy operative shoots a friendly CULTIST operative that has a Conceal order and is within 2\" of a Cult Cell, after rolling defence dice you can retain one failed defence die as a normal success. You cannot use this against weapons with Saturate.",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "cultist",
+            "orderIs": "conceal",
+            "nearObjective": 2
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "Cult Cells are not placed, so the killzone's objective markers stand in for them; the Saturate exclusion is not applied, and the retained die is carried as a re-roll"
+        }
+      ]
+    },
+    {
+      "id": "the-word-spreads",
+      "name": "THE WORD SPREADS",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, the first time a friendly CULTIST operative that is part of the Congregation performs Reveal Cell, Pick Up Marker or a mission action, reduce that action's AP cost by 1, to a minimum of 0AP. This ploy can only reduce one action's cost during the Turning Point.",
+      "notes": "Not wired up: this engine has no Reveal Cell, Pick Up Marker or mission action to discount."
+    },
+    {
+      "id": "sermon-without-end",
+      "name": "SERMON WITHOUT END",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, increase the Dark Apostle's Congregation range from 6\" to 9\", and the range around Active Cult Cells from 2\" to 3\". This does not increase the Cells' individual special-effect ranges. Only the Dark Creed is extended.",
+      "notes": "Not wired up: the Congregation leash is written into each Creed's own condition, and a ploy cannot reach in and widen another ploy's condition."
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "a-life-for-the-word",
+      "name": "A LIFE FOR THE WORD",
+      "cost": 1,
+      "timing": "defence",
+      "description": "Use when your Dark Apostle is selected as the target of a Shoot action, before attack dice are rolled. Select a friendly CULTIST operative within 2\" of the Dark Apostle. If that Cultist would be a valid target for the attack, it becomes the target instead. The cultist does not have to volunteer.",
+      "notes": "Not wired up: the engine has no way to move a declared attack onto a different target once it has been selected."
+    },
+    {
+      "id": "martyrs-example",
+      "name": "MARTYR'S EXAMPLE",
+      "cost": 1,
+      "timing": "demise",
+      "description": "Use immediately after a friendly CULTIST operative is incapacitated. Select another friendly CULTIST operative visible to and within 6\" of the incapacitated operative. It can immediately perform a free 3\" Dash. It cannot enter enemy control range during this move. If the incapacitated operative was part of the Congregation, the selected operative can also ignore characteristic changes caused by being injured until the end of its next activation.",
+      "notes": "Not wired up: a demise ploy's effects reach the operative that went down, and everything this one does happens to somebody else."
+    },
+    {
+      "id": "daemonic-investiture",
+      "name": "DAEMONIC INVESTITURE",
+      "cost": 1,
+      "timing": "activation",
+      "scope": "operative",
+      "oncePerTurningPoint": true,
+      "description": "Use during a friendly CULTIST operative's activation, before or after it performs an action. Until the end of that activation: add 1 to its APL, to a maximum of 3; add 1 to the Atk characteristic of its melee weapons; its melee weapons have Severe. At the end of its activation, that operative suffers D3+1 damage. This damage cannot be ignored. This ploy cannot be used on the Malefic Witch.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "cultist"
+          },
+          "effect": {
+            "type": "addApl",
+            "amount": 1
+          },
+          "partial": true,
+          "notes": "the D3+1 the mortal pays at the end of its activation is not inflicted, so the ploy is limited to once per turning point to stand in for the price; the ban on using it on the Malefic Witch is not enforced"
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "cultist",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1
+          }
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "cultist",
+            "weaponType": "melee"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "it-was-always-a-trap",
+      "name": "IT WAS ALWAYS A TRAP",
+      "cost": 1,
+      "timing": "activation",
+      "description": "Use when an enemy operative ends a Reposition, Dash or Charge action within 1\" of one of your Cult Cell markers. Remove that Cell marker from the killzone. That enemy operative suffers D3 mortal wounds. A Cell removed this way counts as Purged.",
+      "notes": "Not wired up: Cult Cell markers are not placed, and the engine has no interrupt that fires on an enemy operative finishing a move."
+    }
+  ],
+  "equipment": [
+    {
+      "id": "hexed-ammunition",
+      "name": "HEXED AMMUNITION",
+      "description": "Once per Turning Point, when a friendly CULTIST operative performs a Shoot action, before rolling attack dice you can use this equipment. Its selected ranged weapon has Piercing Crits 1 during that attack."
+    },
+    {
+      "id": "reinforced-safehouses",
+      "name": "REINFORCED SAFEHOUSES",
+      "description": "The first time during the battle an enemy operative successfully performs Purge Cell, do not remove that Cell. Instead, return it to Dormant. The next Purge Cell action against it removes it normally."
+    },
+    {
+      "id": "profane-reliquaries",
+      "name": "PROFANE RELIQUARIES",
+      "description": "Increase the special-effect radius of your Profane Shrine from 2\" to 3\". Its Congregation range remains unchanged unless affected by another rule."
+    },
+    {
+      "id": "concealed-weapon-caches",
+      "name": "CONCEALED WEAPON CACHES",
+      "description": "Once per Turning Point, when a CULTIST operative within 2\" of your Hidden Armoury is selected as the target of a Shoot action, after rolling defence dice you can retain one failed defence die as a normal success."
+    }
+  ]
+}

@@ -1,54 +1,15 @@
 {
   "schemaVersion": 1,
-  "note": "Demo catalogue plus the Kill Team factions transcribed from Wahapedia. Swap in your own rule packs without touching engine or UI code.",
+  "note": "Demo catalogue plus the Kill Team factions transcribed from Wahapedia, and three fan-made teams. Factions carry a `group` \u2014 their grand alliance \u2014 and are listed in group order, so the team picker can keep an alliance's factions together instead of scattering them alphabetically. Swap in your own rule packs without touching engine or UI code.",
   "factions": [
-    {
-      "id": "vanguard-compact",
-      "name": "Vanguard Compact",
-      "blurb": "Armoured line infantry.",
-      "teams": [
-        "vanguard-wardens",
-        "vanguard-breachers"
-      ]
-    },
-    {
-      "id": "ash-legion",
-      "name": "Ash Legion",
-      "blurb": "Fanatical, numerous, poorly equipped.",
-      "teams": [
-        "ash-cultists"
-      ]
-    },
-    {
-      "id": "kindred-corsairs",
-      "name": "Kindred Corsairs",
-      "blurb": "Fast raiders with precise weapons.",
-      "teams": [
-        "corsair-skirmishers"
-      ]
-    },
-    {
-      "id": "scrap-horde",
-      "name": "Scrap Horde",
-      "blurb": "Brutal close-quarters fighters.",
-      "teams": [
-        "scrap-raiders"
-      ]
-    },
-    {
-      "id": "sky-caste",
-      "name": "Sky Caste",
-      "blurb": "Disciplined long-range gunline.",
-      "teams": [
-        "skycaste-marksmen"
-      ]
-    },
     {
       "id": "space-marines",
       "name": "Space Marines",
-      "blurb": "5 kill teams",
+      "group": "Imperium",
+      "blurb": "6 kill teams",
       "teams": [
         "angel-of-death",
+        "crimson-spear",
         "deathwatch",
         "phobos-strike-team",
         "scout-squad",
@@ -58,6 +19,7 @@
     {
       "id": "adeptus-mechanicus",
       "name": "Adeptus Mechanicus",
+      "group": "Imperium",
       "blurb": "2 kill teams",
       "teams": [
         "battleclade",
@@ -65,46 +27,10 @@
       ]
     },
     {
-      "id": "craftworlds",
-      "name": "Craftworlds",
-      "blurb": "1 kill team",
-      "teams": [
-        "blades-of-khaine"
-      ]
-    },
-    {
-      "id": "cultists",
-      "name": "Cultists",
-      "blurb": "3 kill teams",
-      "teams": [
-        "blooded",
-        "chaos-cult",
-        "fellgor-ravager",
-        "fellgor-ravager-warherd"
-      ]
-    },
-    {
-      "id": "genestealer-cults",
-      "name": "Genestealer Cults",
-      "blurb": "2 kill teams",
-      "teams": [
-        "brood-brother",
-        "wyrmblade"
-      ]
-    },
-    {
-      "id": "necrons",
-      "name": "Necrons",
-      "blurb": "2 kill teams",
-      "teams": [
-        "canoptek-circle",
-        "hierotek-circle"
-      ]
-    },
-    {
       "id": "adepta-sororitas",
       "name": "Adepta Sororitas",
-      "blurb": "2 kill teams",
+      "group": "Imperium",
+      "blurb": "3 kill teams",
       "teams": [
         "celestian-insidiants",
         "novitiates",
@@ -112,18 +38,10 @@
       ]
     },
     {
-      "id": "corsairs",
-      "name": "Corsairs",
-      "blurb": "1 kill team",
-      "teams": [
-        "corsair-voidscarred",
-        "corsair-voidscarred-coven"
-      ]
-    },
-    {
       "id": "astra-militarum",
       "name": "Astra Militarum",
-      "blurb": "6 kill teams",
+      "group": "Imperium",
+      "blurb": "7 kill teams",
       "teams": [
         "catachan-jungle-fighters",
         "death-korps",
@@ -137,6 +55,7 @@
     {
       "id": "agents-of-the-imperium",
       "name": "Agents of the Imperium",
+      "group": "Imperium",
       "blurb": "5 kill teams",
       "teams": [
         "elucidian-starstrider",
@@ -147,73 +66,12 @@
       ]
     },
     {
-      "id": "exodites",
-      "name": "Exodites",
-      "blurb": "1 kill team",
-      "teams": [
-        "exodite-dragon-masters"
-      ]
-    },
-    {
-      "id": "t-au-empire",
-      "name": "T'au Empire",
-      "blurb": "4 kill teams",
-      "teams": [
-        "farstalker-kinband",
-        "pathfinders",
-        "vespid-stingwings",
-        "xv26-stealth-battlesuits"
-      ]
-    },
-    {
-      "id": "chaos-daemons",
-      "name": "Chaos Daemons",
-      "blurb": "1 kill team",
-      "teams": [
-        "gellerpox-infected"
-      ]
-    },
-    {
-      "id": "world-eaters",
-      "name": "World Eaters",
-      "blurb": "1 kill team",
-      "teams": [
-        "goremonger"
-      ]
-    },
-    {
-      "id": "drukhari",
-      "name": "Drukhari",
-      "blurb": "2 kill teams",
-      "teams": [
-        "hand-of-the-archon",
-        "mandrakes"
-      ]
-    },
-    {
-      "id": "leagues-of-votann",
-      "name": "Leagues of Votann",
-      "blurb": "2 kill teams",
-      "teams": [
-        "hearthkyn-salvager",
-        "hernkyn-yaegir"
-      ]
-    },
-    {
-      "id": "orks",
-      "name": "Orks",
-      "blurb": "2 kill teams",
-      "teams": [
-        "kommandos",
-        "kommandos-dakka",
-        "wrecka-krew"
-      ]
-    },
-    {
       "id": "chaos-space-marines",
       "name": "Chaos Space Marines",
-      "blurb": "3 kill teams",
+      "group": "Chaos",
+      "blurb": "5 kill teams",
       "teams": [
+        "covenant-of-the-hidden-word",
         "legionary",
         "legionary-warband",
         "murderwing",
@@ -223,34 +81,213 @@
     {
       "id": "death-guard",
       "name": "Death Guard",
+      "group": "Chaos",
       "blurb": "1 kill team",
       "teams": [
         "plague-marines"
       ]
     },
     {
-      "id": "tyranids",
-      "name": "Tyranids",
+      "id": "world-eaters",
+      "name": "World Eaters",
+      "group": "Chaos",
       "blurb": "1 kill team",
       "teams": [
-        "raveners"
+        "goremonger"
+      ]
+    },
+    {
+      "id": "thousand-sons",
+      "name": "Thousand Sons",
+      "group": "Chaos",
+      "blurb": "1 kill team",
+      "teams": [
+        "warpcoven"
+      ]
+    },
+    {
+      "id": "cultists",
+      "name": "Chaos Cultists",
+      "group": "Chaos",
+      "blurb": "4 kill teams",
+      "teams": [
+        "blooded",
+        "chaos-cult",
+        "fellgor-ravager",
+        "fellgor-ravager-warherd"
+      ]
+    },
+    {
+      "id": "chaos-daemons",
+      "name": "Chaos Daemons",
+      "group": "Chaos",
+      "blurb": "1 kill team",
+      "teams": [
+        "gellerpox-infected"
+      ]
+    },
+    {
+      "id": "craftworlds",
+      "name": "Craftworlds",
+      "group": "Aeldari",
+      "blurb": "1 kill team",
+      "teams": [
+        "blades-of-khaine"
+      ]
+    },
+    {
+      "id": "exodites",
+      "name": "Exodites",
+      "group": "Aeldari",
+      "blurb": "1 kill team",
+      "teams": [
+        "exodite-dragon-masters"
       ]
     },
     {
       "id": "harlequins",
       "name": "Harlequins",
+      "group": "Aeldari",
       "blurb": "1 kill team",
       "teams": [
         "void-dancer-troupe"
       ]
     },
     {
-      "id": "thousand-sons",
-      "name": "Thousand Sons",
+      "id": "corsairs",
+      "name": "Corsairs",
+      "group": "Aeldari",
+      "blurb": "2 kill teams",
+      "teams": [
+        "corsair-voidscarred",
+        "corsair-voidscarred-coven"
+      ]
+    },
+    {
+      "id": "drukhari",
+      "name": "Drukhari",
+      "group": "Aeldari",
+      "blurb": "2 kill teams",
+      "teams": [
+        "hand-of-the-archon",
+        "mandrakes"
+      ]
+    },
+    {
+      "id": "orks",
+      "name": "Orks",
+      "group": "Xenos",
+      "blurb": "4 kill teams",
+      "teams": [
+        "freebooter-boardin-krew",
+        "kommandos",
+        "kommandos-dakka",
+        "wrecka-krew"
+      ]
+    },
+    {
+      "id": "t-au-empire",
+      "name": "T'au Empire",
+      "group": "Xenos",
+      "blurb": "4 kill teams",
+      "teams": [
+        "farstalker-kinband",
+        "pathfinders",
+        "vespid-stingwings",
+        "xv26-stealth-battlesuits"
+      ]
+    },
+    {
+      "id": "leagues-of-votann",
+      "name": "Leagues of Votann",
+      "group": "Xenos",
+      "blurb": "2 kill teams",
+      "teams": [
+        "hearthkyn-salvager",
+        "hernkyn-yaegir"
+      ]
+    },
+    {
+      "id": "necrons",
+      "name": "Necrons",
+      "group": "Xenos",
+      "blurb": "2 kill teams",
+      "teams": [
+        "canoptek-circle",
+        "hierotek-circle"
+      ]
+    },
+    {
+      "id": "tyranids",
+      "name": "Tyranids",
+      "group": "Xenos",
       "blurb": "1 kill team",
       "teams": [
-        "warpcoven"
+        "raveners"
+      ]
+    },
+    {
+      "id": "genestealer-cults",
+      "name": "Genestealer Cults",
+      "group": "Xenos",
+      "blurb": "2 kill teams",
+      "teams": [
+        "brood-brother",
+        "wyrmblade"
+      ]
+    },
+    {
+      "id": "vanguard-compact",
+      "name": "Vanguard Compact",
+      "group": "Demo teams",
+      "blurb": "Armoured line infantry.",
+      "teams": [
+        "vanguard-breachers",
+        "vanguard-wardens"
+      ]
+    },
+    {
+      "id": "ash-legion",
+      "name": "Ash Legion",
+      "group": "Demo teams",
+      "blurb": "Fanatical, numerous, poorly equipped.",
+      "teams": [
+        "ash-cultists"
+      ]
+    },
+    {
+      "id": "kindred-corsairs",
+      "name": "Kindred Corsairs",
+      "group": "Demo teams",
+      "blurb": "Fast raiders with precise weapons.",
+      "teams": [
+        "corsair-skirmishers"
+      ]
+    },
+    {
+      "id": "scrap-horde",
+      "name": "Scrap Horde",
+      "group": "Demo teams",
+      "blurb": "Brutal close-quarters fighters.",
+      "teams": [
+        "scrap-raiders"
+      ]
+    },
+    {
+      "id": "sky-caste",
+      "name": "Sky Caste",
+      "group": "Demo teams",
+      "blurb": "Disciplined long-range gunline.",
+      "teams": [
+        "skycaste-marksmen"
       ]
     }
+  ],
+  "groups": [
+    "Imperium",
+    "Chaos",
+    "Aeldari",
+    "Xenos",
+    "Demo teams"
   ]
 }

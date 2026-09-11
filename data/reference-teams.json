@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "reference-catalogue",
-  "note": "Identification and provenance. This file records team and faction NAMES, the bundled rule pack for each, and a link to the current official source. Rule packs under data/teams were transcribed from Wahapedia and are reproduced here for simulation and reference only — Games Workshop remains the rights holder, and the official downloads are authoritative for play. See plan.md sections 2 and 3.",
+  "note": "Identification and provenance. Factions carry the same `group` \u2014 their grand alliance \u2014 that data/factions.json does, and are listed in that order. This file records team and faction NAMES, the bundled rule pack for each, and a link to the current official source. Rule packs under data/teams were transcribed from Wahapedia and are reproduced here for simulation and reference only \u2014 Games Workshop remains the rights holder, and the official downloads are authoritative for play. See plan.md sections 2 and 3.",
   "officialSource": {
     "publisher": "Games Workshop",
     "downloads": "https://www.warhammer-community.com/en-gb/downloads/kill-team/",
@@ -18,6 +18,14 @@
           "supportLevel": 1,
           "rulePack": "angel-of-death",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/angel-of-death/"
+        },
+        {
+          "factionId": "space-marines",
+          "name": "Crimson Spear",
+          "rulePack": "crimson-spear",
+          "supportLevel": 4,
+          "sourceUrl": "",
+          "provenance": "fan-made"
         },
         {
           "name": "Deathwatch",
@@ -47,7 +55,8 @@
           "rulePack": "wolf-scouts",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/wolf-scouts/"
         }
-      ]
+      ],
+      "group": "Imperium"
     },
     {
       "id": "adeptus-mechanicus",
@@ -67,87 +76,8 @@
           "rulePack": "hunter-clade",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/hunter-clade/"
         }
-      ]
-    },
-    {
-      "id": "craftworlds",
-      "name": "Craftworlds",
-      "teams": [
-        {
-          "name": "Blades of Khaine",
-          "factionId": "craftworlds",
-          "supportLevel": 1,
-          "rulePack": "blades-of-khaine",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/blades-of-khaine/"
-        }
-      ]
-    },
-    {
-      "id": "cultists",
-      "name": "Cultists",
-      "teams": [
-        {
-          "name": "Blooded",
-          "factionId": "cultists",
-          "supportLevel": 1,
-          "rulePack": "blooded",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/blooded/"
-        },
-        {
-          "name": "Chaos Cult",
-          "factionId": "cultists",
-          "supportLevel": 1,
-          "rulePack": "chaos-cult",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/chaos-cult/"
-        },
-        {
-          "name": "Fellgor Ravager",
-          "factionId": "cultists",
-          "supportLevel": 1,
-          "rulePack": "fellgor-ravager",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/fellgor-ravager/"
-        }
-      ]
-    },
-    {
-      "id": "genestealer-cults",
-      "name": "Genestealer Cults",
-      "teams": [
-        {
-          "name": "Brood Brother",
-          "factionId": "genestealer-cults",
-          "supportLevel": 1,
-          "rulePack": "brood-brother",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/brood-brother/"
-        },
-        {
-          "name": "Wyrmblade",
-          "factionId": "genestealer-cults",
-          "supportLevel": 1,
-          "rulePack": "wyrmblade",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/wyrmblade/"
-        }
-      ]
-    },
-    {
-      "id": "necrons",
-      "name": "Necrons",
-      "teams": [
-        {
-          "name": "Canoptek Circle",
-          "factionId": "necrons",
-          "supportLevel": 1,
-          "rulePack": "canoptek-circle",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/canoptek-circle/"
-        },
-        {
-          "name": "Hierotek Circle",
-          "factionId": "necrons",
-          "supportLevel": 1,
-          "rulePack": "hierotek-circle",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/hierotek-circle/"
-        }
-      ]
+      ],
+      "group": "Imperium"
     },
     {
       "id": "adepta-sororitas",
@@ -167,20 +97,8 @@
           "rulePack": "novitiates",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/novitiates/"
         }
-      ]
-    },
-    {
-      "id": "corsairs",
-      "name": "Corsairs",
-      "teams": [
-        {
-          "name": "Corsair Voidscarred",
-          "factionId": "corsairs",
-          "supportLevel": 1,
-          "rulePack": "corsair-voidscarred",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/corsair-voidscarred/"
-        }
-      ]
+      ],
+      "group": "Imperium"
     },
     {
       "id": "astra-militarum",
@@ -221,7 +139,8 @@
           "rulePack": "tempestus-aquilons",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/tempestus-aquilons/"
         }
-      ]
+      ],
+      "group": "Imperium"
     },
     {
       "id": "agents-of-the-imperium",
@@ -262,7 +181,142 @@
           "rulePack": "sanctifiers",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/sanctifiers/"
         }
-      ]
+      ],
+      "group": "Imperium"
+    },
+    {
+      "id": "chaos-space-marines",
+      "name": "Chaos Space Marines",
+      "teams": [
+        {
+          "factionId": "chaos-space-marines",
+          "name": "Covenant of the Hidden Word",
+          "rulePack": "covenant-of-the-hidden-word",
+          "supportLevel": 4,
+          "sourceUrl": "",
+          "provenance": "fan-made"
+        },
+        {
+          "name": "Legionary",
+          "factionId": "chaos-space-marines",
+          "supportLevel": 1,
+          "rulePack": "legionary",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/legionary/"
+        },
+        {
+          "name": "Murderwing",
+          "factionId": "chaos-space-marines",
+          "supportLevel": 1,
+          "rulePack": "murderwing",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/murderwing/"
+        },
+        {
+          "name": "Nemesis Claw",
+          "factionId": "chaos-space-marines",
+          "supportLevel": 1,
+          "rulePack": "nemesis-claw",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/nemesis-claw/"
+        }
+      ],
+      "group": "Chaos"
+    },
+    {
+      "id": "death-guard",
+      "name": "Death Guard",
+      "teams": [
+        {
+          "name": "Plague Marines",
+          "factionId": "death-guard",
+          "supportLevel": 1,
+          "rulePack": "plague-marines",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/plague-marines/"
+        }
+      ],
+      "group": "Chaos"
+    },
+    {
+      "id": "world-eaters",
+      "name": "World Eaters",
+      "teams": [
+        {
+          "name": "Goremonger",
+          "factionId": "world-eaters",
+          "supportLevel": 1,
+          "rulePack": "goremonger",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/goremonger/"
+        }
+      ],
+      "group": "Chaos"
+    },
+    {
+      "id": "thousand-sons",
+      "name": "Thousand Sons",
+      "teams": [
+        {
+          "name": "Warpcoven",
+          "factionId": "thousand-sons",
+          "supportLevel": 1,
+          "rulePack": "warpcoven",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/warpcoven/"
+        }
+      ],
+      "group": "Chaos"
+    },
+    {
+      "id": "cultists",
+      "name": "Chaos Cultists",
+      "teams": [
+        {
+          "name": "Blooded",
+          "factionId": "cultists",
+          "supportLevel": 1,
+          "rulePack": "blooded",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/blooded/"
+        },
+        {
+          "name": "Chaos Cult",
+          "factionId": "cultists",
+          "supportLevel": 1,
+          "rulePack": "chaos-cult",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/chaos-cult/"
+        },
+        {
+          "name": "Fellgor Ravager",
+          "factionId": "cultists",
+          "supportLevel": 1,
+          "rulePack": "fellgor-ravager",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/fellgor-ravager/"
+        }
+      ],
+      "group": "Chaos"
+    },
+    {
+      "id": "chaos-daemons",
+      "name": "Chaos Daemons",
+      "teams": [
+        {
+          "name": "Gellerpox Infected",
+          "factionId": "chaos-daemons",
+          "supportLevel": 1,
+          "rulePack": "gellerpox-infected",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/gellerpox-infected/"
+        }
+      ],
+      "group": "Chaos"
+    },
+    {
+      "id": "craftworlds",
+      "name": "Craftworlds",
+      "teams": [
+        {
+          "name": "Blades of Khaine",
+          "factionId": "craftworlds",
+          "supportLevel": 1,
+          "rulePack": "blades-of-khaine",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/blades-of-khaine/"
+        }
+      ],
+      "group": "Aeldari"
     },
     {
       "id": "exodites",
@@ -275,7 +329,86 @@
           "rulePack": "exodite-dragon-masters",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/exodite-dragon-masters/"
         }
-      ]
+      ],
+      "group": "Aeldari"
+    },
+    {
+      "id": "harlequins",
+      "name": "Harlequins",
+      "teams": [
+        {
+          "name": "Void-dancer Troupe",
+          "factionId": "harlequins",
+          "supportLevel": 1,
+          "rulePack": "void-dancer-troupe",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/void-dancer-troupe/"
+        }
+      ],
+      "group": "Aeldari"
+    },
+    {
+      "id": "corsairs",
+      "name": "Corsairs",
+      "teams": [
+        {
+          "name": "Corsair Voidscarred",
+          "factionId": "corsairs",
+          "supportLevel": 1,
+          "rulePack": "corsair-voidscarred",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/corsair-voidscarred/"
+        }
+      ],
+      "group": "Aeldari"
+    },
+    {
+      "id": "drukhari",
+      "name": "Drukhari",
+      "teams": [
+        {
+          "name": "Hand of the Archon",
+          "factionId": "drukhari",
+          "supportLevel": 1,
+          "rulePack": "hand-of-the-archon",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/hand-of-the-archon/"
+        },
+        {
+          "name": "Mandrakes",
+          "factionId": "drukhari",
+          "supportLevel": 1,
+          "rulePack": "mandrakes",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/mandrakes/"
+        }
+      ],
+      "group": "Aeldari"
+    },
+    {
+      "id": "orks",
+      "name": "Orks",
+      "teams": [
+        {
+          "factionId": "orks",
+          "name": "Freebooter Boardin' Krew",
+          "rulePack": "freebooter-boardin-krew",
+          "supportLevel": 4,
+          "sourceUrl": "",
+          "provenance": "fan-made"
+        },
+        {
+          "name": "Kommandos",
+          "factionId": "orks",
+          "supportLevel": 1,
+          "rulePack": "kommandos",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/kommandos/"
+        },
+        {
+          "name": "Wrecka Krew",
+          "factionId": "orks",
+          "supportLevel": 1,
+          "rulePack": "wrecka-krew",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/wrecka-krew/"
+        }
+      ],
+      "group": "Xenos"
     },
     {
       "id": "t-au-empire",
@@ -309,53 +442,8 @@
           "rulePack": "xv26-stealth-battlesuits",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/xv26-stealth-battlesuits/"
         }
-      ]
-    },
-    {
-      "id": "chaos-daemons",
-      "name": "Chaos Daemons",
-      "teams": [
-        {
-          "name": "Gellerpox Infected",
-          "factionId": "chaos-daemons",
-          "supportLevel": 1,
-          "rulePack": "gellerpox-infected",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/gellerpox-infected/"
-        }
-      ]
-    },
-    {
-      "id": "world-eaters",
-      "name": "World Eaters",
-      "teams": [
-        {
-          "name": "Goremonger",
-          "factionId": "world-eaters",
-          "supportLevel": 1,
-          "rulePack": "goremonger",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/goremonger/"
-        }
-      ]
-    },
-    {
-      "id": "drukhari",
-      "name": "Drukhari",
-      "teams": [
-        {
-          "name": "Hand of the Archon",
-          "factionId": "drukhari",
-          "supportLevel": 1,
-          "rulePack": "hand-of-the-archon",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/hand-of-the-archon/"
-        },
-        {
-          "name": "Mandrakes",
-          "factionId": "drukhari",
-          "supportLevel": 1,
-          "rulePack": "mandrakes",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/mandrakes/"
-        }
-      ]
+      ],
+      "group": "Xenos"
     },
     {
       "id": "leagues-of-votann",
@@ -375,67 +463,29 @@
           "rulePack": "hernkyn-yaegir",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/hernkyn-yaegir/"
         }
-      ]
+      ],
+      "group": "Xenos"
     },
     {
-      "id": "orks",
-      "name": "Orks",
+      "id": "necrons",
+      "name": "Necrons",
       "teams": [
         {
-          "name": "Kommandos",
-          "factionId": "orks",
+          "name": "Canoptek Circle",
+          "factionId": "necrons",
           "supportLevel": 1,
-          "rulePack": "kommandos",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/kommandos/"
+          "rulePack": "canoptek-circle",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/canoptek-circle/"
         },
         {
-          "name": "Wrecka Krew",
-          "factionId": "orks",
+          "name": "Hierotek Circle",
+          "factionId": "necrons",
           "supportLevel": 1,
-          "rulePack": "wrecka-krew",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/wrecka-krew/"
+          "rulePack": "hierotek-circle",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/hierotek-circle/"
         }
-      ]
-    },
-    {
-      "id": "chaos-space-marines",
-      "name": "Chaos Space Marines",
-      "teams": [
-        {
-          "name": "Legionary",
-          "factionId": "chaos-space-marines",
-          "supportLevel": 1,
-          "rulePack": "legionary",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/legionary/"
-        },
-        {
-          "name": "Murderwing",
-          "factionId": "chaos-space-marines",
-          "supportLevel": 1,
-          "rulePack": "murderwing",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/murderwing/"
-        },
-        {
-          "name": "Nemesis Claw",
-          "factionId": "chaos-space-marines",
-          "supportLevel": 1,
-          "rulePack": "nemesis-claw",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/nemesis-claw/"
-        }
-      ]
-    },
-    {
-      "id": "death-guard",
-      "name": "Death Guard",
-      "teams": [
-        {
-          "name": "Plague Marines",
-          "factionId": "death-guard",
-          "supportLevel": 1,
-          "rulePack": "plague-marines",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/plague-marines/"
-        }
-      ]
+      ],
+      "group": "Xenos"
     },
     {
       "id": "tyranids",
@@ -448,33 +498,29 @@
           "rulePack": "raveners",
           "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/raveners/"
         }
-      ]
+      ],
+      "group": "Xenos"
     },
     {
-      "id": "harlequins",
-      "name": "Harlequins",
+      "id": "genestealer-cults",
+      "name": "Genestealer Cults",
       "teams": [
         {
-          "name": "Void-dancer Troupe",
-          "factionId": "harlequins",
+          "name": "Brood Brother",
+          "factionId": "genestealer-cults",
           "supportLevel": 1,
-          "rulePack": "void-dancer-troupe",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/void-dancer-troupe/"
-        }
-      ]
-    },
-    {
-      "id": "thousand-sons",
-      "name": "Thousand Sons",
-      "teams": [
+          "rulePack": "brood-brother",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/brood-brother/"
+        },
         {
-          "name": "Warpcoven",
-          "factionId": "thousand-sons",
+          "name": "Wyrmblade",
+          "factionId": "genestealer-cults",
           "supportLevel": 1,
-          "rulePack": "warpcoven",
-          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/warpcoven/"
+          "rulePack": "wyrmblade",
+          "sourceUrl": "https://wahapedia.ru/kill-team3/kill-teams/wyrmblade/"
         }
-      ]
+      ],
+      "group": "Xenos"
     }
   ]
 }

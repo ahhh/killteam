@@ -240,6 +240,10 @@ function resetActivationFlags(op) {
 
 function startActivation(state, op, rng) {
   resetActivationFlags(op);
+  // How many activations this operative has begun. A token written "until the
+  // start of its next activation" needs to know which activation it arrived
+  // in, or it would be shed at the start of the very one that granted it.
+  op.activationCount = (op.activationCount || 0) + 1;
   // "…until the start of the operative's next activation": this is that
   // moment, so an APL an invigoration bought lapses here — before the new AP
   // total is worked out, and not merely because a turning point rolled over.
@@ -248,7 +252,14 @@ function startActivation(state, op, rng) {
   // "Whenever an operative that has one of your X tokens is activated…" — the
   // burn lands before the operative gets to do anything, and can kill it, so
   // AP is only counted afterwards.
-  markTokenExpiryAtActivationStart(op);
+  for (const shed of markTokenExpiryAtActivationStart(op)) {
+    logEvent(state, EVENTS.RULE_APPLIED, {
+      ruleId: `weapon-rule:${shed.rule}`,
+      rule: shed.label,
+      operativeId: op.id, operativeName: op.name, playerId: op.playerId,
+      detail: `${shed.label} lapses as this operative activates`,
+    });
+  }
   resolveActivationTokens(state, rng, op, applyDamage);
   if (!op.alive) {
     op.apRemaining = 0;

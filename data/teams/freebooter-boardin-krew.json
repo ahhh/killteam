@@ -1,0 +1,1123 @@
+{
+  "id": "freebooter-boardin-krew",
+  "factionId": "orks",
+  "displayName": "Freebooter Boardin' Krew",
+  "blurb": "Ork pirates who specialise in storming voidships, drifting space hulks and anything else unfortunate enough to possess an airlock. Years of piracy mean they carry an unusual amount of human equipment \u2014 and virtually none of it remains unmodified.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-11",
+  "supportLevel": 4,
+  "source": {
+    "publisher": "Fan-made. Not a published Games Workshop kill team.",
+    "url": "",
+    "checkedAt": "2026-09-11",
+    "notes": "Original fan-made kill team supplied by the user as a written design brief and transcribed into this pack. Stat lines, weapon profiles, ploys and equipment are the author's invention, not transcribed from any published source. Balance target, as written in the brief: better than Kommandos at direct room assaults and fighting over objectives, worse at concealment and long-range threat; better than the Wrecka Krew at objective play, utility and mobility, worse at raw damage; much worse than Space Marines at durability and action economy. SIMULATION ADJUSTMENT: three long arms reach two inches further here than the brief prints \u2014 melta cutter 4\" to 6\", Deck Sweepa 6\" to 8\", nicked plasma gun 10\" to 12\". This engine rewards reach more than the tabletop does (average roster range correlates +0.81 with win rate across a 3,960-battle sweep; see README), and a crew whose every gun stopped inside 10\" spent the battle walking. At the printed ranges the crew took 35% across 60 battles against Kommandos, the Wrecka Krew, Chaos Cult, Novitiates and Krieg, against 47% and 49% for the two Ork teams it is written to stand beside; at these it takes 44%. Revert the four `range` fields to 4, 6, 10 and 10 to play the brief exactly as written."
+  },
+  "colors": {
+    "primary": "#2f6b3c",
+    "accent": "#d7b25a"
+  },
+  "aiDisposition": "aggressive",
+  "aiCpDoctrine": "raider",
+  "roster": {
+    "maxOperatives": 7,
+    "selectionRules": [
+      "A FREEBOOTER BOARDIN' KREW consists of 7 operatives: 1 FREEBOOTER KAPTIN, and 6 operatives selected from the following list: BOSUN (max 1), BREACHA (max 1), DECK SWEEPER (max 1), PLASMA LOOTA (max 1), STUBBA GUNNER (max 1), VOX GIT (max 1), SAWBONES (max 1), VOID RIGGER (max 1), FREEBOOTER BOY (max 2).",
+      "All operatives have the FREEBOOTER, ORK keywords. Unless otherwise noted, all operatives use 32mm bases.",
+      "The bundled roster is the brief's recommended introductory crew, DA CLASSIC BOARDING PARTY: Kaptin, Bosun, Breacha, Deck Sweeper, Plasma Loota, Vox Git and Sawbones."
+    ],
+    "operatives": [
+      {
+        "profileId": "freebooter-kaptin",
+        "count": 1
+      },
+      {
+        "profileId": "bosun",
+        "count": 1
+      },
+      {
+        "profileId": "breacha",
+        "count": 1
+      },
+      {
+        "profileId": "deck-sweeper",
+        "count": 1
+      },
+      {
+        "profileId": "plasma-loota",
+        "count": 1
+      },
+      {
+        "profileId": "vox-git",
+        "count": 1
+      },
+      {
+        "profileId": "sawbones",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "freebooter-kaptin",
+      "name": "Freebooter Kaptin",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 4,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "looted-bolt-pistol",
+          "name": "Looted bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 5
+          },
+          "rules": [
+            "piercingcrits1",
+            "looted"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1, [LOOTED]",
+          "range": 8
+        },
+        {
+          "id": "power-cutlass",
+          "name": "Power cutlass",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5",
+            "looted"
+          ],
+          "rulesText": "Lethal 5+, [LOOTED]"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "kaptins-orders",
+          "name": "KAPTIN'S ORDERS",
+          "cost": 0,
+          "description": "Once per Turning Point, when another friendly FREEBOOTER operative visible to and within 6\" of this operative activates, you can use this ability. Add 1 to that operative's APL until the end of its activation. This cannot raise its APL above 3."
+        },
+        {
+          "id": "kaptins-share",
+          "name": "KAPTIN'S SHARE",
+          "cost": 0,
+          "description": "If this operative is within 2\" of the marker when Bash, Grab an' Loot would generate a Loot Point, you can immediately move this operative up to 1\". It cannot enter enemy control range during this move."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "leader",
+        "kaptin"
+      ]
+    },
+    {
+      "id": "bosun",
+      "name": "Bosun",
+      "role": "objective-runner",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 4,
+        "wounds": 12
+      },
+      "weapons": [
+        {
+          "id": "looted-shock-maul",
+          "name": "Looted shock maul",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "stun",
+            "looted"
+          ],
+          "rulesText": "Stun, [LOOTED]"
+        },
+        {
+          "id": "naval-autopistol",
+          "name": "Naval autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "looted"
+          ],
+          "rulesText": "Range 8\", [LOOTED]",
+          "range": 8
+        }
+      ],
+      "abilities": [
+        {
+          "id": "boarding-shield",
+          "name": "BOARDING SHIELD",
+          "cost": 0,
+          "description": "Once per Turning Point, when this operative is selected as the target of a Shoot action, after defence dice are rolled you can use this ability. One normal success can block a critical success during that sequence."
+        },
+        {
+          "id": "get-behind-da-big-lad",
+          "name": "GET BEHIND DA BIG LAD",
+          "cost": 0,
+          "description": "While another friendly operative is within 1\" of this operative and would gain Cover from intervening terrain, that operative can retain one Cover save as a normal success before rolling defence dice."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "bosun"
+      ]
+    },
+    {
+      "id": "breacha",
+      "name": "Breacha",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 11
+      },
+      "weapons": [
+        {
+          "id": "melta-cutter",
+          "name": "Melta cutter",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "piercing1",
+            "looted"
+          ],
+          "rulesText": "Range 6\", Piercing 1, [LOOTED]",
+          "range": 6
+        },
+        {
+          "id": "breaching-axe",
+          "name": "Breaching axe",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "make-us-a-door",
+          "name": "MAKE US A DOOR",
+          "cost": 1,
+          "description": "Once per battle, select an accessible section of Wall or similar vertical terrain within 1\" of this operative. Place your Breach marker on that terrain. Operatives can move through that terrain within 1\" of the Breach marker as though there were an opening there. The opening is treated as approximately 1\" wide. You cannot select a killzone edge, a floor, terrain specifically designated as indestructible, or a section containing an objective marker. Both players can use the breach once it exists."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "breacha"
+      ]
+    },
+    {
+      "id": "deck-sweeper",
+      "name": "Deck Sweeper",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "deck-sweepa",
+          "name": "\u201cDeck Sweepa\u201d combat shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 4
+          },
+          "rules": [
+            "saturate",
+            "torrent1",
+            "looted"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 1\", [LOOTED]",
+          "range": 8
+        },
+        {
+          "id": "boarding-knife",
+          "name": "Boarding knife",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "clear-da-room",
+          "name": "CLEAR DA ROOM",
+          "cost": 0,
+          "description": "Once per activation, after this operative performs a Shoot action with its Deck Sweepa, if at least one enemy operative suffered damage from that attack, this operative can perform a free 2\" Dash. It must finish that move closer to at least one enemy operative or objective marker."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "deck-sweeper"
+      ]
+    },
+    {
+      "id": "plasma-loota",
+      "name": "Plasma Loota",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "nicked-plasma-gun",
+          "name": "Nicked plasma gun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "looted"
+          ],
+          "rulesText": "Range 12\", Piercing 1, [LOOTED]",
+          "range": 12
+        },
+        {
+          "id": "nicked-plasma-gun-red-button",
+          "name": "Nicked plasma gun (\u201cRed Button\u201d)",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "piercing2",
+            "hot",
+            "looted"
+          ],
+          "rulesText": "Range 12\", Piercing 2, Hot, [LOOTED]",
+          "range": 12
+        },
+        {
+          "id": "choppa",
+          "name": "Choppa",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "i-know-wot-im-doin",
+          "name": "I KNOW WOT I'M DOIN'",
+          "cost": 0,
+          "description": "When this operative ORKS UP its plasma gun using Too Much Juice, do not add another point to the weapon's Critical Damage characteristic. Instead, its weapon gains Balanced."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "plasma-loota"
+      ]
+    },
+    {
+      "id": "stubba-gunner",
+      "name": "Stubba Gunner",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "looted-naval-heavy-stubber",
+          "name": "Looted naval heavy stubber",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "ceaseless",
+            "heavy:dash",
+            "looted"
+          ],
+          "rulesText": "Ceaseless, Heavy (Dash only), [LOOTED]",
+          "range": 48
+        },
+        {
+          "id": "big-wrench",
+          "name": "Big wrench",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "hip-fire",
+          "name": "HIP FIRE",
+          "cost": 0,
+          "description": "When this operative shoots its Heavy Stubber at an enemy within 6\", it can ignore the Heavy rule. If it does, worsen its Hit characteristic by 1 for that attack."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "stubba-gunner"
+      ]
+    },
+    {
+      "id": "vox-git",
+      "name": "Vox Git",
+      "role": "support",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "looted-lascarbine",
+          "name": "Looted lascarbine",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "looted"
+          ],
+          "rulesText": "[LOOTED]",
+          "range": 48
+        },
+        {
+          "id": "choppa",
+          "name": "Choppa",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "oi-dis-way",
+          "name": "OI! DIS WAY!",
+          "cost": 1,
+          "description": "Select one other friendly FREEBOOTER operative visible to and within 6\". That operative can immediately perform a free 2\" Dash. It cannot enter enemy control range during that move. An operative cannot be selected for OI! DIS WAY! more than once per Turning Point."
+        },
+        {
+          "id": "i-got-da-codes",
+          "name": "I GOT DA CODES",
+          "cost": 0,
+          "description": "Once during each of this operative's activations, it can perform Pick Up Marker or a mission action for 1 less AP, to a minimum of 0AP."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "vox-git"
+      ]
+    },
+    {
+      "id": "sawbones",
+      "name": "Sawbones",
+      "role": "support",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "naval-autopistol",
+          "name": "Naval autopistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "looted"
+          ],
+          "rulesText": "Range 8\", [LOOTED]",
+          "range": 8
+        },
+        {
+          "id": "surgical-chainblade",
+          "name": "\u201cSurgical\u201d chainblade",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "patch-im-up",
+          "name": "PATCH 'IM UP",
+          "cost": 1,
+          "description": "Select another friendly FREEBOOTER operative within 1\". That operative regains D3+2 lost wounds. Each operative can only be selected for this action once per Turning Point. This action cannot be performed while the Sawbones is within enemy control range."
+        },
+        {
+          "id": "sumfin-fer-da-pain",
+          "name": "SUMFIN' FER DA PAIN",
+          "cost": 1,
+          "description": "Select another friendly FREEBOOTER operative within 1\". Until the end of that operative's next activation: ignore characteristic changes caused by being injured; add 1\" to its Charge move allowance. This action can only be performed once per Turning Point."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "sawbones"
+      ]
+    },
+    {
+      "id": "void-rigger",
+      "name": "Void Rigger",
+      "role": "objective-runner",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "grapnel-launcher",
+          "name": "Grapnel launcher",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 2,
+            "critical": 3
+          },
+          "rules": [
+            "stun",
+            "looted"
+          ],
+          "rulesText": "Range 8\", Stun, [LOOTED]",
+          "range": 8
+        },
+        {
+          "id": "shipwrights-wrench",
+          "name": "Shipwright's wrench",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "grapnel-traverse",
+          "name": "GRAPNEL TRAVERSE",
+          "cost": 1,
+          "description": "This operative performs a move of up to 4\". During this move: ignore vertical distance; it can move across gaps; it can move over intervening operatives; it cannot move through Walls; it cannot enter enemy control range. This is not a Reposition, Dash or Charge action. This action cannot be performed more than once per activation."
+        },
+        {
+          "id": "void-legs",
+          "name": "VOID LEGS",
+          "cost": 0,
+          "description": "Whenever this operative performs a Reposition or Fall Back action, ignore the first 2\" of vertical distance it moves."
+        }
+      ],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "void-rigger"
+      ]
+    },
+    {
+      "id": "freebooter-slugga-boy",
+      "name": "Freebooter Slugga Boy",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "slugga",
+          "name": "Slugga",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "choppa",
+          "name": "Choppa",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "boy"
+      ]
+    },
+    {
+      "id": "freebooter-armsman-boy",
+      "name": "Freebooter Armsman Boy",
+      "role": "flexible",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 2,
+        "save": 5,
+        "wounds": 10
+      },
+      "weapons": [
+        {
+          "id": "looted-naval-shotgun",
+          "name": "Looted naval shotgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 4,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "accurate1",
+            "looted"
+          ],
+          "rulesText": "Range 8\", Accurate 1, [LOOTED]",
+          "range": 8
+        },
+        {
+          "id": "bayonet",
+          "name": "Bayonet",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "freebooter",
+        "ork",
+        "boy"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "bash-grab-an-loot",
+      "name": "Bash, Grab an' Loot",
+      "description": "You have a Loot Point pool. At the beginning of the battle, gain 1 Loot Point. You can never have more than 3 Loot Points. Once per Turning Point, gain 1 Loot Point after a friendly FREEBOOTER operative does either of the following. Claim It: performs Pick Up Marker or a mission action while within 2\" of an objective or mission marker. Take It: incapacitates an enemy operative while either operative is within 2\" of an objective or mission marker. You cannot gain more than one Loot Point during the same Turning Point from this rule."
+    },
+    {
+      "id": "looted-gubbinz",
+      "name": "Looted Gubbinz",
+      "description": "Weapons marked [LOOTED] are weapons or devices the Freebooterz have stolen, rebuilt, \u201cimproved\u201d, accidentally repaired or otherwise acquired. Whenever a friendly operative attacks with a ranged [LOOTED] weapon, before rolling attack dice you can spend 1 Loot Point to ORK IT UP. Choose one. More Dakka: add 1 to the weapon's Atk characteristic for that attack. Too Much Juice: that weapon gains Severe, and add 1 to its Critical Damage characteristic for that attack. Dat Don't Sound Good: after resolving an ORK IT UP attack, if the original attack roll contained two or more results of 1, the attacking operative suffers 2 damage. An attack can only be ORKED UP once."
+    }
+  ],
+  "resources": {
+    "loot": {
+      "name": "Loot Point",
+      "rule": "Bash, Grab an' Loot",
+      "text": "At the beginning of the battle, gain 1 Loot Point. You can never have more than 3. Once per Turning Point, gain 1 Loot Point after a friendly FREEBOOTER operative claims a marker or kills an enemy near one. SIMULATION NOTE: the brief's stated lever for a Freebooter crew that proves too weak is to raise the maximum pool from 3 to 4, and that is the value used here.",
+      "scope": "player",
+      "keyword": "freebooter",
+      "start": 1,
+      "max": 4,
+      "perActivation": 1,
+      "gainsPerTurningPoint": 1,
+      "gains": [
+        {
+          "trigger": "killNearObjective",
+          "within": 2,
+          "amount": 1,
+          "rule": "Bash, Grab an' Loot (Take It)"
+        },
+        {
+          "trigger": "readyStep",
+          "amount": 1,
+          "requireObjectiveControl": true,
+          "rule": "Bash, Grab an' Loot (Claim It)"
+        }
+      ],
+      "spends": [
+        {
+          "id": "more-dakka",
+          "name": "ORK IT UP: More Dakka",
+          "text": "WHEN: Before a friendly operative rolls attack dice with a ranged [LOOTED] weapon. EFFECT: Spend 1 Loot Point. Add 1 to the weapon's Atk characteristic for that attack.",
+          "window": "activation",
+          "cost": 1,
+          "excludes": [
+            "too-much-juice"
+          ],
+          "condition": {
+            "actionAvailable": "shoot"
+          },
+          "effect": {
+            "type": "weaponBoost",
+            "weaponType": "ranged",
+            "atkBonus": 1,
+            "appliesTo": [
+              "shoot"
+            ]
+          }
+        },
+        {
+          "id": "too-much-juice",
+          "name": "ORK IT UP: Too Much Juice",
+          "text": "WHEN: Before a friendly operative rolls attack dice with a ranged [LOOTED] weapon. EFFECT: Spend 1 Loot Point. That weapon gains Severe, and add 1 to its Critical Damage characteristic for that attack.",
+          "window": "activation",
+          "cost": 1,
+          "excludes": [
+            "more-dakka"
+          ],
+          "condition": {
+            "actionAvailable": "shoot"
+          },
+          "effect": {
+            "type": "weaponBoost",
+            "weaponType": "ranged",
+            "damageCritical": 1,
+            "rules": [
+              "severe"
+            ],
+            "appliesTo": [
+              "shoot"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ruleHooks": [
+    {
+      "id": "kaptins-orders",
+      "rule": "Kaptin's Orders",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "kaptin"
+      },
+      "effect": {
+        "type": "grantAllyApl",
+        "amount": 1,
+        "within": 6,
+        "keyword": "freebooter"
+      },
+      "partial": true,
+      "notes": "printed as fired when the OTHER operative activates and chosen freely; here the Kaptin hands the point over during its own activation, to the readiest crewman nearest the enemy"
+    },
+    {
+      "id": "boarding-shield",
+      "rule": "Boarding Shield",
+      "trigger": "beforeDefenceRoll",
+      "condition": {
+        "keyword": "bosun"
+      },
+      "effect": {
+        "type": "rerollDefenceDice",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "printed as letting one normal success block a critical once per turning point; carried here as a defence re-roll on every attack, which is the closest the dice layer can come"
+    },
+    {
+      "id": "get-behind-da-big-lad",
+      "rule": "Get Behind Da Big Lad",
+      "trigger": "beforeDefenceRoll",
+      "condition": {
+        "keyword": "freebooter",
+        "friendlyWithin": {
+          "inches": 1,
+          "keyword": "bosun"
+        }
+      },
+      "effect": {
+        "type": "rerollDefenceDice",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "printed as retaining one Cover save as a normal success before rolling; carried here as a defence re-roll, and the Cover requirement is not checked"
+    },
+    {
+      "id": "clear-da-room",
+      "rule": "Clear Da Room",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "deck-sweeper"
+      },
+      "effect": {
+        "type": "freeAction",
+        "action": "dash"
+      },
+      "partial": true,
+      "notes": "printed as a 2\" Dash earned by a damaging Deck Sweepa shot; granted here at the start of the activation as a full free Dash, without the damage condition"
+    },
+    {
+      "id": "patch-im-up",
+      "rule": "Patch 'Im Up",
+      "trigger": "onTurningPointStart",
+      "condition": {
+        "keyword": "freebooter",
+        "friendlyWithin": {
+          "inches": 1,
+          "keyword": "sawbones"
+        }
+      },
+      "effect": {
+        "type": "healWounds",
+        "dice": "D3+2",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the Sawbones spends 1AP for this on the tabletop; here one crewman standing within 1\" of it is patched up in the Ready step instead, since the engine has no action that reaches another operative"
+    },
+    {
+      "id": "sumfin-fer-da-pain",
+      "rule": "Sumfin' Fer Da Pain",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "freebooter",
+        "friendlyWithin": {
+          "inches": 1,
+          "keyword": "sawbones"
+        }
+      },
+      "effect": {
+        "type": "ignoreInjured"
+      },
+      "partial": true,
+      "notes": "the 1AP cost, the once-per-turning-point limit and the extra 1\" of Charge are not applied; standing next to the Sawbones is what buys the stimulants here"
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "boardin-rush",
+      "name": "BOARDIN' RUSH",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, add 1\" to the move allowance of friendly FREEBOOTER operatives whenever they perform a Charge action. Additionally, the first time each friendly operative performs a Reposition action during the Turning Point, add 1\" to that action's move allowance if it finishes closer to an enemy operative, an objective marker, or a mission marker.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "freebooter"
+          },
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          },
+          "partial": true,
+          "notes": "the inch is added to every move this activation rather than to the Charge and one qualifying Reposition"
+        }
+      ]
+    },
+    {
+      "id": "bash-and-grab",
+      "name": "BASH AND GRAB",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever a friendly FREEBOOTER operative fights an enemy operative that is within 2\" of an objective or mission marker, its selected melee weapon has Balanced. If that friendly operative incapacitates the enemy, it can immediately move up to 1\", provided it doesn't enter another enemy operative's control range.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "freebooter",
+            "weaponType": "melee",
+            "nearObjective": 2
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          },
+          "partial": true,
+          "notes": "measured from the Ork rather than from the enemy it is fighting \u2014 in control range of each other the two are within an inch anyway \u2014 and the 1\" consolidation move after a kill is not made"
+        }
+      ]
+    },
+    {
+      "id": "deck-fraggers",
+      "name": "DECK FRAGGERS",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever a friendly operative shoots with a ranged [LOOTED] weapon at an enemy within 6\", that weapon has Saturate. If it already has Saturate, it instead has Severe.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "freebooter",
+            "weaponType": "ranged",
+            "weaponHasAnyRule": [
+              "looted"
+            ],
+            "targetWithin": 6
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "saturate"
+            ]
+          },
+          "partial": true,
+          "notes": "a weapon that already has Saturate gets nothing here rather than being upgraded to Severe"
+        }
+      ]
+    },
+    {
+      "id": "dis-decks-ours",
+      "name": "DIS DECK'S OURS",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever an enemy operative shoots a friendly FREEBOOTER operative that is both within 2\" of an objective or mission marker and within 1\" of terrain, you can re-roll one defence die result of 1.",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "freebooter",
+            "nearObjective": 2
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          },
+          "partial": true,
+          "notes": "the within-1\"-of-terrain half is not checked, and the re-roll is of a failed die rather than specifically a result of 1"
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "krump-and-run",
+      "name": "KRUMP AND RUN",
+      "cost": 1,
+      "timing": "activation",
+      "description": "Use immediately after an enemy operative performs a Fall Back action while it began that action within control range of a friendly FREEBOOTER operative. After that Fall Back is completed, that friendly operative can perform a free 3\" Dash. It cannot enter enemy control range during this move.",
+      "notes": "Not wired up: the engine has no trigger that fires on an enemy operative's Fall Back."
+    },
+    {
+      "id": "safety-off",
+      "name": "SAFETY OFF!",
+      "cost": 1,
+      "timing": "activation",
+      "scope": "operative",
+      "oncePerTurningPoint": true,
+      "description": "Use immediately before a friendly operative attacks with a ranged [LOOTED] weapon. Do not spend a Loot Point. For that attack, apply both ORK IT UP effects: +1 Atk; Severe and +1 Critical Damage. After resolving the attack, if any attack die in the original roll was a result of 1, the attacking operative suffers 3 damage. This damage cannot be ignored.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "weaponHasAnyRule": [
+              "looted"
+            ]
+          },
+          "effect": {
+            "type": "modifyWeapon",
+            "atkBonus": 1,
+            "damageCritical": 1
+          },
+          "partial": true,
+          "notes": "the backfire \u2014 3 damage to the shooter on any result of 1 \u2014 is not applied, so the ploy is limited to once per turning point to stand in for the risk"
+        },
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "weaponType": "ranged",
+            "weaponHasAnyRule": [
+              "looted"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "grab-it-an-go",
+      "name": "GRAB IT AN' GO!",
+      "cost": 1,
+      "timing": "activation",
+      "scope": "operative",
+      "description": "Use immediately after a friendly FREEBOOTER operative performs Pick Up Marker or a mission action. That operative can perform a free 2\" Dash. It cannot enter enemy control range during this move.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "freebooter",
+            "nearObjective": 1
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          },
+          "partial": true,
+          "notes": "this engine has no Pick Up Marker or mission action, so standing on the marker stands in for having worked it, and the Dash is a full one rather than 2\""
+        }
+      ]
+    },
+    {
+      "id": "overwatch-wot",
+      "name": "OVERWATCH! WOT?",
+      "cost": 1,
+      "timing": "activation",
+      "description": "Use after an enemy operative ends a Reposition, Dash or Charge action within 6\" of a friendly FREEBOOTER operative that has an Engage order, is not within enemy control range, and can see that enemy operative. That friendly operative can immediately perform a free Shoot action against that enemy using a ranged weapon with Range 8\" or less. Subtract 1 from that weapon's Atk characteristic during that action. The weapon cannot be ORKED UP during this attack.",
+      "notes": "Not wired up: the engine has no interrupt that fires on an enemy operative finishing a move."
+    }
+  ],
+  "equipment": [
+    {
+      "id": "mag-bootz",
+      "name": "MAG-BOOTZ",
+      "description": "Whenever a friendly FREEBOOTER operative performs a Reposition or Dash action, ignore the first 1\" of vertical distance it moves. The Void Rigger instead ignores the first 3\"."
+    },
+    {
+      "id": "spare-breacha-charges",
+      "name": "SPARE BREACHA CHARGES",
+      "description": "Once per battle, a friendly FREEBOOTER operative other than the Breacha can perform MAKE US A DOOR. It costs 2AP instead of 1AP. If your Breacha has already created a Breach, remove the previous Breach marker."
+    },
+    {
+      "id": "looted-carapace-plates",
+      "name": "LOOTED CARAPACE PLATES",
+      "description": "Once per Turning Point, when a friendly FREEBOOTER operative is shot while within 1\" of terrain, after rolling defence dice you can retain one failed defence die as a normal success. You cannot use this equipment on the Bosun."
+    },
+    {
+      "id": "big-bag-o-ammo",
+      "name": "BIG BAG O' AMMO",
+      "description": "Once per Turning Point, when a friendly operative attacks with a [LOOTED] ranged weapon against an enemy within 6\", you can give that weapon Ceaseless during the attack. You must decide before rolling attack dice."
+    }
+  ],
+  "weaponRules": {
+    "looted": {
+      "rule": "[LOOTED]",
+      "text": "Weapons marked [LOOTED] are stolen human equipment. A friendly operative attacking with a ranged [LOOTED] weapon can spend 1 Loot Point before rolling attack dice to ORK IT UP.",
+      "effect": {
+        "type": "recognised"
+      },
+      "partial": true,
+      "notes": "the mark itself does nothing; it is what the Loot Point spends and DECK FRAGGERS read, and the ORK IT UP spends are not restricted to [LOOTED] weapons because a spend has no weapon-name filter"
+    }
+  }
+}

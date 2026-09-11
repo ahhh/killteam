@@ -1,0 +1,883 @@
+{
+  "id": "crimson-spear",
+  "factionId": "space-marines",
+  "displayName": "Crimson Spear",
+  "blurb": "A hand-picked Blood Angels assault force assembled for missions where speed, shock and individual martial excellence matter more than conventional battlefield strength. Their commander must balance the nobility expected of the sons of Sanguinius against the Red Thirst that lurks beneath.",
+  "edition": "kill-team-3",
+  "dataVersion": "2026-09-11",
+  "supportLevel": 4,
+  "source": {
+    "publisher": "Fan-made. Not a published Games Workshop kill team.",
+    "url": "",
+    "checkedAt": "2026-09-11",
+    "notes": "Original fan-made kill team supplied by the user as a written design brief and transcribed into this pack. Stat lines, weapon profiles, ploys and equipment are the author's invention, not transcribed from any published source. Balance target, as written in the brief: better than Angels of Death at short-range assault, mobility and burst melee damage; worse at sustained long-range shooting and flexible weapon selection; less mobile than Murderwing, because only part of the roster has jump packs."
+  },
+  "colors": {
+    "primary": "#8c1c24",
+    "accent": "#e8c76a"
+  },
+  "aiDisposition": "aggressive",
+  "aiCpDoctrine": "vanguard",
+  "roster": {
+    "maxOperatives": 6,
+    "selectionRules": [
+      "A CRIMSON SPEAR kill team consists of 6 operatives: 1 SANGUINARY CAPTAIN operative, and 5 operatives selected from the following list: SANGUINARY GUARD (max 1), SANGUINARY PRIEST (max 1), DEATH COMPANY RAVAGER (max 1), ANGELUS GRENADIER (max 1), BAAL FLAMEBEARER (max 1), ASSAULT INTERCESSOR WARRIOR (max 2).",
+      "All operatives have the BLOOD ANGELS, IMPERIUM, ADEPTUS ASTARTES keywords.",
+      "The bundled roster is the brief's recommended iconic six: Captain, Sanguinary Guard, Priest, Death Company Ravager, Angelus Grenadier and Baal Flamebearer."
+    ],
+    "operatives": [
+      {
+        "profileId": "sanguinary-captain",
+        "count": 1
+      },
+      {
+        "profileId": "sanguinary-guard",
+        "count": 1
+      },
+      {
+        "profileId": "sanguinary-priest",
+        "count": 1
+      },
+      {
+        "profileId": "death-company-ravager",
+        "count": 1
+      },
+      {
+        "profileId": "angelus-grenadier",
+        "count": 1
+      },
+      {
+        "profileId": "baal-flamebearer",
+        "count": 1
+      }
+    ]
+  },
+  "operatives": [
+    {
+      "id": "sanguinary-captain",
+      "name": "Sanguinary Captain",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 15
+      },
+      "weapons": [
+        {
+          "id": "inferno-pistol",
+          "name": "Inferno pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 3
+          },
+          "rules": [
+            "devastating3",
+            "piercing2"
+          ],
+          "rulesText": "Range 6\", Devastating 3, Piercing 2",
+          "range": 6
+        },
+        {
+          "id": "encarmine-relic-blade",
+          "name": "Encarmine relic blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "master-of-the-red-thirst",
+          "name": "MASTER OF THE RED THIRST",
+          "cost": 0,
+          "description": "Once per Turning Point, when this operative or another friendly CRIMSON SPEAR operative within 6\" Gives In to the Red Thirst, you can use this ability. That operative gains the offensive benefit of the Red Thirst, but does not suffer Loss of Restraint."
+        }
+      ],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "leader",
+        "jump-pack"
+      ]
+    },
+    {
+      "id": "sanguinary-guard",
+      "name": "Sanguinary Guard",
+      "role": "assault",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "angelus-boltgun",
+          "name": "Angelus boltgun",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "encarmine-blade",
+          "name": "Encarmine blade",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 6
+          },
+          "rules": [
+            "lethal5"
+          ],
+          "rulesText": "Lethal 5+"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "heir-of-azkaellon",
+          "name": "HEIR OF AZKAELLON",
+          "cost": 0,
+          "description": "While this operative is within 3\" of your Sanguinary Captain, treat its APL as one higher when determining control of markers. This does not change its APL stat and cannot increase its APL above 4 for this purpose."
+        }
+      ],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "jump-pack",
+        "sanguinary-guard"
+      ]
+    },
+    {
+      "id": "sanguinary-priest",
+      "name": "Sanguinary Priest",
+      "role": "support",
+      "baseDiameter": 1.57,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "narthecium",
+          "name": "NARTHECIUM",
+          "cost": 1,
+          "description": "Select one other friendly CRIMSON SPEAR operative within 1\". That operative regains D3+2 lost wounds. Each operative can only be selected for this action once per Turning Point. This action cannot be performed while the Priest is within control range of an enemy operative."
+        },
+        {
+          "id": "blood-chalice",
+          "name": "BLOOD CHALICE",
+          "cost": 0,
+          "description": "Once per Turning Point, when another friendly CRIMSON SPEAR operative within 3\" activates while injured, it can ignore all changes to its characteristics caused by being injured until the end of that activation."
+        }
+      ],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "priest",
+        "apothecary"
+      ]
+    },
+    {
+      "id": "death-company-ravager",
+      "name": "Death Company Ravager",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "heavy-bolt-pistol",
+          "name": "Heavy bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "eviscerator",
+          "name": "Eviscerator",
+          "type": "melee",
+          "atk": 5,
+          "hit": 4,
+          "damage": {
+            "normal": 5,
+            "critical": 6
+          },
+          "rules": [
+            "brutal"
+          ],
+          "rulesText": "Brutal"
+        }
+      ],
+      "abilities": [
+        {
+          "id": "black-rage",
+          "name": "BLACK RAGE",
+          "cost": 0,
+          "description": "This operative is always treated as having Given In to the Red Thirst. Its melee weapons have Ceaseless. It therefore gains the Red Thirst attack bonus after charging, but normally suffers Loss of Restraint."
+        }
+      ],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "jump-pack",
+        "death-company"
+      ]
+    },
+    {
+      "id": "angelus-grenadier",
+      "name": "Angelus Grenadier",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 13
+      },
+      "weapons": [
+        {
+          "id": "heavy-bolt-pistol",
+          "name": "Heavy bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        },
+        {
+          "id": "frag-grenade",
+          "name": "Frag grenade",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 2,
+            "critical": 4
+          },
+          "rules": [
+            "blast2",
+            "saturate",
+            "limited1",
+            "bandolier"
+          ],
+          "rulesText": "Range 6\", Blast 2\", Saturate, Limited 1*",
+          "range": 6
+        },
+        {
+          "id": "krak-grenade",
+          "name": "Krak grenade",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [
+            "piercing1",
+            "limited1",
+            "bandolier"
+          ],
+          "rulesText": "Range 6\", Piercing 1, Limited 1*",
+          "range": 6
+        }
+      ],
+      "abilities": [
+        {
+          "id": "grenade-bandolier",
+          "name": "GRENADE BANDOLIER",
+          "cost": 0,
+          "description": "The Frag and Krak grenade profiles share their Limited rule. Once either profile is used, neither profile can be used again during the battle."
+        }
+      ],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "jump-pack",
+        "grenadier"
+      ]
+    },
+    {
+      "id": "baal-flamebearer",
+      "name": "Baal Flamebearer",
+      "role": "ranged",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "pyreblaster",
+          "name": "Pyreblaster",
+          "type": "ranged",
+          "atk": 5,
+          "hit": 2,
+          "damage": {
+            "normal": 3,
+            "critical": 3
+          },
+          "rules": [
+            "saturate",
+            "torrent2"
+          ],
+          "rulesText": "Range 8\", Saturate, Torrent 2\"",
+          "range": 8
+        },
+        {
+          "id": "bolt-pistol",
+          "name": "Bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "Range 8\"",
+          "range": 8
+        },
+        {
+          "id": "fists",
+          "name": "Fists",
+          "type": "melee",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "flamebearer"
+      ]
+    },
+    {
+      "id": "assault-intercessor-warrior",
+      "name": "Assault Intercessor Warrior",
+      "role": "assault",
+      "baseDiameter": 1.26,
+      "stats": {
+        "move": 6,
+        "apl": 3,
+        "save": 3,
+        "wounds": 14
+      },
+      "weapons": [
+        {
+          "id": "heavy-bolt-pistol",
+          "name": "Heavy bolt pistol",
+          "type": "ranged",
+          "atk": 4,
+          "hit": 3,
+          "damage": {
+            "normal": 3,
+            "critical": 4
+          },
+          "rules": [
+            "piercingcrits1"
+          ],
+          "rulesText": "Range 8\", Piercing Crits 1",
+          "range": 8
+        },
+        {
+          "id": "chainsword",
+          "name": "Chainsword",
+          "type": "melee",
+          "atk": 5,
+          "hit": 3,
+          "damage": {
+            "normal": 4,
+            "critical": 5
+          },
+          "rules": [],
+          "rulesText": "\u2014"
+        }
+      ],
+      "abilities": [],
+      "keywords": [
+        "crimson-spear",
+        "blood-angels",
+        "imperium",
+        "adeptus-astartes",
+        "warrior"
+      ]
+    }
+  ],
+  "factionRules": [
+    {
+      "id": "astartes",
+      "name": "Astartes",
+      "description": "During each friendly CRIMSON SPEAR operative's activation, it can perform either two Shoot actions or two Fight actions. If performing two Shoot actions, a weapon with bolt in its name must be selected for at least one of them. Each friendly CRIMSON SPEAR operative can counteract regardless of its order."
+    },
+    {
+      "id": "the-red-thirst",
+      "name": "The Red Thirst",
+      "description": "At the start of a friendly CRIMSON SPEAR operative's activation, you can declare that it will Give In to the Red Thirst. Blood-maddened charge: during the first Fight action that operative performs in that activation, if it performed a Charge action earlier in that activation, add 1 to the Atk characteristic of its melee weapon. Loss of restraint: until the start of that operative's next activation, treat its APL as 1 when determining control of markers, and it cannot perform Pick Up Marker or mission actions. An operative cannot Give In during a counteraction."
+    },
+    {
+      "id": "angelic-descent",
+      "name": "Angelic Descent",
+      "description": "Friendly operatives with the JUMP PACK keyword have this rule. Whenever the operative performs a Reposition, Charge or Fall Back action, once during that action it can ignore up to 3\" of vertical distance when climbing or dropping. It can move across gaps and over intervening operatives, but cannot move through solid Walls or ceilings and must finish the action in a location where its base can legally be placed. This does not increase the operative's horizontal move allowance."
+    }
+  ],
+  "ruleHooks": [
+    {
+      "id": "astartes-double-action",
+      "rule": "Astartes",
+      "trigger": "onActionLegality",
+      "condition": {
+        "keyword": "crimson-spear"
+      },
+      "effect": {
+        "type": "extraAction",
+        "oneOf": [
+          "shoot",
+          "fight"
+        ],
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the requirement that a bolt weapon be selected for one of two Shoot actions is not enforced"
+    },
+    {
+      "id": "red-thirst-give-in",
+      "rule": "The Red Thirst",
+      "trigger": "afterAction",
+      "condition": {
+        "keyword": "crimson-spear",
+        "actionIs": "charge",
+        "counteracting": false
+      },
+      "effect": {
+        "type": "inflictToken",
+        "target": "self",
+        "token": {
+          "kind": "red-thirst",
+          "label": "Red Thirst",
+          "unique": true,
+          "whileHeld": {
+            "controlAplDelta": -2
+          },
+          "expiry": {
+            "startOfNextActivation": true
+          }
+        }
+      },
+      "partial": true,
+      "notes": "giving in is declared at the start of an activation on the tabletop; this engine has no declaration step, so the Charge action is what commits the operative \u2014 which is the only activation the offensive half can pay off in. Loss of Restraint is carried as a marker-control penalty that lapses as the operative next activates, as printed; the Pick Up Marker and mission-action ban has no action in this engine to forbid."
+    },
+    {
+      "id": "black-rage-given-in",
+      "rule": "Black Rage",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "death-company"
+      },
+      "effect": {
+        "type": "inflictToken",
+        "target": "self",
+        "token": {
+          "kind": "red-thirst",
+          "label": "Red Thirst (Black Rage)",
+          "unique": true,
+          "whileHeld": {
+            "controlAplDelta": -2
+          }
+        }
+      }
+    },
+    {
+      "id": "black-rage-ceaseless",
+      "rule": "Black Rage",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "death-company",
+        "weaponType": "melee"
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "ceaseless"
+        ]
+      }
+    },
+    {
+      "id": "red-thirst-blood-maddened",
+      "rule": "The Red Thirst",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "crimson-spear",
+        "weaponType": "melee",
+        "hasToken": "red-thirst",
+        "performedThisActivation": [
+          "charge"
+        ]
+      },
+      "effect": {
+        "type": "modifyWeapon",
+        "atkBonus": 1
+      },
+      "partial": true,
+      "notes": "printed as the FIRST Fight action of the activation; here it applies to both halves of the Astartes double Fight"
+    },
+    {
+      "id": "narthecium",
+      "rule": "Narthecium",
+      "trigger": "onTurningPointStart",
+      "condition": {
+        "keyword": "crimson-spear",
+        "friendlyWithin": {
+          "inches": 1,
+          "keyword": "apothecary"
+        }
+      },
+      "effect": {
+        "type": "healWounds",
+        "dice": "D3+2",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the Priest spends 1AP on this on the tabletop; here one Marine standing within 1\" of it is treated in the Ready step instead, since the engine has no action that reaches another operative"
+    },
+    {
+      "id": "blood-chalice",
+      "rule": "Blood Chalice",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "crimson-spear",
+        "selfWounded": true,
+        "friendlyWithin": {
+          "inches": 3,
+          "keyword": "apothecary"
+        }
+      },
+      "effect": {
+        "type": "ignoreInjured"
+      },
+      "partial": true,
+      "notes": "printed as once per turning point; here every injured Marine that activates inside the Priest's 3\" gets the chalice"
+    }
+  ],
+  "controlModifiers": [
+    {
+      "id": "heir-of-azkaellon",
+      "rule": "Heir of Azkaellon",
+      "delta": 1,
+      "cap": 4,
+      "text": "While this operative is within 3\" of your Sanguinary Captain, treat its APL as one higher when determining control of markers.",
+      "condition": {
+        "keyword": "sanguinary-guard",
+        "friendlyWithin": {
+          "inches": 3,
+          "keyword": "leader"
+        }
+      }
+    },
+    {
+      "id": "master-of-the-red-thirst",
+      "rule": "Master of the Red Thirst",
+      "delta": 2,
+      "text": "Once per Turning Point, when this operative or another friendly CRIMSON SPEAR operative within 6\" Gives In to the Red Thirst, that operative does not suffer Loss of Restraint.",
+      "condition": {
+        "hasToken": "red-thirst",
+        "friendlyWithin": {
+          "inches": 6,
+          "keyword": "leader"
+        }
+      },
+      "partial": true,
+      "notes": "the once-per-turning-point limit is not enforced: any blood-maddened operative inside the Captain's 6\" leash keeps its control APL, and every one outside it, or with the Captain dead, pays the full Loss of Restraint"
+    }
+  ],
+  "strategicPloys": [
+    {
+      "id": "red-rampage",
+      "name": "RED RAMPAGE",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever a friendly CRIMSON SPEAR operative fights during an activation in which it performed the Charge action, its melee weapon has Balanced. This stacks with the extra attack from Giving In to the Red Thirst, but the Red Thirst's additional attack still applies only to the operative's first Fight action.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "crimson-spear",
+            "weaponType": "melee",
+            "performedThisActivation": [
+              "charge"
+            ]
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "balanced"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "savage-echoes",
+      "name": "SAVAGE ECHOES",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever a friendly CRIMSON SPEAR operative fights or retaliates against an enemy operative that performed a Charge action during that Turning Point: its melee weapon has Severe; and ignore changes to that friendly operative's weapon characteristics caused by being injured during that sequence.",
+      "hooks": [
+        {
+          "trigger": "beforeAttackRoll",
+          "condition": {
+            "keyword": "crimson-spear",
+            "weaponType": "melee",
+            "targetOrderIs": "engage"
+          },
+          "effect": {
+            "type": "grantWeaponRule",
+            "rules": [
+              "severe"
+            ]
+          },
+          "partial": true,
+          "notes": "\"an enemy operative that performed a Charge action during that Turning Point\" is not tracked, so an Engage order stands in for it; the injured-characteristics half is not applied"
+        }
+      ]
+    },
+    {
+      "id": "wings-of-sanguinius",
+      "name": "WINGS OF SANGUINIUS",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, add 1\" to the move allowance of friendly JUMP PACK operatives when performing Charge, Fall Back or Reposition actions. Angelic Descent still applies normally.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "jump-pack"
+          },
+          "effect": {
+            "type": "modifyMove",
+            "inches": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "the-angels-grace",
+      "name": "THE ANGEL'S GRACE",
+      "cost": 1,
+      "description": "Until the end of the Turning Point, whenever an operative is shooting a friendly CRIMSON SPEAR operative that has not Given In to the Red Thirst and is contesting a marker, you can re-roll one defence die.",
+      "hooks": [
+        {
+          "trigger": "beforeDefenceRoll",
+          "condition": {
+            "keyword": "crimson-spear",
+            "notHasToken": "red-thirst",
+            "nearObjective": 1
+          },
+          "effect": {
+            "type": "rerollDefenceDice",
+            "count": 1
+          }
+        }
+      ]
+    }
+  ],
+  "firefightPloys": [
+    {
+      "id": "aggressive-onslaught",
+      "name": "AGGRESSIVE ONSLAUGHT",
+      "cost": 1,
+      "timing": "activation",
+      "description": "Use during a friendly CRIMSON SPEAR operative's activation after it performs a Reposition action. That operative must Give In to the Red Thirst. It can perform a Charge action later during that activation even if performing that Reposition action would normally prevent it from doing so. Subtract 2\" from its Charge move allowance for that action.",
+      "notes": "Not wired up: this engine already allows a Charge after a Reposition, so the ploy has nothing left to lift and would be a pure Red Thirst penalty."
+    },
+    {
+      "id": "relentless-assault",
+      "name": "RELENTLESS ASSAULT",
+      "cost": 1,
+      "timing": "activation",
+      "scope": "operative",
+      "description": "Use after a friendly CRIMSON SPEAR operative performs a Fall Back action. That operative can perform a Charge action later during the same activation. If it does, it cannot perform a Shoot action during that activation.",
+      "hooks": [
+        {
+          "trigger": "onActionLegality",
+          "condition": {
+            "keyword": "crimson-spear"
+          },
+          "effect": {
+            "type": "allowChargeAfterFallBack"
+          },
+          "partial": true,
+          "notes": "the cost \u2014 no Shoot action during that activation \u2014 is not applied"
+        }
+      ]
+    },
+    {
+      "id": "angels-sacrifice",
+      "name": "ANGEL'S SACRIFICE",
+      "cost": 1,
+      "timing": "defence",
+      "description": "Use when an enemy operative selects a friendly CRIMSON SPEAR operative as the target of a Shoot action, before attack dice are rolled. Select another friendly CRIMSON SPEAR operative with an Engage order within 2\" of the original target. If that second operative would be a valid target for the attack, it becomes the target instead. This ploy cannot be used if the original target is the Death Company Ravager.",
+      "notes": "Not wired up: the engine has no way to move a declared attack onto a different target once it has been selected."
+    },
+    {
+      "id": "forlorn-fury",
+      "name": "FORLORN FURY",
+      "cost": 1,
+      "timing": "activation",
+      "scope": "operative",
+      "description": "Use at the start of your DEATH COMPANY RAVAGER's activation. It can immediately perform a free Dash action. It cannot end that Dash within control range of an enemy operative. This free Dash does not prevent it from subsequently performing a Charge action.",
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "death-company"
+          },
+          "effect": {
+            "type": "freeAction",
+            "action": "dash"
+          }
+        }
+      ]
+    }
+  ],
+  "equipment": [
+    {
+      "id": "carmine-reliquary",
+      "name": "CARMINE RELIQUARY",
+      "description": "Once per Turning Point, when a friendly CRIMSON SPEAR operative is incapacitated, select one other friendly CRIMSON SPEAR operative within 6\" of it. The next time that selected operative Gives In to the Red Thirst during this Turning Point, it does not suffer Loss of Restraint."
+    },
+    {
+      "id": "icon-of-the-angel",
+      "name": "ICON OF THE ANGEL",
+      "description": "Once per Turning Point, when an enemy operative within 2\" of a friendly CRIMSON SPEAR operative performs the Fall Back action, increase the AP cost of that action by 1. If it cannot spend the additional AP, it cannot perform that action."
+    },
+    {
+      "id": "death-mask",
+      "name": "DEATH MASK",
+      "description": "Once per Turning Point, when determining control of a marker within 2\" of a friendly CRIMSON SPEAR operative, subtract 1 from the combined APL of enemy operatives contesting that marker. This does not modify those operatives' actual APL characteristics."
+    },
+    {
+      "id": "artificer-armour",
+      "name": "ARTIFICER ARMOUR",
+      "description": "Once per Turning Point, when an operative is shooting a friendly CRIMSON SPEAR operative, after rolling defence dice, you can retain one failed defence die as a normal success."
+    }
+  ],
+  "weaponRules": {
+    "bandolier": {
+      "rule": "Grenade Bandolier",
+      "text": "The Frag and Krak grenade profiles share their Limited rule. Once either profile is used, neither profile can be used again during the battle.",
+      "effect": {
+        "type": "recognised"
+      },
+      "partial": true,
+      "notes": "each grenade keeps its own Limited 1, so the Grenadier can throw one of each rather than one in total"
+    }
+  }
+}

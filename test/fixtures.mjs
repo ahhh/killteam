@@ -42,6 +42,8 @@ function pack(id, profile) {
     weaponRules: profile.weaponRules ?? {},
     // Team resource economies — Pain tokens and their like.
     resources: profile.resources ?? {},
+    // "Treat its APL as one higher when determining control of markers."
+    controlModifiers: profile.controlModifiers ?? [],
   };
 }
 

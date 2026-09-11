@@ -197,3 +197,25 @@ test('the team panel says how a team fights and what it spends CP on', async () 
     assert.match(text, /not simulated/, 'and is honest about the rest');
   });
 });
+
+/* --- Grand-alliance grouping in the picker ----------------------------- */
+//
+// A `<select>` has one level of grouping, so the alliance is a prefix on the
+// optgroup label rather than a heading above it (see `_renderColumn`), which
+// only reads as grouping if data/factions.json keeps an alliance's factions
+// in one unbroken run. That is what this pins.
+
+test('the bundled catalogue groups every faction and lists the alliances together', () => {
+  const catalogue = readJson('data/factions.json');
+  const groups = catalogue.factions.map((f) => f.group);
+  for (const [i, f] of catalogue.factions.entries()) {
+    assert.ok(f.group, `faction "${f.id}" has no group`);
+    assert.ok(catalogue.groups.includes(f.group),
+      `faction "${f.id}" is in "${f.group}", which is not a declared group`);
+    // Adjacency is the whole point: once an alliance has been left behind it
+    // must not come round again further down the list.
+    assert.equal(groups.indexOf(f.group) <= i && groups.lastIndexOf(f.group) >= i, true);
+    assert.equal(groups.slice(groups.indexOf(f.group), groups.lastIndexOf(f.group) + 1)
+      .every((g) => g === f.group), true, `"${f.group}" is split across the catalogue`);
+  }
+});

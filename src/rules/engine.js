@@ -25,6 +25,7 @@ import { moveLimitBlocker, moveLimitAfterUse } from './team-rules.js';
 import { updateObjectiveControl } from './objectives.js';
 import {
   timesAllowed, claimExtraAction, consumeFreeAction, chargeIgnoresOrder,
+  chargeIgnoresFallBack,
   hasFreeAction, freeActionIsUnrestricted, applyActivationStartHook, fireAfterAction,
 } from './hooks.js';
 import { playableFirefightPloys, useFirefightPloy } from './ploys.js';
@@ -33,7 +34,7 @@ import {
   consumeActionBoosts, applyPostActionResources,
 } from './resources.js';
 
-export const ENGINE_VERSION = '0.1.0';
+export const ENGINE_VERSION = '0.2.0';
 
 /** Action costs in AP. */
 export const ACTION_COST = {
@@ -166,7 +167,10 @@ export function getLegalActions(state, operativeId) {
     actions.push({ type: 'fall_back', cost: actionCost(state, op, 'fall_back'), allowance: usableMoveAllowance(state, op, 'fall_back') });
   }
   const mayCharge = op.order === ORDERS.ENGAGE || chargeIgnoresOrder(op);
-  if (!isEngaged && !fellBack && mayCharge && mayMove('charge') && !alreadyUsed(state, op, 'charge')) {
+  // Falling back normally ends any thought of charging again. RELENTLESS
+  // ASSAULT is the printed exception, and says so on the operative.
+  const barredByFallBack = fellBack && !chargeIgnoresFallBack(op);
+  if (!isEngaged && !barredByFallBack && mayCharge && mayMove('charge') && !alreadyUsed(state, op, 'charge')) {
     const allowance = usableMoveAllowance(state, op, 'charge');
     const reachable = all.filter(
       (e) => e.playerId !== op.playerId && baseDistance(op, e) <= allowance + 1

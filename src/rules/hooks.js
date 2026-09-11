@@ -54,8 +54,9 @@ export const HOOK_CONDITIONS = [
   'targetReady',                // target is yet to activate (expended = false)
   'selfReady',
   'hasToken',                   // this operative holds one of our own tokens
+  'notHasToken',                // …and the mirror: it does not
   'targetHasToken',             // the other operative holds one of our tokens
-  'friendlyWithin',             // another friendly is within x"
+  'friendlyWithin',             // another friendly is within x", or {inches, keyword}
   'awayFromEnemies',            // more than x" from every enemy operative
   'nearObjective',              // this operative is within x" of an objective
   'turningPointAtLeast',        // the battle has reached turning point x
@@ -75,6 +76,7 @@ export const HOOK_EFFECTS = {
   reduceDamage: 'Subtract from the damage a single action inflicts on this operative.',
   healWounds: 'Regain lost wounds, up to a dice expression.',
   allowChargeWhileConceal: 'Charge without needing an Engage order.',
+  allowChargeAfterFallBack: 'Charge later in an activation that already fell back.',
   extraAction: 'Allow one action type to be performed more than once per activation.',
   freeAction: 'Grant one action per activation that costs no AP.',
   grantAllyApl: 'Add APL to a friendly operative when this one is activated.',
@@ -213,13 +215,26 @@ function matches(state, hook, ctx) {
   // operative — so both sides are asked about this team's own tokens.
   if (cond.hasToken && operative &&
       !hasToken(operative, cond.hasToken, operative.playerId)) return false;
+  if (cond.notHasToken && operative &&
+      hasToken(operative, cond.notHasToken, operative.playerId)) return false;
   if (cond.targetHasToken) {
     if (!other || !operative) return false;
     if (!hasToken(other, cond.targetHasToken, operative.playerId)) return false;
   }
   if (cond.friendlyWithin !== undefined && operative) {
-    const near = liveOperatives(state, operative.playerId)
-      .some((o) => o.id !== operative.id && baseDistance(operative, o) <= cond.friendlyWithin);
+    // Two forms. A bare number is "another friendly operative within x\"".
+    // The object form names WHICH friendly — "within 6\" of your DARK
+    // APOSTLE", "within 3\" of your Sanguinary Captain" — which is how a
+    // printed leash around one named model is written.
+    const spec = typeof cond.friendlyWithin === 'object'
+      ? cond.friendlyWithin : { inches: cond.friendlyWithin };
+    const reach = Number(spec.inches) || 0;
+    const near = liveOperatives(state, operative.playerId).some((o) => {
+      if (o.id === operative.id) return false;
+      if (baseDistance(operative, o) > reach) return false;
+      if (!spec.keyword) return true;
+      return (profileOf(state, o)?.keywords || []).includes(spec.keyword);
+    });
     if (!near) return false;
   }
   if (cond.awayFromEnemies !== undefined && operative) {
@@ -331,10 +346,14 @@ export function fireTurningPointStart(state, rng, operatives) {
       if (effect.type === 'healWounds') {
         const lost = op.wounds - op.woundsRemaining;
         if (lost <= 0) continue;
+        // A medic treats one patient a turning point; LIVING METAL repairs the
+        // whole phalanx. `count` is what tells the two apart.
+        if (budgetLeft(hook) <= 0) continue;
         const rolled = rollExpression(rng, effect.dice);
         const healed = Math.min(lost, rolled);
         if (healed <= 0) continue;
         op.woundsRemaining += healed;
+        if (budgets.has(hook.id)) budgets.set(hook.id, budgets.get(hook.id) - 1);
         noteEffect(state, hook, op, `regains ${healed} lost wound(s) (rolled ${rolled})`);
       } else if (effect.type === 'changeOrder') {
         if (budgetLeft(hook) <= 0) continue;
@@ -368,6 +387,7 @@ export function fireTurningPointStart(state, rng, operatives) {
 export function fireActivationStart(state, op, rng = null) {
   op.freeActions = [];
   op.chargeWhileConceal = false;
+  op.chargeAfterFallBack = false;
   op.extraActionChoice = null;
   // Allowances a ploy or a rule can buy for one activation. Reset here so a
   // firefight ploy bought last activation cannot leak into this one.
@@ -413,6 +433,10 @@ export function applyActivationStartHook(state, op, hook, rng = null) {
         rule: hook.rule || hook.id,
       });
       noteEffect(state, hook, op, `gains a free ${effect.action}`);
+      return true;
+    case 'allowChargeAfterFallBack':
+      op.chargeAfterFallBack = true;
+      noteEffect(state, hook, op, 'can charge after falling back');
       return true;
     case 'allowChargeWhileConceal':
       op.chargeWhileConceal = true;
@@ -617,6 +641,11 @@ export function consumeFreeAction(op, type) {
 
 export function chargeIgnoresOrder(op) {
   return op.chargeWhileConceal === true;
+}
+
+/** RELENTLESS ASSAULT: the Fall Back no longer closes the door on a Charge. */
+export function chargeIgnoresFallBack(op) {
+  return op.chargeAfterFallBack === true;
 }
 
 /* ------------------------------------------------------------------ */
@@ -877,6 +906,10 @@ function commitAux(state, rng) {
  * single best one (the default), which is the one closest to dying.
  */
 function areaRecipients(state, op, effect, ctx) {
+  // "that operative" — a rule that hangs something on the operative whose own
+  // action triggered it. The Red Thirst is the case this exists for: giving in
+  // is a state the Marine puts on himself, not something done to an enemy.
+  if (effect.target === 'self') return op.alive ? [op] : [];
   if (effect.target === 'attacker') {
     const foe = ctx.attacker || ctx.target || null;
     return foe && foe.alive && foe.playerId !== op.playerId ? [foe] : [];

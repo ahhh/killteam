@@ -166,6 +166,40 @@ export function meleeSpends(state, op) {
 }
 
 /**
+ * The mirror of `meleeSpends` for a plan that ends in a Shoot action.
+ *
+ * `meleeSpends` deliberately skips any `weaponBoost` that is not a melee one,
+ * because a heavier swing is worth nothing to a plan that never reaches
+ * contact. The reverse is just as true and had nowhere to be asked: ORK IT UP
+ * is a whole faction economy spent before the attack dice of a *ranged*
+ * weapon, and without this the Loot Points filled up and were never spent.
+ *
+ * One boost per activation, valued the way `ai/ploys.js` values the same
+ * fields so a spend and a ploy that buy the same thing are priced alike.
+ *
+ * @returns {{actions:Array, atkBonus:number, damageMultiplier:number,
+ *            rationale:string[]}}
+ */
+export function shootingSpends(state, op) {
+  const out = { actions: [], atkBonus: 0, damageMultiplier: 1, rationale: [] };
+  for (const option of effectsOf(state, op, 'weaponBoost')) {
+    const effect = option.spend.effect;
+    if (effect.weaponType === 'melee') continue;
+    const applies = effect.appliesTo;
+    if (Array.isArray(applies) && !applies.includes('shoot')) continue;
+    if (budgetFor(state, op, option) < 1) break;
+    out.actions.push(spendAction(option));
+    out.atkBonus += Number(effect.atkBonus) || 0;
+    out.damageMultiplier *= 1 + 0.12 * ((Number(effect.damageNormal) || 0) +
+      (Number(effect.damageCritical) || 0));
+    if (effect.rules?.length) out.damageMultiplier *= 1 + 0.1 * effect.rules.length;
+    out.rationale.push(`Spends ${label(option)} on the shot`);
+    break;
+  }
+  return out;
+}
+
+/**
  * The reaction a kill unlocks — Vitalised Surge's free Dash.
  *
  * Whether it fires depends on dice that have not been rolled, so both actions

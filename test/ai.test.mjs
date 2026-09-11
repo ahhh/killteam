@@ -332,3 +332,39 @@ test('every disposition table key names a team or faction that ships', () => {
     assert.ok(name in DISPOSITIONS, `unknown disposition "${name}"`);
   }
 });
+
+/* --- Free repeats the AI has to notice --------------------------------- */
+//
+// ASTARTES — "it can perform either two Shoot actions or two Fight actions" —
+// is an always-on rule hook that nobody pays for. The plan builder only ever
+// counted repeats a resource spend or a firefight ploy had bought, so every
+// Space Marine team in the bundle walked into contact and swung once. These
+// pin the fix from both ends: the repeat is planned, and it is not invented
+// for an operative whose pack grants nothing.
+
+import { makeState as astartesState, opsOf as astartesOps, melee as astartesMelee } from './fixtures.mjs';
+
+const ASTARTES_HOOK = [{
+  id: 'astartes', rule: 'Astartes', trigger: 'onActionLegality',
+  condition: { keyword: 'astartes' },
+  effect: { type: 'extraAction', oneOf: ['shoot', 'fight'], count: 1 },
+}];
+
+function meleePlan({ hooks }) {
+  const s = astartesState({
+    p1: { at: [{ x: 11, y: 11 }], apl: 3, keywords: ['astartes'],
+          weapons: [astartesMelee({ atk: 5, hit: 3 })], ruleHooks: hooks },
+    p2: { at: [{ x: 11.6, y: 11 }], apl: 2 },
+  });
+  const [a] = astartesOps(s, 'p1');
+  const intent = new UtilityController('p1').planActivation(s, a.id);
+  return intent.actions.filter((x) => x.type === 'fight').length;
+}
+
+test('the AI plans the second Fight an always-on rule grants', () => {
+  assert.equal(meleePlan({ hooks: ASTARTES_HOOK }), 2);
+});
+
+test('…and plans only one for a team whose pack grants no repeat', () => {
+  assert.equal(meleePlan({ hooks: [] }), 1);
+});

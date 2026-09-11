@@ -13,6 +13,7 @@ import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
 import { usableMoveAllowance } from '../rules/engine.js';
 import { isLastTeamStanding } from '../rules/phases.js';
 import { meleeWeapons } from '../rules/shooting.js';
+import { timesAllowed, hasFreeAction } from '../rules/hooks.js';
 import { DASH_DISTANCE, CHARGE_BONUS } from '../rules/movement.js';
 import { generateDestinations, chargeDestination } from './movement.js';
 import { bestShotFrom, bestMeleeTarget } from './targeting.js';
@@ -22,11 +23,13 @@ import {
   detonationOpportunityAt,
 } from './utility.js';
 import { dispositionFor, unitTacticsFor, applyTactics } from './tactics.js';
-import { openingSpends, meleeSpends, postKillSpends, canHealItself } from './spending.js';
+import {
+  openingSpends, meleeSpends, shootingSpends, postKillSpends, canHealItself,
+} from './spending.js';
 import { chooseStrategicPloys, firefightPloysFor } from './ploys.js';
 import { planCommandPoints } from './cp.js';
 
-export const AI_VERSION = '0.2.0';
+export const AI_VERSION = '0.3.0';
 
 /**
  * Per-role weightings for the utility score.
@@ -133,6 +136,27 @@ function buffed(weapon, buffs) {
  * care which one paid. Both are `optional`, so a plan that loses the ranking
  * never spends the token or the CP.
  */
+/**
+ * Repeats of one action type this operative gets for FREE, beyond the first.
+ *
+ * ASTARTES — "it can perform either two Shoot actions or two Fight actions" —
+ * is an always-on rule hook, not something anybody pays for, and the plan
+ * builder only ever counted the repeats a resource spend or a firefight ploy
+ * had bought. So every Space Marine team in the bundle walked into contact and
+ * swung once: across nine battles the Crimson Spear charged seven times and
+ * fought seven times, with the second swing its faction rule grants never
+ * planned at all. The legality layer had always allowed it; nothing asked.
+ *
+ * The AP still has to be there, and the engine re-checks legality when the
+ * repeat resolves, so a grant the conditions have since withdrawn is refused
+ * rather than trusted.
+ */
+function freeRepeats(state, op, type, ap, apAlreadyUsed) {
+  const allowed = timesAllowed(state, op, type) - 1;
+  if (allowed <= 0) return 0;
+  return Math.max(0, Math.min(allowed, ap - apAlreadyUsed));
+}
+
 function withPloys(spendBuffs, ployBuffs) {
   const base = spendBuffs || {
     before: [], afterCharge: [], atkBonus: 0, moveBonus: 0,
@@ -309,10 +333,15 @@ export class UtilityController {
       shoot: firefightPloysFor(state, op, 'shoot', { context: ployContext }),
       move: firefightPloysFor(state, op, 'move', { context: ployContext }),
     };
+    // …and what the economy will pay for a shot. `meleeSpends` skips every
+    // boost that is not a melee one, which left a ranged economy — ORK IT UP —
+    // with no caller at all.
+    const shootBuffs = counteract ? null : shootingSpends(state, op);
 
     const plans = engaged.length
       ? this._engagedPlans(state, op, ap, enemies, engaged, buffs)
-      : this._freePlans(state, op, ap, enemies, tactics, buffs, ployPlans);
+      : this._freePlans(state, op, ap, enemies, tactics, buffs, ployPlans, shootBuffs);
+
 
     plans.push({ actions: [], rationale: ['No useful action found; holds position.'], estimate: {} });
 
@@ -463,10 +492,16 @@ export class UtilityController {
         // Rage buys attack dice and Fury a second swing, so the plan that pays
         // for them is a different plan from the plain Fight — worth ranking as
         // its own option rather than assuming the buffed version is free.
-        const extra = buffs?.extraFights
-          ? Array.from({ length: buffs.extraFights }, () => (
-            { type: 'fight', targetId: target.targetId, weaponId: melee.id }))
-          : [];
+        // Paid-for repeats (Fury, BLADEWIND) plus the ones a faction rule
+        // simply grants (Astartes). One Fight has been planned already, so a
+        // free repeat costs the AP for the second one and nothing else.
+        // A repeat is `optional`: the first swing may have put the target
+        // down, and there is nothing left to fight. The engine would refuse it
+        // anyway — this drops it silently instead of logging a rejection.
+        const swings = (buffs?.extraFights || 0) +
+          freeRepeats(state, op, 'fight', ap, 1 + (buffs?.extraFights || 0));
+        const extra = Array.from({ length: swings }, () => (
+          { type: 'fight', targetId: target.targetId, weaponId: melee.id, optional: true }));
         plans.push({
           actions: [
             { type: 'change_order', order: ORDERS.ENGAGE },
@@ -504,8 +539,15 @@ export class UtilityController {
     return plans;
   }
 
-  _freePlans(state, op, ap, enemies, tactics, buffs = null, ployPlans = null) {
+  _freePlans(state, op, ap, enemies, tactics, buffs = null, ployPlans = null,
+    shootBuffs = null) {
     const plans = [];
+    // A Dash an always-on rule already handed over — CLEAR DA ROOM, FORLORN
+    // FURY — is worth exactly what a ploy-bought one is worth, and was being
+    // read only by the action layer, which sees it after the plan is made. So
+    // the operative planned as though it had the AP it had, and the grant was
+    // spent only when a plan happened to run out of AP on its own.
+    const grantedDash = hasFreeAction(op, 'dash');
     const melee = meleeWeapons(state, op)[0];
     // CP the doctrine will pay for a second Shoot action, and for the free
     // Dash that takes an objective-runner the last few inches onto a marker.
@@ -531,19 +573,21 @@ export class UtilityController {
       // Pay CP for a second Shoot action. Worth its own plan rather than a
       // free upgrade: the second shot costs an AP the operative might have
       // spent breaking for cover, so the ranking decides which it wants.
-      if (shootPloys?.extraShoots > 0 && ap >= 2) {
-        const repeats = Array.from({ length: shootPloys.extraShoots }, () => (
+      const extraShoots = (shootPloys?.extraShoots || 0) +
+        freeRepeats(state, op, 'shoot', ap, 1 + (shootPloys?.extraShoots || 0));
+      if (extraShoots > 0 && ap >= 2) {
+        const repeats = Array.from({ length: extraShoots }, () => (
           { type: 'shoot', targetId: shotHere.targetId, weaponId: shotHere.weaponId,
             optional: true }));
         plans.push({
-          actions: [...shootPloys.actions, ...base, ...repeats],
+          actions: [...(shootPloys?.actions || []), ...base, ...repeats],
           rationale: [
-            ...shootPloys.rationale,
+            ...(shootPloys?.rationale || []),
             shotLine(shotHere, ` ${repeats.length + 1} times without moving`),
           ],
           estimate: shotEstimate(shotHere, {
             damage: shotHere.expected * (1 + 0.8 * repeats.length) *
-              shootPloys.damageMultiplier,
+              (shootPloys?.damageMultiplier ?? 1),
             apUsed: 1 + repeats.length,
             endsAt: { x: op.x, y: op.y },
           }),
@@ -665,7 +709,9 @@ export class UtilityController {
         // Ask for a *legal* contact point rather than assuming one exists.
         const dest = chargeDestination(state, op, enemy, allowance);
         if (!dest) continue;
-        const swings = 1 + (buffs?.extraFights || 0);
+        const paidSwings = 1 + (buffs?.extraFights || 0);
+        const swings = paidSwings +
+          freeRepeats(state, op, 'fight', ap, 1 + paidSwings);
         const expected = expectedDamage(op, weapon, enemy, { inCover: false }) *
           (swings > 1 ? 1.8 : 1) * (buffs?.damageMultiplier ?? 1) +
           (buffs?.extraDamage || 0);
@@ -675,8 +721,9 @@ export class UtilityController {
             ...(buffs?.before || []),
             { type: 'charge', destination: { x: dest.x, y: dest.y }, targetId: enemy.id },
             ...(buffs?.afterCharge || []),
-            ...Array.from({ length: swings }, () => (
-              { type: 'fight', targetId: enemy.id, weaponId: melee.id })),
+            ...Array.from({ length: swings }, (_, i) => (
+              { type: 'fight', targetId: enemy.id, weaponId: melee.id,
+                ...(i > 0 ? { optional: true } : {}) })),
           ],
           rationale: [
             `Charges ${enemy.name} across ${dest.length.toFixed(1)}"`,
@@ -688,6 +735,24 @@ export class UtilityController {
             endsAt: dest, moved: dest.length, charge: true,
           },
         });
+      }
+    }
+
+    // A resource spent on the attack dice rides with whichever shooting plan
+    // wins, rather than forking every one of them into a spent and an unspent
+    // copy: the spend costs no AP, it is `optional`, and the rules layer drops
+    // it silently if the plan it was attached to never fires. Applied here,
+    // once, so each branch above stays about where to stand and what to hit.
+    if (shootBuffs?.actions.length) {
+      for (const plan of plans) {
+        if (!plan.actions.some((a) => a.type === 'shoot')) continue;
+        plan.actions = [...shootBuffs.actions, ...plan.actions];
+        plan.rationale = [...plan.rationale, ...shootBuffs.rationale];
+        plan.estimate = {
+          ...plan.estimate,
+          damage: (plan.estimate.damage || 0) * shootBuffs.damageMultiplier *
+            (1 + 0.18 * shootBuffs.atkBonus),
+        };
       }
     }
 
@@ -720,7 +785,7 @@ export class UtilityController {
       const afterIsFree = !enemies.some(
         (e) => withinControlRange({ ...op, x: objectiveDest.x, y: objectiveDest.y }, e)
       );
-      const freeDash = movePloys?.freeDash === true;
+      const freeDash = movePloys?.freeDash === true || grantedDash;
       if ((ap >= 2 || freeDash) && afterIsFree) {
         const after = { ...op, x: objectiveDest.x, y: objectiveDest.y };
         const dashDests = generateDestinations(
@@ -746,15 +811,16 @@ export class UtilityController {
           // The same ground for one AP, bought with CP. Ranked as its own plan
           // so a one-AP operative can reach a marker it otherwise cannot.
           if (freeDash) {
+            const bought = movePloys?.freeDash === true;
             plans.push({
               actions: [
-                ...movePloys.actions, ...actions,
+                ...(bought ? movePloys.actions : []), ...actions,
                 { type: 'dash', destination: { x: dashTo.x, y: dashTo.y }, optional: true },
               ],
               rationale: [
-                ...movePloys.rationale,
+                ...(bought ? movePloys.rationale : []),
                 ...rationale,
-                `Dashes a further ${dashTo.length.toFixed(1)}" on the ploy's free action`,
+                `Dashes a further ${dashTo.length.toFixed(1)}" on the free action`,
               ],
               estimate: {
                 damage: 0, apUsed: 1, endsAt: dashTo,

@@ -11,6 +11,7 @@ import { WEAPON_RULES, parseRule } from '../rules/dice.js';
 import { describeHook } from '../rules/hooks.js';
 import { describeTeamRule, TEAM_RULE_EFFECTS } from '../rules/team-rules.js';
 import { describeResource } from '../rules/resources.js';
+import { CONTROL_CONDITIONS } from '../rules/objectives.js';
 import { TERRAIN_TRAITS } from '../rules/terrain.js';
 import { DISPOSITIONS } from '../ai/tactics.js';
 
@@ -309,6 +310,36 @@ export function validateTeamPack(pack) {
     }
     for (const name of Object.keys(weaponRules)) {
       if (!used.has(name)) report.warn(`weaponRules.${name} is declared but no weapon uses it`);
+    }
+  }
+
+  // --- Marker-control modifiers -------------------------------------
+  // "Treat its APL as one higher when determining control of markers. This
+  // does not change its APL stat." A hook cannot say that — control is
+  // recomputed from wherever everyone is standing — so it is its own block.
+  const controlMods = pack.controlModifiers || [];
+  if (!Array.isArray(controlMods)) {
+    report.error('controlModifiers must be an array');
+  } else {
+    const seenMods = new Set();
+    for (const mod of controlMods) {
+      if (!mod?.id) { report.error('control modifier is missing an id'); continue; }
+      if (seenMods.has(mod.id)) report.error(`duplicate control modifier "${mod.id}"`);
+      seenMods.add(mod.id);
+      if (typeof mod.effect === 'string' && /function|=>/.test(mod.effect)) {
+        report.error('control modifiers must be declarative data — executable code is never run from a pack');
+      }
+      if (!Number.isFinite(Number(mod.delta)) || Number(mod.delta) === 0) {
+        report.error(`control modifier "${mod.id}" must carry a non-zero numeric delta`);
+      }
+      for (const cond of Object.keys(mod.condition || {})) {
+        if (!CONTROL_CONDITIONS.includes(cond)) {
+          report.warn(`control modifier "${mod.id}" uses an unknown condition "${cond}" — it will never apply`);
+        }
+      }
+      if (mod.partial && !mod.notes) {
+        report.warn(`control modifier "${mod.id}" is marked partial but says nothing about what is missing`);
+      }
     }
   }
 

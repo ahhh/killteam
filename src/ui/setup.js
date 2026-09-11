@@ -117,7 +117,12 @@ export class SetupScreen {
 
     for (const faction of factions) {
       const group = document.createElement('optgroup');
-      group.label = faction.name;
+      // A `<select>` has exactly one level of grouping, so the grand alliance
+      // goes in front of the faction name rather than above it: the catalogue
+      // is already ordered by group, so every Aeldari faction is adjacent and
+      // the shared prefix is what says so. A faction with no group — an older
+      // catalogue, or one somebody wrote themselves — just keeps its own name.
+      group.label = faction.group ? `${faction.group} · ${faction.name}` : faction.name;
       for (const teamId of faction.teams) {
         const pack = this.repo.teams.get(teamId);
         const option = document.createElement('option');
@@ -275,7 +280,14 @@ export class SetupScreen {
 
     root.append(h('p', 'muted', catalogue.note));
 
+    // Same grouping the picker uses, so the provenance list reads in the same
+    // order somebody just chose a team from.
+    let shown = null;
     for (const faction of catalogue.factions) {
+      if (faction.group && faction.group !== shown) {
+        shown = faction.group;
+        root.append(h('h4', 'reference-group', shown));
+      }
       const line = h('div');
       line.append(h('strong', null, `${faction.name}: `));
       line.append(h('span', null, faction.teams.map((t) => t.name).join(', ')));

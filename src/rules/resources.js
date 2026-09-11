@@ -50,6 +50,8 @@ export const RESOURCE_GAIN_TRIGGERS = {
   enemyInjured: 'The operative\'s action left an enemy injured, but alive.',
   enemyIncapacitated: 'The operative\'s action incapacitated an enemy.',
   killWithin: 'The operative incapacitated something within x" of it.',
+  killNearObjective:
+    'The operative incapacitated something while either of them was within x" of a marker.',
   firstKillEachTurningPoint: 'The first enemy incapacitated in each turning point.',
   firstLossNearEnemyEachTurningPoint:
     'The first friendly operative lost within x" of an enemy, each turning point.',
@@ -259,6 +261,13 @@ export function resourceReadyStep(state) {
       const def = { key, ...raw };
       for (const gain of def.gains || []) {
         if (gain.trigger !== 'readyStep') continue;
+        // "Claim It": a pool that is paid for objective work rather than for
+        // simply existing. This engine has no Pick Up Marker action, so the
+        // nearest honest reading of "did something useful on a marker" is
+        // that the team was still holding one when the turning point turned.
+        if (gain.requireObjectiveControl &&
+            !(state.objectives || []).some((o) => o.controlledBy === playerId)) continue;
+        if (!claimGainAllowance(state, playerId, def)) continue;
         const amount = Number(gain.amount) || 1;
         if ((def.scope || 'operative') === 'player') {
           const anchor = liveOperatives(state, playerId)[0];
@@ -436,6 +445,21 @@ function applyGain(state, playerId, def, gain, actingOp, window) {
     return;
   }
 
+  if (trigger === 'killNearObjective' && eligible) {
+    const reach = Number(gain.within) || 2;
+    const markers = (state.objectives || []).map((m) => ({ x: m.x, y: m.y, baseDiameter: 0 }));
+    const nearMarker = (o) => markers.some((m) => baseDistance(o, m) <= reach);
+    const paid = window.incapacitated
+      .filter((d) => d.playerId !== playerId)
+      .filter((d) => !d.source.attackerId || d.source.attackerId === actingOp.id)
+      .map((d) => state.operatives[d.id])
+      .filter((o) => o && (nearMarker(o) || nearMarker(actingOp)));
+    if (!paid.length) return;
+    if (!claimGainAllowance(state, playerId, def)) return;
+    changeResource(state, actingOp, def.key, Number(gain.amount) || 1, { rule });
+    return;
+  }
+
   if (trigger === 'firstKillEachTurningPoint') {
     if (!window.incapacitated.some((d) => d.playerId !== playerId)) return;
     if (!claimOncePerTurningPoint(state, playerId, `${def.key}:kill`)) return;
@@ -463,6 +487,26 @@ function attributedTo(actingOp, target, window) {
   return window.damaged.some(
     (d) => d.id === target.id && (!d.source.attackerId || d.source.attackerId === actingOp.id)
   );
+}
+
+/**
+ * A cap across ALL of a resource's gains in one turning point.
+ *
+ * "You cannot gain more than one Loot Point during the same Turning Point" is
+ * a limit on the pool, not on any one way of filling it, so it is counted once
+ * per resource rather than once per gain. A resource that declares no
+ * `gainsPerTurningPoint` is unlimited and never touches this.
+ */
+function claimGainAllowance(state, playerId, def) {
+  const cap = Number(def.gainsPerTurningPoint);
+  if (!cap) return true;
+  const player = state.players[playerId];
+  if (!player.resourceGains) player.resourceGains = {};
+  const tag = `${def.key}:${state.turningPoint}`;
+  const used = Number(player.resourceGains[tag]) || 0;
+  if (used >= cap) return false;
+  player.resourceGains[tag] = used + 1;
+  return true;
 }
 
 /** "the first time … during each turning point", tracked on the player. */

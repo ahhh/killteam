@@ -86,6 +86,9 @@ export function grantToken(state, op, spec, { owner, rule, source = {} } = {}) {
     owner,
     onActivation: spec.onActivation || null,
     whileHeld: spec.whileHeld || null,
+    // Which of the holder's activations this arrived in, so a
+    // `startOfNextActivation` token survives the activation that created it.
+    grantedOnActivation: op.activationCount ?? 0,
     expiry: spec.expiry || null,
   });
 
@@ -146,6 +149,22 @@ export function tokenHitPenaltyIsCapped(op) {
 export function tokenAplDelta(op) {
   let delta = 0;
   for (const t of tokensOf(op)) delta += Number(t.whileHeld?.aplDelta) || 0;
+  return delta;
+}
+
+/**
+ * APL added or taken off FOR DETERMINING CONTROL OF MARKERS ONLY.
+ *
+ * A whole family of printed rules says "treat its APL as x when determining
+ * control of markers" and then goes out of its way to add "this does not
+ * change its APL stat" — the Red Thirst's Loss of Restraint, Heir of
+ * Azkaellon, Creed of Martyrdom. That is a different number from `aplDelta`:
+ * it must not touch the AP the operative gets to spend, so `effectiveApl`
+ * never sees it and only `objectives.js` reads it.
+ */
+export function tokenControlAplDelta(op) {
+  let delta = 0;
+  for (const t of tokensOf(op)) delta += Number(t.whileHeld?.controlAplDelta) || 0;
   return delta;
 }
 
@@ -306,6 +325,15 @@ export function markTokenExpiryAtActivationStart(op) {
   for (const t of tokensOf(op)) {
     if (t.expiry?.endOfNextActivation) t.expiresThisActivation = true;
   }
+  // "…until the START of that operative's next activation" is a shorter span
+  // than "the end of" it, and the Red Thirst's Loss of Restraint is written
+  // the short way: the Marine is a poor scorer for one turning point, not for
+  // the activation he finally comes to his senses in. Shed here, before the
+  // activation the token was waiting for begins.
+  const shed = tokensOf(op).filter((t) => t.expiry?.startOfNextActivation &&
+    t.grantedOnActivation !== op.activationCount);
+  op.tokens = (op.tokens || []).filter((t) => !shed.includes(t));
+  return shed;
 }
 
 /**

@@ -127,6 +127,29 @@
    "voidscarred-warrior",
    "voidscarred-way-seeker"
   ],
+  "covenant-of-the-hidden-word": [
+   "autogun-devotee",
+   "cell-demagogue",
+   "cell-enforcer",
+   "firebrand",
+   "iconarch",
+   "malefic-witch",
+   "saboteur",
+   "sleeper-agent",
+   "turncoat-gunner",
+   "vox-seditionist",
+   "word-bearer-dark-apostle",
+   "zealot-devotee"
+  ],
+  "crimson-spear": [
+   "angelus-grenadier",
+   "assault-intercessor-warrior",
+   "baal-flamebearer",
+   "death-company-ravager",
+   "sanguinary-captain",
+   "sanguinary-guard",
+   "sanguinary-priest"
+  ],
   "death-korps": [
    "death-korps-bruiser",
    "death-korps-confidant",
@@ -208,6 +231,19 @@
    "fellgor-toxhorn",
    "fellgor-vandal",
    "fellgor-warrior"
+  ],
+  "freebooter-boardin-krew": [
+   "bosun",
+   "breacha",
+   "deck-sweeper",
+   "freebooter-armsman-boy",
+   "freebooter-kaptin",
+   "freebooter-slugga-boy",
+   "plasma-loota",
+   "sawbones",
+   "stubba-gunner",
+   "void-rigger",
+   "vox-git"
   ],
   "gellerpox-infected": [
    "bloatspawn",

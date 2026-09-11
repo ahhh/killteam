@@ -580,7 +580,23 @@
       "id": "destructive-demise",
       "name": "DESTRUCTIVE DEMISE",
       "description": "Use this firefight ploy when a friendly GOREMONGER operative is incapacitated, before it's removed from the killzone. Inflict damage determined by that friendly operative's GORE TANK on one enemy operative within that friendly operative's control range. Inflict: D3 if empty.D3+1 if half.D3+2 if full.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "goremonger"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3+1",
+            "controlRangeOnly": true
+          },
+          "partial": true,
+          "notes": "the amount is fixed at the half-full GORE TANK value (D3+1) rather than read off the tank the operative died with"
+        }
+      ]
     },
     {
       "id": "lacerate-flesh",

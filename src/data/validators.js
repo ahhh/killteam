@@ -229,11 +229,12 @@ export function validateTeamPack(pack) {
       }
       if (!ploy.description) report.warn(`${label} "${ploy.id}" has no printed wording to check against`);
       // A firefight ploy says when it may be bought: during a friendly
-      // operative's activation (the default) or as a reaction to an attack.
+      // operative's activation (the default), as a reaction to an attack, or
+      // on the way out, as the operative that paid for it is incapacitated.
       if (field === 'firefightPloys' && ploy.timing !== undefined &&
-          !['activation', 'defence'].includes(ploy.timing)) {
+          !['activation', 'defence', 'demise'].includes(ploy.timing)) {
         report.warn(`firefight ploy "${ploy.id}" has unknown timing "${ploy.timing}" ` +
-          '— expected "activation" or "defence"');
+          '— expected "activation", "defence" or "demise"');
       }
       if (field === 'strategicPloys' && ploy.timing !== undefined) {
         report.warn(`strategic ploy "${ploy.id}" declares a timing; strategic ploys are always bought in the strategy phase`);
@@ -250,6 +251,17 @@ export function validateTeamPack(pack) {
           if (hook.trigger && !usable.includes(hook.trigger)) {
             report.warn(`firefight ploy "${ploy.id}" is a reaction but hooks "${hook.trigger}", ` +
               'which has already fired by the time it is bought');
+          }
+        }
+      }
+      // A demise ploy is bought at one instant — the moment the operative that
+      // paid for it goes down — so `onIncapacitated` is the only trigger left
+      // for it to catch.
+      if (field === 'firefightPloys' && ploy.timing === 'demise') {
+        for (const hook of ploy.hooks) {
+          if (hook.trigger && hook.trigger !== 'onIncapacitated') {
+            report.warn(`firefight ploy "${ploy.id}" is bought on an incapacitation but hooks ` +
+              `"${hook.trigger}", which that operative will never reach`);
           }
         }
       }

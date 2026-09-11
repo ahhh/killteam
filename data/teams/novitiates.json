@@ -871,7 +871,25 @@
       "id": "glorious-martyrdom",
       "name": "GLORIOUS MARTYRDOM",
       "description": "Use this firefight ploy when a friendly NOVITIATE operative is incapacitated, before it's removed from the killzone. For each enemy operative visible to and within 2\" of it, you gain 1 Faith point and inflict D3 damage on that enemy operative (roll separately for each).",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "novitiate"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3",
+            "within": 2,
+            "requireVisible": true,
+            "scope": "each"
+          },
+          "partial": true,
+          "notes": "the Faith point gained for each enemy caught is not simulated"
+        }
+      ]
     },
     {
       "id": "blazing-inferno",

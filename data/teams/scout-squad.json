@@ -599,7 +599,21 @@
       "id": "adaptable-training",
       "name": "ADAPTABLE TRAINING",
       "description": "You can change the order of up to D3 friendly SCOUT SQUAD operatives that are more than 4\" from enemy operatives.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onTurningPointStart",
+          "condition": {
+            "keyword": "scout-squad",
+            "awayFromEnemies": 4
+          },
+          "effect": {
+            "type": "changeOrder",
+            "order": "engage",
+            "count": "D3"
+          }
+        }
+      ]
     },
     {
       "id": "stealth-relocation",
@@ -690,7 +704,33 @@
       "id": "covert-position",
       "name": "COVERT POSITION",
       "description": "Use this firefight ploy during a friendly SCOUT SQUAD operative's activation. Until the start of its next activation, while that operative has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onTargetSelection",
+          "condition": {
+            "keyword": "scout-squad"
+          },
+          "effect": {
+            "type": "denyTargeting",
+            "requireConceal": true,
+            "requireCover": true,
+            "exceptWithin": 2
+          }
+        },
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "scout-squad"
+          },
+          "effect": {
+            "type": "changeOrder",
+            "order": "conceal"
+          }
+        }
+      ],
+      "partial": true,
+      "notes": "the veto is bought for one activation; printed, it holds until the start of that operative's next activation"
     }
   ],
   "equipment": [

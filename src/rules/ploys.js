@@ -56,6 +56,7 @@ export const DEFAULT_PLOY_COST = 1;
 export const FIREFIGHT_TIMINGS = {
   activation: 'During a friendly operative\'s activation, as a 0-AP choice.',
   defence: 'When a friendly operative is attacked — a reaction, not an action.',
+  demise: 'When a friendly operative is incapacitated, before it is removed.',
 };
 
 /* ------------------------------------------------------------------ */
@@ -348,6 +349,50 @@ export function reactiveDefenceHooks(state, defender, ctx = {}) {
   });
   logPloy(state, defender.playerId, ploy, {
     operative: defender, detail: `reacting to the attack on ${defender.name}`,
+  });
+
+  return ploy.hooks.map((hook, i) => ({
+    ...hook,
+    id: hook.id || `${ploy.id}:${i}`,
+    rule: hook.rule || ploy.name,
+  }));
+}
+
+/**
+ * Death-throe ploys: the CP spent on the way out.
+ *
+ * Same shape of problem as a reaction — a window with no action layer in it,
+ * reached from inside somebody else's sequence — and so the same answer: one
+ * published policy, funded by the reserve `player.cpPlan` set aside.
+ *
+ * The difference is that there is no judgement about *whether* the moment is
+ * worth it. A reaction weighs the shot against the wounds left; an operative
+ * that is already down has nothing left to protect, and the ploy expires with
+ * it. So the only question is whether the team kept CP back for one, and
+ * whether the throes have anybody to reach.
+ *
+ * @returns {Array} hooks contributed by whatever was bought (possibly [])
+ */
+export function demiseHooks(state, victim, ctx = {}) {
+  const pack = state.teamPacks?.[victim?.playerId];
+  if (!pack) return [];
+
+  const plan = state.players[victim.playerId].cpPlan || {};
+  const budget = Number(plan.reactionBudget) || 0;
+  if (budget <= 0) return [];
+
+  const ploy = ployCatalogue(pack, 'firefight')
+    .filter((p) => p.timing === 'demise')
+    .filter((p) => p.supported)
+    .filter((p) => !commonBlocker(state, victim.playerId, p))
+    .filter((p) => p.cost <= budget)
+    .sort((a, b) => a.cost - b.cost || (a.id < b.id ? -1 : 1))[0];
+  if (!ploy) return [];
+
+  payFor(state, victim.playerId, ploy, 'reactive');
+  state.players[victim.playerId].cpPlan = { ...plan, reactionBudget: budget - ploy.cost };
+  logPloy(state, victim.playerId, ploy, {
+    operative: victim, detail: `${victim.name} goes down hard`,
   });
 
   return ploy.hooks.map((hook, i) => ({

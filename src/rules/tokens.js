@@ -136,6 +136,19 @@ export function tokenHitPenaltyIsCapped(op) {
   );
 }
 
+/**
+ * APL added to (or, being negative, taken off) the holder.
+ *
+ * SICKENING CAPTIVATION and NURGLINGS both read "subtract 1 from its APL
+ * stat" and hold for a stated span, which is a token with an expiry — the same
+ * subsystem Humbling Cruelty uses to take inches off a Move stat.
+ */
+export function tokenAplDelta(op) {
+  let delta = 0;
+  for (const t of tokensOf(op)) delta += Number(t.whileHeld?.aplDelta) || 0;
+  return delta;
+}
+
 /** Inches added to (or, being negative, taken off) the Move stat. */
 export function tokenMoveDelta(op) {
   let delta = 0;

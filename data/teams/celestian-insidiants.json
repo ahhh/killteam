@@ -666,7 +666,24 @@
       "id": "glory-to-the-martyrs",
       "name": "GLORY TO THE MARTYRS",
       "description": "Use this firefight ploy when a friendly CELESTIAN INSIDIANT operative is incapacitated while fighting or retaliating. You can strike the enemy operative in that sequence with one of your unresolved successes before it's removed from the killzone. If that enemy operative is incapacitated as a result, that friendly operative becomes INSPIRING before it's removed from the killzone and you can resolve the Martyrdom faction rule.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "celestian-insidiant",
+            "action": "fight"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "3",
+            "target": "attacker"
+          },
+          "partial": true,
+          "notes": "printed as striking with one unresolved success and, on a kill, resolving Martyrdom; simulated as a flat 3 damage to the enemy in that sequence"
+        }
+      ]
     },
     {
       "id": "unshakeable-pursuit",

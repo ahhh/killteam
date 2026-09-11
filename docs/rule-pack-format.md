@@ -144,15 +144,25 @@ is visible rather than silently wrong.
 | `beforeAttackRoll` | after the weapon is chosen, before dice are rolled |
 | `beforeDefenceRoll` | on the defender's team, before defence dice |
 | `beforeDamageApplied` | on the damaged operative, before wounds are lost |
+| `onTargetSelection` | on a would-be target, before Seek or a spotter get a say |
+| `afterAction` | on the operative, once an action has fully resolved |
+| `afterRetaliation` | on the operative that was fought against, sequence over |
+| `onIncapacitated` | on the operative that just went down, before it is removed |
+| `onActivationEnd` | as an activation closes, before its ploys lapse |
 
-`afterAttackRoll`, `onDamageApplied` and `onActivationEnd` are recognised
-trigger names with no effects wired to them yet.
+`afterAttackRoll` and `onDamageApplied` are recognised trigger names with no
+effects wired to them yet.
 
 **Conditions** — all keys are ANDed, and all are optional:
 
 *About this operative:* `keyword`, `notKeyword`, `role`, `orderIs`,
-`selfWounded`, `selfReady`, `awayFromFriends`, `withinShadow`,
-`performedThisActivation`, `notPerformedThisActivation`.
+`selfWounded`, `selfReady`, `awayFromFriends`, `awayFromEnemies`,
+`withinShadow`, `counteracting`, `performedThisActivation`,
+`notPerformedThisActivation`.
+
+*About the action that just finished* (`afterAction` only): `actionIs`,
+`actionCountAtMost` — together these say "if the FIRST action it performs
+during that activation is the Charge action".
 
 *About the weapon:* `weaponType`, `weaponIdIn`, `weaponNameContains`,
 `weaponHasAnyRule`.
@@ -167,6 +177,10 @@ buffs but buffs that apply *in a situation* — "shooting an operative within
 operatives". Without them a pack can only express the unconditional minority,
 and authoring the rest anyway would silently drop the condition and make every
 one of those rules stronger than printed.
+
+`notKeyword` also takes a list, because a printed exclusion is often plural:
+`"notKeyword": ["ogryn", "bullgryn"]`. `awayFromEnemies: 4` is the mirror of
+`awayFromFriends` — more than 4" from every enemy operative.
 
 `targetReady` is `false` for an *expended* operative (one that has already
 activated this turning point). `awayFromFriends: 5` means more than 5" from
@@ -196,6 +210,23 @@ operative moves.
 | `extraAction` | `action` or `oneOf[]`, `count` | Repeats an action |
 | `freeAction` | `action` | One action per activation costing no AP |
 | `grantAllyApl` | `amount`, `within`, `keyword` | Hands APL to a friendly operative when this one activates |
+| `inflictDamage` | `dice`, `within`/`controlRangeOnly`, `requireVisible`, `scope`, `target`, `count` | Damages enemies around this operative |
+| `inflictToken` | `token`, `within`/`controlRangeOnly`, `requireVisible`, `scope`, `target`, `count` | Hangs a token on them instead |
+| `changeOrder` | `order`, `count` | Flips this operative's order |
+| `denyTargeting` | `requireConceal`, `requireCover`, `exceptWithin` | This operative cannot be selected as a valid target |
+
+`scope: "each"` reaches every enemy in the radius; the default picks the single
+one closest to dying. `target: "attacker"` reaches the other operative in the
+sequence instead of a radius — which is how "strike the enemy operative in that
+sequence" is modelled once the dice are gone. `count` is a budget for the whole
+hook rather than per operative, rolled once (`"D3"`) and drawn down as the
+Strategy-phase sweep walks the roster, so "select ONE enemy operative" and "up
+to D3 friendly operatives" both come out right.
+
+`inflictToken` takes the same `token` block weapon rules use (see
+`rules/tokens.js`): `{kind, label, onActivation, whileHeld, expiry}`.
+`whileHeld.aplDelta` is what a printed "subtract 1 from its APL stat" becomes,
+and `expiry.endOfNextActivation` is what makes it lapse when it should.
 
 `extraAction` with `oneOf` models the Astartes shape — *either* two Shoot
 actions *or* two Fight actions: whichever is repeated first claims the grant.
@@ -341,6 +372,7 @@ says which window it belongs to with `timing`:
 |---|---|---|
 | `activation` (default) | During a friendly operative's activation, as a 0-AP `{"type":"ploy"}` action the AI plans and the action layer validates | `onActivationStart` (replayed at purchase), `onActionLegality`, and every attack trigger for the rest of the activation |
 | `defence` | When that operative is attacked — a reaction, bought inside somebody else's sequence | `onIncomingAttack`, `beforeDefenceRoll`, `beforeDamageApplied` |
+| `demise` | When that operative is incapacitated, before it is removed | `onIncapacitated` |
 
 ```jsonc
 {
@@ -362,6 +394,13 @@ An activation ploy's hooks are scoped to the operative that paid for it and
 lapse when its activation ends. A reaction lasts the sequence it was bought
 against, so one ploy may both add defence dice and blunt the damage that gets
 through.
+
+A `demise` ploy is the death-throe family — the Gellerpox bursting, a Khorne
+Legionary getting one last swing in. It is bought the way a reaction is, out of
+the same `reactionBudget`, but with no judgement about whether the moment is
+worth it: an operative that is already down has nothing left to protect, and
+the ploy expires with it, so the only questions are whether the team kept CP
+back and whether the throes have anybody to reach.
 
 A reaction has no action layer to ask — there is no AI turn inside an attack —
 so `rules/ploys.js` follows one published policy: at most one reaction per

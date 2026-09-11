@@ -584,7 +584,32 @@
       "id": "nurglings",
       "name": "NURGLINGS",
       "description": "Select one enemy operative within 3\" of a friendly PLAGUE MARINE operative, or one enemy operative that has one of your Poison tokens and is within 7\" of a friendly PLAGUE MARINE operative. Until the end of the selected operative's next activation, subtract 1 from its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onTurningPointStart",
+          "condition": {
+            "keyword": "plague-marine"
+          },
+          "effect": {
+            "type": "inflictToken",
+            "within": 3,
+            "count": 1,
+            "token": {
+              "kind": "nurglings",
+              "label": "Nurglings",
+              "whileHeld": {
+                "aplDelta": -1
+              },
+              "expiry": {
+                "endOfNextActivation": true
+              }
+            }
+          },
+          "partial": true,
+          "notes": "the longer 7\" reach against an operative already holding a Poison token is not simulated"
+        }
+      ]
     }
   ],
   "firefightPloys": [
@@ -616,7 +641,31 @@
       "id": "poisonous-demise",
       "name": "POISONOUS DEMISE",
       "description": "Use this firefight ploy when a friendly PLAGUE MARINE operative is incapacitated, before it's removed from the killzone. Each enemy operative visible to and within 3\" of that operative gains one of your Poison tokens (if they don't already have one); for each of those enemy operatives that already has one of your Poison tokens (including if they gained one during this action), inflict 1 damage on them instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "plague-marine"
+          },
+          "effect": {
+            "type": "inflictToken",
+            "within": 3,
+            "requireVisible": true,
+            "scope": "each",
+            "token": {
+              "kind": "poison",
+              "label": "Poison",
+              "onActivation": {
+                "damage": "1"
+              }
+            }
+          },
+          "partial": true,
+          "notes": "an enemy already holding one of your Poison tokens should take 1 damage instead; the engine only hands out the token"
+        }
+      ]
     },
     {
       "id": "curse-of-rot",

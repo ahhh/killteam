@@ -25,7 +25,7 @@ import { moveLimitBlocker, moveLimitAfterUse } from './team-rules.js';
 import { updateObjectiveControl } from './objectives.js';
 import {
   timesAllowed, claimExtraAction, consumeFreeAction, chargeIgnoresOrder,
-  hasFreeAction, freeActionIsUnrestricted, applyActivationStartHook,
+  hasFreeAction, freeActionIsUnrestricted, applyActivationStartHook, fireAfterAction,
 } from './hooks.js';
 import { playableFirefightPloys, useFirefightPloy } from './ploys.js';
 import {
@@ -287,6 +287,9 @@ export function resolveAction(state, action) {
   // Gore Tanks the operative it left dead at its feet.
   if (action.type !== 'spend' && action.type !== 'ploy') {
     applyPostActionResources(state, op, seqBefore);
+    // …and what it leaves behind: the Nemesis Claw's charge lands hard enough
+    // to hurt whatever it landed on.
+    fireAfterAction(state, op, action.type);
   }
   updateObjectiveControl(state);
   return result;

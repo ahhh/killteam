@@ -904,7 +904,35 @@
       "id": "redeemed-through-fire",
       "name": "REDEEMED THROUGH FIRE",
       "description": "Use this firefight ploy when a friendly SANCTIFIER operative that has a weapon with the Blaze weapon rule is incapacitated, before it's removed from the killzone. Each enemy operative visible to and within 2\" of it gains one of your Blaze tokens (if it doesn't already have one).",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "sanctifier"
+          },
+          "effect": {
+            "type": "inflictToken",
+            "within": 2,
+            "requireVisible": true,
+            "scope": "each",
+            "token": {
+              "kind": "blaze",
+              "label": "Blaze",
+              "onActivation": {
+                "damage": "D3",
+                "removal": {
+                  "d6": 3,
+                  "aplCost": 1
+                }
+              }
+            }
+          },
+          "partial": true,
+          "notes": "the requirement that the operative was carrying a Blaze weapon is not checked"
+        }
+      ]
     },
     {
       "id": "unwavering-devotion",

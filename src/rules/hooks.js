@@ -10,16 +10,18 @@
  * rule it implements in `rule`, so the battle log can say *why* something
  * happened rather than just that it did.
  */
-import { warnUnsupported, EVENTS, logEvent } from '../state.js';
+import { warnUnsupported, EVENTS, logEvent, ORDERS } from '../state.js';
 import { isWithinShadow } from './terrain.js';
 import { liveOperatives } from '../state.js';
 import { baseDistance } from '../maps/geometry.js';
-import { traceSight } from './visibility.js';
+import { traceSight, CONTROL_RANGE } from './visibility.js';
 import { hasToken } from './tokens.js';
+import { grantToken } from './tokens.js';
 // effects.js imports this module in turn. The cycle resolves because
-// `isInjured` is a hoisted function declaration; keep it one.
-import { isInjured } from './effects.js';
-import { activePloyHooks, reactiveDefenceHooks } from './ploys.js';
+// `isInjured` and `applyDamage` are hoisted function declarations; keep them so.
+import { isInjured, applyDamage } from './effects.js';
+import { activePloyHooks, reactiveDefenceHooks, demiseHooks } from './ploys.js';
+import { Rng } from '../rng.js';
 
 /** Condition keys a hook may use. Anything else is reported and fails closed. */
 export const HOOK_CONDITIONS = [
@@ -54,8 +56,13 @@ export const HOOK_CONDITIONS = [
   'hasToken',                   // this operative holds one of our own tokens
   'targetHasToken',             // the other operative holds one of our tokens
   'friendlyWithin',             // another friendly is within x"
+  'awayFromEnemies',            // more than x" from every enemy operative
   'nearObjective',              // this operative is within x" of an objective
   'turningPointAtLeast',        // the battle has reached turning point x
+  'counteracting',              // this is a counteraction, not an activation
+  // About the action that just finished, for `afterAction`.
+  'actionIs',                   // 'charge' | 'shoot' | …
+  'actionCountAtMost',          // …and it was the operative's first, second, …
 ];
 
 /** Effect types the engine knows how to apply. */
@@ -78,6 +85,10 @@ export const HOOK_EFFECTS = {
   modifyMove: 'Add inches to the Move stat for this activation.',
   ignoreInjured: 'The operative does not suffer the effects of being injured.',
   clearTokens: 'Strip the tokens an opponent has hung on this operative.',
+  inflictDamage: 'Deal damage to enemies around this operative.',
+  inflictToken: 'Hang a token on enemies around this operative.',
+  changeOrder: 'Set this operative\'s order.',
+  denyTargeting: 'This operative cannot be selected as a valid target.',
 };
 
 /** Triggers, in the order the engine fires them. */
@@ -85,12 +96,16 @@ export const HOOK_TRIGGERS = [
   'onTurningPointStart',
   'onActivationStart',
   'onActionLegality',
+  'onTargetSelection',
   'onIncomingAttack',
   'beforeAttackRoll',
   'afterAttackRoll',
   'beforeDefenceRoll',
   'beforeDamageApplied',
   'onDamageApplied',
+  'afterRetaliation',
+  'afterAction',
+  'onIncapacitated',
   'onActivationEnd',
 ];
 
@@ -139,7 +154,12 @@ function matches(state, hook, ctx) {
   const keywords = profile?.keywords || [];
 
   if (cond.keyword && !keywords.includes(cond.keyword)) return false;
-  if (cond.notKeyword && keywords.includes(cond.notKeyword)) return false;
+  // A list, because a printed exclusion is often plural — "GELLERPOX INFECTED
+  // (excluding MUTOID VERMIN)", "RATLING (excluding OGRYN or BULLGRYN)".
+  if (cond.notKeyword) {
+    const excluded = Array.isArray(cond.notKeyword) ? cond.notKeyword : [cond.notKeyword];
+    if (excluded.some((k) => keywords.includes(k))) return false;
+  }
   if (cond.role && profile?.role !== cond.role) return false;
   if (cond.orderIs && operative?.order !== cond.orderIs) return false;
 
@@ -202,6 +222,21 @@ function matches(state, hook, ctx) {
       .some((o) => o.id !== operative.id && baseDistance(operative, o) <= cond.friendlyWithin);
     if (!near) return false;
   }
+  if (cond.awayFromEnemies !== undefined && operative) {
+    const near = liveOperatives(state)
+      .some((o) => o.playerId !== operative.playerId &&
+        baseDistance(operative, o) <= cond.awayFromEnemies);
+    if (near) return false;
+  }
+  if (cond.counteracting !== undefined &&
+      (operative?.inCounteraction === true) !== cond.counteracting) return false;
+  // `afterAction` carries the action that has just finished, and how many the
+  // operative had performed by the time it did — which is how a pack says
+  // "if the FIRST action it performs is the Charge action".
+  if (cond.actionIs !== undefined && ctx.actionPerformed !== cond.actionIs) return false;
+  if (cond.actionCountAtMost !== undefined &&
+      (ctx.actionCount ?? Infinity) > cond.actionCountAtMost) return false;
+
   if (cond.nearObjective !== undefined && operative) {
     const markers = state.objectives || [];
     const near = markers.some(
@@ -279,6 +314,16 @@ export function rollExpression(rng, expr) {
 /* ------------------------------------------------------------------ */
 
 export function fireTurningPointStart(state, rng, operatives) {
+  // "…up to D3 friendly operatives": a budget that belongs to the HOOK, not
+  // to any one operative, so it is rolled once and drawn down as the sweep
+  // walks the roster. Keyed by hook id, which is unique within a pack.
+  const budgets = new Map();
+  const budgetLeft = (hook) => {
+    if (hook.effect?.count === undefined) return Infinity;
+    if (!budgets.has(hook.id)) budgets.set(hook.id, rollExpression(rng, hook.effect.count));
+    return budgets.get(hook.id);
+  };
+
   for (const op of operatives) {
     for (const hook of activeHooks(state, op, 'onTurningPointStart')) {
     notePartial(state, hook);
@@ -291,6 +336,19 @@ export function fireTurningPointStart(state, rng, operatives) {
         if (healed <= 0) continue;
         op.woundsRemaining += healed;
         noteEffect(state, hook, op, `regains ${healed} lost wound(s) (rolled ${rolled})`);
+      } else if (effect.type === 'changeOrder') {
+        if (budgetLeft(hook) <= 0) continue;
+        if (!setOrder(state, hook, op, effect.order)) continue;
+        if (budgets.has(hook.id)) budgets.set(hook.id, budgets.get(hook.id) - 1);
+      } else if (effect.type === 'inflictDamage' || effect.type === 'inflictToken') {
+        // "Select ONE enemy operative within 3\" of a friendly operative": the
+        // budget is what makes that a single pick rather than one per friend.
+        if (budgetLeft(hook) <= 0) continue;
+        const aux = auxRng(state);
+        const did = applyAreaEffect(state, aux, hook, op, {});
+        commitAux(state, aux);
+        if (!did) continue;
+        if (budgets.has(hook.id)) budgets.set(hook.id, budgets.get(hook.id) - 1);
       } else {
         unknownEffect(state, hook);
       }
@@ -416,10 +474,37 @@ export function applyActivationStartHook(state, op, hook, rng = null) {
       op.ignoresInjured = true;
       noteEffect(state, hook, op, 'ignores the effects of being injured');
       return true;
+    case 'changeOrder':
+      return setOrder(state, hook, op, effect.order);
+    case 'inflictDamage':
+    case 'inflictToken': {
+      const aux = auxRng(state);
+      const did = applyAreaEffect(state, aux, hook, op, {});
+      commitAux(state, aux);
+      return did;
+    }
     default:
       unknownEffect(state, hook);
       return false;
   }
+}
+
+/**
+ * Flip an operative's order, and say so.
+ *
+ * A separate helper because three different triggers want it: the Deathwatch
+ * change it as they counteract, the Mandrakes slip back to Conceal as their
+ * activation ends, and the Scouts re-order the squad in the Strategy phase.
+ */
+function setOrder(state, hook, op, order) {
+  const want = order === ORDERS.ENGAGE ? ORDERS.ENGAGE : ORDERS.CONCEAL;
+  if (op.order === want) return false;
+  op.order = want;
+  logEvent(state, EVENTS.ORDER_SELECTED, {
+    operativeId: op.id, operativeName: op.name, playerId: op.playerId, order: want,
+  });
+  noteEffect(state, hook, op, `changes order to ${want}`);
+  return true;
 }
 
 /**
@@ -756,4 +841,240 @@ export function describeHook(hook) {
     if (!HOOK_CONDITIONS.includes(key)) problems.push(`unknown condition "${key}"`);
   }
   return problems;
+}
+
+/* ------------------------------------------------------------------ */
+/* Area effects: damage and tokens spilling off one operative          */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A second, independent dice stream.
+ *
+ * `applyDamage` is called from the middle of an attack sequence, and that
+ * sequence is holding a checked-out `Rng` it will write back when it finishes.
+ * A death-throe that drew from `state.rng` there would have its rolls
+ * overwritten — the same dice handed out twice. So the rules that fire outside
+ * a sequence's own dice roll draw from a stream forked off the battle seed,
+ * exactly as map generation does (see `Rng.fork`). Deterministic, serializable,
+ * and it cannot collide with the attack that provoked it.
+ */
+function auxRng(state) {
+  if (!state.rngAux) state.rngAux = { seed: `${state.seed}:aux`, index: 0 };
+  return Rng.fromState(state.rngAux);
+}
+
+function commitAux(state, rng) {
+  state.rngAux = rng.getState();
+}
+
+/**
+ * Who an area effect reaches.
+ *
+ * `target: "attacker"` is the other operative in the sequence — the one that
+ * struck the killing blow, which is what "strike the enemy operative in that
+ * sequence" amounts to once the dice are gone. Everything else is a radius
+ * around this operative, either every enemy in it (`scope: "each"`) or the
+ * single best one (the default), which is the one closest to dying.
+ */
+function areaRecipients(state, op, effect, ctx) {
+  if (effect.target === 'attacker') {
+    const foe = ctx.attacker || ctx.target || null;
+    return foe && foe.alive && foe.playerId !== op.playerId ? [foe] : [];
+  }
+  const radius = effect.controlRangeOnly
+    ? CONTROL_RANGE
+    : (Number(effect.within) || CONTROL_RANGE);
+  const terrain = state.map.terrain || [];
+  const all = liveOperatives(state);
+
+  let found = all.filter((o) => o.playerId !== op.playerId && baseDistance(op, o) <= radius);
+  if (effect.requireVisible) {
+    found = found.filter((o) => traceSight(op, o, terrain,
+      all.filter((b) => b.id !== op.id && b.id !== o.id)).visible);
+  }
+  if (effect.scope === 'each') return found;
+  // One target, and the choice is not arbitrary: the operative this is most
+  // likely to finish. Ties break on id so a replay is identical.
+  return found.sort((a, b) => a.woundsRemaining - b.woundsRemaining ||
+    (a.id < b.id ? -1 : 1)).slice(0, 1);
+}
+
+/** `inflictDamage` / `inflictToken`, shared by every trigger that offers them. */
+function applyAreaEffect(state, rng, hook, op, ctx) {
+  const effect = hook.effect || {};
+  const recipients = areaRecipients(state, op, effect, ctx);
+  if (!recipients.length) return false;
+
+  let did = false;
+  for (const victim of recipients) {
+    if (!victim.alive) continue;
+    if (effect.type === 'inflictDamage') {
+      const amount = rollExpression(rng, effect.dice || 'D3');
+      if (amount <= 0) continue;
+      noteEffect(state, hook, op, `inflicts ${amount} damage on ${victim.name}`);
+      applyDamage(state, victim.id, amount, {
+        kind: effect.kind || 'rule', rule: hook.rule || hook.id, attackerId: op.id,
+      });
+      did = true;
+    } else if (effect.type === 'inflictToken') {
+      if (grantToken(state, victim, effect.token, {
+        owner: op.playerId, rule: hook.rule || hook.id, source: { operativeId: op.id },
+      })) did = true;
+    }
+  }
+  return did;
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: onIncapacitated                                            */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Death throes — "when this operative is incapacitated, before it's removed
+ * from the killzone".
+ *
+ * A whole family of printed rules lives here and nowhere else: the Gellerpox
+ * bursting, the Blooded's spite, a Khorne Legionary getting one last swing in.
+ * They were the largest single group of ploys this engine could not play.
+ *
+ * The operative is still standing where it fell — nothing is ever spliced out
+ * of `state.operatives` — so the radius is measured from the body, which is
+ * what the printed timing asks for.
+ *
+ * `demiseFired` bounds the chain: throes that kill somebody whose own team has
+ * throes do cascade, but each operative contributes at most once, so a huddled
+ * roster cannot loop.
+ */
+export function fireIncapacitated(state, op, ctx = {}) {
+  if (!op || op.demiseFired) return;
+  op.demiseFired = true;
+
+  // The CP window: a firefight ploy printed for this moment is bought here,
+  // for the same reason a reaction is bought inside an attack — there is no
+  // action layer to ask, and the moment does not come round again.
+  const bought = demiseHooks(state, op, ctx);
+  const hooks = activeHooks(state, op, 'onIncapacitated', ctx)
+    .concat(bought.filter((h) => h.trigger === 'onIncapacitated')
+      .filter((h) => matches(state, h, { operative: op, ...ctx })));
+  if (!hooks.length) return;
+
+  const rng = auxRng(state);
+  for (const hook of hooks) {
+    notePartial(state, hook);
+    const effect = hook.effect || {};
+    if (effect.type === 'inflictDamage' || effect.type === 'inflictToken') {
+      applyAreaEffect(state, rng, hook, op, ctx);
+    } else {
+      unknownEffect(state, hook);
+    }
+  }
+  commitAux(state, rng);
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: afterAction                                                */
+/* ------------------------------------------------------------------ */
+
+/**
+ * What an action leaves behind once it has resolved — the Nemesis Claw
+ * crashing into a charge target hard enough to hurt it.
+ *
+ * `ctx.actionPerformed` and `ctx.actionCount` let a pack say "if the first
+ * action it performs during that activation is the Charge action" without a
+ * bespoke condition per rule.
+ */
+export function fireAfterAction(state, op, actionType) {
+  if (!op?.alive) return;
+  const ctx = {
+    actionPerformed: actionType,
+    actionCount: (op.usedThisActivation || []).length,
+  };
+  const hooks = activeHooks(state, op, 'afterAction', ctx);
+  if (!hooks.length) return;
+
+  const rng = auxRng(state);
+  for (const hook of hooks) {
+    notePartial(state, hook);
+    const effect = hook.effect || {};
+    if (effect.type === 'inflictDamage' || effect.type === 'inflictToken') {
+      applyAreaEffect(state, rng, hook, op, ctx);
+    } else if (effect.type === 'changeOrder') {
+      setOrder(state, hook, op, effect.order);
+    } else {
+      unknownEffect(state, hook);
+    }
+  }
+  commitAux(state, rng);
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: afterRetaliation                                           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * "Whenever a friendly operative finishes retaliating…" — the Wolf Scouts'
+ * parting bite. Fired on the operative that was fought AGAINST, with the
+ * attacker as the other half of the sequence, and only while both are still
+ * standing and still in each other's faces.
+ */
+export function fireRetaliation(state, rng, retaliator, attacker) {
+  if (!retaliator?.alive || !attacker?.alive) return;
+  const ctx = { attacker, target: attacker, action: 'fight' };
+  for (const hook of activeHooks(state, retaliator, 'afterRetaliation', ctx)) {
+    notePartial(state, hook);
+    const effect = hook.effect || {};
+    if (effect.type === 'inflictDamage' || effect.type === 'inflictToken') {
+      applyAreaEffect(state, rng, hook, retaliator, ctx);
+    } else {
+      unknownEffect(state, hook);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: onActivationEnd                                            */
+/* ------------------------------------------------------------------ */
+
+/** The other end of `fireActivationStart`: what lapses, or slips away. */
+export function fireActivationEnd(state, op) {
+  if (!op?.alive) return;
+  for (const hook of activeHooks(state, op, 'onActivationEnd')) {
+    notePartial(state, hook);
+    const effect = hook.effect || {};
+    if (effect.type === 'changeOrder') setOrder(state, hook, op, effect.order);
+    else unknownEffect(state, hook);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: onTargetSelection                                          */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The defender's veto over being picked at all.
+ *
+ * SHIFTY, IN POSITION and COVERT POSITION all print the same sentence: a
+ * concealed operative in cover cannot be selected, "taking precedence over all
+ * other rules (e.g. Seek, Vantage terrain) except being within 2\"". That
+ * precedence is the whole point of the rule and it cannot be expressed as a
+ * weapon-rule tweak, so it is asked here — before Seek or a spotter get their
+ * say — and answered from the target's own team pack.
+ *
+ * @param {object} sight the raw trace, BEFORE any Seek allowance
+ * @returns {string|null} why this operative may not be selected, or null
+ */
+export function targetingDenied(state, target, sight, ctx = {}) {
+  if (!target?.alive) return null;
+  for (const hook of activeHooks(state, target, 'onTargetSelection', ctx)) {
+    const effect = hook.effect || {};
+    if (effect.type !== 'denyTargeting') { unknownEffect(state, hook); continue; }
+    notePartial(state, hook);
+    if (effect.requireConceal !== false && target.order !== ORDERS.CONCEAL) continue;
+    if (effect.requireCover !== false && !sight?.cover) continue;
+    const except = Number(effect.exceptWithin) || 0;
+    if (except > 0 && ctx.attacker && baseDistance(ctx.attacker, target) <= except) continue;
+    noteEffect(state, hook, target, 'cannot be selected as a valid target');
+    return `${hook.rule || hook.id}: cannot be selected as a valid target`;
+  }
+  return null;
 }

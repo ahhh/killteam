@@ -532,7 +532,23 @@
       "id": "slither-out-of-sight",
       "name": "SLITHER OUT OF SIGHT",
       "description": "Use this firefight ploy at the end of any operative's activation. Select one friendly MANDRAKE operative that has an Engage order and is WITHIN SHADOW. Change that operative's order to Conceal.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationEnd",
+          "condition": {
+            "keyword": "mandrake",
+            "withinShadow": true,
+            "orderIs": "engage"
+          },
+          "effect": {
+            "type": "changeOrder",
+            "order": "conceal"
+          }
+        }
+      ],
+      "partial": true,
+      "notes": "printed as usable at the end of ANY operative's activation; simulated only at the end of the Mandrake's own"
     },
     {
       "id": "soul-feast",

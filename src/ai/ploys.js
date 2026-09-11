@@ -53,7 +53,10 @@ function hookCouldReach(state, op, cond = {}) {
   const weapons = profile?.weapons || [];
 
   if (cond.keyword && !keywords.includes(cond.keyword)) return false;
-  if (cond.notKeyword && keywords.includes(cond.notKeyword)) return false;
+  if (cond.notKeyword) {
+    const excluded = Array.isArray(cond.notKeyword) ? cond.notKeyword : [cond.notKeyword];
+    if (excluded.some((k) => keywords.includes(k))) return false;
+  }
   if (cond.role && profile?.role !== cond.role) return false;
   if (cond.orderIs && op.order !== cond.orderIs) return false;
   if (cond.weaponType && !weapons.some((w) => w.type === cond.weaponType)) return false;
@@ -87,7 +90,24 @@ function reach(state, playerId, hook) {
   if (!live.length) return 0;
   const cond = hook.condition || {};
   const eligible = live.filter((op) => hookCouldReach(state, op, cond)).length;
-  return (eligible / live.length) * situationalDiscount(cond);
+  return (eligible / live.length) * situationalDiscount(cond) *
+    triggerLikelihood(hook.trigger);
+}
+
+/**
+ * Some triggers are always in force; others wait on an event that may not
+ * happen. A rule that fires when an operative is incapacitated is worth real
+ * CP — but not the CP of one that applies to every attack of the turning
+ * point, and pricing the two the same would have every team buying its death
+ * throes first.
+ */
+function triggerLikelihood(trigger) {
+  switch (trigger) {
+    case 'onIncapacitated': return 0.5;
+    case 'afterRetaliation': return 0.45;
+    case 'afterAction': return 0.5;
+    default: return 1;
+  }
 }
 
 /**
@@ -112,7 +132,22 @@ function situationalDiscount(cond) {
   if (cond.performedThisActivation) d *= 0.4;
   if (cond.notPerformedThisActivation) d *= 0.6;
   if (cond.withinShadow !== undefined) d *= 0.4;
+  if (cond.awayFromEnemies !== undefined) d *= 0.6;
+  if (cond.counteracting !== undefined) d *= 0.3;
+  if (cond.actionIs !== undefined) d *= 0.4;
+  if (cond.actionCountAtMost !== undefined) d *= 0.6;
   return d;
+}
+
+/** The mean of a dice expression — "D3" is 2, "D3+1" is 3, "1" is 1. */
+function expectedRoll(expr) {
+  const text = String(expr ?? '').trim();
+  if (/^\d+$/.test(text)) return Number(text);
+  const m = /^(?:(\d*)[Dd](\d+))?\s*(?:([+-])\s*(\d+))?$/.exec(text);
+  if (!m) return 0;
+  let total = m[2] ? (m[1] ? Number(m[1]) : 1) * (Number(m[2]) + 1) / 2 : 0;
+  if (m[4]) total += (m[3] === '-' ? -1 : 1) * Number(m[4]);
+  return Math.max(0, total);
 }
 
 /**
@@ -166,6 +201,21 @@ function hookValue(hook) {
       return 1.8;
     case 'grantAllyApl':
       return 2.0;
+    case 'inflictDamage':
+      // Damage nobody had to roll attack dice for, so it is priced off the
+      // wounds it deals rather than off a hit rate. `each` reaches a crowd.
+      return 0.7 * expectedRoll(effect.dice || 'D3') *
+        (effect.scope === 'each' ? 1.6 : 1);
+    case 'inflictToken':
+      // A token that costs its holder an action is worth roughly what buying
+      // ourselves one is; anything else is a lesser nuisance.
+      return effect.token?.whileHeld?.aplDelta ? 1.8 : 1.0;
+    case 'changeOrder':
+      return 0.9;
+    case 'denyTargeting':
+      // Not being shootable at all is the strongest defensive line there is,
+      // discounted by needing Conceal and cover to stand up.
+      return 2.0;
     default:
       return 0;
   }
@@ -181,9 +231,10 @@ function dispositionWeight(disposition, hook) {
   const cond = hook.condition || {};
   const offensive = ['grantWeaponRule', 'ignoreWeaponRules', 'allowChargeWhileConceal',
     'freeAction', 'extraAction', 'grantAllyApl', 'modifyWeapon', 'addApl',
-    'discountAction', 'modifyMove'].includes(effect.type);
+    'discountAction', 'modifyMove', 'inflictDamage', 'inflictToken'].includes(effect.type);
   const defensive = ['modifyDefenceDice', 'rerollDefenceDice', 'modifySave',
-    'capDamage', 'reduceDamage', 'healWounds', 'ignoreInjured'].includes(effect.type);
+    'capDamage', 'reduceDamage', 'healWounds', 'ignoreInjured',
+    'denyTargeting'].includes(effect.type);
   const melee = cond.weaponType === 'melee' || effect.type === 'allowChargeWhileConceal';
 
   const mods = disposition.mods || {};
@@ -385,9 +436,16 @@ function modeRelevance(mode, hook, context = {}) {
     case 'ignoreInjured':
     case 'clearTokens':
     case 'healWounds':
+    case 'denyTargeting':
       // Defensive hooks belong on a reactive ploy; bought as an action they
       // are a gamble on being shot at, so they are worth a fraction.
       return 0.3;
+    case 'inflictDamage':
+    case 'inflictToken':
+      // Neither needs an attack roll, so neither cares which plan is running.
+      return 0.7;
+    case 'changeOrder':
+      return mode === 'melee' ? 0.6 : 0.4;
     default:
       return 0.4;
   }

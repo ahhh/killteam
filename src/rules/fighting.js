@@ -18,7 +18,7 @@ import {
 } from './team-rules.js';
 import { snapshotTokens } from './tokens.js';
 import { diceRerollSpend } from './resources.js';
-import { applyAttackHooks, applyIncomingAttackHooks } from './hooks.js';
+import { applyAttackHooks, applyIncomingAttackHooks, fireRetaliation } from './hooks.js';
 import { expireSequencePloys } from './ploys.js';
 import { applyDamage, applyStun, hitModifierFor } from './effects.js';
 import { withinControlRange } from './visibility.js';
@@ -307,6 +307,9 @@ export function resolveFight(state, attackerId, targetId, weaponId = null) {
   // fighters get the chance, because either may be the one carrying the rule.
   applyRetaliationRoll(state, rng, attacker, attackerWeapon, target, damageDealt[targetId]);
   applyRetaliationRoll(state, rng, target, targetWeapon, attacker, damageDealt[attackerId]);
+  // "Whenever a friendly operative finishes retaliating…" — the operative that
+  // was fought against, still standing and still in reach, gets a parting bite.
+  fireRetaliation(state, rng, target, attacker);
 
   // Rewards for a kill, and the resource tracks a weapon feeds, settle here.
   if (!target.alive) applyKillReward(state, rng, attacker, attackerWeapon);

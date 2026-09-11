@@ -708,7 +708,21 @@
       "id": "in-position",
       "name": "IN POSITION",
       "description": "Whenever a friendly HERNKYN YAEGIR operative has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onTargetSelection",
+          "condition": {
+            "keyword": "hernkyn-yaegir"
+          },
+          "effect": {
+            "type": "denyTargeting",
+            "requireConceal": true,
+            "requireCover": true,
+            "exceptWithin": 2
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [

@@ -3,8 +3,10 @@
  * Everything that can remove an operative from play funnels through here.
  */
 import { EVENTS, logEvent } from '../state.js';
-import { applyDamageHooks } from './hooks.js';
-import { clearTokens, tokenHitPenalty, tokenHitPenaltyIsCapped, tokenMoveDelta } from './tokens.js';
+import { applyDamageHooks, fireIncapacitated } from './hooks.js';
+import {
+  clearTokens, tokenHitPenalty, tokenHitPenaltyIsCapped, tokenMoveDelta, tokenAplDelta,
+} from './tokens.js';
 
 export function applyDamage(state, operativeId, amount, source = {}) {
   const op = state.operatives[operativeId];
@@ -37,6 +39,15 @@ export function applyDamage(state, operativeId, amount, source = {}) {
       playerId: op.playerId,
       source,
     });
+    // "…before it's removed from the killzone": the body is still where it
+    // fell, so anything it takes with it is measured from there.
+    fireIncapacitated(state, op, {
+      attacker: source.attackerId ? state.operatives[source.attackerId] : null,
+      // A throe printed for a melee death ("while fighting or retaliating")
+      // reads this through the ordinary `action` condition.
+      action: source.kind === 'fight' || source.kind === 'shoot' ? source.kind : null,
+      source,
+    });
     return { incapacitated: true, dealt };
   }
   return { incapacitated: false, dealt };
@@ -50,6 +61,7 @@ export function isInjured(op) {
 export function effectiveApl(op) {
   return Math.max(1, op.apl
     + (op.aplBonus || 0)
+    + tokenAplDelta(op)
     - (isInjured(op) && !op.ignoresInjured ? 1 : 0)
     - (isStunned(op) ? 1 : 0)
     - (op.aplPenaltyThisActivation || 0));

@@ -522,7 +522,34 @@
       "id": "frenzied-demise",
       "name": "FRENZIED DEMISE",
       "description": "Use this firefight ploy when a friendly CHAOS CULT MUTANT or CHAOS CULT TORMENT operative is incapacitated, before it's removed from the killzone. Inflict D3 damage (or D6 damage instead if that friendly operative is a TORMENT) on one enemy operative visible to and within 2\" of that friendly operative.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "torment"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D6",
+            "within": 2,
+            "requireVisible": true
+          }
+        },
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "mutant"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3",
+            "within": 2,
+            "requireVisible": true
+          }
+        }
+      ]
     },
     {
       "id": "unleash-the-daemon",

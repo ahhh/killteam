@@ -951,7 +951,20 @@
       "id": "auspicator-tracking",
       "name": "AUSPICATOR TRACKING",
       "description": "Use this firefight ploy when a friendly DEATHWATCH operative is counteracting, before it performs any actions. You can change its order.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "deathwatch",
+            "counteracting": true
+          },
+          "effect": {
+            "type": "changeOrder",
+            "order": "engage"
+          }
+        }
+      ]
     },
     {
       "id": "transhuman-physiology",

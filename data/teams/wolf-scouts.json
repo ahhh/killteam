@@ -658,7 +658,20 @@
       "id": "savage-fighters",
       "name": "SAVAGE FIGHTERS",
       "description": "Whenever a friendly WOLF SCOUT operative finishes retaliating, if it wasn't incapacitated and is still within control range of the enemy operative in that sequence, you can inflict D3+1 damage on that enemy operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "afterRetaliation",
+          "condition": {
+            "keyword": "wolf-scout"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3+1",
+            "target": "attacker"
+          }
+        }
+      ]
     }
   ],
   "firefightPloys": [

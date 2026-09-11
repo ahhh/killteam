@@ -750,7 +750,22 @@
       "id": "we-have-come-for-you",
       "name": "WE HAVE COME FOR YOU",
       "description": "Whenever a friendly NEMESIS CLAW operative is activated, if the first action it performs during that activation is the Charge action, when it ends its move during that action, you can inflict D3 damage on one enemy operative within its control range.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "afterAction",
+          "condition": {
+            "keyword": "nemesis-claw",
+            "actionIs": "charge",
+            "actionCountAtMost": 1
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3",
+            "controlRangeOnly": true
+          }
+        }
+      ]
     },
     {
       "id": "the-black-hunt",

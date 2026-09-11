@@ -1036,7 +1036,24 @@
       "id": "unending-bloodshed",
       "name": "UNENDING BLOODSHED",
       "description": "Use this firefight ploy when a friendly LEGIONARY KHORNE operative is incapacitated while fighting or retaliating. You can strike the enemy operative in that sequence with one of your unresolved successes before it's removed from the killzone.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "legionary",
+            "action": "fight"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "3",
+            "target": "attacker"
+          },
+          "partial": true,
+          "notes": "printed as striking with one unresolved success, and only for a KHORNE operative; simulated as a flat 3 damage to the enemy in that sequence, for any LEGIONARY operative (this pack carries no Mark keywords)"
+        }
+      ]
     },
     {
       "id": "malignant-aura",
@@ -1065,7 +1082,32 @@
       "id": "sickening-captivation",
       "name": "SICKENING CAPTIVATION",
       "description": "Use this firefight ploy during a friendly LEGIONARY SLAANESH operative's activation, before or after it performs an action. Select one enemy operative visible to and within 4\" of that friendly operative. Until the end of that enemy operative's next activation, subtract 1 from its APL stat.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onActivationStart",
+          "condition": {
+            "keyword": "legionary"
+          },
+          "effect": {
+            "type": "inflictToken",
+            "within": 4,
+            "requireVisible": true,
+            "token": {
+              "kind": "captivation",
+              "label": "Sickening Captivation",
+              "whileHeld": {
+                "aplDelta": -1
+              },
+              "expiry": {
+                "endOfNextActivation": true
+              }
+            }
+          },
+          "partial": true,
+          "notes": "printed for a SLAANESH operative; this pack carries no Mark keywords, so it is open to any LEGIONARY operative"
+        }
+      ]
     },
     {
       "id": "mutability-and-change",

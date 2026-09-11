@@ -19,7 +19,9 @@ import {
   resolveActivationTokens, markTokenExpiryAtActivationStart, expireTokensAtActivationEnd,
   expireTokensAtTurningPointEnd,
 } from './tokens.js';
-import { fireTurningPointStart, fireActivationStart, hasFreeAction } from './hooks.js';
+import {
+  fireTurningPointStart, fireActivationStart, fireActivationEnd, hasFreeAction,
+} from './hooks.js';
 import { resourceReadyStep, resetSpendLimits } from './resources.js';
 import {
   expirePloys, activatePloy, reportUnsupportedPloys, expireActivationPloys,
@@ -266,6 +268,9 @@ function startActivation(state, op, rng) {
 }
 
 function endActivation(state, op) {
+  // Last call before the ploys that paid for this activation lapse: a Mandrake
+  // slips back into Conceal here, which it could not do while still acting.
+  fireActivationEnd(state, op);
   logEvent(state, EVENTS.ACTIVATION_ENDED, {
     operativeId: op.id, operativeName: op.name, playerId: op.playerId,
     apUnspent: op.apRemaining,
@@ -380,8 +385,10 @@ function tryCounteract(state, playerId, controller) {
 
     const intent = controller.planActivation(state, op.id, { counteract: true });
     const proposed = intent?.actions || [];
+    // A ploy and a resource spend both cost 0 AP, so neither is "the action"
+    // a counteraction gets — they pay for it.
     const action = proposed.find(
-      (a) => a.type !== 'pass' && a.type !== 'change_order' && a.type !== 'spend');
+      (a) => !['pass', 'change_order', 'spend', 'ploy'].includes(a.type));
     if (!action) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 
     logEvent(state, EVENTS.OPERATIVE_ACTIVATED, {
@@ -391,8 +398,8 @@ function tryCounteract(state, playerId, controller) {
     const seqBefore = state.eventLog.length;
     // A counteraction is one action, but the invigorations that go with it are
     // not actions — Rejuvenate is legal here too.
-    for (const spend of proposed.filter((a) => a.type === 'spend')) {
-      resolveAction(state, { ...spend, operativeId: op.id });
+    for (const paid of proposed.filter((a) => a.type === 'spend' || a.type === 'ploy')) {
+      resolveAction(state, { ...paid, operativeId: op.id });
     }
     const result = resolveAction(state, { ...action, operativeId: op.id });
     op.counteracted = true;

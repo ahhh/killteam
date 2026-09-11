@@ -23,6 +23,7 @@ import { snapshotTokens, grantToken } from './tokens.js';
 import { diceRerollSpend, grantResourceFromWeapon } from './resources.js';
 import {
   applyAttackHooks, applyDefenceHooks, applyIncomingAttackHooks, rollExpression,
+  targetingDenied,
 } from './hooks.js';
 import { expireSequencePloys } from './ploys.js';
 import { applyDamage, applyStun, hitModifierFor, effectiveApl } from './effects.js';
@@ -114,6 +115,13 @@ export function canShoot(state, attackerId, targetId, weapon) {
   const targeting = canBeTargeted(attacker, target, terrain, others, {
     seek: seekMode(weapon),
   });
+
+  // SHIFTY, IN POSITION and COVERT POSITION all print the same veto, and all
+  // three say it takes precedence over Seek and over a spotter — so the
+  // target's own team is asked before either of those gets a say, and against
+  // the raw sight trace rather than the one the weapon is allowed to ignore.
+  const denied = targetingDenied(state, target, targeting.sight, { attacker, weapon });
+  if (denied) return { ok: false, reason: denied, sight: targeting.sight };
 
   // Magnify: a second pair of eyes decides valid target, cover and obscured.
   const spotted = spotterTargeting(state, attacker, target, weapon, targeting);

@@ -978,7 +978,25 @@
       "id": "shifty",
       "name": "SHIFTY",
       "description": "Whenever a friendly RATLING operative (excluding OGRYN or BULLGRYN) has a Conceal order and is in cover, it cannot be selected as a valid target, taking precedence over all other rules (e.g. Seek, Vantage terrain) except being within 2\".",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onTargetSelection",
+          "condition": {
+            "keyword": "ratling",
+            "notKeyword": [
+              "ogryn",
+              "bullgryn"
+            ]
+          },
+          "effect": {
+            "type": "denyTargeting",
+            "requireConceal": true,
+            "requireCover": true,
+            "exceptWithin": 2
+          }
+        }
+      ]
     },
     {
       "id": "crack-shots",

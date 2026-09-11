@@ -571,7 +571,24 @@
       "id": "death-frenzy",
       "name": "DEATH FRENZY",
       "description": "Use this firefight ploy when a friendly RAVENER operative is incapacitated. Before that operative is removed from the killzone, inflict D3 damage on each enemy operative within its control range (roll separately for each). If that friendly operative is a VENOMSPITTER that's currently benefitting from the effects of its Distend Dorsal Sac action, inflict 2D3 damage instead.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "ravener"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3",
+            "controlRangeOnly": true,
+            "scope": "each"
+          },
+          "partial": true,
+          "notes": "a VENOMSPITTER with a distended dorsal sac should inflict 2D3 instead; the engine always rolls D3"
+        }
+      ]
     }
   ],
   "equipment": [

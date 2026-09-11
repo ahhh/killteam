@@ -655,7 +655,40 @@
       "id": "putrescent-demise",
       "name": "PUTRESCENT DEMISE",
       "description": "Use this firefight ploy when a friendly GELLERPOX INFECTED operative (excluding MUTOID VERMIN) is incapacitated, before it's removed from the killzone. Inflict 1 damage (or D3 damage instead if that friendly operative is a NIGHTMARE HULK) on each enemy operative visible to and within 2\" of that friendly operative.",
-      "cost": 1
+      "cost": 1,
+      "timing": "demise",
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "nightmare-hulk"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "D3",
+            "within": 2,
+            "requireVisible": true,
+            "scope": "each"
+          }
+        },
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "gellerpox-infected",
+            "notKeyword": [
+              "nightmare-hulk",
+              "mutoid-vermin"
+            ]
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "1",
+            "within": 2,
+            "requireVisible": true,
+            "scope": "each"
+          }
+        }
+      ]
     },
     {
       "id": "barge",

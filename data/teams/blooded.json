@@ -996,7 +996,23 @@
       "id": "bitter-demise",
       "name": "BITTER DEMISE",
       "description": "Whenever a friendly BLOODED operative is incapacitated, before it's removed from the killzone, roll one D3: on a 3 (or 2+ if that friendly operative has one of your Blooded tokens), inflict damage equal to the result on one enemy operative visible to and within 2\" of that friendly operative.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "blooded"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "1",
+            "within": 2,
+            "requireVisible": true
+          },
+          "partial": true,
+          "notes": "the printed D3 gate — damage only on a 3, or 2+ while holding a Blooded token — is modelled as its average, a flat 1 damage"
+        }
+      ]
     }
   ],
   "firefightPloys": [

@@ -1123,7 +1123,26 @@
       "id": "cult-devotion",
       "name": "CULT DEVOTION",
       "description": "Whenever a friendly BROOD BROTHER operative (excluding PATRIARCH) is incapacitated while fighting or retaliating, if you have any unresolved successes, you can roll one D6: if the result is a success as if it were the Roll Attack Dice step of that sequence (i.e. using the same weapon, but with no re-rolls), you can strike the enemy operative in that sequence with one of your unresolved normal successes, or any of your successes instead if the D6 result is a critical success. In either case, that friendly operative is removed from the killzone afterwards.",
-      "cost": 1
+      "cost": 1,
+      "hooks": [
+        {
+          "trigger": "onIncapacitated",
+          "condition": {
+            "keyword": "brood-brother",
+            "notKeyword": [
+              "patriarch"
+            ],
+            "action": "fight"
+          },
+          "effect": {
+            "type": "inflictDamage",
+            "dice": "3",
+            "target": "attacker"
+          },
+          "partial": true,
+          "notes": "printed as a D6 for the right to strike with one unresolved success; simulated as a flat 3 damage to the enemy in that sequence"
+        }
+      ]
     }
   ],
   "firefightPloys": [

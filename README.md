@@ -208,7 +208,7 @@ team runs a CP *doctrine* (`src/ai/cp.js`) derived from the ploys its pack
 declares and the way it fights. A vanguard team holds its point for the second
 Fight action; a gunline commits it to the turning point it can shoot through; a
 raider banks early and empties its hand when it commits; a bulwark team keeps
-it to answer the shot that would kill an operative. 300 of the 415 printed
+it to answer the shot that would kill an operative. 321 of the 415 printed
 ploys are wired up; the rest are named at battle start as unsimulated.
 
 Ploys that fire at a moment rather than across a sequence reach the engine

@@ -50,19 +50,35 @@ That ratio is the whole reason a picture per card is affordable: the full set of
 portraits is 38MB, the full set of tokens is 2.1MB, and a card that scrolls out
 of the panel never loads at all.
 
+The battlefield gets the same crop a third time, from
+`assets/pips/<team-id>/<operative-id>.webp`: 64px, round, and about 1.4KB, so a
+board of twenty faces costs 30KB and the whole set costs 738KB. It is round in
+its own alpha channel rather than being clipped by the renderer, which is why
+the SVG draws it as a plain `<image>` and the team-colour ring around the base
+is the only edge. With a face in the base, the order ring moves out to the
+base's own outline — dashed is still Conceal, solid is still Engage — and the
+role glyph shrinks to a badge at the bottom of the base rather than being
+painted over.
+
+A **team variant** has no art of its own and never will: it fields its base
+team's datacards, so it is the same operatives, drawn once, under the base
+team's id. `artTeamId()` in `src/ui/portraits.js` is where that indirection
+lives, and it is the reason nothing needs regenerating when a variant is added.
+
 Everything is lazy. Nothing fetches a portrait until a sheet is actually opened,
 tokens are `loading="lazy"` and reuse one element per operative across the
 roster's rebuilds, and `assets/portraits/manifest.json` — the index of which
-operatives have been drawn — is fetched once and answers for both sizes, so art
-that doesn't exist yet costs no request. See `src/ui/portraits.js`; `npm test`
+operatives have been drawn — is fetched once and answers for all three sizes, so
+art that doesn't exist yet costs no request. See `src/ui/portraits.js`; `npm test`
 asserts the laziness, since it is otherwise invisible until someone loads the
 site on a phone.
 
-Tokens are derived from the portraits, in this repo:
+Tokens and pips are derived from the portraits, in this repo — one crop, two
+outputs:
 
 ```bash
 pip install -r tools/requirements.txt             # opencv, pillow, numpy
-python3 tools/make-tokens.py                      # rewrite assets/tokens/
+python3 tools/make-tokens.py                      # rewrite assets/tokens/ and assets/pips/
 python3 tools/make-tokens.py --contact-sheet /tmp/sheet.png   # eyeball it
 ```
 
@@ -88,8 +104,21 @@ python3 generate_killteam_art.py regen \
   give him a much bigger hat and less green
 ```
 
-The app works fine with either directory empty or partly filled. After redrawing
-a portrait, re-run `tools/make-tokens.py` so its token matches.
+The app works fine with any of the three directories empty or partly filled —
+art that is missing takes itself off screen, and on the battlefield the plain
+geometric token is what is left behind. After redrawing a portrait, re-run
+`tools/make-tokens.py` so its token and pip match.
+
+### Facing
+
+Operatives on the battlefield show which way they are looking: a wedge off the
+front of the base, turned by where the operative last walked and overridden by
+whatever it last attacked (a fight turns both parties; being shot at does not
+turn the target, since the point of a shot is that the target may never have
+seen it). Facing is **not a rule** — nothing in `src/rules/` reads it and
+nothing may. It is `src/ui/battlefield.js` remembering what it drew last frame,
+which is why it is not on state and why a battle replays identically whether or
+not anyone was watching.
 
 ## Run it
 

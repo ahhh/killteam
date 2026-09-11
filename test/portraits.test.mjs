@@ -178,7 +178,7 @@ test('ids with characters that need escaping produce a valid URL', async () => {
 test('a roster token points at the cropped art, not the full portrait', async () => {
   await withStubs(MANIFEST, async (_fetched, mod) => {
     await mod.loadManifest();
-    const figure = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1');
+    const figure = mod.createOperativeToken(PACK, PROFILE, 'p1-op1');
     assert.equal(imageSources(figure)[0],
       `./assets/tokens/kommandos/${PROFILE.id}.webp`);
   });
@@ -187,7 +187,7 @@ test('a roster token points at the cropped art, not the full portrait', async ()
 test('a token is lazy, and decorative to a screen reader', async () => {
   await withStubs(MANIFEST, async (_fetched, mod) => {
     await mod.loadManifest();
-    const img = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1')
+    const img = mod.createOperativeToken(PACK, PROFILE, 'p1-op1')
       .find((n) => n.tagName === 'IMG');
     assert.equal(img.loading, 'lazy');
     assert.equal(img.decoding, 'async');
@@ -200,31 +200,31 @@ test('an operative missing from the manifest gets no token', async () => {
   await withStubs(MANIFEST, async (_fetched, mod) => {
     await mod.loadManifest();
     const undrawn = PACK.operatives.find((p) => p.id !== PROFILE.id);
-    assert.equal(mod.createOperativeToken('kommandos', undrawn, 'p1-op2'), null);
+    assert.equal(mod.createOperativeToken(PACK, undrawn, 'p1-op2'), null);
   });
 });
 
 test('rebuilding the roster reuses one element per operative', async () => {
   await withStubs(MANIFEST, async (_fetched, mod) => {
     await mod.loadManifest();
-    const first = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1');
+    const first = mod.createOperativeToken(PACK, PROFILE, 'p1-op1');
     for (let i = 0; i < 20; i += 1) {
-      assert.equal(mod.createOperativeToken('kommandos', PROFILE, 'p1-op1'), first,
+      assert.equal(mod.createOperativeToken(PACK, PROFILE, 'p1-op1'), first,
         'a fresh <img> per render would restart the fade on every action');
     }
     // Two operatives sharing one profile must NOT share one element, or the
     // second card would steal the first card's picture.
-    assert.notEqual(mod.createOperativeToken('kommandos', PROFILE, 'p1-op2'), first);
+    assert.notEqual(mod.createOperativeToken(PACK, PROFILE, 'p1-op2'), first);
   });
 });
 
 test('a 404 token self-removes and is not handed out again', async () => {
   await withStubs(MANIFEST, async (_fetched, mod) => {
     await mod.loadManifest();
-    const figure = mod.createOperativeToken('kommandos', PROFILE, 'p1-op1');
+    const figure = mod.createOperativeToken(PACK, PROFILE, 'p1-op1');
     figure.find((n) => n.tagName === 'IMG').dispatch('error');
     assert.equal(figure.removed, true);
-    assert.notEqual(mod.createOperativeToken('kommandos', PROFILE, 'p1-op1'), figure,
+    assert.notEqual(mod.createOperativeToken(PACK, PROFILE, 'p1-op1'), figure,
       'the removed element must not be served from cache');
   });
 });
@@ -232,9 +232,72 @@ test('a 404 token self-removes and is not handed out again', async () => {
 test('building a whole roster of tokens fetches only the manifest', async () => {
   await withStubs(MANIFEST, async (fetched, mod) => {
     for (let i = 0; i < 12; i += 1) {
-      mod.createOperativeToken('kommandos', PROFILE, `p1-op${i}`);
+      mod.createOperativeToken(PACK, PROFILE, `p1-op${i}`);
     }
     await mod.loadManifest();
     assert.equal(fetched.length, 1, 'tokens must not each trigger a fetch()');
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* Battlefield pips, and the art a variant borrows                     */
+/* ------------------------------------------------------------------ */
+
+test('a battlefield pip is its own, smaller set of files', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    assert.equal(mod.operativePipUrl(PACK, PROFILE.id),
+      `./assets/pips/kommandos/${PROFILE.id}.webp`);
+  });
+});
+
+test('an operative missing from the manifest gets no pip', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const undrawn = PACK.operatives.find((p) => p.id !== PROFILE.id);
+    assert.equal(mod.operativePipUrl(PACK, undrawn.id), null);
+  });
+});
+
+test('a whole board of pips costs one fetch, for the manifest', async () => {
+  await withStubs(MANIFEST, async (fetched, mod) => {
+    for (let i = 0; i < 20; i += 1) mod.operativePipUrl(PACK, PROFILE.id);
+    await mod.loadManifest();
+    assert.equal(fetched.length, 1);
+  });
+});
+
+/**
+ * A variant fields its base team's datacards, so it is the same operatives and
+ * the same pictures — drawn once, under the base team's id. Nothing generates
+ * a second copy of the art for the variant, and the manifest never lists it.
+ */
+const VARIANT = readJson('data/teams/kommandos-dakka.json');
+
+test('a variant draws its base team\'s art at all three sizes', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    assert.equal(VARIANT.variantOf, 'kommandos', 'fixture must be a kommandos variant');
+    assert.equal(mod.artTeamId(VARIANT), 'kommandos');
+
+    const portrait = mod.createPortrait(VARIANT, PROFILE);
+    assert.equal(imageSources(portrait)[0],
+      `./assets/portraits/kommandos/${PROFILE.id}.webp`);
+
+    const token = mod.createOperativeToken(VARIANT, PROFILE, 'p2-op1');
+    assert.equal(imageSources(token)[0], `./assets/tokens/kommandos/${PROFILE.id}.webp`);
+
+    assert.equal(mod.operativePipUrl(VARIANT, PROFILE.id),
+      `./assets/pips/kommandos/${PROFILE.id}.webp`);
+  });
+});
+
+test('a variant is not treated as an undrawn team', async () => {
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    // The manifest lists `kommandos` and nothing else. Asking about the variant
+    // by its own id is exactly the bug this indirection exists to prevent.
+    assert.equal(mod.hasPortrait(VARIANT.id, PROFILE.id), false);
+    assert.notEqual(mod.createOperativeToken(VARIANT, PROFILE, 'p2-op9'), null);
   });
 });

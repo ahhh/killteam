@@ -92,7 +92,7 @@ export function renderRosterPanel(container, state, playerId, { colors, selected
     // 4.5KB crop rather than the 79KB sheet portrait, which is the only reason
     // a face per card is affordable at all (see ui/portraits.js).
     const profile = pack.operatives.find((p) => p.id === op.profileId);
-    const token = createOperativeToken(pack.id, profile, op.id);
+    const token = createOperativeToken(pack, profile, op.id);
     if (token) {
       row.append(token);
       card.classList.add('with-token');

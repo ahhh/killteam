@@ -185,9 +185,15 @@ class App {
       const from = this.state.operatives[attack.attackerId];
       const to = this.state.operatives[attack.targetId];
       if (from && to) {
+        // The ids ride along with the geometry: the renderer turns the
+        // operatives involved to face each other (ui/battlefield.js).
+        const who = { attackerId: attack.attackerId, targetId: attack.targetId };
         this.renderer.highlight = attack.kind === 'fight'
-          ? { type: 'fight', at: { x: to.x, y: to.y } }
-          : { type: 'shot', from: { x: from.x, y: from.y }, to: { x: to.x, y: to.y }, hit: damage };
+          ? { type: 'fight', at: { x: to.x, y: to.y }, ...who }
+          : {
+            type: 'shot', from: { x: from.x, y: from.y }, to: { x: to.x, y: to.y },
+            hit: damage, ...who,
+          };
       }
     } else if (move) {
       this.renderer.highlight = {

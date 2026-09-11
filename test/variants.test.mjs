@@ -88,3 +88,23 @@ test('every variant is listed in the catalogue, next to the team it came from', 
       `${id} should sit alongside ${pack.variantOf}`);
   }
 });
+
+test('every operative a variant fields is already drawn, under its base team', () => {
+  // A variant owns no art and never will: it fields its base team's datacards,
+  // so ui/portraits.js asks the manifest about the BASE id (artTeamId). What
+  // that leaves worth checking is the other half — that the base team really
+  // has a picture, at all three sizes, for every profile the variant fields.
+  const manifest = readJson('assets/portraits/manifest.json');
+  for (const id of ids) {
+    const pack = loadTeam(id);
+    const drawn = manifest.teams[pack.variantOf] || [];
+    for (const entry of pack.roster.operatives) {
+      assert.ok(drawn.includes(entry.profileId),
+        `${id} fields ${entry.profileId}, which ${pack.variantOf} has no art for`);
+      for (const dir of ['portraits', 'tokens', 'pips']) {
+        const file = `${ROOT}/assets/${dir}/${pack.variantOf}/${entry.profileId}.webp`;
+        assert.ok(fs.existsSync(file), `missing ${dir} art: ${file}`);
+      }
+    }
+  }
+});

@@ -1,7 +1,7 @@
 /**
  * Operative art loading (§25).
  *
- * Two sizes of the same pictures, with very different budgets:
+ * Three sizes of the same pictures, with very different budgets:
  *
  *   PORTRAIT  assets/portraits/<team>/<profile>.webp — 512x768, ~79KB, 38MB
  *             for the set. Only ever seen inside a character sheet, so no
@@ -10,11 +10,20 @@
  *             the operative's head and shrunk to 128px, ~4.5KB. Cheap enough
  *             to put a face on every card in the roster panels, which is what
  *             the portraits were far too heavy to do.
+ *   PIP       assets/pips/<team>/<profile>.webp — the same crop again at 64px
+ *             and round, ~1.4KB, for the operative's base on the battlefield.
+ *             The board redraws on every action with twenty of these on it, so
+ *             it gets the cheapest size there is.
  *
- * Tokens are generated from the portraits by tools/make-tokens.py and exist
- * for exactly the same operatives, so hasPortrait() answers for both and the
- * manifest needs nothing new. A token that is missing because the art pipeline
+ * Tokens and pips are generated from the portraits by tools/make-tokens.py and
+ * exist for exactly the same operatives, so hasPortrait() answers for all three
+ * and the manifest needs nothing new. Art that is missing because the pipeline
  * ran without the crop step simply removes itself on error.
+ *
+ * A team VARIANT has no art of its own and never will: it fields its base
+ * team's datacards, so it is the same operatives drawn once. Everything here
+ * therefore asks a PACK, not a team id, which operatives it is drawing — see
+ * artTeamId().
  *
  * The manifest — the index of which operatives have art — is fetched once, on
  * the first card or sheet that needs it, and shared by everything after it.
@@ -26,6 +35,7 @@
 
 const PORTRAIT_BASE = './assets/portraits';
 const TOKEN_BASE = './assets/tokens';
+const PIP_BASE = './assets/pips';
 const MANIFEST_URL = `${PORTRAIT_BASE}/manifest.json`;
 
 /** null until the first sheet is opened; then the parsed manifest, or false. */
@@ -69,6 +79,25 @@ export function tokenUrl(teamId, profileId) {
   return `${TOKEN_BASE}/${encodeURIComponent(teamId)}/${encodeURIComponent(profileId)}${ext}`;
 }
 
+/** The URL for one operative's battlefield pip. Does not check that it exists. */
+export function pipUrl(teamId, profileId) {
+  const ext = (manifest && manifest.ext) || '.webp';
+  return `${PIP_BASE}/${encodeURIComponent(teamId)}/${encodeURIComponent(profileId)}${ext}`;
+}
+
+/**
+ * Which team's art a pack draws from.
+ *
+ * A variant is the same datacards fielded a different way (tools/make-variants.mjs),
+ * so it borrows its base team's pictures rather than owning a second copy of
+ * them under its own id — and the manifest lists only the teams that were
+ * actually drawn.
+ */
+export function artTeamId(pack) {
+  if (typeof pack === 'string') return pack;
+  return (pack && (pack.variantOf || pack.id)) || '';
+}
+
 /**
  * Is this operative drawn? Optimistic when the manifest hasn't loaded or is
  * absent — a wrong "yes" costs one hidden broken image, a wrong "no" costs art
@@ -88,13 +117,14 @@ export function hasPortrait(teamId, profileId) {
  */
 export function createPortrait(pack, profile) {
   loadManifest();
-  if (!profile || !hasPortrait(pack.id, profile.id)) return null;
+  const team = artTeamId(pack);
+  if (!profile || !hasPortrait(team, profile.id)) return null;
 
   const figure = document.createElement('figure');
   figure.className = 'portrait';
 
   const img = document.createElement('img');
-  img.src = portraitUrl(pack.id, profile.id);
+  img.src = portraitUrl(team, profile.id);
   // Native lazy loading covers the case where a sheet is opened and scrolled
   // before the image is in view; decoding off-thread keeps the modal snappy.
   img.loading = 'lazy';
@@ -127,8 +157,9 @@ export function createPortrait(pack, profile) {
  */
 const tokenCache = new Map();
 
-export function createOperativeToken(teamId, profile, operativeId) {
+export function createOperativeToken(pack, profile, operativeId) {
   loadManifest();
+  const teamId = artTeamId(pack);
   if (!profile || !hasPortrait(teamId, profile.id)) return null;
 
   const key = `${operativeId}|${teamId}/${profile.id}`;
@@ -160,4 +191,21 @@ export function createOperativeToken(teamId, profile, operativeId) {
 
   tokenCache.set(key, figure);
   return figure;
+}
+
+/**
+ * The URL of the pip to draw on this operative's base, or null if the operative
+ * has no art.
+ *
+ * The battlefield is SVG, where an <img> would be an <image> in another
+ * namespace and `loading="lazy"` does not exist — so this hands back a URL and
+ * lets ui/battlefield.js build its own node (and drop it on error, the way the
+ * other two sizes do). Taking the profile ID rather than the profile keeps the
+ * renderer from having to look a datacard up per operative per frame.
+ */
+export function operativePipUrl(pack, profileId) {
+  loadManifest();
+  const teamId = artTeamId(pack);
+  if (!profileId || !hasPortrait(teamId, profileId)) return null;
+  return pipUrl(teamId, profileId);
 }

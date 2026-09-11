@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
-"""Crop the operative portraits down to square head tokens.
+"""Crop the operative portraits down to head tokens, in two sizes.
 
-    python3 tools/make-tokens.py              # write assets/tokens/
+    python3 tools/make-tokens.py              # write assets/tokens/ and assets/pips/
     python3 tools/make-tokens.py --contact-sheet out.png   # eyeball the result
+
+One crop, two outputs. The square 128px TOKEN goes next to a name in the roster
+panel; the round 64px PIP goes on the operative's base on the battlefield, where
+it is drawn about 40px across and there are twenty of them on screen at once.
+The pip carries its circle in its own alpha channel rather than being clipped by
+the renderer, so the battlefield draws it as a plain <image> and the team-colour
+ring around the base is the only edge.
 
 The portraits under assets/portraits/ are 512x768 full-body sketches, ~79KB
 each and ~38MB for the set — far too much to put a face next to every name in
@@ -38,9 +45,11 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 PORTRAITS = ROOT / "assets" / "portraits"
 TOKENS = ROOT / "assets" / "tokens"
+PIPS = ROOT / "assets" / "pips"
 OVERRIDES = Path(__file__).resolve().parent / "token-overrides.json"
 
-TOKEN_PX = 128          # 2x the ~56px the roster draws, and 4x a battlefield pip
+TOKEN_PX = 128          # 2x the ~56px the roster draws
+PIP_PX = 64             # ~1.5x what a base is drawn at, and a fifth of the bytes
 QUALITY = 82
 
 MODEL_URL = ("https://media.githubusercontent.com/media/opencv/opencv_zoo/main/"
@@ -247,6 +256,22 @@ def override_rect(bgr, frac):
     return x, y, side
 
 
+def circular_pip(crop_bgr):
+    """The square crop as a small RGBA circle, edges antialiased.
+
+    The mask is drawn at 4x and shrunk, which is the cheapest way to get a
+    clean edge out of cv2.circle — at 64px a hard-edged mask reads as a
+    cog rather than a circle once the battlefield zooms in.
+    """
+    rgb = cv2.cvtColor(cv2.resize(crop_bgr, (PIP_PX, PIP_PX),
+                                  interpolation=cv2.INTER_AREA), cv2.COLOR_BGR2RGB)
+    big = PIP_PX * 4
+    mask = np.zeros((big, big), np.uint8)
+    cv2.circle(mask, (big // 2, big // 2), big // 2 - 2, 255, -1)
+    alpha = cv2.resize(mask, (PIP_PX, PIP_PX), interpolation=cv2.INTER_AREA)
+    return Image.fromarray(np.dstack([rgb, alpha]))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--contact-sheet", metavar="PNG",
@@ -262,7 +287,7 @@ def main():
     if not sources:
         sys.exit("no portraits found")
 
-    counts, written, crops = {}, [], []
+    counts, written, pips, crops = {}, [], [], []
     for path in sources:
         team, name = path.parent.name, path.stem
         bgr = load_bgr(path)
@@ -283,11 +308,19 @@ def main():
             out, "WEBP", quality=QUALITY, method=6)
         written.append(out)
 
+        pip = PIPS / team / f"{name}.webp"
+        pip.parent.mkdir(parents=True, exist_ok=True)
+        circular_pip(crop).save(pip, "WEBP", quality=QUALITY, method=6)
+        pips.append(pip)
+
     # Measured over what this run actually wrote, so --only reports its subset
     # rather than the whole directory divided by a handful of files.
     total = sum(f.stat().st_size for f in written)
     print(f"wrote {len(written)} tokens  ({total / 1024:.0f}KB, "
           f"{total / max(len(written), 1) / 1024:.1f}KB each)")
+    pip_total = sum(f.stat().st_size for f in pips)
+    print(f"wrote {len(pips)} pips    ({pip_total / 1024:.0f}KB, "
+          f"{pip_total / max(len(pips), 1) / 1024:.1f}KB each)")
     print("  head found by: " + ", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
 
     if args.contact_sheet:

@@ -5,9 +5,12 @@
  * if a token is somewhere, it is because the engine put it there.
  *
  * All tokens and terrain are original geometric artwork — abstract shapes
- * keyed to role and team, never reproductions of any published design.
+ * keyed to role and team, never reproductions of any published design. The
+ * face on a base is the same generated illustration the roster panel and the
+ * character sheet use, cropped small and round (see ui/portraits.js).
  */
 import { PHASES } from '../state.js';
+import { operativePipUrl } from './portraits.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 /** Margin around the board, in inches. */
@@ -35,6 +38,19 @@ function rolePath(role) {
   }
 }
 
+/**
+ * A wedge off the front of a base, from its rim outwards: where an operative
+ * is looking. Purely a drawing — the rules have no facing (see _trackFacing).
+ */
+function facingCone(r, angle, spread = 0.48, reach = 0.62) {
+  const at = (radius, a) => `${Math.cos(a) * radius} ${Math.sin(a) * radius}`;
+  const a0 = angle - spread;
+  const a1 = angle + spread;
+  const outer = r + reach;
+  return `M ${at(r, a0)} L ${at(outer, a0)} A ${outer} ${outer} 0 0 1 ${at(outer, a1)} `
+    + `L ${at(r, a1)} A ${r} ${r} 0 0 0 ${at(r, a0)} Z`;
+}
+
 export class BattlefieldRenderer {
   constructor(svg, { onSelectOperative } = {}) {
     this.svg = svg;
@@ -42,6 +58,20 @@ export class BattlefieldRenderer {
     this.selectedId = null;
     this.highlight = null;   // { type:'path'|'shot', ... }
     this.view = { scale: 1, x: 0, y: 0 };
+    /**
+     * Which way each operative is looking, in radians, and where it was
+     * standing when that was last decided.
+     *
+     * Facing is not a rule in this game — nothing in `rules/` reads it and
+     * nothing may (#1/#2). It is the renderer remembering which way each
+     * figure walked or shot, so a board of twenty circles reads as a board of
+     * twenty people who are up to something. That is why it lives here and not
+     * on state: a battle replays identically whether or not anyone drew it.
+     */
+    this.facing = new Map();
+    this.facingFrom = new Map();
+    this.facingKey = null;
+    this.facingEvents = 0;
     this._setupPanZoom();
   }
 
@@ -91,6 +121,11 @@ export class BattlefieldRenderer {
 
     const defs = el('defs', {}, this.svg);
     this._hatch(defs, 'hatch-terrain', 'var(--terrain-edge)');
+    // Matches what the roster card does to a downed operative's token in CSS.
+    const grey = el('filter', { id: 'pip-down' }, defs);
+    el('feColorMatrix', { type: 'saturate', values: 0 }, grey);
+
+    this._trackFacing(state);
 
     this.root = el('g', {}, this.svg);
     this._applyView();
@@ -236,6 +271,80 @@ export class BattlefieldRenderer {
     }
   }
 
+  /**
+   * Update who is looking where, from the difference between this frame and
+   * the last one.
+   *
+   * Walking sets your facing; attacking overrides it, because an operative
+   * that just shot is looking down its barrel rather than along the path it
+   * took to get there. A fight turns BOTH parties to each other — they are in
+   * each other's control range by definition — while being shot at does not
+   * spin the target round, since the whole point of a shot is that the target
+   * may never have seen it.
+   *
+   * The memory is dropped when the seed and map say this is a different
+   * battle, or when the event log gets shorter, which is a restart.
+   */
+  _trackFacing(state) {
+    const key = `${state.seed}|${state.mapId}`;
+    if (key !== this.facingKey || state.eventLog.length < this.facingEvents) {
+      this.facingKey = key;
+      this.facing.clear();
+      this.facingFrom.clear();
+    }
+    this.facingEvents = state.eventLog.length;
+
+    for (const op of Object.values(state.operatives)) {
+      if (!op.placed) continue;
+      const was = this.facingFrom.get(op.id);
+      if (!was) { this.facingFrom.set(op.id, { x: op.x, y: op.y }); continue; }
+      const dx = op.x - was.x;
+      const dy = op.y - was.y;
+      // A shove or a pile-in of a few tenths is not a decision to turn.
+      if (Math.hypot(dx, dy) < 0.25) continue;
+      this.facing.set(op.id, Math.atan2(dy, dx));
+      this.facingFrom.set(op.id, { x: op.x, y: op.y });
+    }
+
+    const h = this.highlight;
+    const attacker = h && state.operatives[h.attackerId];
+    const target = h && state.operatives[h.targetId];
+    if (attacker && target) {
+      this._look(attacker, target);
+      if (h.type === 'fight') this._look(target, attacker);
+    }
+  }
+
+  _look(self, other) {
+    const dx = other.x - self.x;
+    const dy = other.y - self.y;
+    if (dx || dy) this.facing.set(self.id, Math.atan2(dy, dx));
+  }
+
+  /**
+   * Which way this operative is looking, falling back — once, and then
+   * remembered — to the enemy it deployed against. Everyone on the board has
+   * an opinion about where the enemy is, even before they have moved.
+   */
+  _facingOf(op, state) {
+    const known = this.facing.get(op.id);
+    if (known !== undefined) return known;
+    let sx = 0;
+    let sy = 0;
+    let n = 0;
+    for (const other of Object.values(state.operatives)) {
+      if (!other.placed || other.playerId === op.playerId) continue;
+      sx += other.x; sy += other.y; n += 1;
+    }
+    if (!n) return null;
+    const dx = sx / n - op.x;
+    const dy = sy / n - op.y;
+    if (!dx && !dy) return null;
+    const angle = Math.atan2(dy, dx);
+    this.facing.set(op.id, angle);
+    return angle;
+  }
+
   _drawOperatives(g, state, colors) {
     const layer = el('g', {}, g);
     for (const op of Object.values(state.operatives)) {
@@ -258,6 +367,11 @@ export class BattlefieldRenderer {
         ? `${op.woundsRemaining}/${op.wounds} wounds, ${op.order}`
         : 'incapacitated'}`;
 
+      // Which way this one is looking — a beam off the front of the base, and
+      // the first thing drawn, so the art and the rings sit on top of it.
+      const angle = op.alive ? this._facingOf(op, state) : null;
+      if (angle !== null) el('path', { d: facingCone(r, angle), fill: colour, opacity: 0.22 }, group);
+
       // Control range ring, shown for the selected operative only.
       if (selected && op.alive) {
         el('circle', {
@@ -266,28 +380,57 @@ export class BattlefieldRenderer {
         }, group);
       }
 
+      const pip = operativePipUrl(state.teamPacks[op.playerId], op.profileId);
+
+      // Order is dashed = Conceal, solid = Engage — shape, not just colour, and
+      // the tell a player reads fastest. On a bare token it is a ring inside
+      // the base; where a face fills the base instead, the same dashes move out
+      // to the base's own outline, which is the one edge the art cannot
+      // swallow. Either way there is exactly one dashed circle to read.
+      const concealed = op.alive && op.order === 'conceal';
       el('circle', {
         r, fill: 'var(--bg-raised)', stroke: colour,
         'stroke-width': selected ? 0.16 : 0.1,
+        'stroke-dasharray': pip && concealed ? '0.24 0.2' : null,
       }, group);
 
-      // Order ring: dashed = Conceal, solid = Engage. Shape, not just colour.
-      if (op.alive) {
+      // The operative's face, where it has been drawn. The pip is round in its
+      // own alpha channel, so it needs no clip path — it drops straight into
+      // the base, just inside the outline.
+      if (pip) {
+        const inset = r - 0.1;
+        const image = el('image', {
+          href: pip, x: -inset, y: -inset, width: inset * 2, height: inset * 2,
+          filter: op.alive ? null : 'url(#pip-down)',
+        }, group);
+        // The whole group is the click target; the picture must not eat it.
+        image.style.pointerEvents = 'none';
+        // Art that 404s (never drawn, or a stale manifest) leaves the plain
+        // geometric token behind rather than a broken-image glyph.
+        image.addEventListener('error', () => image.remove());
+      } else if (op.alive) {
         el('circle', {
           r: r - 0.16, fill: 'none', stroke: colour, 'stroke-opacity': 0.75,
           'stroke-width': 0.07,
-          'stroke-dasharray': op.order === 'conceal' ? '0.18 0.16' : null,
+          'stroke-dasharray': concealed ? '0.18 0.16' : null,
         }, group);
       }
 
-      const glyph = el('path', {
+      // The role glyph owns the middle of a bare token, but a face has the
+      // better claim on it: where there is art, the glyph shrinks to a badge
+      // at the bottom of the base and keeps its meaning.
+      const badge = pip ? el('g', { transform: `translate(0 ${r * 0.55})` }, group) : group;
+      if (pip) {
+        el('circle', { r: r * 0.36, fill: 'var(--bg-raised)', 'fill-opacity': 0.92 }, badge);
+      }
+      el('path', {
         d: rolePath(op.role),
-        transform: `scale(${op.baseDiameter})`,
+        transform: `scale(${op.baseDiameter * (pip ? 0.45 : 1)})`,
         fill: op.role === 'sniper' || op.role === 'objective-runner' ? 'none' : colour,
         stroke: colour,
-        'stroke-width': 0.06,
+        'stroke-width': pip ? 0.09 : 0.06,
         'stroke-linecap': 'round',
-      }, group);
+      }, badge);
 
       if (!op.alive) {
         el('path', {

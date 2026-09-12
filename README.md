@@ -365,7 +365,8 @@ Milestones 0–6 of `plan.md` are implemented and tested:
 - ✅ Turn engine: deployment, initiative, alternating activations, CP, Counteract
 - ✅ Objectives, mission scoring, utility AI with explainable reasons
 - ✅ Two mission modes: objective play, and a last-team-standing deathmatch
-- ✅ Three maps: an industrial yard, a space-hulk corridor lattice, a jungle temple
+- ✅ Five maps: an industrial yard, a space-hulk corridor lattice, a jungle
+  temple, and two killzones built to make the approach survivable
 - ✅ Rule-pack loader, validators, compatibility badges, runtime import
 - ✅ Replay capture and verification, batch balance harness
 - ✅ Battlefield animations: shots, area effects, melee, ploys, persistent buffs
@@ -505,8 +506,8 @@ Deathwatch, Murderwing and Legionary with it. `AI_VERSION` was 0.3.0 for it,
 and is **0.4.0** for the movement and concealment work described under
 "Melee, and why this engine is still bad at it".
 
-Where they land, over a 12-team round robin of 6 battles per pair on all three
-maps, both seats:
+Where they land, over a 12-team round robin of 6 battles per pair on the three
+maps that existed then, both seats:
 
 | | |
 |---|---|
@@ -537,8 +538,8 @@ which is the matchup their briefs describe losing.
 
 ### Melee, and why this engine is still bad at it
 
-Over a 16-team round robin (16x15 pairings, both seats, all three maps, 90
-games per team) a team's **melee share** — how much of its roster's damage is
+Over a 16-team round robin (16x15 pairings, both seats, the three maps that
+existed then, 90 games per team) a team's **melee share** — how much of its roster's damage is
 carried by melee weapons rather than guns — correlates **-0.71** with its win
 rate, and average gun range correlates **+0.72**. The melee-leaning half of
 that pool wins 40.3% of its games; the shooting half wins 59.7%. Before any of
@@ -585,10 +586,85 @@ the warband averaged **0.9 Fight actions per game** against 21 enemy Shoot
 actions, and out-moved by two to one, because the side with guns is also the
 side free to reposition.
 
-No stat line was changed. The remaining lever is the killzone rather than the
-teams — shallower separation between drop zones, or denser terrain — and that
-rewrites all three maps and invalidates every balance figure recorded above,
-so it is left as a decision rather than taken.
+No stat line was changed, and neither was any of the three maps: every figure
+recorded above is measured on them and stands as measured. The killzone lever
+was pulled by **adding** two maps rather than rewriting three, which is the
+only version of that change that costs nothing already counted.
+
+### Two killzones built for the approach
+
+Each new map pulls one of the two levers the trace points at, so the comparison
+between them says which lever did the work.
+
+**`hab-warren-001` — Warren of the Broken Hab** keeps industrial-001's drop
+zones down to the polygon, and a test asserts it: the terrain is the entire
+difference between the two maps. Four hab blocks sit at the ends, a court of
+collapsed floor sections surrounds the centre marker, and twenty-odd columns of
+rubble stand between them. Almost none of it stops a base — the ruins are the
+only solid pieces on the board, and the whole middle, y 4.2 to 17.8, is open to
+the 2.95" bases in the bundled teams. What this map narrows is sight, not
+movement.
+
+**`cull-pit-001` — The Cull Pit** leaves sight alone and moves the teams. They
+drop along the LONG edges, so the drop zones are 11" apart instead of 24" and
+the crossing costs one turning point instead of two. All five markers sit on
+the centre line, equidistant from both zones — also asserted — so neither side
+has ground it can hold without walking toward the other.
+
+Both are symmetric under a half turn about the board centre, piece for piece,
+so neither seat faces easier geometry. `npm run killzone` measures what follows;
+`-- --pool` adds the round robin, which is the slow half.
+
+| killzone | sight lines clear | median | over 12" | drop zone to drop zone | melee share vs win rate | melee half wins |
+|---|---|---|---|---|---|---|
+| industrial-001 | 51.5% | 10.0" | 20.0% | 15.3% | **-0.667** | 31.0% |
+| jungle-temple-001 | 52.8% | 9.5" | 18.4% | 11.2% | **-0.508** | 37.7% |
+| spacehulk-001 | 32.8% | 7.2" | 5.6% | 0.1% | **-0.505** | 39.0% |
+| **hab-warren-001** | **26.4%** | **6.3"** | **3.4%** | **0.0%** | **+0.159** | **51.0%** |
+| **cull-pit-001** | **32.1%** | **7.1"** | **6.1%** | **3.1%** | **+0.103** | **50.4%** |
+
+The left half is geometry — a lattice of standing positions, every third pair
+traced for line of sight. The right half is the same 16-team round robin used
+above, 90 battles a team, run per map. The sign flips.
+
+And the matchup the trace follows, 16 seeds in both seats on each map:
+
+| killzone | Fight attacks | enemy Shoot attacks | first contact | warband survivors | warband wins |
+|---|---|---|---|---|---|
+| industrial-001 | 0.22 | 24.0 | TP2.5, in 6 of 32 battles | 0.00 | 0.0% |
+| jungle-temple-001 | 0.56 | 24.0 | TP2.9, in 13 of 32 | 0.03 | 0.0% |
+| spacehulk-001 | 1.59 | 18.3 | TP2.5, in 30 of 32 | 1.97 | 3.1% |
+| **hab-warren-001** | **4.31** | 19.0 | **TP2.0, in 32 of 32** | **2.03** | **37.5%** |
+| **cull-pit-001** | **5.69** | 18.5 | **TP1.0, in 32 of 32** | 1.47 | **46.9%** |
+
+Turning point by turning point, closest pair and warband still standing: on
+industrial-001 the Goremongers go 10.6"/5.9 → 5.8"/2.8 → 6.2"/1.2, which is
+the arriving-with-half-a-team the trace describes. On the warren they go
+5.5"/7.6 → 1.6"/4.9 → 2.1"/3.3 → 2.1"/2.6, and on the pit they are in contact
+at 1.1" before the first turning point is over.
+
+Three things are worth saying plainly about that.
+
+**Neither lever is a fix for the bias; both are a place where it does not
+apply.** Nothing in the engine or the AI changed here. A gunline on
+industrial-001 is exactly as dominant as it was, and the correlation on the
+three original maps is where it always was. What the two new maps show is that
+the -0.71 in the section above is a fact about twenty inches of open ground
+rather than about close combat.
+
+**Breaking the sight lines and shortening the walk do different things.** The
+pit produces more melee — contact in every battle, in the first turning point,
+nearly six Fight attacks a game — because the walk is short. The warren
+produces less melee and about the same result, because a warband that crosses
+under cover arrives with two operatives instead of one and a half. Contact and
+advantage are not the same lever, and a map that only shortens the approach
+hands the gunline a point-blank target as readily as it hands the warband a
+charge.
+
+**The traced matchup still loses on both.** Goremongers against Pathfinders is
+37.5% and 46.9%, not 60%. The warband gets to fight; it does not get a
+handicap. Whether that is the right place for it to land is a question about
+the invented stat lines, and those were left alone here on purpose.
 
 The older caveat still stands: the bundled `skycaste-marksmen` gunline beats
 the melee-oriented demo teams around 90% of the time. That is a property of

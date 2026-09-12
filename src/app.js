@@ -25,7 +25,10 @@ const PREFS_KEY = 'ktsim.prefs.v1';
 const DEFAULT_MAP = 'industrial-001';
 const DEFAULT_MISSION = 'secure-and-hold';
 /** Every map and mission the app offers. Adding one is a data change (#5). */
-const MAPS = ['industrial-001', 'spacehulk-001', 'jungle-temple-001'];
+const MAPS = [
+  'industrial-001', 'spacehulk-001', 'jungle-temple-001',
+  'hab-warren-001', 'cull-pit-001',
+];
 const MISSIONS = ['secure-and-hold', 'annihilation'];
 
 const $ = (id) => document.getElementById(id);

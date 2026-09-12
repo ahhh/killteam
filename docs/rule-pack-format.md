@@ -630,6 +630,7 @@ the unlimited case, which spans any legal board.
   "id": "my-map",
   "name": "My Map",
   "version": 1,
+  "blurb": "One line about how it plays.",    // optional; shown on the map picker
   "board": { "width": 30, "height": 22, "units": "inches" },
   "terrain": [
     {
@@ -656,6 +657,22 @@ Terrain traits: `obscuring`, `cover`, `traversable`, `blocking`,
 `insignificant`, `vantage`, and `light`. A piece traited `light` still grants
 cover; the trait exists so `Seek Light` weapons can ignore exactly that class
 of terrain when selecting a target. Anything untraited counts as Heavy.
+
+Two things about map geometry are worth knowing before you draw one, because
+both are easy to get wrong and neither fails loudly:
+
+- **A corridor has to fit the widest base that will walk it** — 2.95" in the
+  bundled teams. Pathing pushes its waypoints out by the base radius, so a gap
+  narrower than that is not merely tight, it is impassable, and an operative
+  with nowhere legal to stand is dropped from deployment with a warning rather
+  than an error. `test/maps.test.mjs` deploys the widest-based bundled team on
+  every map for exactly this reason.
+- **Sight-blocking clutter should usually be `traversable`.** `obscuring` plus
+  `traversable` breaks a firing lane without narrowing the corridor it sits in,
+  which is how both the space hulk and the two melee-leaning killzones keep
+  their lanes short without becoming mazes. Reserve `blocking` for the
+  structures the map is actually built from; it is also what feeds the pathing
+  graph, which is capped at 64 waypoints — roughly sixteen blocking pieces.
 
 ## Mission
 

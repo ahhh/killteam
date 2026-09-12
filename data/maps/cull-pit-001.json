@@ -1,0 +1,930 @@
+{
+  "id": "cull-pit-001",
+  "name": "The Cull Pit",
+  "version": 1,
+  "blurb": "The teams drop along the long edges, eleven inches apart, and every marker is on the centre line.",
+  "seed": null,
+  "board": {
+    "width": 30,
+    "height": 22,
+    "units": "inches"
+  },
+  "terrain": [
+    {
+      "id": "gantry-nw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 8.5,
+            "y": 0
+          },
+          {
+            "x": 8.5,
+            "y": 2.6
+          },
+          {
+            "x": 2,
+            "y": 2.6
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "gantry"
+      }
+    },
+    {
+      "id": "gantry-se",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 21.5,
+            "y": 19.4
+          },
+          {
+            "x": 28,
+            "y": 19.4
+          },
+          {
+            "x": 28,
+            "y": 22
+          },
+          {
+            "x": 21.5,
+            "y": 22
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "gantry"
+      }
+    },
+    {
+      "id": "gantry-ne",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 21.5,
+            "y": 0
+          },
+          {
+            "x": 28,
+            "y": 0
+          },
+          {
+            "x": 28,
+            "y": 2.6
+          },
+          {
+            "x": 21.5,
+            "y": 2.6
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "gantry"
+      }
+    },
+    {
+      "id": "gantry-sw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 2,
+            "y": 19.4
+          },
+          {
+            "x": 8.5,
+            "y": 19.4
+          },
+          {
+            "x": 8.5,
+            "y": 22
+          },
+          {
+            "x": 2,
+            "y": 22
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "gantry"
+      }
+    },
+    {
+      "id": "tower-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 6,
+            "y": 9
+          },
+          {
+            "x": 8,
+            "y": 9
+          },
+          {
+            "x": 8,
+            "y": 13
+          },
+          {
+            "x": 6,
+            "y": 13
+          }
+        ]
+      },
+      "height": 3.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "pit-tower"
+      }
+    },
+    {
+      "id": "tower-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 22,
+            "y": 9
+          },
+          {
+            "x": 24,
+            "y": 9
+          },
+          {
+            "x": 24,
+            "y": 13
+          },
+          {
+            "x": 22,
+            "y": 13
+          }
+        ]
+      },
+      "height": 3.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "pit-tower"
+      }
+    },
+    {
+      "id": "dais",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13,
+            "y": 9
+          },
+          {
+            "x": 17,
+            "y": 9
+          },
+          {
+            "x": 17,
+            "y": 13
+          },
+          {
+            "x": 13,
+            "y": 13
+          }
+        ]
+      },
+      "height": 1.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable",
+        "vantage"
+      ],
+      "render": {
+        "styleId": "pit-dais"
+      }
+    },
+    {
+      "id": "wreck-n1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0,
+            "y": 7.4
+          },
+          {
+            "x": 5.8,
+            "y": 7.4
+          },
+          {
+            "x": 5.8,
+            "y": 8.5
+          },
+          {
+            "x": 0,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-s4",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 24.2,
+            "y": 13.5
+          },
+          {
+            "x": 30,
+            "y": 13.5
+          },
+          {
+            "x": 30,
+            "y": 14.6
+          },
+          {
+            "x": 24.2,
+            "y": 14.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-n2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8,
+            "y": 7.4
+          },
+          {
+            "x": 13.6,
+            "y": 7.4
+          },
+          {
+            "x": 13.6,
+            "y": 8.5
+          },
+          {
+            "x": 8,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-s3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 16.4,
+            "y": 13.5
+          },
+          {
+            "x": 22,
+            "y": 13.5
+          },
+          {
+            "x": 22,
+            "y": 14.6
+          },
+          {
+            "x": 16.4,
+            "y": 14.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-n3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 15.8,
+            "y": 7.4
+          },
+          {
+            "x": 21.4,
+            "y": 7.4
+          },
+          {
+            "x": 21.4,
+            "y": 8.5
+          },
+          {
+            "x": 15.8,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-s2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8.6,
+            "y": 13.5
+          },
+          {
+            "x": 14.2,
+            "y": 13.5
+          },
+          {
+            "x": 14.2,
+            "y": 14.6
+          },
+          {
+            "x": 8.6,
+            "y": 14.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-n4",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 23.6,
+            "y": 7.4
+          },
+          {
+            "x": 30,
+            "y": 7.4
+          },
+          {
+            "x": 30,
+            "y": 8.5
+          },
+          {
+            "x": 23.6,
+            "y": 8.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-s1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0,
+            "y": 13.5
+          },
+          {
+            "x": 6.4,
+            "y": 13.5
+          },
+          {
+            "x": 6.4,
+            "y": 14.6
+          },
+          {
+            "x": 0,
+            "y": 14.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-dn1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 5.5,
+            "y": 4.4
+          },
+          {
+            "x": 9,
+            "y": 4.4
+          },
+          {
+            "x": 9,
+            "y": 5.5
+          },
+          {
+            "x": 5.5,
+            "y": 5.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-ds3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 21,
+            "y": 16.5
+          },
+          {
+            "x": 24.5,
+            "y": 16.5
+          },
+          {
+            "x": 24.5,
+            "y": 17.6
+          },
+          {
+            "x": 21,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-dn2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13.5,
+            "y": 4.4
+          },
+          {
+            "x": 16.5,
+            "y": 4.4
+          },
+          {
+            "x": 16.5,
+            "y": 5.5
+          },
+          {
+            "x": 13.5,
+            "y": 5.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-ds2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 13.5,
+            "y": 16.5
+          },
+          {
+            "x": 16.5,
+            "y": 16.5
+          },
+          {
+            "x": 16.5,
+            "y": 17.6
+          },
+          {
+            "x": 13.5,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-dn3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 21,
+            "y": 4.4
+          },
+          {
+            "x": 24.5,
+            "y": 4.4
+          },
+          {
+            "x": 24.5,
+            "y": 5.5
+          },
+          {
+            "x": 21,
+            "y": 5.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "wreck-ds1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 5.5,
+            "y": 16.5
+          },
+          {
+            "x": 9,
+            "y": 16.5
+          },
+          {
+            "x": 9,
+            "y": 17.6
+          },
+          {
+            "x": 5.5,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "pillar-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 2.65,
+            "y": 10.2
+          },
+          {
+            "x": 3.75,
+            "y": 10.2
+          },
+          {
+            "x": 3.75,
+            "y": 11.8
+          },
+          {
+            "x": 2.65,
+            "y": 11.8
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "pillar-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 26.25,
+            "y": 10.2
+          },
+          {
+            "x": 27.35,
+            "y": 10.2
+          },
+          {
+            "x": 27.35,
+            "y": 11.8
+          },
+          {
+            "x": 26.25,
+            "y": 11.8
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "pillar-cw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 10.2,
+            "y": 10.2
+          },
+          {
+            "x": 11.3,
+            "y": 10.2
+          },
+          {
+            "x": 11.3,
+            "y": 11.8
+          },
+          {
+            "x": 10.2,
+            "y": 11.8
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    },
+    {
+      "id": "pillar-ce",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 18.7,
+            "y": 10.2
+          },
+          {
+            "x": 19.8,
+            "y": 10.2
+          },
+          {
+            "x": 19.8,
+            "y": 11.8
+          },
+          {
+            "x": 18.7,
+            "y": 11.8
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "wreckage"
+      }
+    }
+  ],
+  "objectives": [
+    {
+      "id": "obj-1",
+      "x": 4.5,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-2",
+      "x": 9.2,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-3",
+      "x": 15,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-4",
+      "x": 20.8,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-5",
+      "x": 25.5,
+      "y": 11,
+      "controlRange": 1
+    }
+  ],
+  "deploymentZones": [
+    {
+      "id": "dz-p1",
+      "playerId": "p1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 1,
+            "y": 3.5
+          },
+          {
+            "x": 29,
+            "y": 3.5
+          },
+          {
+            "x": 29,
+            "y": 7.5
+          },
+          {
+            "x": 1,
+            "y": 7.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "dz-p2",
+      "playerId": "p2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 1,
+            "y": 14.5
+          },
+          {
+            "x": 29,
+            "y": 14.5
+          },
+          {
+            "x": 29,
+            "y": 18.5
+          },
+          {
+            "x": 1,
+            "y": 18.5
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "author": "project",
+    "license": "original",
+    "sourceUrl": "",
+    "notes": "Hand-authored melee-leaning killzone. Drop zones run the long edges, 11\" apart instead of 20\", so the crossing costs one turning point rather than two. Every marker is on the centre line."
+  }
+}

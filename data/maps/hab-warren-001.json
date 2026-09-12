@@ -1,0 +1,1160 @@
+{
+  "id": "hab-warren-001",
+  "name": "Warren of the Broken Hab",
+  "version": 1,
+  "blurb": "Collapsed hab-stacks over a contested court. Nothing here can be shot at from far away.",
+  "seed": null,
+  "board": {
+    "width": 30,
+    "height": 22,
+    "units": "inches"
+  },
+  "terrain": [
+    {
+      "id": "ruin-nw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 6.5,
+            "y": 0
+          },
+          {
+            "x": 11,
+            "y": 0
+          },
+          {
+            "x": 11,
+            "y": 4.2
+          },
+          {
+            "x": 6.5,
+            "y": 4.2
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hab-block"
+      }
+    },
+    {
+      "id": "ruin-se",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19,
+            "y": 17.8
+          },
+          {
+            "x": 23.5,
+            "y": 17.8
+          },
+          {
+            "x": 23.5,
+            "y": 22
+          },
+          {
+            "x": 19,
+            "y": 22
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hab-block"
+      }
+    },
+    {
+      "id": "ruin-ne",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19,
+            "y": 0
+          },
+          {
+            "x": 23.5,
+            "y": 0
+          },
+          {
+            "x": 23.5,
+            "y": 4.2
+          },
+          {
+            "x": 19,
+            "y": 4.2
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hab-block"
+      }
+    },
+    {
+      "id": "ruin-sw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 6.5,
+            "y": 17.8
+          },
+          {
+            "x": 11,
+            "y": 17.8
+          },
+          {
+            "x": 11,
+            "y": 22
+          },
+          {
+            "x": 6.5,
+            "y": 22
+          }
+        ]
+      },
+      "height": 3,
+      "traits": [
+        "obscuring",
+        "cover",
+        "blocking"
+      ],
+      "render": {
+        "styleId": "hab-block"
+      }
+    },
+    {
+      "id": "court-nw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.4,
+            "y": 8.2
+          },
+          {
+            "x": 14.2,
+            "y": 8.2
+          },
+          {
+            "x": 14.2,
+            "y": 10.2
+          },
+          {
+            "x": 11.4,
+            "y": 10.2
+          }
+        ]
+      },
+      "height": 2,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "ruined-floor"
+      }
+    },
+    {
+      "id": "court-se",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 15.8,
+            "y": 11.8
+          },
+          {
+            "x": 18.6,
+            "y": 11.8
+          },
+          {
+            "x": 18.6,
+            "y": 13.8
+          },
+          {
+            "x": 15.8,
+            "y": 13.8
+          }
+        ]
+      },
+      "height": 2,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "ruined-floor"
+      }
+    },
+    {
+      "id": "court-ne",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 15.8,
+            "y": 8.2
+          },
+          {
+            "x": 18.6,
+            "y": 8.2
+          },
+          {
+            "x": 18.6,
+            "y": 10.2
+          },
+          {
+            "x": 15.8,
+            "y": 10.2
+          }
+        ]
+      },
+      "height": 2,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "ruined-floor"
+      }
+    },
+    {
+      "id": "court-sw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.4,
+            "y": 11.8
+          },
+          {
+            "x": 14.2,
+            "y": 11.8
+          },
+          {
+            "x": 14.2,
+            "y": 13.8
+          },
+          {
+            "x": 11.4,
+            "y": 13.8
+          }
+        ]
+      },
+      "height": 2,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "ruined-floor"
+      }
+    },
+    {
+      "id": "rubble-n1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 5.45,
+            "y": 4.4
+          },
+          {
+            "x": 6.55,
+            "y": 4.4
+          },
+          {
+            "x": 6.55,
+            "y": 8.4
+          },
+          {
+            "x": 5.45,
+            "y": 8.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-s1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 23.45,
+            "y": 13.6
+          },
+          {
+            "x": 24.55,
+            "y": 13.6
+          },
+          {
+            "x": 24.55,
+            "y": 17.6
+          },
+          {
+            "x": 23.45,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-n2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8.45,
+            "y": 6.6
+          },
+          {
+            "x": 9.55,
+            "y": 6.6
+          },
+          {
+            "x": 9.55,
+            "y": 10.6
+          },
+          {
+            "x": 8.45,
+            "y": 10.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-s2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 20.45,
+            "y": 11.4
+          },
+          {
+            "x": 21.55,
+            "y": 11.4
+          },
+          {
+            "x": 21.55,
+            "y": 15.4
+          },
+          {
+            "x": 20.45,
+            "y": 15.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-n3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.9,
+            "y": 4.4
+          },
+          {
+            "x": 13,
+            "y": 4.4
+          },
+          {
+            "x": 13,
+            "y": 7.4
+          },
+          {
+            "x": 11.9,
+            "y": 7.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-s3",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 17,
+            "y": 14.6
+          },
+          {
+            "x": 18.1,
+            "y": 14.6
+          },
+          {
+            "x": 18.1,
+            "y": 17.6
+          },
+          {
+            "x": 17,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-n4",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 17,
+            "y": 4.4
+          },
+          {
+            "x": 18.1,
+            "y": 4.4
+          },
+          {
+            "x": 18.1,
+            "y": 7.4
+          },
+          {
+            "x": 17,
+            "y": 7.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-s4",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.9,
+            "y": 14.6
+          },
+          {
+            "x": 13,
+            "y": 14.6
+          },
+          {
+            "x": 13,
+            "y": 17.6
+          },
+          {
+            "x": 11.9,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-n5",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 20.45,
+            "y": 6.6
+          },
+          {
+            "x": 21.55,
+            "y": 6.6
+          },
+          {
+            "x": 21.55,
+            "y": 10.6
+          },
+          {
+            "x": 20.45,
+            "y": 10.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-s5",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 8.45,
+            "y": 11.4
+          },
+          {
+            "x": 9.55,
+            "y": 11.4
+          },
+          {
+            "x": 9.55,
+            "y": 15.4
+          },
+          {
+            "x": 8.45,
+            "y": 15.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-n6",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 23.45,
+            "y": 4.4
+          },
+          {
+            "x": 24.55,
+            "y": 4.4
+          },
+          {
+            "x": 24.55,
+            "y": 8.4
+          },
+          {
+            "x": 23.45,
+            "y": 8.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-s6",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 5.45,
+            "y": 13.6
+          },
+          {
+            "x": 6.55,
+            "y": 13.6
+          },
+          {
+            "x": 6.55,
+            "y": 17.6
+          },
+          {
+            "x": 5.45,
+            "y": 17.6
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-pn",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 14.45,
+            "y": 0.6
+          },
+          {
+            "x": 15.55,
+            "y": 0.6
+          },
+          {
+            "x": 15.55,
+            "y": 7.4
+          },
+          {
+            "x": 14.45,
+            "y": 7.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-ps",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 14.45,
+            "y": 14.6
+          },
+          {
+            "x": 15.55,
+            "y": 14.6
+          },
+          {
+            "x": 15.55,
+            "y": 21.4
+          },
+          {
+            "x": 14.45,
+            "y": 21.4
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 2.45,
+            "y": 9.5
+          },
+          {
+            "x": 3.55,
+            "y": 9.5
+          },
+          {
+            "x": 3.55,
+            "y": 12.5
+          },
+          {
+            "x": 2.45,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 26.45,
+            "y": 9.5
+          },
+          {
+            "x": 27.55,
+            "y": 9.5
+          },
+          {
+            "x": 27.55,
+            "y": 12.5
+          },
+          {
+            "x": 26.45,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-mw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 6.45,
+            "y": 9.5
+          },
+          {
+            "x": 7.55,
+            "y": 9.5
+          },
+          {
+            "x": 7.55,
+            "y": 12.5
+          },
+          {
+            "x": 6.45,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-me",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 22.45,
+            "y": 9.5
+          },
+          {
+            "x": 23.55,
+            "y": 9.5
+          },
+          {
+            "x": 23.55,
+            "y": 12.5
+          },
+          {
+            "x": 22.45,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-fw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 9.9,
+            "y": 9.5
+          },
+          {
+            "x": 11,
+            "y": 9.5
+          },
+          {
+            "x": 11,
+            "y": 12.5
+          },
+          {
+            "x": 9.9,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "rubble-fe",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 19,
+            "y": 9.5
+          },
+          {
+            "x": 20.1,
+            "y": 9.5
+          },
+          {
+            "x": 20.1,
+            "y": 12.5
+          },
+          {
+            "x": 19,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "pillar-w",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 11.3,
+            "y": 9.5
+          },
+          {
+            "x": 11.9,
+            "y": 9.5
+          },
+          {
+            "x": 11.9,
+            "y": 12.5
+          },
+          {
+            "x": 11.3,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "pillar-e",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 18.1,
+            "y": 9.5
+          },
+          {
+            "x": 18.7,
+            "y": 9.5
+          },
+          {
+            "x": 18.7,
+            "y": 12.5
+          },
+          {
+            "x": 18.1,
+            "y": 12.5
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "pillar-cw",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 12.7,
+            "y": 10.3
+          },
+          {
+            "x": 13.3,
+            "y": 10.3
+          },
+          {
+            "x": 13.3,
+            "y": 11.7
+          },
+          {
+            "x": 12.7,
+            "y": 11.7
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    },
+    {
+      "id": "pillar-ce",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 16.7,
+            "y": 10.3
+          },
+          {
+            "x": 17.3,
+            "y": 10.3
+          },
+          {
+            "x": 17.3,
+            "y": 11.7
+          },
+          {
+            "x": 16.7,
+            "y": 11.7
+          }
+        ]
+      },
+      "height": 2.5,
+      "traits": [
+        "obscuring",
+        "cover",
+        "traversable"
+      ],
+      "render": {
+        "styleId": "rubble"
+      }
+    }
+  ],
+  "objectives": [
+    {
+      "id": "obj-1",
+      "x": 10.5,
+      "y": 7,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-2",
+      "x": 19.5,
+      "y": 7,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-3",
+      "x": 15,
+      "y": 11,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-4",
+      "x": 19.5,
+      "y": 15,
+      "controlRange": 1
+    },
+    {
+      "id": "obj-5",
+      "x": 10.5,
+      "y": 15,
+      "controlRange": 1
+    }
+  ],
+  "deploymentZones": [
+    {
+      "id": "dz-p1",
+      "playerId": "p1",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 0.5,
+            "y": 1
+          },
+          {
+            "x": 5.5,
+            "y": 1
+          },
+          {
+            "x": 5.5,
+            "y": 21
+          },
+          {
+            "x": 0.5,
+            "y": 21
+          }
+        ]
+      }
+    },
+    {
+      "id": "dz-p2",
+      "playerId": "p2",
+      "shape": {
+        "type": "polygon",
+        "points": [
+          {
+            "x": 24.5,
+            "y": 1
+          },
+          {
+            "x": 29.5,
+            "y": 1
+          },
+          {
+            "x": 29.5,
+            "y": 21
+          },
+          {
+            "x": 24.5,
+            "y": 21
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "author": "project",
+    "license": "original",
+    "sourceUrl": "",
+    "notes": "Hand-authored melee-leaning killzone. Drop zones are industrial-001's; the terrain is the whole difference. Rubble is walkable, so nothing here narrows a corridor below the widest base in the bundled teams."
+  }
+}

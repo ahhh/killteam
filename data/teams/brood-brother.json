@@ -504,7 +504,23 @@
           "id": "medikit",
           "name": "MEDIKIT",
           "cost": "1AP",
-          "description": "Select one friendly BROOD BROTHER operative (excluding PATRIARCH) within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly BROOD BROTHER operative (excluding PATRIARCH) within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "brood-brother",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -826,7 +842,26 @@
           "id": "signal",
           "name": "SIGNAL",
           "cost": "1AP",
-          "description": "SUPPORT. Select one other friendly BROODGUARD operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one other friendly BROODGUARD operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "broodguard",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:signal"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "jam",
@@ -944,7 +979,23 @@
           "id": "telepathic-overload",
           "name": "TELEPATHIC OVERLOAD",
           "cost": "1AP",
-          "description": "PSYCHIC. Select one enemy operative that's a valid target for to this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "PSYCHIC. Select one enemy operative that's a valid target for to this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "validTarget",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "subtractApl",
+              "amount": 1,
+              "token": "apl-drain:telepathic-overload"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "mental-onslaught",
@@ -998,7 +1049,19 @@
           "id": "into-shadow",
           "name": "INTO SHADOW",
           "cost": "1AP",
-          "description": "Change this operative's order. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Change this operative's order. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "self"
+            },
+            "effect": {
+              "type": "changeOrder"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "mind-control",

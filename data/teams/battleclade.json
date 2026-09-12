@@ -155,7 +155,27 @@
           "id": "gaze-of-the-omnissiah",
           "name": "GAZE OF THE OMNISSIAH",
           "cost": "1AP",
-          "description": "Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly BATTLECLADE operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly BATTLECLADE operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "mark",
+              "weaponRules": [
+                "seeklight"
+              ],
+              "token": "mark:gaze-of-the-omnissiah",
+              "keyword": "battleclade"
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "\"cannot be obscured\" is read as Seek Light: this engine does not model obscured separately from cover"
+          }
         }
       ],
       "keywords": [
@@ -522,7 +542,23 @@
           "id": "expedient-repair",
           "name": "EXPEDIENT REPAIR",
           "cost": "1AP",
-          "description": "Select one friendly BATTLECLADE operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Mechanosuture Array rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly BATTLECLADE operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Mechanosuture Array rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "battleclade",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "D3+3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

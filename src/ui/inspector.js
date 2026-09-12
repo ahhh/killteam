@@ -258,7 +258,24 @@ export function renderOperativeDetail(container, state, operativeId) {
     container.append(h('h3', null, 'Abilities'));
     const list = document.createElement('ul');
     for (const ability of profile.abilities) {
-      list.append(h('li', null, typeof ability === 'string' ? ability : ability.name));
+      if (typeof ability === 'string') {
+        list.append(h('li', null, ability));
+        continue;
+      }
+      // An ability the engine can perform is a different thing from one it
+      // only prints, and the card should not make them look alike: this is
+      // where a player finds out whether the medic will ever use the medikit.
+      const cost = ability.action
+        ? `${ability.action.ap ?? 1} AP`
+        : (ability.cost && ability.cost !== '-' ? String(ability.cost) : null);
+      const item = h('li', ability.action ? 'performable' : null,
+        `${ability.name}${cost ? ` — ${cost}` : ''}`);
+      if (!ability.action && cost) {
+        item.append(h('span', 'muted', ' (not performed by this engine)'));
+      } else if (ability.action?.notes) {
+        item.append(h('span', 'muted', ` (${ability.action.notes})`));
+      }
+      list.append(item);
     }
     container.append(list);
   }

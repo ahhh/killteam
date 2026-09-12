@@ -59,7 +59,10 @@ provenance note in `README.md` for where their data came from.
           "atk": 3, "hit": 4, "damage": { "normal": 3, "critical": 4 }, "rules": []
         }
       ],
-      "abilities": [],             // [{id, name, cost, description}] — data only
+      // [{id, name, cost, description}]. An ability that costs AP may also
+      // carry an `action` block, which is what makes it performable rather
+      // than reference text — see "Unique actions" below.
+      "abilities": [],
       "keywords": ["leader"]
     }
   ],
@@ -248,6 +251,120 @@ and `expiry.endOfNextActivation` is what makes it lapse when it should.
 
 `extraAction` with `oneOf` models the Astartes shape — *either* two Shoot
 actions *or* two Fight actions: whichever is repeated first claims the grant.
+
+### Unique actions (`abilities[].action`)
+
+Nearly every printed profile has one or two actions of its own — a Medikit, a
+Signal, a Spot, a Veriscant. A pack that only transcribes the wording gets
+reference text and nothing else, and for a support operative that is the whole
+of its activation: across the bundled roster 21% of all AP went unspent, and
+two fifths of that sat on operatives whose only printed job was an action this
+engine could not perform.
+
+An `action` block on an ability says what it **does**, and that is what makes
+it performable. Like everything else here it is data: an unknown scope,
+condition or effect is reported once in the battle log and the action is not
+offered, never guessed at.
+
+```jsonc
+{
+  "id": "medikit",
+  "name": "MEDIKIT",
+  "cost": "1AP",                      // the printed cost, for a reader
+  "description": "…the printed wording…",
+
+  "action": {
+    "ap": 1,                          // defaults to the number in `cost`
+    "target": {
+      "scope": "controlRange",        // see below
+      "side": "friendly",             // "friendly" (default) or "enemy"
+      "keyword": "death-korps",       // must be a keyword the pack actually uses
+      "wounded": true
+    },
+    "effect": { "type": "healWounds", "dice": "2D3" },
+    "limits": { "notEngaged": true, "perTurningPoint": 1 },
+    "notes": "…what was approximated…"
+  }
+}
+```
+
+Every unique action is **once per activation per ability**: an operative that
+prints two may perform either, but neither twice. An action whose target block
+finds nobody is not on the menu at all, which is what keeps a medic from
+spending a point on an empty medikit.
+
+**Target scopes**
+
+| Scope | Means |
+|---|---|
+| `self` | the operative performing the action; the default when no `target` is given |
+| `controlRange` | within its control range (1") |
+| `within` | within `inches`; add `"visible": true` for "visible to and within x\"" |
+| `visible` | visible to it, at any distance |
+| `validTarget` | a *valid target* for it — which additionally fails against a concealed operative in cover |
+
+`visible` and `validTarget` are deliberately different, because the printed
+actions use both: "select one enemy operative **visible to** this operative" is
+a line-of-sight question a Spot can answer about somebody hiding, and "select
+one enemy operative **that's a valid target for** this operative" cannot.
+
+**Target conditions** — ANDed, all optional: `side`, `keyword`, `notKeyword`,
+`excludeSelf`, `wounded`, `ready`, `hasToken`, `notHasToken`.
+
+**Effects**
+
+| Effect | Fields | Does |
+|---|---|---|
+| `healWounds` | `dice` | The target regains up to that many lost wounds, capped at what it lost |
+| `addApl` | `amount`, `token`, `expiry` | +APL, carried on a token so it survives until the target activates. Bought mid-activation for itself, the point is spendable now |
+| `subtractApl` | `amount`, `token`, `expiry` | The same, the other way |
+| `mark` | `weaponRules[]`, `keyword`, `weaponType`, `expiry` | A mark on an enemy: this team's attacks against it gain those weapon rules. Read when the target is *selected* as well as when the dice are rolled |
+| `freeAction` | `action`, `immediate`, `allowOrderChange`, `unrestricted` | A free action. On somebody else it must be `shoot` or `fight` and resolves immediately |
+| `extraAction` | `action`, `count`, `free` | Another use of an action, this activation. Self only |
+| `weaponBoost` | `rules[]`, `weaponType`, `atkBonus`, `damageNormal`, `damageCritical`, `appliesTo[]` | A better profile. On somebody else, only the `rules` half can be carried |
+| `moveBonus` | `inches`, `appliesTo[]` | Extra inches for a move action |
+| `inflictDamage` | `dice` | Damage on the target, credited to the operative that acted |
+| `changeOrder` | — | Flips the target's order |
+| `gainResource` | `resource`, `amount` | Adds to a resource the pack declares |
+| `gainCp` | `amount` | Command Points, unconditionally |
+| `discardToken` | `token`, `owner` | Removes a token |
+
+One thing to know before writing an effect that points at **another**
+operative: an allowance parked on an operative for "this activation" is wiped
+when that operative next activates, which is right for a self-buff and
+silently useless for a gift. So a gift either lands immediately or rides a
+token. `addApl`, `subtractApl`, `mark`, and the rules half of `weaponBoost` and
+`moveBonus` ride tokens; a `freeAction` resolves there and then; `extraAction`,
+and extra attack dice or damage on somebody else, are **reported as
+unsupported** rather than quietly dropped.
+
+The token-carried effects are all "if it doesn't already have one": an
+operative that is already Signalled is not a legal target for another Signal.
+
+**Limits**
+
+| Limit | Means |
+|---|---|
+| `notEngaged` | "cannot perform this action while within control range of an enemy operative" |
+| `perTurningPoint` | uses per turning point; reset in the Ready step |
+| `perBattle` | uses for the whole battle |
+| `notFirstTurningPoint` | "cannot perform it during the first turning point" |
+| `requiresToken` | the operative must be holding one of its own team's tokens of that kind |
+| `requiresResource` | the pack must declare that resource |
+
+`notes` is for an approximation, and works like a hook's: say what the block
+leaves out, and the engine raises it on the operative's character sheet. An
+ability that costs AP and declares **no** `action` block is named individually
+in the battle log at setup, because it is a specific, fillable gap.
+
+**What the AI does with them.** `src/ai/support.js` prices every unique action
+in *expected wounds*, the same unit a shot is priced in, and performs it before
+the rest of the activation is planned when it is worth more than a point of
+that operative's own AP — so a Boss Nob keeps its point for the power klaw and
+a weaponless C.A.T. unit always Spots. Where the scope is short-ranged, the
+planner will also walk the operative into reach first, which is the difference
+between a medic that heals and a medic that stands two inches away from the
+casualty for four turning points.
 
 ### Marker-control modifiers (`controlModifiers`)
 

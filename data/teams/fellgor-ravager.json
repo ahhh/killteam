@@ -443,7 +443,26 @@
           "id": "incite-fury",
           "name": "INCITE FURY",
           "cost": "1AP",
-          "description": "Select one other friendly FELLGOR RAVAGER operative (excluding SHAMAN or IRONHORN) visible to and within 3\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one other friendly FELLGOR RAVAGER operative (excluding SHAMAN or IRONHORN) visible to and within 3\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 3,
+              "visible": true,
+              "keyword": "fellgor-ravager",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:incite-fury"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -556,7 +575,25 @@
           "id": "apoplectic-rejuvenation",
           "name": "APOPLECTIC REJUVENATION",
           "cost": "1AP",
-          "description": "Select one friendly FELLGOR RAVAGER operative that doesn't have one of your Frenzy tokens and is visible to and within 6\" of this operative. That friendly operative regains up to 2D3 lost wounds; if that operative has incapacitated an enemy operative while fighting or retaliating during the battle, it regains up to 6 lost wounds instead. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly FELLGOR RAVAGER operative that doesn't have one of your Frenzy tokens and is visible to and within 6\" of this operative. That friendly operative regains up to 2D3 lost wounds; if that operative has incapacitated an enemy operative while fighting or retaliating during the battle, it regains up to 6 lost wounds instead. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "fellgor-ravager",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "mantle-of-darkness",

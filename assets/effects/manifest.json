@@ -71,7 +71,14 @@
       "inflictToken": "hex",
       "denyTargeting": "hex",
       "clearTokens": "hex",
-      "healWounds": "mend"
+      "healWounds": "mend",
+      "mark": "hex",
+      "subtractApl": "hex",
+      "weaponBoost": "warcry",
+      "moveBonus": "comms",
+      "gainResource": "mend",
+      "gainCp": "comms",
+      "discardToken": "ward"
     },
     "tokens": {
       "blaze": "blaze",

@@ -101,6 +101,20 @@ export function ployFamily(manifest, ploy) {
   return null;
 }
 
+/**
+ * The family an operative's own printed action asks for.
+ *
+ * Reads the same `ployEffects` table, because a unique action declares its
+ * effect with the same vocabulary a ploy hook does (see
+ * `src/rules/unique-actions.js`) — a Medikit and a ploy that heals should look
+ * the same on the board, because they are the same thing happening.
+ */
+export function uniqueActionFamily(manifest, ability) {
+  const type = ability?.action?.effect?.type;
+  if (!type) return null;
+  return (manifest?.match?.ployEffects || {})[type] || null;
+}
+
 /** The loop an operative carrying this token wears. */
 export function tokenFamily(manifest, token) {
   const kind = typeof token === 'string' ? token : token?.kind;
@@ -138,6 +152,11 @@ export function familiesForPack(manifest, pack) {
       if (spec.melee) { add('strike'); add('parry'); continue; }
       add(spec.projectile);
       add(spec.aoe);
+    }
+    // …and whatever its own printed actions do, which for a support operative
+    // is the only thing it will ever put on the board.
+    for (const ability of operative.abilities || []) {
+      add(uniqueActionFamily(manifest, ability));
     }
   }
 

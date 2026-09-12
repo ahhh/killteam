@@ -27,6 +27,9 @@ the battle log as an unsupported rule — never silently guessed (invariant #7).
 - **Shoot** — requires Engage unless the weapon is Silent; forbidden while
   within enemy control range, and by Heavy after the wrong kind of move
 - **Fight** — requires an enemy within control range
+- **Guard** — 1 AP, Engage order: holds the shot for the opponent's turn (below)
+- **Unique actions** — an operative's own printed action, where its pack says
+  what the action does (below)
 - **Pass**
 
 ### Movement and geometry
@@ -271,13 +274,85 @@ Two readings worth stating, because the printed wording is ambiguous:
 - Dark Animus and Mania add APL "until the start of the operative's next
   activation". Bought mid-activation, they hand over the extra AP immediately.
 
+### Unique actions
+
+An operative's own printed action — a Medikit, a Signal, a Spot, a Veriscant —
+is performable where its pack attaches an `action` block to the ability saying
+what the action does (see `docs/rule-pack-format.md`). The engine owns the
+legality, the target selection and the limits; the pack owns the meaning.
+
+77 of the 225 printed AP-costing actions across the bundled roster are wired up
+this way, in these shapes:
+
+| Shape | Wired | What resolves |
+|---|---|---|
+| `addApl` | 28 | +1 APL on a friend until the end of its next activation, carried on a token so the AP is there when it activates |
+| `healWounds` | 25 | Up to xDy lost wounds back, capped at what was actually lost |
+| `mark` | 10 | A mark on an enemy: this team's attacks against it gain a weapon rule, read at target *selection* as well as at the dice |
+| `subtractApl` | 7 | The same as `addApl`, the other way |
+| `changeOrder` | 3 | Slipping back into Conceal mid-activation |
+| `freeAction` | 2 | A free Shoot for a comrade, resolved there and then |
+| `inflictDamage` | 1 | Damage on a selected enemy, credited to the operative that acted |
+| `moveBonus` | 1 | Extra inches on the next Charge |
+
+The other 148 are **named individually in the battle log at setup** — team,
+operative and action — because each one is a specific, fillable gap rather than
+a category. The wordings still waiting on machinery are the ones that move
+operatives around (WARP FOLD swaps two positions), roll dice against an
+opponent (MIND CONTROL), place a marker, or reach into the counteract system
+(NETWORK OVERRIDE).
+
+Two readings worth stating:
+
+- "Visible to this operative" and "a valid target for this operative" are
+  different tests, and the printed actions use both. A Spot can mark an enemy
+  that is concealed in cover; something that needs a valid target cannot.
+- An allowance parked on an operative lapses when that operative next
+  activates, so a unique action that gives *somebody else* something either
+  resolves immediately or rides a token. A grant that can do neither —
+  an extra action for a comrade, extra attack dice on a comrade — is reported
+  as unsupported rather than silently doing nothing.
+
+### Guard
+
+`Guard` is the universal action a spare point goes to. The transcribed packs
+reference it a dozen times — "two Shoot actions (excluding Guard)", "you cannot
+interrupt each enemy operative's activation more than once per activation
+(including Guard)" — so what it *is* is not in doubt, but this engine's version
+is an approximation of the printed action rather than a transcription, and is
+stated in full here:
+
+- 1 AP, once per activation, Engage order, and only for an operative that has a
+  weapon it could use. Guarding with nothing to guard with is the wasted point
+  this exists to remove.
+- The operative gains a Guard token, held until its next activation.
+- While it holds one, it may interrupt an enemy activation: after that enemy
+  resolves a **move** action, the guard discards the token to Shoot it — or
+  Fight it, if the enemy has walked into its control range.
+- One interrupt per enemy activation, across the whole guarding team, which is
+  the published limit.
+- A guard whose only option is a shot it cannot legally take keeps its token
+  for the next enemy to walk past. That choice is the engine's, not the AI's:
+  there is no action layer inside somebody else's activation to ask, the same
+  position a mid-roll re-roll is in.
+
+It is not a Shoot action, so it does not count against Concealed Position or
+anything else that counts Shoot actions — which is what "(excluding Guard)"
+means everywhere it is printed.
+
 ### Non-combatant operatives
 
 An operative can carry no weapons at all — the Spectre Vox-Relay Beacon, the
 Navis C.A.T. unit, the Gheistskull and the Tome Skull all do. Such an operative
-cannot Shoot, cannot Fight, and — the part that used to be wrong — rolls **no
-dice when it is fought**, rather than being handed a phantom pair of fists. The
-pack validator names every weaponless operative it loads.
+cannot Shoot, cannot Fight, cannot Guard, and rolls **no dice when it is
+fought**, rather than being handed a phantom pair of fists.
+
+Three of the four now spend their activations on their own printed action: the
+C.A.T. unit Spots, the Gheistskull Boosts, the Vox-Relay Beacon Signals. The
+Tome Skull's pack transcribes no ability at all, so it moves and nothing else —
+that is the data, not the engine, and the validator says so for every
+weaponless operative it loads, naming how many performable actions it has to
+spend AP on.
 
 ### Visibility and terrain
 - Line of sight traced as a fan of rays between base rims
@@ -498,10 +573,13 @@ These are recognised and reported, not simulated:
   the hook is marked `partial` and its `notes` say what was approximated (an
   objective marker standing in for a placed marker, for instance); the notice
   appears in the battle log's warnings.
-- Operative abilities (unique actions are carried as data but not performable)
+- 148 of the 225 printed unique actions, each named individually at setup (see
+  above); the shapes still missing are moving operatives around, rolling off
+  against an opponent, placing a marker, and reaching into counteract
 - The 40 teams' faction rules listed as reference-only above
 - Vantage points and elevation — `height` is stored but does not affect LOS
-- Overwatch, Guard, Pick Up Marker, Operate Hatch and other mission actions
+- Pick Up Marker, Place Marker, Operate Hatch and the other mission actions.
+  `Guard` is implemented, as the approximation described above
 - Injured/Incapacitated special cases beyond the APL and hit modifiers above
 - Universal actions beyond the list above
 - Splash `Devastating` (`2" Devastating 1`), which needs the same area

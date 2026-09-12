@@ -172,7 +172,24 @@
           "id": "healing-balms",
           "name": "HEALING BALMS",
           "cost": "1AP",
-          "description": "Select one friendly WOLF SCOUT operative within this operative's control range to regain up to D3+3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+          "description": "Select one friendly WOLF SCOUT operative within this operative's control range to regain up to D3+3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "wolf-scout",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "D3+3"
+            },
+            "limits": {
+              "notEngaged": true,
+              "perTurningPoint": 1
+            }
+          }
         }
       ],
       "keywords": [

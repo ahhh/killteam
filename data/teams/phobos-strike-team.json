@@ -204,7 +204,23 @@
           "id": "helix-gauntlet",
           "name": "HELIX GAUNTLET",
           "cost": "1AP",
-          "description": "Select one friendly PHOBOS STRIKE TEAM operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly PHOBOS STRIKE TEAM operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "phobos-strike-team",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "D3+3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

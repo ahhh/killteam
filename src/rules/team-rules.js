@@ -28,7 +28,7 @@ import { warnUnsupported } from '../state.js';
 import { parseRule, ruleMap } from './dice.js';
 import { CONTROL_RANGE } from './visibility.js';
 import { pointPolygonDistance, baseDistance } from '../maps/geometry.js';
-import { tokenWeaponRules } from './tokens.js';
+import { tokenWeaponRules, tokenIncomingWeaponRules } from './tokens.js';
 import { resourceWeaponBoosts } from './resources.js';
 
 /** Effect types the engine knows how to apply. Anything else fails closed. */
@@ -262,6 +262,16 @@ export function weaponAdjustments(state, op, weapon, ctx = {}) {
   // A token the operative is *holding* can improve its weapons too — a
   // Blooded token is Accurate 1 for as long as it is carried.
   for (const rule of tokenWeaponRules(op, weapon)) fold({ rules: [rule] });
+
+  // …and a token on the operative being attacked can improve them from the
+  // other side: a Spot or a Veriscant is a mark this team placed, and it
+  // reads "whenever a friendly X operative is shooting that enemy operative".
+  if (ctx.target) {
+    const keywords = profileOfOperative(state, op)?.keywords || [];
+    for (const rule of tokenIncomingWeaponRules(ctx.target, op, weapon, keywords)) {
+      fold({ rules: [rule] });
+    }
+  }
 
   // …and so can something bought with a team resource for this one action:
   // Rage adds an attack die to the Fight it was spent on.

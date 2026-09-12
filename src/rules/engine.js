@@ -33,6 +33,10 @@ import {
   availableSpends, resolveSpend, extraActionsFromSpends, resourceMoveBonus,
   consumeActionBoosts, applyPostActionResources,
 } from './resources.js';
+import {
+  availableUniqueActions, findUniqueAction, resolveUniqueAction,
+} from './unique-actions.js';
+import { guardBlocker, resolveGuard } from './guard.js';
 
 export const ENGINE_VERSION = '0.2.0';
 
@@ -44,6 +48,8 @@ export const ACTION_COST = {
   fall_back: 1,
   shoot: 1,
   fight: 1,
+  // Guard holds the shot for somebody else's activation (see rules/guard.js).
+  guard: 1,
   pass: 0,
   change_order: 0,
   // Spending a team resource — an invigoration, a SANGUAVITAE rule — is a
@@ -53,6 +59,11 @@ export const ACTION_COST = {
   // Paying CP for a firefight ploy is the same shape of choice: it is made
   // during the activation and costs AP nothing, only Command Points.
   ploy: 0,
+  // A unique action's cost is printed on the ability, not on the action type,
+  // so the table only records that the type exists; `actionCost` reads the
+  // pack. Every operative's own action goes through here (see
+  // rules/unique-actions.js).
+  unique: 0,
 };
 
 /**
@@ -62,7 +73,12 @@ export const ACTION_COST = {
  * Back action for 1 less AP" is a discount held for the activation, which is
  * why the cost is asked for rather than looked up.
  */
-export function actionCost(state, op, type) {
+export function actionCost(state, op, type, action = null) {
+  if (type === 'unique') {
+    const entry = action?.abilityId ? findUniqueAction(state, op, action.abilityId) : null;
+    if (!entry) return undefined;
+    return Math.max(0, entry.ap - (Number(op?.actionDiscounts?.unique) || 0));
+  }
   const listed = ACTION_COST[type];
   if (listed === undefined) return undefined;
   return Math.max(0, listed - (Number(op?.actionDiscounts?.[type]) || 0));
@@ -70,14 +86,27 @@ export function actionCost(state, op, type) {
 
 /** Actions an operative may only perform once per activation. */
 const ONCE_PER_ACTIVATION = new Set([
-  'reposition', 'dash', 'charge', 'fall_back', 'shoot', 'fight',
+  'reposition', 'dash', 'charge', 'fall_back', 'shoot', 'fight', 'guard',
 ]);
+
+/**
+ * The once-per-activation key for an action.
+ *
+ * Unique actions are limited one *ability* at a time, not one between them: a
+ * Traitor Commsman prints two and may perform either, but neither twice.
+ */
+function activationKey(action) {
+  return action.type === 'unique' ? `unique:${action.abilityId}` : action.type;
+}
 
 /**
  * Once per activation — unless a faction rule grants extra uses (Astartes lets
  * an operative Shoot or Fight twice, for instance).
  */
-function alreadyUsed(state, op, type) {
+function alreadyUsed(state, op, type, action = null) {
+  if (type === 'unique') {
+    return op.usedThisActivation.includes(`unique:${action?.abilityId}`);
+  }
   if (!ONCE_PER_ACTIVATION.has(type)) return false;
   // Vitalised Surge's Dash is printed as usable "even if it's performed an
   // action that prevents it from performing the Dash action", so an
@@ -228,6 +257,29 @@ export function getLegalActions(state, operativeId) {
     }
   }
 
+  // --- The operative's own actions ----------------------------------
+  // A Medikit, a Signal, a Spot. For a good many profiles this is the only
+  // thing on the menu worth doing, and for four of them — the weaponless
+  // ones — it is the only thing on the menu at all.
+  for (const entry of availableUniqueActions(state, op)) {
+    const cost = actionCost(state, op, 'unique', { abilityId: entry.ability.id });
+    if (cost === undefined) continue;
+    if (alreadyUsed(state, op, 'unique', { abilityId: entry.ability.id })) continue;
+    actions.push({
+      type: 'unique', cost,
+      abilityId: entry.ability.id,
+      abilityName: entry.ability.name || entry.ability.id,
+      effect: entry.def.effect?.type || null,
+      targets: entry.targets.map((t) => ({ targetId: t.id })),
+    });
+  }
+
+  // --- Guard --------------------------------------------------------
+  // The last stop for a spare point: hold the shot for the enemy's turn.
+  if (!alreadyUsed(state, op, 'guard') && !guardBlocker(state, op)) {
+    actions.push({ type: 'guard', cost: actionCost(state, op, 'guard') });
+  }
+
   actions.push({ type: 'pass', cost: 0 });
   return actions
     .map((a) => (hasFreeAction(op, a.type) && a.cost > op.apRemaining)
@@ -244,7 +296,7 @@ export function resolveAction(state, action) {
   if (!op) return { ok: false, reason: 'unknown operative' };
   if (!op.alive) return { ok: false, reason: 'operative is incapacitated' };
 
-  const listedCost = actionCost(state, op, action.type);
+  const listedCost = actionCost(state, op, action.type, action);
   if (listedCost === undefined) {
     warnUnsupported(state, `action:${action.type}`, 'requested by AI');
     return { ok: false, reason: `unknown action "${action.type}"` };
@@ -256,8 +308,8 @@ export function resolveAction(state, action) {
   if (cost > op.apRemaining) {
     return { ok: false, reason: `not enough AP (${op.apRemaining} left, needs ${cost})` };
   }
-  if (alreadyUsed(state, op, action.type)) {
-    return { ok: false, reason: `${action.type} already performed this activation` };
+  if (alreadyUsed(state, op, action.type, action)) {
+    return { ok: false, reason: `${activationKey(action)} already performed this activation` };
   }
 
   const seqBefore = state.eventLog.length;
@@ -272,6 +324,8 @@ export function resolveAction(state, action) {
     case 'fall_back': result = doMove(state, op, action); break;
     case 'shoot': result = doShoot(state, op, action); break;
     case 'fight': result = doFight(state, op, action); break;
+    case 'unique': result = doUniqueAction(state, op, action); break;
+    case 'guard': result = resolveGuard(state, op); break;
     case 'pass': result = { ok: true, passed: true }; break;
     default: result = { ok: false, reason: 'unhandled action' };
   }
@@ -280,7 +334,11 @@ export function resolveAction(state, action) {
 
   if (free) consumeFreeAction(op, action.type);
   op.apRemaining -= cost;
-  if (ONCE_PER_ACTIVATION.has(action.type)) {
+  // A unique action is once per activation per ability, so it books itself
+  // under its own key rather than under the generic type.
+  if (action.type === 'unique') {
+    op.usedThisActivation.push(activationKey(action));
+  } else if (ONCE_PER_ACTIVATION.has(action.type)) {
     op.usedThisActivation.push(action.type);
     claimExtraAction(state, op, action.type);
     // Rage and Surge last "until the end of that action", and the action has
@@ -394,6 +452,18 @@ function doMove(state, op, action) {
   });
 
   return { ok: true, distance: plan.length, path: plan.path };
+}
+
+/**
+ * An operative's own printed action. `unique-actions.js` re-checks the limits
+ * and the target (#3) and owns what the effect means; the battle stream is
+ * handed over because a Medikit rolls dice.
+ */
+function doUniqueAction(state, op, action) {
+  const rng = Rng.fromState(state.rng);
+  const result = resolveUniqueAction(state, rng, op, action);
+  state.rng = rng.getState();
+  return result;
 }
 
 function doShoot(state, op, action) {

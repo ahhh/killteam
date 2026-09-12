@@ -34,6 +34,7 @@
  */
 import {
   weaponEffects, ployFamily, tokenFamily, findPloyInPack, familiesForPacks,
+  uniqueActionFamily,
 } from './effect-map.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -347,12 +348,18 @@ export class EffectsLayer {
         if (by) attack.damage.set(by, (attack.damage.get(by) || 0) + (event.amount || 0));
       } else if (event.type === 'PLOY_USED') {
         beats.push({ ploy: event });
+      } else if (event.type === 'RULE_APPLIED' &&
+                 String(event.ruleId || '').startsWith('unique-action:')) {
+        // An operative's own action is as visible a thing as a ploy — a
+        // Medikit should read as a Medikit and not as a pause.
+        beats.push({ unique: event });
       }
     }
 
     let delay = 0;
     for (const beat of beats) {
       if (beat.ploy) this._playPloy(state, beat.ploy, delay);
+      else if (beat.unique) this._playUniqueAction(state, beat.unique, delay);
       else this._playAttack(state, beat, delay);
       delay = Math.min(delay + STAGGER_MS * (this.scale || 1), STAGGER_CAP_MS);
     }
@@ -452,6 +459,25 @@ export class EffectsLayer {
         x: op.x, y: op.y, delay: delay + i * 70 * (this.scale || 1),
       });
     });
+  }
+
+  /**
+   * An operative's own printed action: played on whoever it landed on, which
+   * is usually somebody else. A Medikit belongs over the patient.
+   */
+  _playUniqueAction(state, event, delay) {
+    const actor = state.operatives[event.operativeId];
+    const profile = state.teamPacks?.[event.playerId]?.operatives
+      ?.find((o) => o.id === actor?.profileId);
+    const abilityId = String(event.ruleId).split(':').pop();
+    const ability = (profile?.abilities || []).find((a) => a.id === abilityId);
+    const family = uniqueActionFamily(this.manifest, ability);
+    if (!family) return;
+
+    const on = event.targetId ? state.operatives[event.targetId] : actor;
+    const anchor = on?.placed ? on : actor;
+    if (!anchor?.alive || !anchor.placed) return;
+    this._spawnAt(family, 'mark', { x: anchor.x, y: anchor.y, delay });
   }
 
   /* ---------------------------------------------------------------- */

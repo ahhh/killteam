@@ -26,6 +26,10 @@ import { resourceReadyStep, resetSpendLimits } from './resources.js';
 import {
   expirePloys, activatePloy, reportUnsupportedPloys, expireActivationPloys,
 } from './ploys.js';
+import {
+  reportUnsupportedUniqueActions, resetUniqueTurningPointUses,
+} from './unique-actions.js';
+import { tryGuardInterrupt } from './guard.js';
 
 export const MAX_TURNING_POINTS = 4;
 const CP_PER_TURNING_POINT = 1;
@@ -140,7 +144,13 @@ function beginTurningPoint(state, rng, controllers) {
     op.activatedThisTurningPoint = false;
     resetActivationFlags(op);
     op.counteracted = false;
+    // "…no more than once per turning point": a unique action's shorter leash
+    // comes off here, alongside the ready flags it sits next to.
+    resetUniqueTurningPointUses(op);
   }
+  // One Guard interrupt per enemy activation; last turning point's tally has
+  // nothing left to say.
+  state.guardInterrupts = {};
 
   // Initiative: roll off, re-roll ties. Winner chooses to go first.
   let a, b;
@@ -366,12 +376,23 @@ function runActivation(state, op, controller) {
       // free Dash Vitalised Surge grants for a kill that may not happen. That
       // is a conditional, not a mistake, so it is dropped without complaint.
       if (action.optional) continue;
-      logEvent(state, EVENTS.WARNING, {
-        ruleId: 'illegal-action-rejected',
-        message: `Rejected ${action.type} for ${op.name}: ${result.reason}`,
-        operativeId: op.id,
-      });
+      // A plan is built at the top of the activation, and since Guard and the
+      // free attacks a unique action hands out, things can happen in the
+      // middle of it: the operative this plan meant to fight may already be
+      // dead. That is the plan meeting reality, not a planner that asked for
+      // something illegal, so it is dropped as quietly as an optional tail.
+      if (result.reason !== 'operative down') {
+        logEvent(state, EVENTS.WARNING, {
+          ruleId: 'illegal-action-rejected',
+          message: `Rejected ${action.type} for ${op.name}: ${result.reason}`,
+          operativeId: op.id,
+        });
+      }
+      continue;
     }
+    // An operative that walked across a guarded firing lane gets shot at for
+    // it, before it spends its next point (see rules/guard.js).
+    tryGuardInterrupt(state, op, action.type);
   }
 
   endActivation(state, op);
@@ -462,6 +483,7 @@ export function step(state, controllers) {
       teams: { p1: state.players.p1.teamName, p2: state.players.p2.teamName },
     });
     reportUnsupportedPloys(state);
+    reportUnsupportedUniqueActions(state);
     deployTeam(state, 'p1', rng);
     deployTeam(state, 'p2', rng);
     updateObjectiveControl(state);

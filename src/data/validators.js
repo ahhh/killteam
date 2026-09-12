@@ -12,6 +12,9 @@ import { describeHook } from '../rules/hooks.js';
 import { describeTeamRule, TEAM_RULE_EFFECTS } from '../rules/team-rules.js';
 import { describeResource } from '../rules/resources.js';
 import { CONTROL_CONDITIONS } from '../rules/objectives.js';
+import {
+  TARGET_SCOPES, TARGET_CONDITIONS, UNIQUE_EFFECTS, uniqueActionSupport,
+} from '../rules/unique-actions.js';
 import { TERRAIN_TRAITS } from '../rules/terrain.js';
 import { DISPOSITIONS } from '../ai/tactics.js';
 
@@ -26,6 +29,84 @@ class Report {
   get ok() { return this.errors.length === 0; }
   toJSON() {
     return { subject: this.subject, ok: this.ok, errors: this.errors, warnings: this.warnings };
+  }
+}
+
+/**
+ * An ability's optional `action` block: the difference between a printed rule
+ * an operative can perform and one that is only reference text.
+ *
+ * Validated strictly, because a typo here fails silently and expensively — a
+ * misspelled scope makes the action permanently unavailable and the operative
+ * goes back to having nothing to do, which is exactly the bug this whole
+ * subsystem exists to fix.
+ */
+function validateUniqueAction(report, label, ability) {
+  const def = ability?.action;
+  if (def === undefined) return;
+  const name = ability.name || ability.id || '?';
+  const al = `${label} action "${name}"`;
+  if (!def || typeof def !== 'object' || Array.isArray(def)) {
+    return void report.error(`${al} must be an object`);
+  }
+
+  if (def.ap !== undefined) {
+    if (typeof def.ap !== 'number' || def.ap < 0 || def.ap > 3) {
+      report.error(`${al} ap must be a number from 0 to 3 (got ${JSON.stringify(def.ap)})`);
+    }
+    const printed = /(\d+)\s*AP/i.exec(String(ability.cost ?? ''));
+    if (printed && Number(printed[1]) !== def.ap) {
+      report.warn(`${al} costs ${def.ap} AP but its printed cost reads "${ability.cost}"`);
+    }
+  }
+
+  const effect = def.effect;
+  if (!effect || typeof effect !== 'object') {
+    return void report.error(`${al} declares no effect`);
+  }
+  if (!UNIQUE_EFFECTS.includes(effect.type)) {
+    report.error(`${al} uses an unknown effect "${effect.type}" — expected one of ` +
+      UNIQUE_EFFECTS.join(', '));
+  }
+
+  const target = def.target;
+  if (target !== undefined) {
+    if (!target || typeof target !== 'object') {
+      report.error(`${al} target must be an object`);
+    } else {
+      const scope = target.scope || 'self';
+      if (!TARGET_SCOPES.includes(scope)) {
+        report.error(`${al} target scope "${scope}" is unknown — expected one of ` +
+          TARGET_SCOPES.join(', '));
+      }
+      if (scope === 'within' && !(Number(target.inches) > 0)) {
+        report.error(`${al} target scope "within" needs a positive "inches"`);
+      }
+      for (const key of Object.keys(target)) {
+        if (['scope', 'inches', 'visible'].includes(key)) continue;
+        if (TARGET_CONDITIONS.includes(key)) continue;
+        report.error(`${al} target declares an unknown condition "${key}"`);
+      }
+      if (target.side && !['friendly', 'enemy'].includes(target.side)) {
+        report.error(`${al} target side must be "friendly" or "enemy"`);
+      }
+    }
+  }
+
+  const limits = def.limits;
+  if (limits !== undefined) {
+    if (!limits || typeof limits !== 'object') {
+      report.error(`${al} limits must be an object`);
+    } else {
+      const known = ['notEngaged', 'perTurningPoint', 'perBattle',
+        'notFirstTurningPoint', 'requiresToken', 'requiresResource'];
+      for (const key of Object.keys(limits)) {
+        if (!known.includes(key)) {
+          report.error(`${al} declares an unknown limit "${key}" — expected one of ` +
+            known.join(', '));
+        }
+      }
+    }
   }
 }
 
@@ -127,9 +208,22 @@ export function validateTeamPack(pack) {
     }
 
     const weapons = op.weapons || [];
-    if (!weapons.length) report.warn(`${label} has no weapons and can never attack`);
+    // Weaponless is legal — a servo-skull, a vox beacon — but it had better
+    // have something else to spend its activation on, or it is a model that
+    // sits on the board doing nothing all battle.
+    if (!weapons.length) {
+      const performable = (op.abilities || []).filter((a) => a?.action).length;
+      report.warn(`${label} has no weapons and can never attack` +
+        (performable
+          ? `; it spends its AP on ${performable} unique action(s) instead`
+          : ' and declares no performable unique action, so it can only move'));
+    }
     if (weapons.length > LIMITS.maxWeaponsPerOperative) {
       report.error(`${label} has too many weapons (${weapons.length})`);
+    }
+
+    for (const ability of op.abilities || []) {
+      validateUniqueAction(report, label, ability);
     }
 
     const weaponIds = new Set();
@@ -375,6 +469,19 @@ export function validateTeamPack(pack) {
   }
   if (level >= 3 && !operatives.some((o) => (o.abilities || []).length)) {
     report.warn('supportLevel claims operative abilities but the pack defines none');
+  } else if (level >= 3) {
+    // Transcribing an operative's printed action proves nothing; the pack has
+    // to say what it *does* before the engine can perform it. Reported as a
+    // count rather than a pass/fail, because a pack with some of them wired is
+    // in a genuinely better state than one with none.
+    const { declared, performable } = uniqueActionSupport(pack);
+    if (declared && !performable) {
+      report.warn(`supportLevel claims operative abilities but none of its ${declared} ` +
+        'printed unique actions declare an "action" block, so none can be performed');
+    } else if (declared > performable) {
+      report.warn(`${performable} of ${declared} printed unique actions are performable; ` +
+        `the other ${declared - performable} are reference text`);
+    }
   }
 
   // A misspelled disposition would silently fall back to the faction default,

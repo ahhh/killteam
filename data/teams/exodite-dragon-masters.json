@@ -283,7 +283,25 @@
           "id": "song-of-renewal",
           "name": "SONG OF RENEWAL",
           "cost": "1AP",
-          "description": "PSYCHIC. Select one friendly EXODITE DRAGON MASTER operative visible to this operative. That operative regains up to 2D3 lost wounds. PSYCHIC. Alternatively, each friendly EXODITE DRAGON MASTER operative can regain up to D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point"
+          "description": "PSYCHIC. Select one friendly EXODITE DRAGON MASTER operative visible to this operative. That operative regains up to 2D3 lost wounds. PSYCHIC. Alternatively, each friendly EXODITE DRAGON MASTER operative can regain up to D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "friendly",
+              "visible": true,
+              "keyword": "exodite-dragon-master",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true,
+              "perTurningPoint": 1
+            }
+          }
         }
       ],
       "keywords": [

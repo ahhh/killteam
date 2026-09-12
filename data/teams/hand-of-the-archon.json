@@ -423,7 +423,25 @@
           "id": "administer-drug",
           "name": "ADMINISTER DRUG",
           "cost": "1AP",
-          "description": "Select one friendly HAND OF THE ARCHON operative visible to and within 3\" of this operative, then select one of the following for that friendly operative: It regains up to 2D3 lost wounds.Select a different COMBAT DRUG rule for it to have for the battle (this replaces its previous one). This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly HAND OF THE ARCHON operative visible to and within 3\" of this operative, then select one of the following for that friendly operative: It regains up to 2D3 lost wounds.Select a different COMBAT DRUG rule for it to have for the battle (this replaces its previous one). This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 3,
+              "visible": true,
+              "keyword": "hand-of-the-archon",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

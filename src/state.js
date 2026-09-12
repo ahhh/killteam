@@ -130,6 +130,12 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
           killsThisActivation: 0,
           /** Poison, Blaze, Mindburn and friends — see rules/tokens.js. */
           tokens: [],
+          /**
+           * How often each of its own printed actions has been performed, per
+           * battle and per turning point — "no more than once per battle" is
+           * a limit only this operative can carry (see rules/unique-actions.js).
+           */
+          uniqueUses: { battle: {}, turningPoint: {} },
           extraActions: {},
           freeActions: [],
           chargeWhileConceal: false,

@@ -195,13 +195,49 @@
           "id": "overcharge",
           "name": "OVERCHARGE",
           "cost": "1AP",
-          "description": "Select one other friendly CANOPTEK operative visible to and within 3\" of this operative. Alternatively, if this operative is within your OBELISK NODE MATRIX, you can select one other friendly CANOPTEK CIRCLE CANOPTEK operative within your OBELISK NODE MATRIX. Until the end of that selected operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one other friendly CANOPTEK operative visible to and within 3\" of this operative. Alternatively, if this operative is within your OBELISK NODE MATRIX, you can select one other friendly CANOPTEK CIRCLE CANOPTEK operative within your OBELISK NODE MATRIX. Until the end of that selected operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 3,
+              "visible": true,
+              "keyword": "canoptek",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:overcharge"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "cranial-overload",
           "name": "CRANIAL OVERLOAD",
           "cost": "1AP",
-          "description": "Select one enemy operative visible to and within 3\" of this operative. Alternatively, if this operative is within your OBELISK NODE MATRIX, you can select one enemy operative within your OBELISK NODE MATRIX. Until the end of that enemy operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one enemy operative visible to and within 3\" of this operative. Alternatively, if this operative is within your OBELISK NODE MATRIX, you can select one enemy operative within your OBELISK NODE MATRIX. Until the end of that enemy operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "enemy",
+              "inches": 3,
+              "visible": true
+            },
+            "effect": {
+              "type": "subtractApl",
+              "amount": 1,
+              "token": "apl-drain:cranial-overload"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -260,7 +296,27 @@
           "id": "nanoscarab-beam",
           "name": "NANOSCARAB BEAM",
           "cost": "1AP",
-          "description": "Select one friendly CANOPTEK CIRCLE operative visible to and within 6\" of this operative. Alternatively, if this operative is within your OBELISK NODE MATRIX, you can select one other friendly CANOPTEK CIRCLE operative within your OBELISK NODE MATRIX. The selected operative regains up to 3D3 lost wounds. It cannot be an operative that the Reanimate rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+          "description": "Select one friendly CANOPTEK CIRCLE operative visible to and within 6\" of this operative. Alternatively, if this operative is within your OBELISK NODE MATRIX, you can select one other friendly CANOPTEK CIRCLE operative within your OBELISK NODE MATRIX. The selected operative regains up to 3D3 lost wounds. It cannot be an operative that the Reanimate rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "canoptek-circle",
+              "excludeSelf": true,
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "3D3"
+            },
+            "limits": {
+              "notEngaged": true,
+              "perTurningPoint": 1
+            }
+          }
         }
       ],
       "keywords": [

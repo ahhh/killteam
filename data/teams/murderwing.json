@@ -590,7 +590,22 @@
           "id": "shriek",
           "name": "SHRIEK",
           "cost": "1AP",
-          "description": "Select one enemy operative that's visible to and within 6\" of this operative. Alternatively, select one enemy operative within this operative's BOOST ZONE (at which point this becomes a BOOST action). If enemy operatives are within control range of this operative, you cannot select an enemy operative that isn't. Inflict D3 damage on the selected operative and subtract 1 from its APL stat until the end of its next activation. This operative cannot perform this action while it has a Conceal order. If you're selecting an enemy operative within this operative's BOOST ZONE, this operative cannot perform this action normally. Instead, it performs this action during the Fall Back or Reposition action after setting up from a BOOST."
+          "description": "Select one enemy operative that's visible to and within 6\" of this operative. Alternatively, select one enemy operative within this operative's BOOST ZONE (at which point this becomes a BOOST action). If enemy operatives are within control range of this operative, you cannot select an enemy operative that isn't. Inflict D3 damage on the selected operative and subtract 1 from its APL stat until the end of its next activation. This operative cannot perform this action while it has a Conceal order. If you're selecting an enemy operative within this operative's BOOST ZONE, this operative cannot perform this action normally. Instead, it performs this action during the Fall Back or Reposition action after setting up from a BOOST.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "enemy",
+              "inches": 6,
+              "visible": true
+            },
+            "effect": {
+              "type": "subtractApl",
+              "amount": 1,
+              "token": "apl-drain:shriek"
+            },
+            "notes": "only the subtractApl half is simulated; the printed action also inflicts damage"
+          }
         }
       ],
       "keywords": [

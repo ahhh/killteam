@@ -40,13 +40,21 @@ function key(p) {
  * something on the board is worth walking to — and the rings fill whatever
  * budget is left over as the general-purpose fallback they were meant to be.
  */
-export function generateDestinations(state, op, allowance, { towardEnemies = true } = {}) {
+export function generateDestinations(state, op, allowance,
+  { towardEnemies = true, alsoToward = [] } = {}) {
   const raw = [];
   const enemies = liveOperatives(state).filter((o) => o.playerId !== op.playerId);
 
   // Straight at each objective marker.
   for (const objective of state.objectives) {
     raw.push({ ...stepToward(op, objective, allowance), tag: `obj:${objective.id}` });
+  }
+
+  // Somewhere the caller has its own reason to want to stand: the wounded
+  // friend a Medikit has to reach, which is nothing like an objective and
+  // nothing like an enemy, and so had no candidate on this list at all.
+  for (const point of alsoToward) {
+    raw.push({ ...stepToward(op, point, allowance), tag: `toward:${point.id ?? 'point'}` });
   }
 
   // Closing moves toward each enemy (charges and firing lanes).

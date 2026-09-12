@@ -197,7 +197,19 @@
           "id": "trained-assassin",
           "name": "TRAINED ASSASSIN",
           "cost": "1AP",
-          "description": "Change this operative's order. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Change this operative's order. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "self"
+            },
+            "effect": {
+              "type": "changeOrder"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -312,7 +324,23 @@
           "id": "healing-serum",
           "name": "HEALING SERUM",
           "cost": "1AP",
-          "description": "Select one friendly ELUCIDIAN STARSTRIDER operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly ELUCIDIAN STARSTRIDER operative within this operative's control range to regain up to D3+3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "elucidian-starstrider",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "D3+3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

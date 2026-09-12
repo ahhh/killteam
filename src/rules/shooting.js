@@ -19,7 +19,7 @@ import {
   teamRuleEffect, teamRuleBlocker, noteTeamRuleUse, damageBonusVsToken,
   aplDefenceRule, weaponAdjustments, withAdjustments, notePartialTeamRule,
 } from './team-rules.js';
-import { snapshotTokens, grantToken } from './tokens.js';
+import { snapshotTokens, grantToken, tokenIncomingWeaponRules } from './tokens.js';
 import { diceRerollSpend, grantResourceFromWeapon } from './resources.js';
 import {
   applyAttackHooks, applyDefenceHooks, applyIncomingAttackHooks, rollExpression,
@@ -113,7 +113,11 @@ export function canShoot(state, attackerId, targetId, weapon) {
     (o) => o.id !== attackerId && o.id !== targetId
   );
   const targeting = canBeTargeted(attacker, target, terrain, others, {
-    seek: seekMode(weapon),
+    // A mark this team placed on the target is read here as well as in the
+    // attack: SPOT prints "that enemy operative cannot be obscured", which is
+    // a statement about *selecting* it, so the Seek it grants has to arrive
+    // before the concealed-in-cover veto rather than after.
+    seek: seekWithMarks(state, attacker, target, weapon),
   });
 
   // SHIFTY, IN POSITION and COVERT POSITION all print the same veto, and all
@@ -130,6 +134,20 @@ export function canShoot(state, attackerId, targetId, weapon) {
   if (!targeting.ok) return { ok: false, reason: targeting.reason, sight: targeting.sight };
 
   return { ok: true, sight: targeting.sight, range };
+}
+
+/**
+ * The Seek this shot actually has: the weapon's own, widened by any mark the
+ * attacker's team has placed on the target. `all` beats `light` beats none.
+ */
+function seekWithMarks(state, attacker, target, weapon) {
+  const own = seekMode(weapon);
+  if (own === 'all') return own;
+  const keywords = getProfile(state, attacker)?.keywords || [];
+  const granted = tokenIncomingWeaponRules(target, attacker, weapon, keywords);
+  if (granted.includes('seek')) return 'all';
+  if (granted.includes('seeklight')) return own === 'none' ? 'light' : own;
+  return own;
 }
 
 /**

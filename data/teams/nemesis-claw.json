@@ -654,7 +654,23 @@
           "id": "disconcerting-mimicry",
           "name": "DISCONCERTING MIMICRY",
           "cost": "1AP",
-          "description": "PSYCHIC. Select one enemy operative within 6\" of this operative, then select one of the following for that enemy operative (you can only select each option once per battle): Until the end of its next activation, subtract 1 from its APL stat.Change its order.Perform a free Dash action with it (specify the location for your opponent to move it to). This operative cannot perform this action while within control range of an enemy operative."
+          "description": "PSYCHIC. Select one enemy operative within 6\" of this operative, then select one of the following for that enemy operative (you can only select each option once per battle): Until the end of its next activation, subtract 1 from its APL stat.Change its order.Perform a free Dash action with it (specify the location for your opponent to move it to). This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "enemy",
+              "inches": 6
+            },
+            "effect": {
+              "type": "subtractApl",
+              "amount": 1,
+              "token": "apl-drain:disconcerting-mimicry"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

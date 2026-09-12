@@ -322,7 +322,27 @@
           "id": "spot",
           "name": "SPOT",
           "cost": "1AP",
-          "description": "Select one enemy operative visible to this operative. Until the end of the turning point, until that enemy operative is no longer visible to this operative or until this operative performs this action again (whichever comes first), whenever a friendly IMPERIAL NAVY BREACHER operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one enemy operative visible to this operative. Until the end of the turning point, until that enemy operative is no longer visible to this operative or until this operative performs this action again (whichever comes first), whenever a friendly IMPERIAL NAVY BREACHER operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "mark",
+              "weaponRules": [
+                "seeklight"
+              ],
+              "token": "mark:spot",
+              "keyword": "imperial-navy-breacher"
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "\"cannot be obscured\" is read as Seek Light: this engine does not model obscured separately from cover"
+          }
         }
       ],
       "keywords": [
@@ -418,7 +438,24 @@
           "id": "boost",
           "name": "BOOST",
           "cost": "1AP",
-          "description": "The next time this operative performs a Charge action during this activation, add 4\" to the distance it can move (instead of 2\"). This operative cannot perform this action more than once per battle, and cannot perform it during the first turning point."
+          "description": "The next time this operative performs a Charge action during this activation, add 4\" to the distance it can move (instead of 2\"). This operative cannot perform this action more than once per battle, and cannot perform it during the first turning point.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "self"
+            },
+            "effect": {
+              "type": "moveBonus",
+              "inches": 2,
+              "appliesTo": [
+                "charge"
+              ]
+            },
+            "limits": {
+              "perBattle": 1,
+              "notFirstTurningPoint": true
+            }
+          }
         }
       ],
       "keywords": [

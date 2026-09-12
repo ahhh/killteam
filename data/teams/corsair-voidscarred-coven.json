@@ -658,13 +658,50 @@
           "id": "soul-channel",
           "name": "SOUL CHANNEL",
           "cost": "1AP",
-          "description": "PSYCHIC. Select one other friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "PSYCHIC. Select one other friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "corsair-voidscarred",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:soul-channel"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "soul-heal",
           "name": "SOUL HEAL",
           "cost": "1AP",
-          "description": "PSYCHIC. Select one friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. That operative regains up to 2D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "PSYCHIC. Select one friendly CORSAIR VOIDSCARRED operative visible to and within 6\" of this operative. That operative regains up to 2D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "corsair-voidscarred",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

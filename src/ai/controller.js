@@ -26,6 +26,9 @@ import { dispositionFor, unitTacticsFor, applyTactics } from './tactics.js';
 import {
   openingSpends, meleeSpends, shootingSpends, postKillSpends, canHealItself,
 } from './spending.js';
+import {
+  bestUniqueAction, guardValue, openingSupport, supportDestinationsFor,
+} from './support.js';
 import { chooseStrategicPloys, firefightPloysFor } from './ploys.js';
 import { planCommandPoints } from './cp.js';
 
@@ -350,7 +353,17 @@ export class UtilityController {
     const ployOpening = counteract
       ? null
       : firefightPloysFor(state, op, 'opening', { context: ployContext });
-    const ap = baseAp + spending.apBonus + (ployOpening?.apBonus || 0);
+    // The operative's own printed actions come off the top, like a resource
+    // spend but the other way round: they cost AP rather than buying it, and
+    // the rest of the activation is planned with what is left. A counteraction
+    // is a single action, so there is no "rest" to plan and no opening.
+    const support = counteract
+      ? { actions: [], rationale: [], apCost: 0 }
+      : openingSupport(state, op, {
+          ap: baseAp + spending.apBonus + (ployOpening?.apBonus || 0),
+        });
+    const ap = Math.max(0,
+      baseAp + spending.apBonus + (ployOpening?.apBonus || 0) - support.apCost);
     const buffs = withPloys(meleeSpends(state, op),
       counteract ? null : firefightPloysFor(state, op, 'melee', { context: ployContext }));
     const ployPlans = counteract ? null : {
@@ -366,6 +379,13 @@ export class UtilityController {
       ? this._engagedPlans(state, op, ap, enemies, engaged, buffs)
       : this._freePlans(state, op, ap, enemies, tactics, buffs, ployPlans, shootBuffs);
 
+
+    // Walking over to the operative that needs the medic. A short-ranged
+    // support action has no target from where its carrier is standing, so it
+    // never appeared in the opening above and the carrier had no reason to
+    // close the gap.
+    plans.push(...this._supportApproachPlans(state, op, ap, enemies, engaged,
+      new Set(support.actions.map((a) => a.abilityId))));
 
     plans.push({ actions: [], rationale: ['No useful action found; holds position.'], estimate: {} });
 
@@ -397,8 +417,11 @@ export class UtilityController {
     // A kill unlocks a free Dash for some teams; the tail is conditional, so
     // it is appended to whatever plan won rather than shaping the ranking.
     this._appendPostKill(state, op, chosen, enemies);
+    // …and whatever the winning plan could not think of to do with its last
+    // point. This is where the wasted AP actually went.
+    this._appendSpareAp(state, op, chosen, ap, enemies, counteract, support);
 
-    const apUsed = chosen.estimate?.apUsed || 0;
+    const apUsed = (chosen.estimate?.apUsed || 0) + support.apCost;
     const usesBonus = apUsed > baseAp;
     // The CP that buys an extra AP is only paid if the plan reaches past the
     // AP the operative already had — and past the one a token bought first,
@@ -409,11 +432,15 @@ export class UtilityController {
       ...(usesPloyAp ? ployOpening.actions : []),
       ...spending.always,
       ...(usesBonus ? spending.conditional : []),
+      // After the 0-AP openings, because those are what pay for the AP this
+      // one is about to spend.
+      ...support.actions,
     ];
     const openingNotes = [
       ...(usesPloyAp ? ployOpening.rationale : []),
       ...(spending.always.length || (usesBonus && spending.conditional.length)
         ? spending.rationale : []),
+      ...support.rationale,
     ];
     if (opening.length) chosen.actions = [...opening, ...chosen.actions];
 
@@ -429,6 +456,107 @@ export class UtilityController {
       considered: plans.length,
       score: Number(chosen.score.toFixed(2)),
     };
+  }
+
+  /**
+   * Reposition into reach of a support action, then perform it.
+   *
+   * The destination is judged by the action it unlocks rather than by the
+   * ground, because that is the whole reason for the walk; cover and exposure
+   * still count, so a medic does not cross open ground to save two wounds.
+   */
+  _supportApproachPlans(state, op, ap, enemies, engaged, spent = new Set()) {
+    // Engaged, the only legal move is Fall Back, and a medic in a melee has
+    // more pressing problems than the medikit.
+    if (engaged.length || ap < 2) return [];
+    const wanted = supportDestinationsFor(state, op, { exclude: spent });
+    if (!wanted.length) return [];
+
+    const allowance = usableMoveAllowance(state, op, 'reposition');
+    if (allowance <= 0) return [];
+    const dests = generateDestinations(state, op, allowance, {
+      towardEnemies: false, alsoToward: wanted,
+    });
+
+    let best = null;
+    for (const dest of dests) {
+      if (dest.length <= 0) continue;
+      const reach = bestUniqueAction(state, op, { from: dest, exclude: spent });
+      if (!reach || reach.ap > ap - 1) continue;
+      const score = reach.value +
+        this._cover(state, op, dest.x, dest.y, enemies) * 0.5 -
+        this._exposure(state, op, dest.x, dest.y, enemies) * 0.3;
+      if (!best || score > best.score) best = { dest, reach, score };
+    }
+    if (!best) return [];
+
+    return [{
+      actions: [
+        { type: 'reposition', destination: { x: best.dest.x, y: best.dest.y } },
+        // The walk is judged from a destination the move planner validated,
+        // but the engine re-measures from wherever the operative actually
+        // ends up (#3) — and an inch short of a one-inch control range is
+        // short. The ground is worth having either way, so the action is a
+        // conditional tail rather than a claim.
+        { ...best.reach.action, optional: true },
+      ],
+      rationale: [
+        `Moves ${best.dest.length.toFixed(1)}" to reach ${best.reach.targetName}`,
+        `${best.reach.name} on ${best.reach.targetName}`,
+      ],
+      estimate: {
+        apUsed: 1 + best.reach.ap,
+        support: best.reach.value,
+        endsAt: { x: best.dest.x, y: best.dest.y },
+        moved: best.dest.length,
+      },
+    }];
+  }
+
+  /**
+   * The last point, and what to do with it.
+   *
+   * Called on the plan that already won, so nothing here can change which plan
+   * is chosen — it only stops the leftovers evaporating. In order of
+   * preference: the operative's own action, then Guard, which is what a spare
+   * point is for once there is nothing left to shoot at.
+   *
+   * Every appended action is `optional`: the plan's own estimate may be wrong
+   * about how much AP it spends, and a tail the engine refuses should be
+   * dropped without a warning rather than reported as a bug (see phases.js).
+   */
+  _appendSpareAp(state, op, plan, ap, enemies, counteract, support) {
+    // A counteraction is one action, full stop; a tail would be a second.
+    if (counteract) return;
+    let spare = ap - (plan.estimate?.apUsed || 0);
+    if (spare <= 0) return;
+
+    // `ap` is already net of the support opening, but the abilities it used
+    // are not available a second time.
+    const planned = new Set([
+      ...plan.actions.filter((a) => a.type === 'unique').map((a) => a.abilityId),
+      ...(support?.actions || []).map((a) => a.abilityId),
+    ]);
+    for (let i = 0; i < 2 && spare > 0; i++) {
+      const extra = bestUniqueAction(state, op, { exclude: planned });
+      if (!extra || extra.ap > spare) break;
+      plan.actions = [...plan.actions, { ...extra.action, optional: true }];
+      plan.rationale = [...plan.rationale,
+        `${extra.name} on ${extra.targetName} with the spare AP`];
+      planned.add(extra.action.abilityId);
+      spare -= extra.ap;
+    }
+
+    if (spare <= 0) return;
+    // Guard is priced, not automatic: an operative with nothing that could
+    // ever walk into its lane keeps the point rather than posing with it.
+    if (guardValue(state, op, enemies) <= 0) return;
+    // Guard needs Engage, and an operative that has spent its activation
+    // hiding should not give that up for a shot it may never take.
+    if (op.order !== 'engage') return;
+    if (plan.actions.some((a) => a.type === 'guard')) return;
+    plan.actions = [...plan.actions, { type: 'guard', optional: true }];
+    plan.rationale = [...plan.rationale, 'Holds the last point on Guard'];
   }
 
   /**
@@ -965,9 +1093,14 @@ export class UtilityController {
     // one off stops it trading the big cast away for a safer sidearm shot.
     const spell = e.psychic ? (tactics?.spellBonus ?? 0) : 0;
 
+    // A support action is priced in expected wounds (see ai/support.js), so it
+    // rides the same weight a shot does and a heal can out-rank a poor shot.
+    const support = e.support || 0;
+
     plan.score =
       w.damage * damage +
       w.damage * splash * (tactics?.splashWeight ?? 1) +
+      w.damage * support +
       spell +
       killBonus +
       w.objective * objective +
@@ -981,6 +1114,7 @@ export class UtilityController {
 
     plan.breakdown = {
       damage: Number((w.damage * damage).toFixed(2)),
+      support: Number((w.damage * support).toFixed(2)),
       splash: Number((w.damage * splash * (tactics?.splashWeight ?? 1)).toFixed(2)),
       spell: Number(spell.toFixed(2)),
       kill: Number(killBonus.toFixed(2)),

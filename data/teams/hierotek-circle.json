@@ -310,7 +310,25 @@
           "id": "canoptek-repair",
           "name": "CANOPTEK REPAIR",
           "cost": "1AP",
-          "description": "SUPPORT. Select one friendly HIEROTEK CIRCLE operative visible to and within 6\" of this operative to regain up to 2D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or if a friendly operative has already performed this action during this turning point."
+          "description": "SUPPORT. Select one friendly HIEROTEK CIRCLE operative visible to and within 6\" of this operative to regain up to 2D3 lost wounds. This operative cannot perform this action while within control range of an enemy operative, or if a friendly operative has already performed this action during this turning point.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "hierotek-circle",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "augment-weapon",
@@ -381,7 +399,24 @@
           "id": "accelerate",
           "name": "ACCELERATE",
           "cost": "1AP",
-          "description": "Select one friendly DEATHMARK or IMMORTAL operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly DEATHMARK or IMMORTAL operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:accelerate"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

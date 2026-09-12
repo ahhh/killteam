@@ -346,6 +346,13 @@ table.stats td.num { font-variant-numeric: tabular-nums; }
 
 .muted { color: var(--text-faint); font-size: 11px; }
 
+/* An ability the engine can actually perform, on the character sheet. Marked
+   rather than coloured: the list next to it is printed rules this engine
+   carries as reference text, and the difference between the two is the whole
+   point of the distinction. */
+#inspectBody li.performable { color: var(--text); }
+#inspectBody li.performable::marker { content: '▸ '; color: var(--accent, #6ea8d8); }
+
 /* Flavour prose: a team's or an operative's lore. Set apart from the rules
    text around it by a rule down the left edge rather than by colour, so it
    stays readable at the size a paragraph wants to be read at. */

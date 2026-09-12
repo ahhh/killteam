@@ -807,7 +807,26 @@
           "id": "spot",
           "name": "SPOT",
           "cost": "1AP",
-          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly RATLING operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly RATLING operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "mark",
+              "weaponRules": [
+                "seeklight"
+              ],
+              "token": "mark:spot"
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "the benefit reaches every friendly operative, not only those within the printed distance of the spotter; \"cannot be obscured\" is read as Seek Light: this engine does not model obscured separately from cover"
+          }
         }
       ],
       "keywords": [
@@ -946,7 +965,26 @@
           "id": "intercept-communications",
           "name": "INTERCEPT COMMUNICATIONS",
           "cost": "1AP",
-          "description": "SUPPORT. Select one other friendly RATLING operative visible to and within 6\" of this operative. Until the end of its next activation, add 1 to that operative's APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one other friendly RATLING operative visible to and within 6\" of this operative. Until the end of its next activation, add 1 to that operative's APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "ratling",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:intercept-communications"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

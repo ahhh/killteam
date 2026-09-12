@@ -31,7 +31,7 @@ function pack(id, profile) {
       baseDiameter: 1.25,
       stats: { move: profile.move ?? 6, apl: profile.apl ?? 2, save: profile.save ?? 4, wounds: profile.wounds ?? 10 },
       weapons: profile.weapons ?? [weapon(), melee()],
-      abilities: [], keywords: profile.keywords ?? [],
+      abilities: profile.abilities ?? [], keywords: profile.keywords ?? [],
     }],
     strategicPloys: profile.strategicPloys ?? [],
     firefightPloys: profile.firefightPloys ?? [],

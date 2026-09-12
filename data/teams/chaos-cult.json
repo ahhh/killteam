@@ -115,7 +115,27 @@
           "id": "incite-slaughter",
           "name": "INCITE SLAUGHTER",
           "cost": "1AP",
-          "description": "SUPPORT. One other friendly CHAOS CULT operative visible to and within 9\" of this operative can immediately perform a free Fight action. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. One other friendly CHAOS CULT operative visible to and within 9\" of this operative can immediately perform a free Fight action. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 9,
+              "visible": true,
+              "keyword": "chaos-cult"
+            },
+            "effect": {
+              "type": "freeAction",
+              "action": "fight",
+              "immediate": true,
+              "unrestricted": true
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "the engine picks the target of the free action, using the same policy a Guard interrupt does"
+          }
         },
         {
           "id": "incite-urgency",
@@ -293,7 +313,23 @@
           "id": "heinous-deluge",
           "name": "HEINOUS DELUGE",
           "cost": "1AP",
-          "description": "PSYCHIC. Select one enemy operative that's a valid target for this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "PSYCHIC. Select one enemy operative that's a valid target for this operative. Until the end of that operative's next activation, subtract 1 from its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "validTarget",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "subtractApl",
+              "amount": 1,
+              "token": "apl-drain:heinous-deluge"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "malefic-vortex",

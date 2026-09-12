@@ -150,7 +150,25 @@
           "id": "signal",
           "name": "SIGNAL",
           "cost": "1AP",
-          "description": "Select one other friendly SPECTRE SQUAD operative within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one other friendly SPECTRE SQUAD operative within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "keyword": "spectre-squad",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:signal"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -225,7 +243,23 @@
           "id": "medikit",
           "name": "MEDIKIT",
           "cost": "0AP",
-          "description": "Select one friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 0,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "spectre-squad",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -586,7 +620,26 @@
           "id": "load-weapon",
           "name": "LOAD WEAPON",
           "cost": "1AP",
-          "description": "Select one friendly SPECTRE SQUAD operative within this operative's control range and not within 3\" of enemy operatives. That friendly operative can immediately perform a free Shoot action (excluding Guard), and you can change its order to do so. This operative cannot perform this action while within control range of an enemy operative, while counteracting, or during an activation in which it performed the Charge, Dash or Shoot action (or vice versa)."
+          "description": "Select one friendly SPECTRE SQUAD operative within this operative's control range and not within 3\" of enemy operatives. That friendly operative can immediately perform a free Shoot action (excluding Guard), and you can change its order to do so. This operative cannot perform this action while within control range of an enemy operative, while counteracting, or during an activation in which it performed the Charge, Dash or Shoot action (or vice versa).",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "spectre-squad"
+            },
+            "effect": {
+              "type": "freeAction",
+              "action": "shoot",
+              "immediate": true,
+              "unrestricted": true,
+              "allowOrderChange": true
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "the engine picks the target of the free action, using the same policy a Guard interrupt does; only the freeAction half is simulated; the printed action also changes an order"
+          }
         }
       ],
       "keywords": [
@@ -902,7 +955,25 @@
           "id": "signal",
           "name": "SIGNAL",
           "cost": "1AP",
-          "description": "SUPPORT. Select one other friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) visible to this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one other friendly SPECTRE SQUAD operative (excluding VOX-RELAY BEACON) visible to this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "friendly",
+              "visible": true,
+              "keyword": "spectre-squad",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:signal"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

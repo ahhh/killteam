@@ -155,6 +155,18 @@ PLOY_EFFECTS = {
     "denyTargeting": "hex",
     "clearTokens": "hex",
     "healWounds": "mend",
+    # An operative's own printed action reaches this table through the same
+    # effect-type names a ploy uses, so most of the vocabulary above already
+    # covers it. These are the ones only a unique action declares (see
+    # src/rules/unique-actions.js); each points at a family that already
+    # exists, so no new art is generated for them.
+    "mark": "hex",
+    "subtractApl": "hex",
+    "weaponBoost": "warcry",
+    "moveBonus": "comms",
+    "gainResource": "mend",
+    "gainCp": "comms",
+    "discardToken": "ward",
 }
 
 #: Token kind -> the loop that hangs on an operative carrying it.

@@ -250,7 +250,23 @@
           "id": "medikit",
           "name": "MEDIKIT",
           "cost": "0AP",
-          "description": "Select one friendly KASRKIN operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly KASRKIN operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 0,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "kasrkin",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

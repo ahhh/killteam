@@ -289,7 +289,26 @@
           "id": "stirring-rhetoric",
           "name": "STIRRING RHETORIC",
           "cost": "1AP",
-          "description": "SUPPORT. Select one other friendly NOVITIATE operative visible to and within 6\" of this operative, or within 6\" of your Auto-broadcaster marker. Until the end of that operative's next activation, add 1 to its APL stat (to a maximum of 3 after all APL stat changes have been totalled). This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one other friendly NOVITIATE operative visible to and within 6\" of this operative, or within 6\" of your Auto-broadcaster marker. Until the end of that operative's next activation, add 1 to its APL stat (to a maximum of 3 after all APL stat changes have been totalled). This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "novitiate",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:stirring-rhetoric"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         },
         {
           "id": "auto-broadcaster",
@@ -409,7 +428,27 @@
           "id": "whip-into-frenzy",
           "name": "WHIP INTO FRENZY",
           "cost": "1AP",
-          "description": "Select one other friendly NOVITIATE operative (excluding SUPERIOR) visible to and within 3\" of this operative that isn't currently benefitting from the effects of this action. Until the end of that operative's next activation, add 1 to its APL stat, add 1\" to its Move stat, and it can perform two Fight actions during its next activation. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one other friendly NOVITIATE operative (excluding SUPERIOR) visible to and within 3\" of this operative that isn't currently benefitting from the effects of this action. Until the end of that operative's next activation, add 1 to its APL stat, add 1\" to its Move stat, and it can perform two Fight actions during its next activation. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 3,
+              "visible": true,
+              "keyword": "novitiate",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:whip-into-frenzy"
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "only the addApl half is simulated; the printed action also improves Move, grants a repeated action"
+          }
         }
       ],
       "keywords": [
@@ -468,7 +507,23 @@
           "id": "chirurgeon-s-tools",
           "name": "CHIRURGEON'S TOOLS",
           "cost": "1AP",
-          "description": "Select one friendly NOVITIATE operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly NOVITIATE operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "novitiate",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

@@ -266,7 +266,18 @@
           "id": "knux-smash",
           "name": "KNUX SMASH",
           "cost": "1AP",
-          "description": "Select one enemy operative within this operative's control range. You can move that enemy operative up to 3\" to a location it can be placed. Then inflict D3+1 damage on it (even if you don't move it); if the D3 result is a 3, also subtract 1 from that enemy operative's APL stat until the end of its next activation. This operative can then immediately perform a free Charge action (even if it's already performed the Charge action during that activation), but cannot move more than 3\" during that action. This operative cannot perform this action unless an enemy operative is within its control range."
+          "description": "Select one enemy operative within this operative's control range. You can move that enemy operative up to 3\" to a location it can be placed. Then inflict D3+1 damage on it (even if you don't move it); if the D3 result is a 3, also subtract 1 from that enemy operative's APL stat until the end of its next activation. This operative can then immediately perform a free Charge action (even if it's already performed the Charge action during that activation), but cannot move more than 3\" during that action. This operative cannot perform this action unless an enemy operative is within its control range.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "enemy"
+            },
+            "effect": {
+              "type": "inflictDamage",
+              "dice": "D3+1"
+            }
+          }
         }
       ],
       "keywords": [
@@ -323,7 +334,23 @@
           "id": "medikit",
           "name": "MEDIKIT",
           "cost": "1AP",
-          "description": "Select one friendly HEARTHKYN SALVAGER operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly HEARTHKYN SALVAGER operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "hearthkyn-salvager",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -834,7 +861,26 @@
           "id": "spot",
           "name": "SPOT",
           "cost": "1AP",
-          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly HEARTHKYN SALVAGER operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly HEARTHKYN SALVAGER operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "mark",
+              "weaponRules": [
+                "seeklight"
+              ],
+              "token": "mark:spot"
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "the benefit reaches every friendly operative, not only those within the printed distance of the spotter; \"cannot be obscured\" is read as Seek Light: this engine does not model obscured separately from cover"
+          }
         },
         {
           "id": "pan-spectral-scan",

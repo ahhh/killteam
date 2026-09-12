@@ -548,7 +548,23 @@
           "id": "medikit",
           "name": "MEDIKIT",
           "cost": "1AP",
-          "description": "Select one friendly DEATH KORPS operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Select one friendly DEATH KORPS operative within this operative's control range to regain up to 2D3 lost wounds. It cannot be an operative that the Medic! rule was used on during this turning point. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "controlRange",
+              "side": "friendly",
+              "keyword": "death-korps",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "2D3"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -776,7 +792,26 @@
           "id": "spot",
           "name": "SPOT",
           "cost": "1AP",
-          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly DEATH KORPS operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one enemy operative visible to this operative. Until the end of the turning point, whenever a friendly DEATH KORPS operative within 3\" of this operative is shooting that enemy operative, you can use this effect. If you do:That friendly operative's ranged weapons have the Seek Light weapon rule.That enemy operative cannot be obscured.This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "enemy",
+              "visible": true
+            },
+            "effect": {
+              "type": "mark",
+              "weaponRules": [
+                "seeklight"
+              ],
+              "token": "mark:spot"
+            },
+            "limits": {
+              "notEngaged": true
+            },
+            "notes": "the benefit reaches every friendly operative, not only those within the printed distance of the spotter; \"cannot be obscured\" is read as Seek Light: this engine does not model obscured separately from cover"
+          }
         }
       ],
       "keywords": [
@@ -930,7 +965,26 @@
           "id": "signal",
           "name": "SIGNAL",
           "cost": "1AP",
-          "description": "SUPPORT. Select one other friendly DEATH KORPS operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one other friendly DEATH KORPS operative visible to and within 6\" of this operative. Until the end of that operative's next activation, add 1 to its APL stat. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "side": "friendly",
+              "inches": 6,
+              "visible": true,
+              "keyword": "death-korps",
+              "excludeSelf": true
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "apl-boost:signal"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

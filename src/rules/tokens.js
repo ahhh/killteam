@@ -196,6 +196,36 @@ export function tokenWeaponRules(op, weapon) {
   return out;
 }
 
+/**
+ * Weapon rules a token grants to whoever is attacking its holder.
+ *
+ * The opposite direction from `tokenWeaponRules`, and the shape every printed
+ * "mark" action takes: SPOT, VERISCANT, APPREHEND all hang something on an
+ * enemy and then read "whenever a friendly X operative is shooting that enemy
+ * operative…". The rules handed out are the published universal ones — Seek
+ * for "cannot be obscured", Saturate for "cannot retain cover" — so nothing
+ * new has to resolve them; only the owner has to match, because a mark is one
+ * team's intelligence and not a general weakness.
+ *
+ * @param {object} target the operative being attacked
+ * @param {object} attacker the one attacking it
+ * @returns {string[]} rule tokens, in the order the marks were placed.
+ */
+export function tokenIncomingWeaponRules(target, attacker, weapon, keywords = []) {
+  const out = [];
+  for (const t of tokensOf(target)) {
+    const grant = t.whileHeld?.incomingWeaponRules;
+    if (!grant) continue;
+    // A mark only helps the team that placed it.
+    if (t.owner !== attacker?.playerId) continue;
+    if (t.whileHeld.incomingWeaponType && weapon?.type !== t.whileHeld.incomingWeaponType) continue;
+    // "whenever a friendly IMPERIAL NAVY BREACHER operative is shooting…"
+    if (t.whileHeld.incomingKeyword && !keywords.includes(t.whileHeld.incomingKeyword)) continue;
+    for (const rule of grant) if (!out.includes(rule)) out.push(rule);
+  }
+  return out;
+}
+
 /* ------------------------------------------------------------------ */
 /* Lifecycle                                                           */
 /* ------------------------------------------------------------------ */

@@ -3,6 +3,7 @@
   "factionId": "chaos-space-marines",
   "displayName": "Covenant of the Hidden Word",
   "blurb": "A single warrior-priest of the XVII Legion infiltrates a world decades before open war begins, and around himself gathers the bitter, the desperate and the faithful. A congregation becomes a sect; a sect becomes cells. Then the Word is spoken, and the world discovers that the rebellion has already begun.",
+  "lore": "A fan-made kill team: an Apostle of the Word Bearers and the cell he has spent years growing inside a loyal world. The Legionary does not lead the fight so much as supervise the harvest, and the mortals around him have no idea that their faith was cultivated rather than discovered. Most of them will die believing they were the point.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -23,7 +24,7 @@
     "selectionRules": [
       "A COVENANT OF THE HIDDEN WORD kill team consists of 9 operatives: 1 WORD BEARER DARK APOSTLE, 2 CULT DEVOTEE operatives, and 6 different operatives selected from the following list: CELL DEMAGOGUE, ICONARCH, FIREBRAND, SABOTEUR, MALEFIC WITCH, TURNCOAT GUNNER, CELL ENFORCER, SLEEPER AGENT, VOX SEDITIONIST. You cannot select the same specialist more than once.",
       "The Dark Apostle has the CHAOS, WORD BEARERS, HERETIC ASTARTES, DARK APOSTLE, LEADER keywords. All other operatives have the CHAOS, WORD BEARERS, CULTIST keywords.",
-      "The bundled covenant is one legal nine \u2014 Apostle, Iconarch, Firebrand, Cell Enforcer, Sleeper Agent, Turncoat Gunner and Malefic Witch, plus the two Devotees. It is chosen for this engine rather than from the brief: the Cell Demagogue, the Saboteur and the Vox Seditionist are built around Reveal Cell, Pick Up Marker and mission actions, none of which this engine has, so fielding them spends three of the six specialist slots on bodies with no rules. Swapping them for the six specialists whose abilities do resolve took the covenant from 21% to 43% across 60 battles against Legionary, the Blooded, Chaos Cult, Novitiates and Kommandos. Every one of the nine is still available to a hand-written roster."
+      "The bundled covenant is one legal nine — Apostle, Iconarch, Firebrand, Cell Enforcer, Sleeper Agent, Turncoat Gunner and Malefic Witch, plus the two Devotees. It is chosen for this engine rather than from the brief: the Cell Demagogue, the Saboteur and the Vox Seditionist are built around Reveal Cell, Pick Up Marker and mission actions, none of which this engine has, so fielding them spends three of the six specialist slots on bodies with no rules. Swapping them for the six specialists whose abilities do resolve took the covenant from 21% to 43% across 60 battles against Legionary, the Blooded, Chaos Cult, Novitiates and Kommandos. Every one of the nine is still available to a hand-written roster."
     ],
     "operatives": [
       {
@@ -68,6 +69,7 @@
     {
       "id": "word-bearer-dark-apostle",
       "name": "Word Bearer Dark Apostle",
+      "lore": "He has preached this world into position over a decade, and today is simply the sermon's last line. He does not hurry, and he does not need to be present for most of what he has arranged.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -138,6 +140,7 @@
     {
       "id": "cell-demagogue",
       "name": "Cell Demagogue",
+      "lore": "The Apostle's mortal voice, and the only member of the cell who has met him. He believes he is the leader and has been carefully allowed to.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -172,7 +175,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -199,6 +202,7 @@
     {
       "id": "iconarch",
       "name": "Iconarch",
+      "lore": "He carries the sigil that the cell was taught to pray towards, without knowing what it actually marks or who it is signalling.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -233,7 +237,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -260,6 +264,7 @@
     {
       "id": "firebrand",
       "name": "Firebrand",
+      "lore": "A preacher with a torch and a gift for crowds. Where he has spoken, the district burns before the cell arrives.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -297,7 +302,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -318,6 +323,7 @@
     {
       "id": "saboteur",
       "name": "Saboteur",
+      "lore": "He has been inside the infrastructure of this hive for years in an entirely legitimate capacity. Every charge is where it is because of a work order.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -352,7 +358,7 @@
             "critical": 3
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         },
         {
           "id": "demolition-charge",
@@ -391,6 +397,7 @@
     {
       "id": "malefic-witch",
       "name": "Malefic Witch",
+      "lore": "The Apostle found her early and shaped what came through her. She thinks the shaping was divine favour, which is close enough to true to be useless to argue with.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -428,7 +435,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -450,6 +457,7 @@
     {
       "id": "turncoat-gunner",
       "name": "Turncoat Gunner",
+      "lore": "Militia, once. He kept the weapon, the training and the uniform, and the uniform is still doing most of the work.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -503,7 +511,7 @@
             "critical": 3
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -524,6 +532,7 @@
     {
       "id": "cell-enforcer",
       "name": "Cell Enforcer",
+      "lore": "He keeps the faithful faithful, with the same methods the Arbites use and a considerably shorter approval process.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -587,6 +596,7 @@
     {
       "id": "sleeper-agent",
       "name": "Sleeper Agent",
+      "lore": "Nobody in the cell knows his role and neither, on most days, does he. The instruction, when it comes, will not feel like an instruction.",
       "role": "sniper",
       "baseDiameter": 1.26,
       "stats": {
@@ -624,7 +634,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -651,6 +661,7 @@
     {
       "id": "vox-seditionist",
       "name": "Vox Seditionist",
+      "lore": "He owns the district's broadcast for as long as it takes, and what he puts out is precisely calibrated to make the response late.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -671,7 +682,7 @@
             "critical": 3
           },
           "rules": [],
-          "rulesText": "\u2014",
+          "rulesText": "—",
           "range": 48
         },
         {
@@ -685,7 +696,7 @@
             "critical": 3
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -712,6 +723,7 @@
     {
       "id": "autogun-devotee",
       "name": "Cult Devotee (Autogun)",
+      "lore": "A believer with a weapon and no training worth the name. He fires from cover, at length, and is mostly there to be counted.",
       "role": "flexible",
       "baseDiameter": 1.1,
       "stats": {
@@ -732,7 +744,7 @@
             "critical": 3
           },
           "rules": [],
-          "rulesText": "\u2014",
+          "rulesText": "—",
           "range": 48
         },
         {
@@ -746,7 +758,7 @@
             "critical": 3
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -767,6 +779,7 @@
     {
       "id": "zealot-devotee",
       "name": "Cult Devotee (Zealot)",
+      "lore": "He has nothing but conviction and a length of metal, and he closes the distance faster than the armed men beside him.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -801,7 +814,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -937,7 +950,7 @@
         ]
       },
       "partial": true,
-      "notes": "\"while it has Cover from terrain\" is not known before the target is chosen, so a Conceal order \u2014 the posture a gunner in cover holds \u2014 stands in for it"
+      "notes": "\"while it has Cover from terrain\" is not known before the target is chosen, so a Conceal order — the posture a gunner in cover holds — stands in for it"
     },
     {
       "id": "perfectly-ordinary-citizen",
@@ -1058,7 +1071,7 @@
             ]
           },
           "partial": true,
-          "notes": "the Dark Creed is free and exclusive on the tabletop \u2014 one of three, chosen each Strategy phase; here each Creed is a strategic ploy that costs a CP, which is the engine's only Strategy-phase choice. Congregation is the 6\" leash on the Apostle without the line-of-sight test, since Cult Cells are not placed."
+          "notes": "the Dark Creed is free and exclusive on the tabletop — one of three, chosen each Strategy phase; here each Creed is a strategic ploy that costs a CP, which is the engine's only Strategy-phase choice. Congregation is the 6\" leash on the Apostle without the line-of-sight test, since Cult Cells are not placed."
         }
       ]
     },
@@ -1081,7 +1094,7 @@
             "type": "ignoreInjured"
           },
           "partial": true,
-          "notes": "the Dark Creed is free and exclusive on the tabletop \u2014 one of three, chosen each Strategy phase; here each Creed is a strategic ploy that costs a CP, which is the engine's only Strategy-phase choice."
+          "notes": "the Dark Creed is free and exclusive on the tabletop — one of three, chosen each Strategy phase; here each Creed is a strategic ploy that costs a CP, which is the engine's only Strategy-phase choice."
         },
         {
           "trigger": "onActivationStart",
@@ -1108,7 +1121,7 @@
             }
           },
           "partial": true,
-          "notes": "\"treated as having +1 APL when determining control of markers\" is carried as a token the cultist picks up when it activates inside the Congregation, because control is recomputed continuously and a ploy's hooks only fire at an operative's own activation \u2014 so a cultist that has not yet activated this turning point does not have it yet"
+          "notes": "\"treated as having +1 APL when determining control of markers\" is carried as a token the cultist picks up when it activates inside the Congregation, because control is recomputed continuously and a ploy's hooks only fire at an operative's own activation — so a cultist that has not yet activated this turning point does not have it yet"
         }
       ]
     },

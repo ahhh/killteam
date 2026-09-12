@@ -20,7 +20,7 @@ the battle log as an unsupported rule — never silently guessed (invariant #7).
 - Action points from APL, reduced by 1 while Injured (minimum 1)
 - Each action once per activation
 - **Reposition** — move up to Move
-- **Dash** — move 2"
+- **Dash** — move 3"
 - **Charge** — move Move + 2", must end within control range of the target
 - **Fall Back** — move up to Move, must end outside enemy control range;
   forbids Shoot, Fight and Charge for the rest of that activation

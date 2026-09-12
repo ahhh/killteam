@@ -3,6 +3,7 @@
   "factionId": "t-au-empire",
   "displayName": "Pathfinders",
   "blurb": "Specialist reconnaissance infantry, T'au Pathfinders range far ahead of their allies. Pathfinder kill teams are capable of operating independently of the main T'au force, and are equipped for almost any situation. Their advanced wargear and potent weaponry enable them to disrupt communications, perform acts of sabotage and destroy targets.",
+  "lore": "Pathfinders go out in front of a Hunter Cadre and paint the battlefield for it. They are young, they are expendable in a way the T'au will never say aloud, and the markerlight they carry is worth more to the Greater Good than any of them individually. A Pathfinder's war is watching, marking, and hoping the railguns are quick.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -77,6 +78,7 @@
     {
       "id": "shas-ui-pathfinder",
       "name": "Shas'ui Pathfinder",
+      "lore": "Experienced enough to have survived a full deployment as a Shas'la, which puts him in a minority. He runs the team's marking priorities.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -132,6 +134,7 @@
     {
       "id": "shas-la-pathfinder",
       "name": "Shas'la Pathfinder",
+      "lore": "Carbine, markerlight, and a first campaign. He has been told the odds and believes the cause justifies them.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -186,6 +189,7 @@
     {
       "id": "blooded-pathfinder",
       "name": "Blooded Pathfinder",
+      "lore": "He has been in close combat and come out, which among Pathfinders makes him something of a curiosity and slightly suspect.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -242,6 +246,7 @@
     {
       "id": "drone-controller-pathfinder",
       "name": "Drone Controller Pathfinder",
+      "lore": "He runs the team's drones as an extension of his own attention, and the drones are better at it than he is.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -302,6 +307,7 @@
     {
       "id": "transpectral-interference-pathfinder",
       "name": "Transpectral Interference Pathfinder",
+      "lore": "He makes the enemy's sensors disagree with each other, which is a quieter contribution than the railgun and often the reason for it.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -362,6 +368,7 @@
     {
       "id": "assault-grenadier-pathfinder",
       "name": "Assault Grenadier Pathfinder",
+      "lore": "The team's answer to anything that gets closer than the doctrine allows. He is used with relief.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -435,6 +442,7 @@
     {
       "id": "comms-specialist-pathfinder",
       "name": "Comms Specialist Pathfinder",
+      "lore": "He keeps the cadre's net coherent across broken ground, and the cadre's fire is only as good as that net.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -495,6 +503,7 @@
     {
       "id": "medical-technician-pathfinder",
       "name": "Medical Technician Pathfinder",
+      "lore": "The Greater Good does not require unnecessary losses. He is the enforcement of that clause.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -556,6 +565,7 @@
     {
       "id": "weapons-expert-pathfinder",
       "name": "Weapons Expert Pathfinder",
+      "lore": "Rail rifle or ion, chosen against the threat brief and carried by whoever scored highest on the range.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -641,6 +651,7 @@
     {
       "id": "marksman-pathfinder",
       "name": "Marksman Pathfinder",
+      "lore": "One shot, from a position selected an hour earlier, at whoever the markerlights have agreed upon.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -709,6 +720,7 @@
     {
       "id": "mb3-recon-drone",
       "name": "MB3 Recon Drone",
+      "lore": "It goes where a Shas'la would be lost and relays what it sees without editorialising.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -787,6 +799,7 @@
     {
       "id": "mv1-gun-drone",
       "name": "MV1 Gun Drone",
+      "lore": "Twin pulse carbines and a machine's reaction time. It is not brave and does not need to be.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -837,6 +850,7 @@
     {
       "id": "mv4-shield-drone",
       "name": "MV4 Shield Drone",
+      "lore": "It interposes a shield generator between the cadre's investment and the enemy's fire, and is entirely willing to be destroyed doing it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -871,6 +885,7 @@
     {
       "id": "mv7-marker-drone",
       "name": "MV7 Marker Drone",
+      "lore": "A markerlight with a hover unit. Everything the cadre shoots at is better for its attention.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -912,6 +927,7 @@
     {
       "id": "mv31-pulse-accelerator-drone",
       "name": "MV31 Pulse Accelerator Drone",
+      "lore": "It tunes the team's carbines to reach further than the specification. The specification was conservative.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -953,6 +969,7 @@
     {
       "id": "mv33-grav-inhibitor-drone",
       "name": "MV33 Grav-inhibitor Drone",
+      "lore": "It makes the ground in front of the team difficult to cross quickly, which is the entire Pathfinder doctrine in one device.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

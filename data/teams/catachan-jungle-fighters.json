@@ -3,6 +3,7 @@
   "factionId": "astra-militarum",
   "displayName": "Catachan Jungle Fighters",
   "blurb": "The Catachan II “Green Vipers”: death-world veterans who fight from cover and concealment, closing through jungle and ruin with blade, flamer and improvised demolition.",
+  "lore": "Catachan does not train soldiers; it selects them, and the selection is over by the age of ten. What ships off-world afterwards is a regiment of people for whom a death world is a familiar working environment and an enemy army is a change of scenery. They are insubordinate, under-uniformed and consistently the wrong troops to send anywhere with a parade ground — and exactly the right ones to send into the trees.",
   "edition": "kill-team-2021",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -71,6 +72,7 @@
     {
       "id": "colonel-straken",
       "name": "Colonel Straken",
+      "lore": "More augmetic than man below the ribs, and entirely unchanged above them. He leads from the front because he has never once found a reason not to, and the regiment follows because he has always come back.",
       "role": "flexible",
       "baseDiameter": 1.25,
       "blurb": "Colonel 'Iron Hand' Straken, renowned as Catachan's “Man of Adamantium”, is the commanding officer of the Catachan II “Green Vipers” regiment of the Imperial Guard.",
@@ -126,6 +128,7 @@
     {
       "id": "sgt-harker",
       "name": "Sgt Harker",
+      "lore": "He carries a weapon designed to be mounted on a vehicle and has never accepted the argument. Where Harker stands, the squad's flank does not fail.",
       "role": "ranged",
       "baseDiameter": 1.25,
       "blurb": "All Catachans have a reputation for being tough, but Harker is perhaps the hardest of them all — a giant of a man who carries his heavy bolter “Payback” as easily as a normal man might carry a rifle.",
@@ -183,6 +186,7 @@
     {
       "id": "sly-marbo",
       "name": "Sly Marbo",
+      "lore": "The regiment insists he is one man. The casualty figures attributed to him suggest otherwise, and nobody has ever seen him arrive.",
       "role": "assault",
       "baseDiameter": 1.25,
       "blurb": "A natural born survivor, a veritable one-man army, a loner who sticks to the shadows. Few have seen his face and none have heard him speak.",
@@ -241,6 +245,7 @@
     {
       "id": "heavy-flamer",
       "name": "Flamer",
+      "lore": "He clears undergrowth and bunkers with the same pressure setting and the same expression. The jungle taught him that anything you cannot see is worth burning.",
       "role": "assault",
       "baseDiameter": 1.25,
       "blurb": "In battle, Catachans have a reputation for reckless bravery that borders on the insane, willingly throwing themselves into danger.",
@@ -292,6 +297,7 @@
     {
       "id": "jack-breacher",
       "name": "Jack Breacher",
+      "lore": "Doors, hatches, bulkheads and the occasional load-bearing wall. He has a professional's disdain for anything the squad tries to open politely first.",
       "role": "assault",
       "baseDiameter": 1.25,
       "blurb": "Not all Demolition Charges are standardised pieces of Imperial Guard equipment. Jack Breacher uses improvised charges to clear the way for his team.",
@@ -350,6 +356,7 @@
     {
       "id": "sniper-crowe",
       "name": "Sniper Crowe",
+      "lore": "He can lie still in standing water for a day and a half, and has. The shot itself takes less time than deciding it is the right one.",
       "role": "sniper",
       "baseDiameter": 1.25,
       "blurb": "The Catachan regiments boast some of the best snipers in the Imperial Guard. Catachan marksmen will take up position solar hours, or even days, before a battle.",
@@ -412,6 +419,7 @@
     {
       "id": "vox-caster",
       "name": "Vox-Caster",
+      "lore": "He hauls the set through terrain that eats equipment and keeps it working with tape, wire and language. Without him the regiment is a dozen separate fights.",
       "role": "support",
       "baseDiameter": 1.25,
       "blurb": "The Vox-caster, sometimes referred to as a Comm-link, is an Imperial radio communications transceiver.",
@@ -475,6 +483,7 @@
     {
       "id": "psyker-clyde",
       "name": "Psyker Clyde",
+      "lore": "Sanctioned, barely, and watched closely by his own side. He keeps his eyes down between engagements and does not talk about what the jungle says to him.",
       "role": "support",
       "baseDiameter": 1.25,
       "blurb": "Rare and extraordinary individuals serve in the regiments of the Astra Militarum and wield the destructive power of the Warp as a weapon.",
@@ -539,6 +548,7 @@
     {
       "id": "jungle-fighter",
       "name": "Jungle Fighter",
+      "lore": "The ordinary Catachan, which is a contradiction in terms. Knife, lasgun, and an unshakeable sense of which patch of green is about to kill somebody.",
       "role": "flexible",
       "baseDiameter": 1.25,
       "blurb": "Tough, resourceful and uncompromising warriors who excel at fast-moving, close-quarter firefights, infiltration and sniping.",
@@ -588,6 +598,7 @@
     {
       "id": "ripper-jackson",
       "name": "Ripper Jackson",
+      "lore": "She fights the way the jungle does — close, sudden, and finished before anyone has called it started. The blade is the family's, and older than the regiment.",
       "role": "assault",
       "baseDiameter": 1.25,
       "blurb": "Sergeant “Ripper” Jackson is a veteran sergeant of the Catachan Jungle Fighters assault teams.",
@@ -637,6 +648,7 @@
     {
       "id": "apollo",
       "name": "Apollo",
+      "lore": "The squad's designated optimist, which on Catachan means he is the one who volunteers to go first. He has been first through a great many doorways.",
       "role": "ranged",
       "baseDiameter": 1.25,
       "blurb": "Heavy Weapon Squads bolster battle lines and provide close fire support. The Rocket Launcher is a powerful mobile Heavy Support choice.",
@@ -696,6 +708,7 @@
     {
       "id": "gator",
       "name": "Gator",
+      "lore": "Named for the thing he wrestled, and he will tell you about it. He crosses water nobody else will enter and comes out the far side already shooting.",
       "role": "ranged",
       "baseDiameter": 1.25,
       "blurb": "Gator came through the ranks in Catachan’s armoured regiments, hefting massive shells and magazines into place with ease.",
@@ -755,6 +768,7 @@
     {
       "id": "bomber-russ",
       "name": "Bomber Russ",
+      "lore": "He has a demolition charge for every occasion and a slightly worrying enthusiasm for finding new occasions. The squad keeps him upwind.",
       "role": "assault",
       "baseDiameter": 0.98,
       "blurb": "Catachans are experts at utilising booby traps, and it is relatively simple for Ratlings to improvise traps from natural materials and commonly available ammunition.",
@@ -820,6 +834,7 @@
     {
       "id": "zipper-rein",
       "name": "Zipper Rein",
+      "lore": "Fastest in the squad over broken ground, which on a death world is the only speed statistic anyone records. He scouts, he returns, and he is usually right.",
       "role": "objective-runner",
       "baseDiameter": 0.98,
       "blurb": "Grapnels fire a hooked or magnetic grapnel connected to a coiled 100 metres of thin but strong line.",

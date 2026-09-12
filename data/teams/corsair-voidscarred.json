@@ -3,6 +3,7 @@
   "factionId": "corsairs",
   "displayName": "Corsair Voidscarred",
   "blurb": "Corsairs are avaricious raiders grouped together by charismatic commanders who draw their members from both craftworlds and the Dark City. The most experienced of Corsairs are the Voidscarred, each of whom possesses their own unique combat skills and have been hardened by several lifetimes of voidfaring and piracy.",
+  "lore": "Every one of them walked away from something — a craftworld's rigid path, a Commorrite patron, an Exodite world that asked too much. What they have in common is the leaving, not the destination. A Voidscarred band is a collection of specialists who have each been the best at one thing somewhere else, held together by a felarch, a share of the take, and an agreement not to discuss why anybody came aboard.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -65,6 +66,7 @@
     {
       "id": "voidscarred-felarch",
       "name": "Voidscarred Felarch",
+      "lore": "She has held the band together through four seasons of raiding, which for corsairs is a dynasty. Her authority is the split of the take and the accuracy of her judgement, in that order.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -151,6 +153,7 @@
     {
       "id": "voidscarred-fate-dealer",
       "name": "Voidscarred Fate Dealer",
+      "lore": "He reads the engagement as a hand of cards already dealt, and plays it accordingly. The others have stopped asking how he knew.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -233,6 +236,7 @@
     {
       "id": "voidscarred-gunner",
       "name": "Voidscarred Gunner",
+      "lore": "The band's specialist weapon, carried by whoever proved best with it and jealously retained since.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -316,6 +320,7 @@
     {
       "id": "voidscarred-heavy-gunner",
       "name": "Voidscarred Heavy Gunner",
+      "lore": "He sets up once and makes an entire approach untenable. The band builds its plan around where he decides to stand.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -419,6 +424,7 @@
     {
       "id": "voidscarred-kurnathi",
       "name": "Voidscarred Kurnathi",
+      "lore": "A blade-dancer of the Wild Rider tradition, fighting at a speed that makes the exchange look one-sided from outside. It rarely is; she is simply faster.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -472,6 +478,7 @@
     {
       "id": "voidscarred-kurnite-hunter",
       "name": "Voidscarred Kurnite Hunter",
+      "lore": "He hunted monsters on an Exodite world before he hunted anything else, and treats an armoured enemy as a slightly disappointing beast.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -543,6 +550,7 @@
     {
       "id": "voidscarred-shade-runner",
       "name": "Voidscarred Shade Runner",
+      "lore": "She takes the route nobody mapped, arrives behind the line, and is gone again before the response has been authorised.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -612,6 +620,7 @@
     {
       "id": "voidscarred-soul-weaver",
       "name": "Voidscarred Soul Weaver",
+      "lore": "A witch of no sanctioned school, working with threads the craftworlds would consider it obscene to touch. She is very good at it.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -679,6 +688,7 @@
     {
       "id": "voidscarred-starstorm-duellist",
       "name": "Voidscarred Starstorm Duellist",
+      "lore": "Two pistols and an exhibitionist's timing. He fights close because at that distance the audience can see it properly.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -753,6 +763,7 @@
     {
       "id": "voidscarred-warrior",
       "name": "Voidscarred Warrior",
+      "lore": "The band's ordinary hand — which among Aeldari corsairs still means centuries of practice and a shuriken catapult he can fire without looking.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -834,6 +845,7 @@
     {
       "id": "voidscarred-way-seeker",
       "name": "Voidscarred Way Seeker",
+      "lore": "He kept the discipline of the witch path and abandoned everything else about it. The craftworld would call that the dangerous half.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

@@ -3,6 +3,7 @@
   "factionId": "cultists",
   "displayName": "Chaos Cult",
   "blurb": "Wherever bitterness and discontent fester, so does the worship of the Dark Gods take hold. Zealous bands of cultists throng to the banners of malefic powers. The most monstrous of these zealots are warped beyond recognition, sprouting chitinous claws, leathery wings and all manner of mutations with which to slaughter their enemies.",
+  "lore": "It begins as a reading group, a mutual aid society, a work gang that prays together. Somewhere in the middle it stops being any of those. By the time the Arbites are interested there are three generations involved, the deeper members no longer look entirely human, and the thing they have been calling on has started answering — which is worse for them than for anyone else, and does not slow them down at all.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -52,6 +53,7 @@
     {
       "id": "cult-demagogue",
       "name": "Cult Demagogue",
+      "lore": "He has the whole congregation's belief pointed at him and is beginning to suspect he cannot put it down. The sermon has become the only thing holding him together.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -133,6 +135,7 @@
     {
       "id": "blessed-blade",
       "name": "Blessed Blade",
+      "lore": "Elevated by the cult for a devotion nobody else could sustain, and rewarded with a weapon that is warm to the touch. He considers this a kindness.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -169,6 +172,7 @@
     {
       "id": "iconarch",
       "name": "Iconarch",
+      "lore": "He holds the icon above the crowd so that the crowd can see where the crowd is. The thing on the pole is looking back at them, and they find that comforting.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -242,6 +246,7 @@
     {
       "id": "mindwitch",
       "name": "Mindwitch",
+      "lore": "Untrained, unsanctioned and wholly unshielded. What comes through her is not shaped by any discipline, which makes it unpredictable for everyone in the room including the cult.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -308,6 +313,7 @@
     {
       "id": "chaos-devotee",
       "name": "Chaos Devotee",
+      "lore": "An ordinary convert with an ordinary weapon and an entirely unreasonable willingness to walk into fire. He believes he has already been promised the other side of it.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -355,6 +361,7 @@
     {
       "id": "chaos-mutant",
       "name": "Chaos Mutant",
+      "lore": "The gifts arrived faster than he could hide them, so the cult stopped asking him to. He is kept at the front now, where the shape of him does useful work.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -391,6 +398,7 @@
     {
       "id": "chaos-torment",
       "name": "Chaos Torment",
+      "lore": "Whatever this was, the process is finished. It is brought out at the end, on a chain, and the chain is a formality.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {

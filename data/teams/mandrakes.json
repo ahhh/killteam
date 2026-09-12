@@ -3,6 +3,7 @@
   "factionId": "drukhari",
   "displayName": "Mandrakes",
   "blurb": "The inhabitants of a realm located beyond the bounds of reality, Mandrakes possess a mastery over shadow. Often serving as mercenaries for the Drukhari, Mandrakes are capable of manipulating darkness itself, slipping undetected through their foes to slaughter victims with wicked glimmersteel blades and soul-freezing baleblasts.",
+  "lore": "The Drukhari will tell you Mandrakes are a kind of Aeldari. The Mandrakes do not say anything on the subject. They come out of Aelindrach, the shadow beneath Commorragh, and they arrive by stepping out of a dark place that was not connected to anything a moment ago. They take what they take for reasons nobody has established in sixty million years, and they cannot be bargained with because no one has ever found the right currency.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -53,6 +54,7 @@
     {
       "id": "mandrake-nightfiend",
       "name": "Mandrake Nightfiend",
+      "lore": "It leads, insofar as the others move when it moves. What passes between them is not speech and is not audible.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -107,6 +109,7 @@
     {
       "id": "mandrake-abyssal",
       "name": "Mandrake Abyssal",
+      "lore": "The baleblast comes off it in a cold sheet, and the burns it leaves do not behave like burns.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -184,6 +187,7 @@
     {
       "id": "mandrake-chooser-of-the-flesh",
       "name": "Mandrake Chooser of The Flesh",
+      "lore": "It selects. Nobody has determined the criteria, and the selected are always found to have been isolated first.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -237,6 +241,7 @@
     {
       "id": "mandrake-dirgemaw",
       "name": "Mandrake Dirgemaw",
+      "lore": "The sound it makes is not loud. It arrives in the middle of the skull and stays there after the thing itself has gone.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -315,6 +320,7 @@
     {
       "id": "mandrake-shadeweaver",
       "name": "Mandrake Shadeweaver",
+      "lore": "It thickens the darkness around the pack until the darkness is the terrain, and then it moves the terrain.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -374,6 +380,7 @@
     {
       "id": "mandrake-warrior",
       "name": "Mandrake Warrior",
+      "lore": "It steps out of a shadow that was not deep enough, kills, and steps back into one that was not there.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {

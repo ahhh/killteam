@@ -3,6 +3,7 @@
   "factionId": "orks",
   "displayName": "Dakka Kommandos",
   "blurb": "Every gun the mob owns, and nobody to carry them into melee.",
+  "lore": "Every mob argues about this. One half says a Kommando's job is to be where nobody expected and then use a choppa; the other half says that if you have gone to the trouble of not being seen, you should spend the advantage on something that reaches. This mob is the second half, and it left the first half at the camp complaining. They dig in on a firing line nobody found, and they are very hard to shift once they are in it.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -60,6 +61,7 @@
     {
       "id": "kommando-boss-nob",
       "name": "Kommando Boss Nob",
+      "lore": "Bigger than the rest and, more importantly, quieter than any of them has a right to be. He picks the route and enforces the silence personally.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -131,6 +133,7 @@
     {
       "id": "kommando-bomb-squig",
       "name": "Kommando Bomb Squig",
+      "lore": "It has been fed, wound up and pointed. The affection the boyz have for it is genuine and does not affect the plan.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -182,6 +185,7 @@
     {
       "id": "kommando-boy",
       "name": "Kommando Boy",
+      "lore": "Rank and file of the mob: choppa, slugga, and a sack of things that will be useful later. He has learned to crouch.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -229,6 +233,7 @@
     {
       "id": "kommando-breacha-boy",
       "name": "Kommando Breacha Boy",
+      "lore": "He carries a ram the size of a man and treats every wall as provisional. Subtlety ends the moment he starts work.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -287,6 +292,7 @@
     {
       "id": "kommando-burna-boy",
       "name": "Kommando Burna Boy",
+      "lore": "The mob's compromise with its own nature. He is kept at the back until stealth has served its purpose, and then he is not.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -355,6 +361,7 @@
     {
       "id": "kommando-comms-boy",
       "name": "Kommando Comms Boy",
+      "lore": "He has a stolen vox set and a talent for saying the wrong thing on the enemy's own channel at exactly the wrong moment.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -413,6 +420,7 @@
     {
       "id": "kommando-dakka-boy",
       "name": "Kommando Dakka Boy",
+      "lore": "Two guns, on the theory that this is twice as good. In his hands the theory holds up surprisingly well.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -483,6 +491,7 @@
     {
       "id": "kommando-grot",
       "name": "Kommando Grot",
+      "lore": "Small, quick, and used for the gaps a boy cannot fit through. His survival is nobody's operational priority, including his own.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -523,6 +532,7 @@
     {
       "id": "kommando-rokkit-boy",
       "name": "Kommando Rokkit Boy",
+      "lore": "The loudest thing in a mob built for quiet, held in reserve for the single moment noise is worth more than surprise.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -590,6 +600,7 @@
     {
       "id": "kommando-slasha-boy",
       "name": "Kommando Slasha Boy",
+      "lore": "Two blades and a habit of arriving from the side. He is the one the mob sends when a sentry must stop being one.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -642,6 +653,7 @@
     {
       "id": "kommando-snipa-boy",
       "name": "Kommando Snipa Boy",
+      "lore": "An Ork with a long gun and, remarkably, the patience to use it. He has been in that bush since before dawn.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {

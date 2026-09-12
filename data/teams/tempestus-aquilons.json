@@ -3,6 +3,7 @@
   "factionId": "astra-militarum",
   "displayName": "Tempestus Aquilons",
   "blurb": "Tempestus Aquilons are a tactical shooting kill team. They have an unparalleled ability to descend into the killzone mid-battle, and are at their best when engaging early.",
+  "lore": "Aquilons come down. They are Scions trained specifically for the grav-chute descent and the twenty minutes afterwards, dropped onto an objective from a height the enemy's sensors were not watching. There is no extraction plan worth the name, because the plan assumes the objective will be taken and the main force will arrive. The Schola Progenium produced them for precisely this and told them so.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -62,6 +63,7 @@
     {
       "id": "aquilon-tempestor",
       "name": "Aquilon Tempestor",
+      "lore": "He goes out of the hatch first and lands closest to the objective, which is both doctrine and the reason he holds the rank.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -175,6 +177,7 @@
     {
       "id": "aquilon-grenadier",
       "name": "Aquilon Grenadier",
+      "lore": "He carries the launcher through the descent, which is harder than it sounds, and uses it in the first ninety seconds.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -241,6 +244,7 @@
     {
       "id": "aquilon-gunfighter",
       "name": "Aquilon Gunfighter",
+      "lore": "Two hot-shot pistols and a preference for rooms. He is what the squad sends through a doorway.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -309,6 +313,7 @@
     {
       "id": "aquilon-gunner",
       "name": "Aquilon Gunner",
+      "lore": "The squad's special weapon, dropped with its operator and zeroed on the way down.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -393,6 +398,7 @@
     {
       "id": "aquilon-marksman",
       "name": "Aquilon Marksman",
+      "lore": "He picks a roof on the descent and is shooting from it before the rest have landed.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -476,6 +482,7 @@
     {
       "id": "aquilon-precursor",
       "name": "Aquilon Precursor",
+      "lore": "He goes ahead of the drop to mark it, alone, hours early. He is very rarely recovered.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -526,6 +533,7 @@
     {
       "id": "aquilon-servosentry",
       "name": "Aquilon Servo‑Sentry",
+      "lore": "An automated weapon platform dropped alongside the squad to hold a corridor the squad cannot spare a man for.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -628,6 +636,7 @@
     {
       "id": "aquilon-trooper",
       "name": "Aquilon Trooper",
+      "lore": "Carapace, hot-shot lasgun, grav-chute, and a Schola education that covered everything except growing old.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

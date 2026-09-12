@@ -3,6 +3,7 @@
   "factionId": "adepta-sororitas",
   "displayName": "Celestian Insidiants",
   "blurb": "Celestian Insidiant kill teams comprise a range of specialists, each one trained and outfitted to perform a specific role in the pursuit and destruction of sorcerous foes. Some utilise esoteric relic weapons and equipment drawn from the extensive armouries of their Orders Militant, the bearing of which is a great honour.",
+  "lore": "The Orders Militant march with banners. The Insidiants do not march at all. They are Celestians seconded to work the Ecclesiarchy would rather not minute — entering a cardinal's palace unannounced, removing a name from a congregation, establishing what a shrine world's governor has been praying to at night. Their faith is identical to their sisters'. Their methods would horrify them, which is precisely why the Order keeps the two apart.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -61,6 +62,7 @@
     {
       "id": "insidiant-superior",
       "name": "Insidiant Superior",
+      "lore": "She receives the writ, reads it once, and burns it. Everything after that is her judgement, and the Order has learned not to ask for an accounting.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -159,6 +161,7 @@
     {
       "id": "insidiant-abjuror",
       "name": "Insidiant Abjuror",
+      "lore": "Her speciality is the witch and the thing wearing a witch. She works close, with consecrated steel, because at range you cannot be certain it is finished.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -210,6 +213,7 @@
     {
       "id": "insidiant-censor",
       "name": "Insidiant Censor",
+      "lore": "The Order's quiet remover of inconvenient voices. She has never raised hers in the field.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -255,6 +259,7 @@
     {
       "id": "insidiant-cremator",
       "name": "Insidiant Cremator",
+      "lore": "Where evidence must not survive the night, she is sent with the means to ensure it. Flame is thorough and asks no questions afterwards.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -327,6 +332,7 @@
     {
       "id": "insidiant-denuncia",
       "name": "Insidiant Denuncia",
+      "lore": "She speaks the accusation aloud at the moment it will do the most damage, and the damage is rarely to the accused alone.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -387,6 +393,7 @@
     {
       "id": "insidiant-mortisanctus",
       "name": "Insidiant Mortisanctus",
+      "lore": "Sanctified death, delivered as doctrine. She fights with the composure of someone performing a rite rather than a killing.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -424,6 +431,7 @@
     {
       "id": "insidiant-reliquarius",
       "name": "Insidiant Reliquarius",
+      "lore": "She carries what the mission is actually for, and will not be separated from it while alive. The others are, in the end, her escort.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -491,6 +499,7 @@
     {
       "id": "insidiant-warrior",
       "name": "Insidiant Warrior",
+      "lore": "A Celestian who volunteered for work she was told she would not be thanked for. She has not been thanked, and has not asked.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

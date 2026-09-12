@@ -3,6 +3,7 @@
   "factionId": "space-marines",
   "displayName": "Scout Squad",
   "blurb": "Most Space Marines begin their service to the Chapter in the Scout Company. Lightly armed in comparison to their elder brothers, Scout Squads wield a range of specialist weapons and equipment to undertake clandestine operations, often deep behind enemy lines.",
+  "lore": "A Scout is an aspirant who has survived the implants but not yet the Chapter's patience. They fight in carapace rather than power armour, out in front of the Chapter and out of contact with it, and what they learn in those months decides whether they will ever wear the black carapace at all. Some Chapters treat the Scout company as an apprenticeship. Most treat it as a filter.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -53,6 +54,7 @@
     {
       "id": "scout-sergeant",
       "name": "Scout Sergeant",
+      "lore": "A full battle-brother who chose to come back and run the Tenth. He has buried more aspirants than he will admit and still volunteers for it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -143,6 +145,7 @@
     {
       "id": "scout-heavy-gunner",
       "name": "Scout Heavy Gunner",
+      "lore": "He carries a weapon meant for a Devastator and has not yet grown into it. He is getting there faster than he expected.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -260,6 +263,7 @@
     {
       "id": "scout-hunter",
       "name": "Scout Hunter",
+      "lore": "He works close, with a blade, in the dark. The Chapter has already marked his file.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -308,6 +312,7 @@
     {
       "id": "scout-sniper",
       "name": "Scout Sniper",
+      "lore": "Two days in a hide, one shot, and a very long crawl back. He is learning the patience the rest of his life will require.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -395,6 +400,7 @@
     {
       "id": "scout-tracker",
       "name": "Scout Tracker",
+      "lore": "He reads ground and makes the squad's route. The Chapter's intelligence for this campaign is largely his notebook.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -456,6 +462,7 @@
     {
       "id": "scout-warrior",
       "name": "Scout Warrior",
+      "lore": "Boltgun or shotgun, carapace, and everything still to prove. He is aware that most of his intake will not be here next year.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

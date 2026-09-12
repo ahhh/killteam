@@ -3,6 +3,7 @@
   "factionId": "astra-militarum",
   "displayName": "Kasrkin",
   "blurb": "Amongst Cadia's most elite warriors, the Kasrkin are trained from birth in the art of war. Clad in carapace armour and bearing a wide range of specialist wargear, they are the special forces of the Cadian regiments, tasked with completing nigh impossible missions in the defence and furtherance of the Imperial cause.",
+  "lore": "Cadia is gone. The Kasrkin are not. They were the storm troopers of the Kasr garrisons — the best of a world that produced nothing else — and what survived the Fall has been distributed across the Imperium in packets of eight, each one a repository of a doctrine with no home left to defend. They fight with the precision of men who have nothing to go back to and a professional objection to sentiment.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -61,6 +62,7 @@
     {
       "id": "kasrkin-sergeant",
       "name": "Kasrkin Sergeant",
+      "lore": "He was trained to hold a wall that no longer exists. He applies the same standard to whatever wall he is given now.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -205,6 +207,7 @@
     {
       "id": "kasrkin-combat-medic",
       "name": "Kasrkin Combat Medic",
+      "lore": "Cadian casualty drills, executed at speed. He treats to return men to the firing line and is explicit about the priority.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -261,6 +264,7 @@
     {
       "id": "kasrkin-demo-trooper",
       "name": "Kasrkin Demo-Trooper",
+      "lore": "Charges cut for structures, laid under fire, on a timer he has already verified twice.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -309,6 +313,7 @@
     {
       "id": "kasrkin-gunner",
       "name": "Kasrkin Gunner",
+      "lore": "The squad's special weapon, and the reason an enemy strongpoint stops being one. He picks his moment and does not waste it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -476,6 +481,7 @@
     {
       "id": "kasrkin-recon-trooper",
       "name": "Kasrkin Recon-Trooper",
+      "lore": "He goes forward to find the shape of the position and comes back with it drawn. The squad's plan is his sketch.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -531,6 +537,7 @@
     {
       "id": "kasrkin-sharpshooter",
       "name": "Kasrkin Sharpshooter",
+      "lore": "Hot-shot long-las and a spotter's discipline. He takes the vox, then the officer, then whoever picks up the vox.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -615,6 +622,7 @@
     {
       "id": "kasrkin-trooper",
       "name": "Kasrkin Trooper",
+      "lore": "Carapace, hellgun, and the Cadian drill intact. He does the ordinary things correctly under fire, which is the whole doctrine.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -663,6 +671,7 @@
     {
       "id": "kasrkin-vox-trooper",
       "name": "Kasrkin Vox-Trooper",
+      "lore": "He holds the squad's link to whatever support exists, and on most deployments there is none. He keeps the set working anyway.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

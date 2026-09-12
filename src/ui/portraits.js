@@ -49,11 +49,19 @@ let pending = null;
  * A failure is cached as `false` rather than retried: the file either ships
  * with the build or it doesn't, and retrying on every sheet would turn one
  * missing file into a request per click.
+ *
+ * `no-cache` — revalidate, not refetch — because this file names every
+ * operative that has been drawn, so it changes on exactly the deploys that add
+ * art. `force-cache` served whatever copy the browser already had, fresh or
+ * stale, and never asked again: a returning player kept a manifest from before
+ * a team was drawn and hasPortrait() then answered "no art" for a team whose
+ * art was sitting on the server. The revalidation costs one 304 per session.
+ * This matches how data/loader.js fetches the packs themselves.
  */
 export function loadManifest() {
   if (manifest !== null) return Promise.resolve(manifest);
   if (pending) return pending;
-  pending = fetch(MANIFEST_URL, { cache: 'force-cache' })
+  pending = fetch(MANIFEST_URL, { cache: 'no-cache' })
     .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
     .then((data) => {
       manifest = data && typeof data.teams === 'object' ? data : false;
@@ -102,10 +110,19 @@ export function artTeamId(pack) {
  * Is this operative drawn? Optimistic when the manifest hasn't loaded or is
  * absent — a wrong "yes" costs one hidden broken image, a wrong "no" costs art
  * the player paid to generate.
+ *
+ * A team the manifest has never heard of gets the same benefit of the doubt.
+ * Every bundled team is drawn, so an absent team id means the manifest in hand
+ * is older than the team — a stale cache, or a pack imported against a build
+ * that predates it — and answering "no art" there is the one failure the
+ * player actually sees. An operative missing from a team the manifest DOES
+ * list is a real gap in that team's art, and is still answered honestly.
  */
 export function hasPortrait(teamId, profileId) {
   if (!manifest) return true;
-  return (manifest.teams[teamId] || []).includes(profileId);
+  const drawn = manifest.teams[teamId];
+  if (!drawn) return true;
+  return drawn.includes(profileId);
 }
 
 /**

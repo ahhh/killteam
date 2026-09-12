@@ -3,6 +3,7 @@
   "factionId": "world-eaters",
   "displayName": "Goremonger",
   "blurb": "Goremonger kill teams are territorial and aggressive, yet to view them as crazed butchers would be an oversimplification. They strive to emulate the bladework and military discipline of a Bloodletter pack, and are capable of identifying and destroying strategic assets in order to achieve victory in Khorne's name.",
+  "lore": "Khorne does not care about objectives, ground or the outcome of the war, and neither, in the end, do these. A Goremonger warband is a group of World Eaters and aspirants held together by the Butcher's Nails and a shared understanding that the only thing worse than the fighting is the interval between fights. They will take the objective if the objective has people standing on it.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -57,6 +58,7 @@
     {
       "id": "goremonger-blood-herald",
       "name": "Goremonger Blood Herald",
+      "lore": "He still gives orders, which for a World Eater is a considerable achievement, and he gives them in the narrowing window before the Nails take the rest of the sentence.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -109,6 +111,7 @@
     {
       "id": "goremonger-aspirant",
       "name": "Goremonger Aspirant",
+      "lore": "Not yet implanted, and desperate to be. He fights recklessly to be noticed, which is the point of the audition.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -158,6 +161,7 @@
     {
       "id": "goremonger-bloodtaker",
       "name": "Goremonger Bloodtaker",
+      "lore": "He counts, and the count is the whole of his private theology. Interrupting him is unwise.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -214,6 +218,7 @@
     {
       "id": "goremonger-impaler",
       "name": "Goremonger Impaler",
+      "lore": "Chain-axe and reach. He pins what he catches and works at his leisure, which is not long.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -286,6 +291,7 @@
     {
       "id": "goremonger-inciter",
       "name": "Goremonger Inciter",
+      "lore": "He drives the warband forward by making the alternative intolerable, and is uncomfortably good at finding what each of them cannot stand.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -347,6 +353,7 @@
     {
       "id": "goremonger-skullclaimer",
       "name": "Goremonger Skullclaimer",
+      "lore": "The trophies are not decorative and not optional. He will break formation, position and sense to take one.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -396,6 +403,7 @@
     {
       "id": "goremonger-stalker",
       "name": "Goremonger Stalker",
+      "lore": "The Nails have left him quiet rather than loud, which the others find more disturbing. He arrives without announcement.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

@@ -11,7 +11,18 @@ import {
 import { isPassable } from './terrain.js';
 import { liveOperatives } from '../state.js';
 
-export const DASH_DISTANCE = 2;
+/**
+ * Dash is 3", as printed. It was 2" here for most of this project's life,
+ * which is a third of the action missing.
+ *
+ * It is a correctness fix and not a balance one: measured over a 16-team round
+ * robin it moved the correlation between a team's melee share and its win rate
+ * from -0.734 to -0.782, i.e. very slightly the WRONG way, because the extra
+ * inch is worth at least as much to a gunline keeping its distance as to the
+ * team trying to close it. Kept because it is what the rules say. See the
+ * melee section of the README for where the bias actually comes from.
+ */
+export const DASH_DISTANCE = 3;
 export const CHARGE_BONUS = 2;
 /** Bases may not overlap; a hair of clearance avoids float jitter. */
 const BASE_CLEARANCE = 0.02;

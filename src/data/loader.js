@@ -9,7 +9,7 @@
  * fetches remote JavaScript or evaluates pack content (§34).
  */
 import { validateTeamPack, validateMap, validateMission, isStale, dataAgeDays } from './validators.js';
-import { SUPPORT_LEVELS, sanitizeText } from './schema.js';
+import { LIMITS, SUPPORT_LEVELS, sanitizeText } from './schema.js';
 
 export class DataLoadError extends Error {
   constructor(message, report) {
@@ -93,6 +93,13 @@ export class DataRepository {
     }
     pack.displayName = sanitizeText(pack.displayName, 80);
     pack.blurb = sanitizeText(pack.blurb);
+    // Flavour text is shown to the player and never read by the engine, so it
+    // is scrubbed on the way in like every other displayed string. An imported
+    // pack is untrusted, and `lore` is the longest string a pack can carry.
+    if (pack.lore) pack.lore = sanitizeText(pack.lore, LIMITS.maxLoreLength);
+    for (const op of pack.operatives || []) {
+      if (op.lore) op.lore = sanitizeText(op.lore, LIMITS.maxLoreLength);
+    }
     pack.origin = source;
     this.teams.set(pack.id, pack);
     if (source !== 'bundled') this.customTeams.add(pack.id);

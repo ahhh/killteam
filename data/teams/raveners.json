@@ -3,6 +3,7 @@
   "factionId": "tyranids",
   "displayName": "Raveners",
   "blurb": "Ravener kill teams are hyperadapted to such an extent that they are able to overcome all manner of a prey species' defences. Driven by alien synaptic imperatives, Raveners burrow with horrific speed to strike at prey from vulnerable angles, before using razor-sharp talons, chitinous claws and virulent biotoxins to enact the Hive Mind's will.",
+  "lore": "Raveners are the Hive Mind's answer to the question of what is under the floor. They move through rock and soil the way a fish moves through water, surface inside a position rather than in front of it, and go back down when the ground stops being useful. There is no approach to defend against. The first warning a garrison gets is the sound, and by then it is a matter of seconds.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -49,6 +50,7 @@
     {
       "id": "ravener-prime",
       "name": "Ravener Prime",
+      "lore": "The node through which the Hive Mind attends to this particular burrow. It is faster and more deliberate than the others, and the others do not act until it does.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -103,6 +105,7 @@
     {
       "id": "ravener-felltalon",
       "name": "Ravener Felltalon",
+      "lore": "Built around the scything talons and very little else. It comes up under a man and is gone before the body has settled.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -181,6 +184,7 @@
     {
       "id": "ravener-tremorscythe",
       "name": "Ravener Tremorscythe",
+      "lore": "It reads vibration through the ground as clearly as sight, and it has been listening to the garrison walk about for hours.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -233,6 +237,7 @@
     {
       "id": "ravener-venomspitter",
       "name": "Ravener Venomspitter",
+      "lore": "The one concession to ranged work in the brood: a spray of bio-acid at whatever will not come within reach.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -324,6 +329,7 @@
     {
       "id": "ravener-warrior",
       "name": "Ravener Warrior",
+      "lore": "The brood's common form. Armoured along the spine, soft nowhere that matters, and considerably longer than it first appears.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -374,6 +380,7 @@
     {
       "id": "ravener-wrecker",
       "name": "Ravener Wrecker",
+      "lore": "Heavier claws, aimed at structure rather than flesh. It removes the floor a position is standing on.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {

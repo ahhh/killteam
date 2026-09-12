@@ -3,6 +3,7 @@
   "factionId": "astra-militarum",
   "displayName": "Spectre Squad",
   "blurb": "Spectre Squads wield many of the same weapons borne by rank-and-file Imperial Guardsmen, building on their familiarity with the robust wargear to achieve impressive results. Coupled with their array of highly experienced veteran specialists, this allows Spectre Squads to defeat enemy kill teams that, at first glance, seem far more elite.",
+  "lore": "Spectres are the Militarum's answer to the question of who goes in before the regiment. They are recruited out of scout platoons and reconnaissance companies, given optics and silenced weapons and a shorter chain of command, and sent out for a week at a time. Their job is to know the ground, remove the men who also know it, and be gone before the ground becomes a battlefield.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -74,6 +75,7 @@
     {
       "id": "spectre-veteran-sergeant",
       "name": "Spectre Veteran Sergeant",
+      "lore": "He runs the squad by whisper and hand signal and has not raised his voice on an operation in nine years.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -133,6 +135,7 @@
     {
       "id": "spectre-vox-relay-beacon",
       "name": "Spectre Vox-Relay Beacon",
+      "lore": "A set on a tripod, carried in and left behind. It extends the squad's reach and cannot defend itself.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -160,6 +163,7 @@
     {
       "id": "spectre-field-medicae",
       "name": "Spectre Field Medicae",
+      "lore": "He works in the dark, silently, with the wounded man's own hand over his mouth. It is a skill he would rather not have.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -234,6 +238,7 @@
     {
       "id": "spectre-grenadier",
       "name": "Spectre Grenadier",
+      "lore": "He makes the noise when noise is finally the plan, and not a moment before.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -301,6 +306,7 @@
     {
       "id": "spectre-guide",
       "name": "Spectre Guide",
+      "lore": "He has walked this ground and can take the squad across it without a light.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -368,6 +374,7 @@
     {
       "id": "spectre-gunner",
       "name": "Spectre Gunner",
+      "lore": "The squad's special weapon, carried for the one contact the squad cannot avoid.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -453,6 +460,7 @@
     {
       "id": "spectre-heavy-gunner",
       "name": "Spectre Heavy Gunner",
+      "lore": "Heavy support for a unit that is not supposed to need any. When it is used, the operation has already gone differently than planned.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -535,6 +543,7 @@
     {
       "id": "spectre-loader",
       "name": "Spectre Loader",
+      "lore": "He serves the marksman — range, wind, ammunition and a second pair of eyes on the approach.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -590,6 +599,7 @@
     {
       "id": "spectre-sharpshooter",
       "name": "Spectre Sharpshooter",
+      "lore": "The squad's reason for existing. He has a list, and the list is short and specific.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -674,6 +684,7 @@
     {
       "id": "spectre-stub-gunner",
       "name": "Spectre Stub-Gunner",
+      "lore": "A suppressed sidearm for the sentry who has to stop being one without anybody else noticing.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -761,6 +772,7 @@
     {
       "id": "spectre-trooper",
       "name": "Spectre Trooper",
+      "lore": "Camouflage, patience and a long-las. He has spent more nights in a scrape than in a billet.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -828,6 +840,7 @@
     {
       "id": "spectre-vox-operator",
       "name": "Spectre Vox-Operator",
+      "lore": "He keeps the squad connected to a regiment that will deny all knowledge of it if asked.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {

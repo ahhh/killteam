@@ -77,6 +77,19 @@ art that doesn't exist yet costs no request. See `src/ui/portraits.js`; `npm tes
 asserts the laziness, since it is otherwise invisible until someone loads the
 site on a phone.
 
+One caveat, learned the hard way: the manifest is fetched with `no-cache`,
+which revalidates rather than refetching, **not** `force-cache`. `force-cache`
+returns whatever copy the browser already holds, fresh or stale, and never
+asks again — and the manifest is precisely the file that changes on every
+deploy that adds art. A returning visitor kept an index from before the newest
+teams were drawn, `hasPortrait()` answered "no art" for teams whose art was
+sitting on the server, and every base on the board fell back to a bare role
+glyph. `hasPortrait()` now also fails open for a team the manifest has never
+heard of, so a stale index cannot blank a whole team again; an operative
+missing from a team the manifest *does* list is still answered honestly,
+because that is a real gap. `assets/effects/manifest.json` had the identical
+bug and the same fix.
+
 Tokens and pips are derived from the portraits, in this repo — one crop, two
 outputs:
 
@@ -301,6 +314,25 @@ nothing in a pack is ever executed. See `docs/rule-pack-format.md`.
 `data/reference-teams.json` is the catalogue: it maps every team name to its
 bundled rule pack and its Wahapedia source URL. It carries no stats itself.
 
+### Every team and every operative carries lore
+
+Packs have two prose fields the engine never reads. `blurb` is the one-line
+"what does this team do" the picker has always shown; `lore` is a paragraph
+about who they are, shown under it on the setup screen, and every operative
+has one of its own, shown on its character sheet between the portrait and the
+stat table — where a datacard would print it. All 64 packs and all 581
+operatives have both.
+
+A variant inherits its base team's *operative* lore, because it fields the
+same datacards and therefore the same people, but never its team lore: the
+point of a variant is that it is a different idea about how to use them. Those
+six paragraphs live with the rest of the variant specs in
+`tools/make-variants.mjs`.
+
+`lore` is the longest string a pack can carry (`LIMITS.maxLoreLength`, 1200
+characters) and is sanitised on load like every other displayed string, since
+an imported pack is untrusted input.
+
 ### The team picker is grouped by grand alliance
 
 `data/factions.json` gives every faction a `group` — Imperium, Chaos, Aeldari,
@@ -314,6 +346,14 @@ older catalogue, or one somebody wrote themselves — keeps its own name and
 still loads. `test/setup-screen.test.mjs` asserts that no alliance is split
 across the catalogue, since a run that is broken in two stops reading as a
 group at all.
+
+A group named in the catalogue's `bundledGroups` gets **one** heading instead
+of one per faction. The demo teams are the case it exists for: eight invented
+teams spread over five invented faction names, which produced five headings of
+one or two entries apiece and a lot of scrolling past labels that told a
+player nothing. They are now a single **Demo teams** group. Real factions stay
+separate — Orks and T'au Empire is the distinction a player is actually
+making — and which groups bundle is a data decision, not a UI one.
 
 ## Current status
 
@@ -461,7 +501,9 @@ times and fought seven times. A granted free Dash was the same story, read only
 by the action layer, which sees it after the plan is made. Both are now planned
 (`freeRepeats`, `grantedDash` in `src/ai/controller.js`), which is worth about
 twelve points of win rate to the Crimson Spear and lifts Angel of Death,
-Deathwatch, Murderwing and Legionary with it. `AI_VERSION` is 0.3.0 for it.
+Deathwatch, Murderwing and Legionary with it. `AI_VERSION` was 0.3.0 for it,
+and is **0.4.0** for the movement and concealment work described under
+"Melee, and why this engine is still bad at it".
 
 Where they land, over a 12-team round robin of 6 battles per pair on all three
 maps, both seats:
@@ -493,10 +535,73 @@ with 2/3-damage weapons. Both beat the horde teams they are built from —
 the Covenant takes 8W 2D 2L off Chaos Cult — and both lose to elite marines,
 which is the matchup their briefs describe losing.
 
-### Known balance caveat
+### Melee, and why this engine is still bad at it
 
-The batch harness reports that the bundled `skycaste-marksmen` gunline beats
-the melee-oriented demo teams around 90% of the time. That is a property of the
-invented demo stat lines and of AI passivity at long range — not evidence about
+Over a 16-team round robin (16x15 pairings, both seats, all three maps, 90
+games per team) a team's **melee share** — how much of its roster's damage is
+carried by melee weapons rather than guns — correlates **-0.71** with its win
+rate, and average gun range correlates **+0.72**. The melee-leaning half of
+that pool wins 40.3% of its games; the shooting half wins 59.7%. Before any of
+the work below those figures were -0.73, +0.72, 40.6% and 59.4%.
+
+Four things were fixed in the attempt, and all four were real:
+
+- **Dash was 2".** It is 3" in the printed rules, and had been a third short
+  for most of this project's life (`src/rules/movement.js`).
+- **The AI could not see concealment as protection.** `exposureAt()` measured
+  danger geometrically and ignored the target's own order, so a position where
+  an operative would be Concealed in cover — and therefore cannot legally be
+  selected as a target at all — scored exactly as dangerous as standing in the
+  open. It now takes the order the plan ENDS on and prices such a position at
+  zero, using the same predicate `canBeTargeted()` enforces.
+- **Closing moves were being cut off before they were costed.**
+  `generateDestinations()` proposed thirty ring positions against a budget of
+  twenty-six, and proposed them *first*, so on a typical board 21 of 26 slots
+  went to undifferentiated rings and the objective, closing and cover
+  candidates never made the list. An operative that needed to close had no
+  closing move among its options. Candidates are now proposed in priority
+  order, rings last.
+- **There were no covered approach routes.** The only cover positions the
+  planner generated were on the *far* face of each piece as measured from the
+  enemy — which is a retreat. Advancing along cover, which is the tabletop's
+  whole answer to a gunline, was not something this AI could consider.
+
+They did not move the balance. Measured over the same round robin the melee
+correlation went from **-0.734 to -0.713** and the gap between the melee and
+shooting halves from 18.8 points to 19.4 — noise at 90 games a team, in both
+directions at once. Dash on its own was measurably the wrong way (-0.782),
+because an extra inch is worth at least as much to a gunline keeping its
+distance. All four are kept because each is independently correct, not because
+any of them helped.
+
+**The cause is the approach itself, and it is geometric.** Deployment zones
+are 5" deep at opposite ends of a 30" board, so the two teams start 19-22"
+apart, and a melee operative moves 6". Tracking a Goremonger warband against
+Pathfinders turning point by turning point: TP1 ends 22" apart with 8 alive,
+TP2 ends 12.7" apart with **4** alive, TP3 ends 4.7" apart with 3. They do
+close — they simply arrive with half a team, having spent two turning points
+being shot by a gunline that gets to fire every activation. Across 12 battles
+the warband averaged **0.9 Fight actions per game** against 21 enemy Shoot
+actions, and out-moved by two to one, because the side with guns is also the
+side free to reposition.
+
+No stat line was changed. The remaining lever is the killzone rather than the
+teams — shallower separation between drop zones, or denser terrain — and that
+rewrites all three maps and invalidates every balance figure recorded above,
+so it is left as a decision rather than taken.
+
+The older caveat still stands: the bundled `skycaste-marksmen` gunline beats
+the melee-oriented demo teams around 90% of the time. That is a property of
+the invented demo stat lines as well as of the bias above — not evidence about
 any real game. Batch results are for catching regressions and map bias, as
 `src/replay/batch.js` says in its own report.
+
+### Rules data currency
+
+The 48 transcribed packs were scraped from Wahapedia on 2026-09-10, and
+Wahapedia tracks the balance dataslates, so they already carry the current
+ones. Spot-checked against the live pages: Scout Squad has the April 2026
+changes (nine operatives, combat blade at 4/5) and Hierotek Circle has the
+June 2026 Reanimation Protocols wording. There was nothing outstanding to
+apply. The January 2026 Breaching Charge is a piece of *universal equipment*,
+and universal equipment is not modelled at all — see "Not yet built" above.

@@ -2,7 +2,8 @@
   "id": "freebooter-boardin-krew",
   "factionId": "orks",
   "displayName": "Freebooter Boardin' Krew",
-  "blurb": "Ork pirates who specialise in storming voidships, drifting space hulks and anything else unfortunate enough to possess an airlock. Years of piracy mean they carry an unusual amount of human equipment \u2014 and virtually none of it remains unmodified.",
+  "blurb": "Ork pirates who specialise in storming voidships, drifting space hulks and anything else unfortunate enough to possess an airlock. Years of piracy mean they carry an unusual amount of human equipment — and virtually none of it remains unmodified.",
+  "lore": "A fan-made kill team. Freebooterz answer to no warboss and consequently to no plan larger than the next hull, which suits them. This krew specialises in the void — airlocks, maintenance shafts, the four minutes between a breach and a bulkhead closing — and has accumulated an unusual amount of human equipment in the process, almost none of it still doing what it was built for. The Kaptin takes a share. Everyone else takes what they can carry.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -10,7 +11,7 @@
     "publisher": "Fan-made. Not a published Games Workshop kill team.",
     "url": "",
     "checkedAt": "2026-09-11",
-    "notes": "Original fan-made kill team supplied by the user as a written design brief and transcribed into this pack. Stat lines, weapon profiles, ploys and equipment are the author's invention, not transcribed from any published source. Balance target, as written in the brief: better than Kommandos at direct room assaults and fighting over objectives, worse at concealment and long-range threat; better than the Wrecka Krew at objective play, utility and mobility, worse at raw damage; much worse than Space Marines at durability and action economy. SIMULATION ADJUSTMENT: three long arms reach two inches further here than the brief prints \u2014 melta cutter 4\" to 6\", Deck Sweepa 6\" to 8\", nicked plasma gun 10\" to 12\". This engine rewards reach more than the tabletop does (average roster range correlates +0.81 with win rate across a 3,960-battle sweep; see README), and a crew whose every gun stopped inside 10\" spent the battle walking. At the printed ranges the crew took 35% across 60 battles against Kommandos, the Wrecka Krew, Chaos Cult, Novitiates and Krieg, against 47% and 49% for the two Ork teams it is written to stand beside; at these it takes 44%. Revert the four `range` fields to 4, 6, 10 and 10 to play the brief exactly as written."
+    "notes": "Original fan-made kill team supplied by the user as a written design brief and transcribed into this pack. Stat lines, weapon profiles, ploys and equipment are the author's invention, not transcribed from any published source. Balance target, as written in the brief: better than Kommandos at direct room assaults and fighting over objectives, worse at concealment and long-range threat; better than the Wrecka Krew at objective play, utility and mobility, worse at raw damage; much worse than Space Marines at durability and action economy. SIMULATION ADJUSTMENT: three long arms reach two inches further here than the brief prints — melta cutter 4\" to 6\", Deck Sweepa 6\" to 8\", nicked plasma gun 10\" to 12\". This engine rewards reach more than the tabletop does (average roster range correlates +0.81 with win rate across a 3,960-battle sweep; see README), and a crew whose every gun stopped inside 10\" spent the battle walking. At the printed ranges the crew took 35% across 60 battles against Kommandos, the Wrecka Krew, Chaos Cult, Novitiates and Krieg, against 47% and 49% for the two Ork teams it is written to stand beside; at these it takes 44%. Revert the four `range` fields to 4, 6, 10 and 10 to play the brief exactly as written."
   },
   "colors": {
     "primary": "#2f6b3c",
@@ -60,6 +61,7 @@
     {
       "id": "freebooter-kaptin",
       "name": "Freebooter Kaptin",
+      "lore": "He has a coat, a hat, a cutlass and a percentage, and he has killed to keep all four. The krew follows him because he has never yet led them onto a ship that was empty.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -127,6 +129,7 @@
     {
       "id": "bosun",
       "name": "Bosun",
+      "lore": "He enforces the Kaptin's orders and the Kaptin's share, in that order, and is the reason the krew still functions as a krew after the loot is on the deck.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -192,6 +195,7 @@
     {
       "id": "breacha",
       "name": "Breacha",
+      "lore": "He opens things. Doors, hatches, hulls, occasionally the crew standing behind them — the tool does not distinguish and neither does he.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -251,6 +255,7 @@
     {
       "id": "deck-sweeper",
       "name": "Deck Sweeper",
+      "lore": "A long corridor and a wide weapon is his favourite arrangement in the galaxy. He walks the length of it firing and calls that sweeping.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -262,7 +267,7 @@
       "weapons": [
         {
           "id": "deck-sweepa",
-          "name": "\u201cDeck Sweepa\u201d combat shotgun",
+          "name": "“Deck Sweepa” combat shotgun",
           "type": "ranged",
           "atk": 4,
           "hit": 3,
@@ -289,7 +294,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -309,6 +314,7 @@
     {
       "id": "plasma-loota",
       "name": "Plasma Loota",
+      "lore": "The gun is human, the modifications are not, and the label reading RED BUTTON is his own work. It runs hot and he considers that a feature.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -337,7 +343,7 @@
         },
         {
           "id": "nicked-plasma-gun-red-button",
-          "name": "Nicked plasma gun (\u201cRed Button\u201d)",
+          "name": "Nicked plasma gun (“Red Button”)",
           "type": "ranged",
           "atk": 4,
           "hit": 4,
@@ -364,7 +370,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -384,6 +390,7 @@
     {
       "id": "stubba-gunner",
       "name": "Stubba Gunner",
+      "lore": "Volume over accuracy, held down for as long as the belt lasts. In a boarding tube that is a sound argument.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -422,7 +429,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -442,6 +449,7 @@
     {
       "id": "vox-git",
       "name": "Vox Git",
+      "lore": "He listens to the ship's own channels and tells the krew where the crew are running to. Half of what he relays is invented and it still works.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -478,7 +486,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -504,6 +512,7 @@
     {
       "id": "sawbones",
       "name": "Sawbones",
+      "lore": "His surgical theory is that most problems are removable. He is right often enough that the krew keeps him, and his patients mostly walk afterwards.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -531,7 +540,7 @@
         },
         {
           "id": "surgical-chainblade",
-          "name": "\u201cSurgical\u201d chainblade",
+          "name": "“Surgical” chainblade",
           "type": "melee",
           "atk": 4,
           "hit": 3,
@@ -540,7 +549,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -566,6 +575,7 @@
     {
       "id": "void-rigger",
       "name": "Void Rigger",
+      "lore": "He knows which pipe carries what, which panel is load-bearing, and how long a compartment has once it is open to the void. The krew survives boarding actions because of him.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -603,7 +613,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -629,6 +639,7 @@
     {
       "id": "freebooter-slugga-boy",
       "name": "Freebooter Slugga Boy",
+      "lore": "Pistol in one hand, something heavy in the other, and no interest whatsoever in the far end of the corridor.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -663,7 +674,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [],
@@ -676,6 +687,7 @@
     {
       "id": "freebooter-armsman-boy",
       "name": "Freebooter Armsman Boy",
+      "lore": "He signed articles for a share and has been waiting for the fighting ever since. The waiting is the part he is bad at.",
       "role": "flexible",
       "baseDiameter": 1.26,
       "stats": {
@@ -713,7 +725,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [],
@@ -733,7 +745,7 @@
     {
       "id": "looted-gubbinz",
       "name": "Looted Gubbinz",
-      "description": "Weapons marked [LOOTED] are weapons or devices the Freebooterz have stolen, rebuilt, \u201cimproved\u201d, accidentally repaired or otherwise acquired. Whenever a friendly operative attacks with a ranged [LOOTED] weapon, before rolling attack dice you can spend 1 Loot Point to ORK IT UP. Choose one. More Dakka: add 1 to the weapon's Atk characteristic for that attack. Too Much Juice: that weapon gains Severe, and add 1 to its Critical Damage characteristic for that attack. Dat Don't Sound Good: after resolving an ORK IT UP attack, if the original attack roll contained two or more results of 1, the attacking operative suffers 2 damage. An attack can only be ORKED UP once."
+      "description": "Weapons marked [LOOTED] are weapons or devices the Freebooterz have stolen, rebuilt, “improved”, accidentally repaired or otherwise acquired. Whenever a friendly operative attacks with a ranged [LOOTED] weapon, before rolling attack dice you can spend 1 Loot Point to ORK IT UP. Choose one. More Dakka: add 1 to the weapon's Atk characteristic for that attack. Too Much Juice: that weapon gains Severe, and add 1 to its Critical Damage characteristic for that attack. Dat Don't Sound Good: after resolving an ORK IT UP attack, if the original attack roll contained two or more results of 1, the attacking operative suffers 2 damage. An attack can only be ORKED UP once."
     }
   ],
   "resources": {
@@ -951,7 +963,7 @@
             ]
           },
           "partial": true,
-          "notes": "measured from the Ork rather than from the enemy it is fighting \u2014 in control range of each other the two are within an inch anyway \u2014 and the 1\" consolidation move after a kill is not made"
+          "notes": "measured from the Ork rather than from the enemy it is fighting — in control range of each other the two are within an inch anyway — and the 1\" consolidation move after a kill is not made"
         }
       ]
     },
@@ -1036,7 +1048,7 @@
             "damageCritical": 1
           },
           "partial": true,
-          "notes": "the backfire \u2014 3 damage to the shooter on any result of 1 \u2014 is not applied, so the ploy is limited to once per turning point to stand in for the risk"
+          "notes": "the backfire — 3 damage to the shooter on any result of 1 — is not applied, so the ploy is limited to once per turning point to stand in for the risk"
         },
         {
           "trigger": "beforeAttackRoll",

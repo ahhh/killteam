@@ -3,6 +3,7 @@
   "factionId": "chaos-space-marines",
   "displayName": "Nemesis Claw",
   "blurb": "Savage and sadistic in the extreme, the Night Lords use fear itself as their most potent weapon. The cruelist of these inveterate murderers form kill teams known as Nemesis Claws, achieving their mission objectives through acts of obscene violence and the spreading of abject terror.",
+  "lore": "The Night Lords are not a Legion any more; they are a methodology. A Nemesis Claw goes in ahead of an invasion to make a population useless to its own defenders — the vox turned against them, the officers found in their quarters, the garrison awake for four nights running. By the time the fleet arrives the world has already decided it cannot be held. That is the work, and they enjoy it.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -53,6 +54,7 @@
     {
       "id": "night-lord-visionary",
       "name": "Night Lord Visionary",
+      "lore": "He has the Legion's curse and has made a career of it, reading the futures the nightmares show him and picking the cruellest available one.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -191,6 +193,7 @@
     {
       "id": "night-lord-fearmonger",
       "name": "Night Lord Fearmonger",
+      "lore": "His specialism is what the survivors will tell the next garrison. He composes the scene before he leaves it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -284,6 +287,7 @@
     {
       "id": "night-lord-gunner",
       "name": "Night Lord Gunner",
+      "lore": "Special weapon work in the dark, at the moment a corridor's occupants have just realised they are not alone.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -400,6 +404,7 @@
     {
       "id": "night-lord-heavy-gunner",
       "name": "Night Lord Heavy Gunner",
+      "lore": "He chooses a position that will be found in the morning and holds it all night.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -517,6 +522,7 @@
     {
       "id": "night-lord-screecher",
       "name": "Night Lord Screecher",
+      "lore": "Amplified and modulated, pitched to a frequency the human animal cannot ignore. He does not need to be in the room.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -554,6 +560,7 @@
     {
       "id": "night-lord-skinthief",
       "name": "Night Lord Skinthief",
+      "lore": "He takes trophies that identify their owners, and leaves them where the owners' friends patrol.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -604,6 +611,7 @@
     {
       "id": "night-lord-ventrilokar",
       "name": "Night Lord Ventrilokar",
+      "lore": "He has the garrison's own command voices and uses them on the garrison's own net. By dawn nobody trusts an order.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -660,6 +668,7 @@
     {
       "id": "night-lord-warrior",
       "name": "Night Lord Warrior",
+      "lore": "A line Night Lord: bolter, blade, and a lifetime spent learning how long a man can be frightened before he stops functioning.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

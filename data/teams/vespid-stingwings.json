@@ -3,6 +3,7 @@
   "factionId": "t-au-empire",
   "displayName": "Vespid Stingwings",
   "blurb": "Vespid Stingwings are an offensive kill team with swarm-like instinctual behaviours. They have some powerful ranged weapons, but your operatives will always prioritise a close threat, so you'll have to plan your attacks to maximise their offensive potential.",
+  "lore": "Vespid were brought into the Greater Good by an Ethereal who arrived with a translator and a neutron weapon, and nobody on either side is entirely sure how much of the arrangement each party understands. They fly, they strike from above, and the communion helms they wear to receive T'au orders may or may not be doing something else to them. The T'au do not raise the question.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -58,6 +59,7 @@
     {
       "id": "vespid-strain-leader",
       "name": "Vespid Strain Leader",
+      "lore": "The helm sits differently on him, and the strain moves when he does. Whether that is command or something simpler is not discussed.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -108,6 +110,7 @@
     {
       "id": "oversight-drone",
       "name": "Oversight Drone",
+      "lore": "A T'au drone assigned to relay orders and, in every practical sense, to watch. The Vespid do not appear to mind.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -149,6 +152,7 @@
     {
       "id": "vespid-longsting",
       "name": "Vespid Longsting",
+      "lore": "The strain's marksman, hovering at a height the neutron blaster was designed for.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -218,6 +222,7 @@
     {
       "id": "vespid-shadestrain",
       "name": "Vespid Shadestrain",
+      "lore": "Darker-chitined and quieter in flight. It arrives on a flank that was not being watched.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -286,6 +291,7 @@
     {
       "id": "vespid-skyblast",
       "name": "Vespid Skyblast",
+      "lore": "It dives, fires at the top of the arc and is climbing again before the return fire is aimed.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -337,6 +343,7 @@
     {
       "id": "vespid-swarmguard",
       "name": "Vespid Swarmguard",
+      "lore": "It puts itself between the strain and whatever is shooting, which is not a T'au doctrine and has never been taught.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -412,6 +419,7 @@
     {
       "id": "vespid-warrior",
       "name": "Vespid Warrior",
+      "lore": "Neutron blaster and a pair of wings. It fights in three dimensions against enemies who are mostly thinking in two.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

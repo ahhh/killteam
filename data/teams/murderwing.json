@@ -3,6 +3,7 @@
   "factionId": "chaos-space-marines",
   "displayName": "Murderwing",
   "blurb": "The operatives that comprise Murderwing kill teams are sadistic killers whose various obsessions are reflected in the mutations they possess, the armour they wear and the weapons they bear to battle. Relentless hunters all, they combine their skills to ensure that their chosen prey does not escape their clutches.",
+  "lore": "Raptors and Warp Talons take the sky because the sky is where the screaming carries furthest. A Murderwing is a Chaos Lord's personal terror weapon: they arrive on a jet howl, take whatever is holding the line together, and leave while the survivors are still deciding whether it happened. The Warp Talons have been in the Eye long enough that they no longer land so much as arrive.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -53,6 +54,7 @@
     {
       "id": "murderwing-chaos-lord",
       "name": "Murderwing Chaos Lord",
+      "lore": "He fights from the air because he has always preferred the moment of descent, and a century of it has made him very precise about where he lands.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -187,6 +189,7 @@
     {
       "id": "murderwing-champion",
       "name": "Murderwing Champion",
+      "lore": "He earned the jump pack by taking it, and holds the rank on the same terms.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -287,6 +290,7 @@
     {
       "id": "murderwing-curseclaw",
       "name": "Murderwing Curseclaw",
+      "lore": "Talons that were not manufactured. Whatever gave them to him is still attached at the other end.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -344,6 +348,7 @@
     {
       "id": "murderwing-depredator",
       "name": "Murderwing Depredator",
+      "lore": "He takes what the raid came for, by preference from someone who was holding it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -401,6 +406,7 @@
     {
       "id": "murderwing-huntmaster",
       "name": "Murderwing Huntmaster",
+      "lore": "He picks the target from above and the flight follows the call. The selection is usually the enemy's officer and always the enemy's nerve.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -458,6 +464,7 @@
     {
       "id": "murderwing-raptor",
       "name": "Murderwing Raptor",
+      "lore": "Jump pack, chainsword, and a scream fed through the vox on purpose. He has not touched the ground on his own terms in years.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -540,6 +547,7 @@
     {
       "id": "murderwing-shrieker",
       "name": "Murderwing Shrieker",
+      "lore": "The noise is the weapon and he is the amplifier. Men break before he is in range.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -595,6 +603,7 @@
     {
       "id": "murderwing-skysear",
       "name": "Murderwing Skysear",
+      "lore": "He burns from above, which gives fire an entirely different character for the people beneath it.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -711,6 +720,7 @@
     {
       "id": "murderwing-warp-talon",
       "name": "Murderwing Warp Talon",
+      "lore": "It came through the warp rather than the air and is not entirely finished arriving. The lightning around its claws is a leak.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

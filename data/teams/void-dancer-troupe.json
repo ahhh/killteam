@@ -3,6 +3,7 @@
   "factionId": "harlequins",
   "displayName": "Void-dancer Troupe",
   "blurb": "Even amongst the agile Aeldari, the Harlequins of the Void-dancer Troupes display an almost preternatural level of dexterity and skill. Performance and war merge in their actions, precisely directed to shape the fate of their race.",
+  "lore": "The Harlequins are the Laughing God's, and the performance is not a metaphor. A troupe rehearses a battle as choreography — who crosses, who is seen, who dies and at what moment — and then executes it in a killzone. Everything they do means something in the Dark Dance, and none of them will explain what. They arrive, the piece is performed, and the survivors are left to interpret it.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -45,6 +46,7 @@
     {
       "id": "lead-player",
       "name": "Lead Player",
+      "lore": "She has the shape of the whole piece in her head and adjusts it live as the other side improvises. Nothing that happens is allowed to be an accident.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -188,6 +190,7 @@
     {
       "id": "death-jester",
       "name": "Death Jester",
+      "lore": "He is the piece's laughter and its violence at once, and the shrieker cannon is scored for effect as much as for casualties.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -261,6 +264,7 @@
     {
       "id": "player",
       "name": "Player",
+      "lore": "A troupe member in the mask of whichever role the piece requires today. The flip belt and the fusion pistol are constants.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -388,6 +392,7 @@
     {
       "id": "shadowseer",
       "name": "Shadowseer",
+      "lore": "She manages what the audience believes, which in her hands is the same as what is true. The mist is a courtesy to the others.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

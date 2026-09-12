@@ -3,6 +3,7 @@
   "factionId": "death-guard",
   "displayName": "Plague Marines",
   "blurb": "Corrupted sons of Mortarion, Plague Marines are suffused and bloated with rot and disease. Though compact and slow moving, Plague Marines are horrifyingly resilient, trudging relentlessly towards their objectives while spreading contagion in their wake.",
+  "lore": "The Death Guard have been dying for ten thousand years and have got very good at not finishing. What Nurgle gave them was not health but persistence — a body that no longer registers the difference between wounded and well, and a mind that has made peace with the arrangement. They advance at walking pace, they do not take cover, and they are still coming after the ammunition runs out.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -53,6 +54,7 @@
     {
       "id": "plague-marine-champion",
       "name": "Plague Marine Champion",
+      "lore": "He leads at the same unhurried pace as everyone else and has never needed to raise his voice. The patience is the weapon; the plague is merely the medium.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -126,6 +128,7 @@
     {
       "id": "plague-marine-bombardier",
       "name": "Plague Marine Bombardier",
+      "lore": "He lobs blight grenades with the casual accuracy of someone who has done it for centuries and is in no hurry to stop.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -174,6 +177,7 @@
     {
       "id": "plague-marine-fighter",
       "name": "Plague Marine Fighter",
+      "lore": "Close work with a blade that does not need to be sharp. What it opens will not close afterwards.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -234,6 +238,7 @@
     {
       "id": "plague-marine-heavy-gunner",
       "name": "Plague Marine Heavy Gunner",
+      "lore": "He plants himself and fires, and the planting is the more significant half. Moving him is a project.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -301,6 +306,7 @@
     {
       "id": "plague-marine-icon-bearer",
       "name": "Plague Marine Icon Bearer",
+      "lore": "The icon is damp. What it exudes settles on everything nearby and makes the ground around him measurably worse to occupy.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -352,6 +358,7 @@
     {
       "id": "malignant-plaguecaster",
       "name": "Malignant Plaguecaster",
+      "lore": "A sorcerer of the Plague God, working in contagion rather than fire. His castings are diagnoses delivered in advance.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -445,6 +452,7 @@
     {
       "id": "plague-marine-warrior",
       "name": "Plague Marine Warrior",
+      "lore": "Bolter, bloated plate, and an inexhaustible willingness to keep walking forward. He was a legionary of the Fourteenth and remembers it fondly.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {

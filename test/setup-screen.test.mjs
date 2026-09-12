@@ -195,6 +195,9 @@ test('the team panel says how a team fights and what it spends CP on', async () 
     assert.match(text, /FOREWARNED/, 'names the strategic ploys it can use');
     assert.match(text, /CONTEMPT/, 'names the reaction it holds CP for');
     assert.match(text, /not simulated/, 'and is honest about the rest');
+    // …and who they are, which is the only thing on this panel the engine
+    // never reads.
+    assert.match(text, /Aspect Warrior/, 'shows the team lore under the blurb');
   });
 });
 
@@ -204,6 +207,54 @@ test('the team panel says how a team fights and what it spends CP on', async () 
 // optgroup label rather than a heading above it (see `_renderColumn`), which
 // only reads as grouping if data/factions.json keeps an alliance's factions
 // in one unbroken run. That is what this pins.
+
+/* --- Bundled groups ---------------------------------------------------- */
+
+test('a bundled group gets one heading in the picker, not one per faction', async () => {
+  const catalogue = readJson('data/factions.json');
+  const bundled = catalogue.bundledGroups ?? [];
+  assert.deepEqual(bundled, ['Demo teams'],
+    'the demo teams are the group this feature exists for');
+
+  const demoFactions = catalogue.factions.filter((f) => f.group === 'Demo teams');
+  assert.ok(demoFactions.length > 1,
+    'bundling is only meaningful where a group holds several factions');
+  const demoTeams = demoFactions.flatMap((f) => f.teams);
+
+  await withStubDom(async () => {
+    const repo = stubRepo({ teams: demoTeams });
+    // The picker renders the WHOLE catalogue, so every pack it names has to be
+    // loadable — not just the demo ones this test is about.
+    repo.factions = catalogue;
+    repo.catalogueTeamIds = () => catalogue.factions.flatMap((f) => f.teams);
+    for (const f of catalogue.factions) {
+      for (const id of f.teams) if (!repo.teams.has(id)) repo.teams.set(id, loadTeam(id));
+    }
+    const { screen } = makeScreen({ repo });
+    await screen.render();
+
+    const labels = [];
+    for (const root of [screen.roots.p1]) {
+      for (const node of root.walk()) {
+        if (node.tagName === 'OPTGROUP') labels.push(node.label);
+      }
+    }
+    const demoLabels = labels.filter((l) => l.startsWith('Demo teams'));
+    assert.deepEqual(demoLabels, ['Demo teams'],
+      `expected one bundled heading, got ${JSON.stringify(demoLabels)}`);
+
+    // ...and every demo team is still reachable underneath it.
+    const bundle = [...screen.roots.p1.walk()]
+      .find((n) => n.tagName === 'OPTGROUP' && n.label === 'Demo teams');
+    const values = bundle.children.map((o) => o.value).sort();
+    assert.deepEqual(values, [...demoTeams].sort());
+
+    // A real faction is still its own heading: "Orks" and "T'au Empire" are
+    // the distinction a player is actually making.
+    assert.ok(labels.some((l) => l === 'Xenos · Orks'),
+      `real factions must stay separate, got ${JSON.stringify(labels)}`);
+  });
+});
 
 test('the bundled catalogue groups every faction and lists the alliances together', () => {
   const catalogue = readJson('data/factions.json');

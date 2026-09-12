@@ -3,6 +3,7 @@
   "factionId": "agents-of-the-imperium",
   "displayName": "Exaction Squad",
   "blurb": "It is the responsibility of the Adeptus Arbites to enforce Imperial law. Exaction Squads are formed from the most highly skilled and experienced Arbitrators. They are tasked with hunting down and securing the most heinous of criminals, returning them alive to face the full extent of the Emperor's justice.",
+  "lore": "The Adeptus Arbites do not police a hive; they occupy it. An Exaction Squad is dispatched when a precinct has decided that arrest is still theoretically the objective — a warrant to serve, a cell to break, a magistrate to extract — and it arrives with shields, shotguns and an explicit legal authority to leave nobody standing. The Lex Imperialis is not interested in proportionality.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -73,6 +74,7 @@
     {
       "id": "arbites-proctor-exactant",
       "name": "Arbites Proctor-exactant",
+      "lore": "He holds the warrant and reads the relevant clause aloud before the doors come off, because the record matters and the outcome was never in doubt.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -174,6 +176,7 @@
     {
       "id": "arbites-castigator",
       "name": "Arbites Castigator",
+      "lore": "Power maul and shield, and a sentencing manner. He is sent through the gap the shotguns make.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -239,6 +242,7 @@
     {
       "id": "arbites-chirurgant",
       "name": "Arbites Chirurgant",
+      "lore": "He keeps Arbitrators upright and prisoners conscious, and is quite clear about which of those is a medical duty.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -309,6 +313,7 @@
     {
       "id": "arbites-gunner",
       "name": "Arbites Gunner",
+      "lore": "The squad's heavy weapon, deployed under a legal standard that permits considerably more than the situation appears to require.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -409,6 +414,7 @@
     {
       "id": "arbites-leashmaster",
       "name": "Arbites Leashmaster",
+      "lore": "He handles the mastiff, which means he is also the one who decides when to stop handling it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -492,6 +498,7 @@
     {
       "id": "r-vr-cyber-mastiff",
       "name": "R-VR Cyber-mastiff",
+      "lore": "Part animal, part warrant-server. It runs down whatever the squad has designated and holds it, with an inflexibility that is engineered rather than trained.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -535,6 +542,7 @@
     {
       "id": "arbites-malocator",
       "name": "Arbites Malocator",
+      "lore": "He reads the auspex and the building plans together and tells the squad which wall the suspect is behind. He is rarely wrong and never quick about it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -604,6 +612,7 @@
     {
       "id": "arbites-marksman",
       "name": "Arbites Marksman",
+      "lore": "Overwatch from a gantry, with a list. He takes the ringleader, and the riot's shape changes in the next ten seconds.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -695,6 +704,7 @@
     {
       "id": "arbites-revelatum",
       "name": "Arbites Revelatum",
+      "lore": "The precinct's evidentiary officer, gathering what will be needed afterwards while the afterwards is still being decided.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -766,6 +776,7 @@
     {
       "id": "arbites-subductor",
       "name": "Arbites Subductor",
+      "lore": "Shield forward, shock maul low. He advances into a crowd at walking pace and the crowd is what gives way.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -817,6 +828,7 @@
     {
       "id": "arbites-vigilant",
       "name": "Arbites Vigilant",
+      "lore": "Rank and file of the precinct, drilled to hold a line in a corridor for as long as the corridor exists.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -879,6 +891,7 @@
     {
       "id": "arbites-vox-signifier",
       "name": "Arbites Vox-signifier",
+      "lore": "He talks to the precinct and, when it is time, to the crowd. The second broadcast is usually the more decisive one.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

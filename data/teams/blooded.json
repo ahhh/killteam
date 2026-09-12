@@ -3,6 +3,7 @@
   "factionId": "cultists",
   "displayName": "Blooded",
   "blurb": "The teeming soldiery of the Astra Militarum are far from immune to the lure of Chaos. Those who have fallen into the embrace of the Dark Gods gather together under the banners of cruel and tyrannical leaders, combining the skills and weapons of the Imperial Guard with the dark influence of the Chaos Gods to murderous effect.",
+  "lore": "A Guard regiment that turned. Not all at once — a gambled ration book, a commissar who went missing, an officer who was right about the war being lost — and then all at once. They kept the drill, the rank structure and the ammunition supply, and lost the part that made any of it defensible. Traitors fight harder than loyalists for the same reason a man fights harder with his back to a cliff.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -82,6 +83,7 @@
     {
       "id": "traitor-chieftain",
       "name": "Traitor Chieftain",
+      "lore": "He held a commission under the Imperium and holds something less formal now, enforced with the same pistol. His authority rests on having been first to cross, and on nobody surviving who remembers it differently.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -247,6 +249,7 @@
     {
       "id": "traitor-brimstone-grenadier",
       "name": "Traitor Brimstone Grenadier",
+      "lore": "He burns positions he cannot take and positions he has just taken, and the distinction has stopped mattering to him. The company gives him room.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -315,6 +318,7 @@
     {
       "id": "traitor-butcher",
       "name": "Traitor Butcher",
+      "lore": "There is no tactical account of what he does. He is brought forward when the enemy needs to see something, and he is very effective at being seen.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -352,6 +356,7 @@
     {
       "id": "traitor-commsman",
       "name": "Traitor Commsman",
+      "lore": "The regiment's stolen voice. He still knows the Imperial band discipline and the call signs, and uses both — sometimes to coordinate his own, more often to get a loyalist squad to walk into a room.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -412,6 +417,7 @@
     {
       "id": "traitor-corpseman",
       "name": "Traitor Corpseman",
+      "lore": "A medic with the training intact and the oath long gone. He patches men so they can be spent again, and keeps a separate, more careful set of instruments for the other work.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -481,6 +487,7 @@
     {
       "id": "traitor-enforcer",
       "name": "Traitor Enforcer",
+      "lore": "He wears the coat of the man he killed for it and does the same job, only for the other side. Nobody in the company runs, and that is entirely his doing.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -537,6 +544,7 @@
     {
       "id": "traitor-flenser",
       "name": "Traitor Flenser",
+      "lore": "Quiet, unhurried, and always sent ahead. What he leaves behind is intended to be found by the next patrol rather than by anyone he actually fought.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -573,6 +581,7 @@
     {
       "id": "traitor-gunner",
       "name": "Traitor Gunner",
+      "lore": "The section's automatic weapon, carried by a man who has been doing it since before the mutiny and never expected to keep the job this long.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -706,6 +715,7 @@
     {
       "id": "traitor-ogryn",
       "name": "Traitor Ogryn",
+      "lore": "Loyal to whoever feeds him and last fed by these people. He does not understand the politics and has not been troubled with them.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -742,6 +752,7 @@
     {
       "id": "traitor-sharpshooter",
       "name": "Traitor Sharpshooter",
+      "lore": "A regimental marksman who now takes officers instead of protecting them. The discipline is unchanged; only the list has been rewritten.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -807,6 +818,7 @@
     {
       "id": "traitor-thug",
       "name": "Traitor Thug",
+      "lore": "Rank and file, and never much more than that even before. He holds ground because the alternative is the enforcer, and he has done the arithmetic.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -842,6 +854,7 @@
     {
       "id": "traitor-trench-sweeper",
       "name": "Traitor Trench Sweeper",
+      "lore": "Shotgun and a length of trench. He has cleared enough of them to have a routine, and the routine begins with not letting anybody ahead of him.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -891,6 +904,7 @@
     {
       "id": "traitor-trooper",
       "name": "Traitor Trooper",
+      "lore": "The line soldier the whole regiment used to be. He still digs in properly, still calls his shots, and can no longer remember when he stopped arguing about it.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

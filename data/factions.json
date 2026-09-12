@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "note": "Demo catalogue plus the Kill Team factions transcribed from Wahapedia, and three fan-made teams. Factions carry a `group` \u2014 their grand alliance \u2014 and are listed in group order, so the team picker can keep an alliance's factions together instead of scattering them alphabetically. Swap in your own rule packs without touching engine or UI code.",
+  "note": "Demo catalogue plus the Kill Team factions transcribed from Wahapedia, and three fan-made teams. Factions carry a `group` — their grand alliance — and are listed in group order, so the team picker can keep an alliance's factions together instead of scattering them alphabetically. A group named in `bundledGroups` is shown as ONE heading in the picker rather than one per faction: the demo teams are eight invented teams under five invented faction names, and five headings of one or two teams each is more chrome than catalogue. Swap in your own rule packs without touching engine or UI code.",
   "factions": [
     {
       "id": "space-marines",
@@ -288,6 +288,9 @@
     "Chaos",
     "Aeldari",
     "Xenos",
+    "Demo teams"
+  ],
+  "bundledGroups": [
     "Demo teams"
   ]
 }

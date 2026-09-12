@@ -3,6 +3,7 @@
   "factionId": "kindred-corsairs",
   "displayName": "Kindred Skirmishers",
   "blurb": "Fast and accurate, but folds under return fire. Wins on tempo.",
+  "lore": "A synthetic demo team written for this engine rather than transcribed from any published source. Fast raiders with precise weapons: they exist to give the simulator an opponent that punishes slow ground and rewards an early firing angle, and to be a readable example of what a minimal rule pack looks like.",
   "edition": "synthetic-1",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -38,6 +39,7 @@
     {
       "id": "corsair-captain",
       "name": "Corsair Captain",
+      "lore": "The one with the plan, such as it is. Raids are decided in the first minute and this is the operative deciding them.",
       "role": "flexible",
       "baseDiameter": 1.0,
       "stats": {
@@ -87,6 +89,7 @@
     {
       "id": "corsair-sniper",
       "name": "Corsair Marksman",
+      "lore": "A long weapon and a great deal of patience, held back until the shot is worth the position it gives away.",
       "role": "sniper",
       "baseDiameter": 1.0,
       "stats": {
@@ -133,6 +136,7 @@
     {
       "id": "corsair",
       "name": "Corsair",
+      "lore": "Light armour, quick feet, and a weapon chosen for the angle rather than the volume. He is never where the return fire goes.",
       "role": "objective-runner",
       "baseDiameter": 1.0,
       "stats": {

@@ -115,7 +115,42 @@ export class SetupScreen {
     const select = document.createElement('select');
     select.setAttribute('aria-label', `${playerId} kill team`);
 
+    // Groups the catalogue asks to be shown as ONE heading rather than one per
+    // faction. The demo teams are the case it exists for: eight invented teams
+    // spread over five invented faction names, which produced five headings of
+    // one or two entries apiece and a lot of scrolling past labels that told
+    // the player nothing. Real factions stay separate — "Orks" and "T'au
+    // Empire" are the distinction a player is actually choosing between.
+    const bundled = new Set(this.repo.factions?.bundledGroups ?? []);
+
+    const addOption = (group, teamId) => {
+      const pack = this.repo.teams.get(teamId);
+      const option = document.createElement('option');
+      option.value = teamId;
+      // A variant sits directly under the team it came from, and says so —
+      // two entries called "Kommandos" and "Dakka Kommandos" are otherwise
+      // indistinguishable until you have already picked one.
+      option.textContent = pack?.variantOfName
+        ? `${pack.displayName} — ${pack.variantOfName} variant`
+        : (pack?.displayName ?? teamId);
+      group.append(option);
+    };
+
+    // One pass, in catalogue order, so a bundled group's single heading lands
+    // exactly where its first faction would have — the catalogue is already
+    // sorted by group, so the members are contiguous.
+    let openBundle = null;
     for (const faction of factions) {
+      if (faction.group && bundled.has(faction.group)) {
+        if (!openBundle || openBundle.label !== faction.group) {
+          openBundle = document.createElement('optgroup');
+          openBundle.label = faction.group;
+          select.append(openBundle);
+        }
+        for (const teamId of faction.teams) addOption(openBundle, teamId);
+        continue;
+      }
+      openBundle = null;
       const group = document.createElement('optgroup');
       // A `<select>` has exactly one level of grouping, so the grand alliance
       // goes in front of the faction name rather than above it: the catalogue
@@ -123,18 +158,7 @@ export class SetupScreen {
       // the shared prefix is what says so. A faction with no group — an older
       // catalogue, or one somebody wrote themselves — just keeps its own name.
       group.label = faction.group ? `${faction.group} · ${faction.name}` : faction.name;
-      for (const teamId of faction.teams) {
-        const pack = this.repo.teams.get(teamId);
-        const option = document.createElement('option');
-        option.value = teamId;
-        // A variant sits directly under the team it came from, and says so —
-        // two entries called "Kommandos" and "Dakka Kommandos" are otherwise
-        // indistinguishable until you have already picked one.
-        option.textContent = pack?.variantOfName
-          ? `${pack.displayName} — ${pack.variantOfName} variant`
-          : (pack?.displayName ?? teamId);
-        group.append(option);
-      }
+      for (const teamId of faction.teams) addOption(group, teamId);
       select.append(group);
     }
 
@@ -192,6 +216,10 @@ export class SetupScreen {
     }
 
     if (pack.blurb) container.append(h('p', 'muted', pack.blurb));
+    // The blurb says what the team DOES, in a sentence, because the picker
+    // needs to be skimmable. The lore says who they are, and sits below it for
+    // the player who has stopped to read.
+    if (pack.lore) container.append(h('p', 'lore', pack.lore));
 
     this._renderStrategy(container, pack);
 

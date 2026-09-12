@@ -82,11 +82,17 @@ let pendingManifest = null;
  * A failure is cached as `false` rather than retried: the file either shipped
  * with the build or it didn't, and the app is required to look finished
  * without it (#9) — no manifest simply means no animations.
+ *
+ * `no-cache` for the same reason ui/portraits.js uses it: this file grows a
+ * family whenever a new sheet is drawn, and a `force-cache` copy is never
+ * revalidated, so a returning player would keep classifying weapons against an
+ * index that predates the sheets sitting next to it. The sheets themselves are
+ * content-stable and stay on the default cache.
  */
 export function loadEffectManifest() {
   if (manifest !== null) return Promise.resolve(manifest);
   if (pendingManifest) return pendingManifest;
-  pendingManifest = fetch(MANIFEST_URL, { cache: 'force-cache' })
+  pendingManifest = fetch(MANIFEST_URL, { cache: 'no-cache' })
     .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
     .then((data) => {
       manifest = data && data.families && data.match ? data : false;

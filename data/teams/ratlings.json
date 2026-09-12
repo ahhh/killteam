@@ -3,6 +3,7 @@
   "factionId": "astra-militarum",
   "displayName": "Ratlings",
   "blurb": "A Ratling kill team is unlike most others. Its operatives are small in stature (most of them anyway), but big in personality. In a fair fight, they'll be overpowered by those bigger than them, so they must use sneaky and cunning tricks to win",
+  "lore": "The Munitorum records them as an abhuman auxiliary with a discipline problem and a marksmanship commendation, and both halves are accurate. Ratlings are small, fast, unscrupulous and extremely good with a long rifle, and they will be exactly where they are supposed to be for as long as it suits them. The Ogryns come along to carry things and to stand between the snipers and anyone who has worked out where they are.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -73,6 +74,7 @@
     {
       "id": "ratling-fixer",
       "name": "Ratling Fixer",
+      "lore": "He can obtain anything, given a day and no questions. The squad's real logistics run through him and not through the Munitorum.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -153,6 +155,7 @@
     {
       "id": "ratling-battlemutt",
       "name": "Ratling Battlemutt",
+      "lore": "It was a ratting dog before somebody put armour on it, and it has retained the enthusiasm.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -187,6 +190,7 @@
     {
       "id": "bullgryn",
       "name": "Bullgryn",
+      "lore": "A slab shield and a maul, planted in front of the little ones. He is entirely clear about his job and takes visible satisfaction in it.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -265,6 +269,7 @@
     {
       "id": "ogryn",
       "name": "Ogryn",
+      "lore": "Enormously strong, thoroughly good-natured, and in no danger of overthinking the situation. The Ratlings are fond of him and exploit him constantly.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -315,6 +320,7 @@
     {
       "id": "ratling-big-shot",
       "name": "Ratling Big Shot",
+      "lore": "The squad's heaviest weapon in the smallest hands. He braces it against anything available and grins through the recoil.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -386,6 +392,7 @@
     {
       "id": "ratling-bomber",
       "name": "Ratling Bomber",
+      "lore": "He gets explosives into places nobody was watching, because nobody watches for something his size.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -471,6 +478,7 @@
     {
       "id": "ratling-hardbit",
       "name": "Ratling Hardbit",
+      "lore": "The one who has been in the worst of it and come out with a story that grows annually. Some of it is true.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -521,6 +529,7 @@
     {
       "id": "ratling-raider",
       "name": "Ratling Raider",
+      "lore": "Less a soldier than a very effective thief with a rifle. Objectives tend to end up in his pockets.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -596,6 +605,7 @@
     {
       "id": "ratling-sneak",
       "name": "Ratling Sneak",
+      "lore": "He has been inside the enemy position for an hour and has taken three things nobody will miss until later.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -671,6 +681,7 @@
     {
       "id": "ratling-sniper",
       "name": "Ratling Sniper",
+      "lore": "The reason the Munitorum tolerates the rest of it. He lies in the dirt for half a day and takes the officer at eight hundred yards.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -736,6 +747,7 @@
     {
       "id": "ratling-spotter",
       "name": "Ratling Spotter",
+      "lore": "He calls the wind, the range and the target, and takes credit for the shot afterwards.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -808,6 +820,7 @@
     {
       "id": "ratling-stashmaster",
       "name": "Ratling Stashmaster",
+      "lore": "He keeps the squad's hoard, which is against several regulations and is the reason the squad still has ammunition.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -873,6 +886,7 @@
     {
       "id": "ratling-vox-thief",
       "name": "Ratling Vox-Thief",
+      "lore": "He listens to channels he has no clearance for and passes on the useful parts. The clearance has never come up.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

@@ -3,6 +3,7 @@
   "factionId": "chaos-daemons",
   "displayName": "Gellerpox Infected",
   "blurb": "Corrupted by a gruesome techno-organic affliction, the Gellerpox Infected are nightmarish meldings of flesh, machinery and rampant disease. Most of these hideous beings began as loyal servants of the God-Emperor. Those origins are long gone, however, wiped away by supernatural sickness and a compulsion to spread their infection across the stars.",
+  "lore": "The Geller field failed for eleven seconds somewhere in the warp, and the ship arrived with its crew still aboard and no longer entirely themselves. The infection is not a disease in any sense a physician would accept; it is a change of authorship. What walks the lower decks now was once a gang boss, a maintenance crew and an infestation of vermin, and the three categories have stopped being useful.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -50,6 +51,7 @@
     {
       "id": "vulgrar-thrice-cursed",
       "name": "Vulgrar Thrice-Cursed",
+      "lore": "He was a hive ganger with two convictions and a third thing nobody could name. What he is now enjoys the arrangement considerably more than he did.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -121,6 +123,7 @@
     {
       "id": "bloatspawn",
       "name": "Bloatspawn",
+      "lore": "It has continued to grow since the incident and shows no sign of having a final size. Contact is contagious and it knows this.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -186,6 +189,7 @@
     {
       "id": "fleshscreamer",
       "name": "Fleshscreamer",
+      "lore": "The noise arrives before it does and does most of the damage. It has retained a voice and very little else.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -235,6 +239,7 @@
     {
       "id": "lumberghast",
       "name": "Lumberghast",
+      "lore": "Enormously heavy, and unhurried in the way of something that has never needed to hurry. Decking flexes where it walks.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -271,6 +276,7 @@
     {
       "id": "mutant",
       "name": "Mutant",
+      "lore": "A crewman, more or less, still wearing most of a uniform. He remembers his shift rotation and nothing else about being a person.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -339,6 +345,7 @@
     {
       "id": "glitchling",
       "name": "Glitchling",
+      "lore": "Small, fast and gleeful. It breaks what it can reach and has developed a reliable instinct for what will be missed.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -386,6 +393,7 @@
     {
       "id": "cursemite",
       "name": "Cursemite",
+      "lore": "Vermin that took the change better than the crew did. They swarm through gaps nothing else can use.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -423,6 +431,7 @@
     {
       "id": "eyestinger-swarm",
       "name": "Eyestinger Swarm",
+      "lore": "A cloud of them, and each one is looking at you. They go for the face because that is where the change takes hold fastest.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -475,6 +484,7 @@
     {
       "id": "sludge-grub",
       "name": "Sludge-Grub",
+      "lore": "It came up through the waste system and has been growing on what it found there. It is not fast, and it does not need to be underfoot for long.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

@@ -3,6 +3,7 @@
   "factionId": "necrons",
   "displayName": "Hierotek Circle",
   "blurb": "Led by ambitious and devious Crypteks, Hierotek Circles employ Necron soldiery and unique Canoptek constructs to further the rise of their own dynasties. They achieve this by learning of their lords' enemies and undermining the power of these rivals through artifice, sabotage, theft and murder.",
+  "lore": "A Hierotek Circle is a research expedition with an escort, which is the Necron way of saying that the crypteks are in charge and the soldiers are equipment. They are woken to recover something — a stasis vault, a dynastic relic, a phenomenon that has been noted and must be measured — and the matter of who is standing on it is an obstruction to be removed rather than an enemy to be fought. Their dead get up again, which does not help.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -59,6 +60,7 @@
     {
       "id": "chronomancer",
       "name": "Chronomancer",
+      "lore": "He adjusts the local rate at which things happen, which in practice means his escort arrives early and yours arrives late.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -172,6 +174,7 @@
     {
       "id": "psychomancer",
       "name": "Psychomancer",
+      "lore": "He works on the mind rather than the body, and the ones who run from him are the ones who were shown the least.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -253,6 +256,7 @@
     {
       "id": "technomancer",
       "name": "Technomancer",
+      "lore": "Repair as a branch of theology. He restores his own with the detachment of a man correcting a manuscript.",
       "role": "ranged",
       "baseDiameter": 1.97,
       "stats": {
@@ -332,6 +336,7 @@
     {
       "id": "plasmacyte-accelerator",
       "name": "Plasmacyte Accelerator",
+      "lore": "A scarab-thing that injects raw energy into an Immortal's systems and makes it move at a speed its own body was not designed for.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -389,6 +394,7 @@
     {
       "id": "plasmacyte-reanimator",
       "name": "Plasmacyte Reanimator",
+      "lore": "It hovers at the edge of the fight waiting for something to go down, and then it goes to work.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -447,6 +453,7 @@
     {
       "id": "apprentek",
       "name": "Apprentek",
+      "lore": "A cryptek in training, which for a Necron means several thousand years of it. He carries instruments he does not yet fully understand.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -497,6 +504,7 @@
     {
       "id": "deathmark",
       "name": "Deathmark",
+      "lore": "It has been in phase-space since before this world had a name, waiting for the designated target to be designated. It arrives one shot before it leaves.",
       "role": "sniper",
       "baseDiameter": 1.26,
       "stats": {
@@ -556,6 +564,7 @@
     {
       "id": "immortal-despotek",
       "name": "Immortal Despotek",
+      "lore": "It commands the escort with the fragment of personality the dynasty left it, which is mostly contempt.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -629,6 +638,7 @@
     {
       "id": "immortal-guardian",
       "name": "Immortal Guardian",
+      "lore": "Tesla and gauss and sixty million years of guard duty. It has never once been relieved and has stopped expecting to be.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {

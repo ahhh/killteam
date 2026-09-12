@@ -3,6 +3,7 @@
   "factionId": "agents-of-the-imperium",
   "displayName": "Elucidian Starstrider",
   "blurb": "Elucia Vhane is a scion of a noble mercantile dynasty. Leaving behind her family's operations in the galactic north, Vhane led her Elucidian Starstriders to the Eastern Fringe. Alongside her esoteric crew, the bold Rogue Trader seeks to eclipse the rich history of her ancestors with her own rise to glory - or die trying.",
+  "lore": "A Rogue Trader dynasty in reduced circumstances is still a Rogue Trader dynasty. Elucia Vhane lost her flagship, her fortune and most of her charter's goodwill in a single bad year, and has been recovering all three by boarding things she probably should not. Her retinue is what remains of a household that once numbered thousands: a duellist, a scholar-technician, a physician of dubious licensure, and as many armed voidsmen as the ship can spare.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -50,6 +51,7 @@
     {
       "id": "elucia-vhane",
       "name": "Elucia Vhane",
+      "lore": "She negotiates with a pistol in her other hand and considers that entirely normal commercial practice. Everything she has left is aboard whatever she is currently boarding.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -103,6 +105,7 @@
     {
       "id": "canid",
       "name": "Canid",
+      "lore": "A hunting animal rebuilt for shipboard work, loyal to precisely one person and indifferent to everybody else's opinion about corridors.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -145,6 +148,7 @@
     {
       "id": "death-cult-executioner",
       "name": "Death Cult Executioner",
+      "lore": "Bound to the household by a contract written in a language the household no longer reads. She does not speak, and has never had to.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -205,6 +209,7 @@
     {
       "id": "lectro-maester",
       "name": "Lectro-Maester",
+      "lore": "He keeps the ship's systems and the expedition's equipment running on a theology of electricity. Half his diagnostics are prayers and all of them work.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -262,6 +267,7 @@
     {
       "id": "rejuvenat-adept",
       "name": "Rejuvenat Adept",
+      "lore": "His licence is a matter of interpretation. He has kept the Captain alive through three things that should have killed her and does not discuss the cost.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -319,6 +325,7 @@
     {
       "id": "voidmaster",
       "name": "Voidmaster",
+      "lore": "Thirty years of boarding actions in the corridors of other people's ships. He knows how a bulkhead fails and where the crew will run.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -404,6 +411,7 @@
     {
       "id": "voidsman",
       "name": "Voidsman",
+      "lore": "Ship's crew with a shotgun and a grievance about hazard pay. He fights well in tight spaces because he has never fought anywhere else.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

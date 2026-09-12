@@ -3,6 +3,7 @@
   "factionId": "cultists",
   "displayName": "Fellgor Ravager",
   "blurb": "Of all the mutant Beastmen in thrall to the Dark Gods, Fellgor Ravagers believe themselves the greatest and most powerful. They stalk space hulks, underhives and warp-tainted ruins, using their keen senses to track unsuspecting prey through the darkness before striking and butchering their foes with savage glee.",
+  "lore": "Beastmen are born into the Imperium's mines and munitions works as labour and mustered into its armies as expendables, and a great many of them draw the obvious conclusion. A Fellgor herd that has gone over is a mining crew with grievances, industrial explosives and a shaman who has started hearing something in the dark of the shaft. They do not raid for plunder. They raid to make a point about who was underground and who was not.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -69,6 +70,7 @@
     {
       "id": "fellgor-ironhorn",
       "name": "Fellgor Ironhorn",
+      "lore": "He leads because the herd's alternative method of choosing leaders is worse for everyone. The horns are plated because they have had to be.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -170,6 +172,7 @@
     {
       "id": "fellgor-deathknell",
       "name": "Fellgor Deathknell",
+      "lore": "He sounds the note that starts the charge, and the herd hears it in the marrow rather than the ear.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -226,6 +229,7 @@
     {
       "id": "fellgor-fluxbray",
       "name": "Fellgor Fluxbray",
+      "lore": "The gifts have taken hold in him unevenly and painfully, and he has decided this is favour. The herd is inclined to agree.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -268,6 +272,7 @@
     {
       "id": "fellgor-gnarlscar",
       "name": "Fellgor Gnarlscar",
+      "lore": "Worked the deep seams for thirty years and survived three collapses. Nothing above ground has yet impressed him.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -324,6 +329,7 @@
     {
       "id": "fellgor-gorehorn",
       "name": "Fellgor Gorehorn",
+      "lore": "He fights head-down, which is exactly as effective as it sounds when the head weighs what his does.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -374,6 +380,7 @@
     {
       "id": "fellgor-herd-goad",
       "name": "Fellgor Herd-Goad",
+      "lore": "He keeps the herd moving in one direction, with a pole-arm and a very direct theory of motivation.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -448,6 +455,7 @@
     {
       "id": "fellgor-mangler",
       "name": "Fellgor Mangler",
+      "lore": "Industrial tooling, repurposed. It was designed to break rock and has been found adequate for other materials.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -484,6 +492,7 @@
     {
       "id": "fellgor-shaman",
       "name": "Fellgor Shaman",
+      "lore": "He speaks to the thing the herd found at the bottom of the shaft. It has begun to speak back, and his eyes have changed.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -566,6 +575,7 @@
     {
       "id": "fellgor-toxhorn",
       "name": "Fellgor Toxhorn",
+      "lore": "Mine gas, tailings chemistry, and a working knowledge of what a sealed gallery does to lungs. He brings that knowledge up into the light.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -613,6 +623,7 @@
     {
       "id": "fellgor-vandal",
       "name": "Fellgor Vandal",
+      "lore": "He breaks the things that make the enemy's work possible — the pumps, the lifts, the vox masts — and enjoys it more than the fighting.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -656,6 +667,7 @@
     {
       "id": "fellgor-warrior",
       "name": "Fellgor Warrior",
+      "lore": "The herd's rank and file: a mining tool, a stolen lasgun, and a lifetime of being counted as equipment rather than personnel.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

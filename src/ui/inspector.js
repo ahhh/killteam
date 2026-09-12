@@ -185,6 +185,13 @@ export function renderOperativeDetail(container, state, operativeId) {
   sheetHead.append(heading);
   container.append(sheetHead);
 
+  // Who this one is, before what it can do. The sheet opens on a picture and a
+  // stat table, which says everything about the operative as a piece and
+  // nothing about it as a person — so the pack's own flavour line goes between
+  // them, where a datacard would print it. Packs written before the field
+  // existed simply have no paragraph here.
+  if (profile?.lore) container.append(h('p', 'lore', profile.lore));
+
   const stats = document.createElement('table');
   stats.className = 'stats';
   const head = stats.createTHead().insertRow();

@@ -345,6 +345,19 @@ table.stats td.num { font-variant-numeric: tabular-nums; }
 .vp-table .hdr { color: var(--text-faint); font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
 
 .muted { color: var(--text-faint); font-size: 11px; }
+
+/* Flavour prose: a team's or an operative's lore. Set apart from the rules
+   text around it by a rule down the left edge rather than by colour, so it
+   stays readable at the size a paragraph wants to be read at. */
+.lore {
+  border-left: 2px solid var(--line-soft);
+  padding-left: 10px;
+  margin: 10px 0;
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.team-strategy + .lore, .sheet-head + .lore { margin-top: 12px; }
 .mono { font-family: var(--mono); }
 .footer-note { padding: 4px 14px; font-size: 10.5px; color: var(--text-faint); background: var(--bg-panel); border-top: 1px solid var(--line-soft); }
 .footer-note a { color: var(--text-dim); }

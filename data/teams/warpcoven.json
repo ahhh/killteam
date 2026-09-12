@@ -3,6 +3,7 @@
   "factionId": "thousand-sons",
   "displayName": "Warpcoven",
   "blurb": "Many are the dark and terrible secrets of the galaxy, and the Thousand Sons seek to learn them all. Gathering relentless Rubricae and degenerate mutants, Warpcoven kill teams employ sorcery and savagery alike as they sweep aside those who stand in their way.",
+  "lore": "The Thousand Sons paid for knowledge with everything else. A Warpcoven is one sorcerer's project, attended by Rubric Marines who are armour and dust and a memory of obedience, and by Tzaangors who are the opposite — all appetite and no discipline. The sorcerer is the only one present who wants anything, and what he wants is almost never the objective the battle appears to be about.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -48,6 +49,7 @@
     {
       "id": "sorcerer-of-destiny",
       "name": "Sorcerer of Destiny",
+      "lore": "He works in probability, adjusting which of several likely outcomes arrives. Nothing he does looks like a weapon until afterwards.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -166,6 +168,7 @@
     {
       "id": "sorcerer-of-tempyrion",
       "name": "Sorcerer of Tempyrion",
+      "lore": "Time is his discipline, and he spends the coven's future to pay for its present without mentioning the exchange rate.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -284,6 +287,7 @@
     {
       "id": "sorcerer-of-warpfire",
       "name": "Sorcerer of Warpfire",
+      "lore": "The least subtle of the three and the one the coven actually fears. Fire is a language and he is fluent.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -417,6 +421,7 @@
     {
       "id": "rubric-marine-gunner",
       "name": "Rubric Marine Gunner",
+      "lore": "The dust inside the armour once had a name and a specialisation. The specialisation is all that answers now.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -503,6 +508,7 @@
     {
       "id": "rubric-marine-icon-bearer",
       "name": "Rubric Marine Icon Bearer",
+      "lore": "It holds the coven's icon aloft because it was instructed to, and will continue to until instructed otherwise.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -554,6 +560,7 @@
     {
       "id": "rubric-marine-warrior",
       "name": "Rubric Marine Warrior",
+      "lore": "Inferno bolts, ceramite and nothing at all inside. It advances at the pace it is given and stops where it is told.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -605,6 +612,7 @@
     {
       "id": "tzaangor-champion",
       "name": "Tzaangor Champion",
+      "lore": "Elevated by the Change and entirely convinced this makes him the sorcerer's equal. It does not.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -658,6 +666,7 @@
     {
       "id": "tzaangor-horn-bearer",
       "name": "Tzaangor Horn Bearer",
+      "lore": "The note he sounds means something to the flock and nothing to anybody else, which is how the flock prefers it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -699,6 +708,7 @@
     {
       "id": "tzaangor-icon-bearer",
       "name": "Tzaangor Icon Bearer",
+      "lore": "He carries the coven's mark in front of the beastmen, who follow it more readily than they follow any sorcerer.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -733,6 +743,7 @@
     {
       "id": "tzaangor-warrior",
       "name": "Tzaangor Warrior",
+      "lore": "Blades, feathers and an appetite for the moment of contact. Whatever the sorcerer is here for, this is what he is here for.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

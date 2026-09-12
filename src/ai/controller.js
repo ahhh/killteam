@@ -29,7 +29,7 @@ import {
 import { chooseStrategicPloys, firefightPloysFor } from './ploys.js';
 import { planCommandPoints } from './cp.js';
 
-export const AI_VERSION = '0.3.0';
+export const AI_VERSION = '0.4.0';
 
 /**
  * Per-role weightings for the utility score.
@@ -47,6 +47,20 @@ export const ROLE_WEIGHTS = {
   support:            { damage: 2.2, objective: 4.0, cover: 2.2, exposure: 3.0, waste: 0.5, survival: 2.6, approach: 0.0 },
   'objective-runner': { damage: 1.8, objective: 6.0, cover: 1.6, exposure: 2.0, waste: 0.5, survival: 1.8, approach: 0.3 },
 };
+
+/**
+ * The order an operative will be on once this plan has played out.
+ *
+ * Orders only change through a `change_order` action, so the last one in the
+ * plan wins and an absent one means the operative keeps the order it has.
+ */
+function endOrderOf(plan, op) {
+  let order = op.order;
+  for (const action of plan.actions || []) {
+    if (action.type === 'change_order' && action.order) order = action.order;
+  }
+  return order;
+}
 
 /** Distance at which "closing in" stops earning credit. */
 const APPROACH_HORIZON = 24;
@@ -204,8 +218,18 @@ export class UtilityController {
     return v;
   }
 
-  _exposure(state, op, x, y, enemies) {
-    return this._memo('exp', op, x, y, () => exposureAt(state, op, x, y, enemies));
+  /**
+   * What standing here would cost, on the order this plan would arrive under.
+   *
+   * The order is part of the key, not just the query: Conceal in cover is not
+   * targetable at all, so the same square is worth two different numbers
+   * depending on which order the plan ends on, and a shared cache entry would
+   * hand the first answer to the second question.
+   */
+  _exposure(state, op, x, y, enemies, order = null) {
+    const actual = order ?? op.order;
+    return this._memo(`exp|${actual}`, op, x, y,
+      () => exposureAt(state, op, x, y, enemies, { order: actual }));
   }
 
   _cover(state, op, x, y, enemies) {
@@ -776,6 +800,33 @@ export class UtilityController {
         estimate: { damage: 0, apUsed: 1, endsAt: objectiveDest, moved: objectiveDest.length, concealed: staysHidden },
       });
 
+      // The same ground, taken quietly, when a shot happens to be available
+      // from it. Switching to Engage to take a shot also makes this operative
+      // selectable by everything that can see it, and for an operative whose
+      // business is the charge two turning points from now that is a bad
+      // trade — but it was not a trade the planner could offer. It only built
+      // the Engage version whenever any shot at all existed, so a melee team
+      // crossing open ground surrendered concealment for a pistol shot every
+      // time. Both are now on the table and _score() prices them against each
+      // other: the shot's damage on one side, an exposure of literally zero on
+      // the other, wherever the destination is in cover.
+      if (!staysHidden) {
+        plans.push({
+          actions: [
+            { type: 'change_order', order: ORDERS.CONCEAL },
+            { type: 'reposition', destination: { x: objectiveDest.x, y: objectiveDest.y } },
+          ],
+          rationale: [
+            `Moves ${objectiveDest.length.toFixed(1)}" to press objectives (${objectiveDest.tag})`,
+            'Holds Conceal rather than trade cover for the shot',
+          ],
+          estimate: {
+            damage: 0, apUsed: 1, endsAt: objectiveDest,
+            moved: objectiveDest.length, concealed: true,
+          },
+        });
+      }
+
       // A firefight ploy that grants a free Dash is the cheapest ground in the
       // game: the same two moves for one AP. Only planned when the Reposition
       // itself ends clear of an enemy, because a Dash then becomes illegal.
@@ -885,7 +936,13 @@ export class UtilityController {
 
     const objective = objectiveValueAt(state, op, at.x, at.y);
     const cover = this._cover(state, op, at.x, at.y, enemies);
-    const exposure = this._exposure(state, op, at.x, at.y, enemies);
+    // A plan is judged on the order it ENDS on, which is the order the
+    // operative will be standing in when the enemy activates. Read off the
+    // plan's own actions rather than a per-branch flag, so a branch that
+    // forgets to declare it cannot be scored as something it is not: a charge
+    // flips to Engage and must be priced as exposed, a Conceal advance must
+    // not be.
+    const exposure = this._exposure(state, op, at.x, at.y, enemies, endOrderOf(plan, op));
     const wasted = Math.max(0, ap - (e.apUsed || 0));
 
     // Concealment is only worth something where there is cover to hide in.

@@ -3,6 +3,7 @@
   "factionId": "space-marines",
   "displayName": "Wolf Scouts",
   "blurb": "Wolf Scout kill teams are their Great Company's most feared and accomplished hunters, roving far ahead of the Space Wolves' strike forces on solitary, unsupported missions. They cause death and anarchy behind enemy lines through assassination, sabotage and more besides, often while cloaked in strange mists or furious storms.",
+  "lore": "The Space Wolves do not have a Scout company so much as a habit: a pack leader takes a handful of Blood Claws who have shown more patience than usual and disappears with them for a season. They come back knowing the enemy's ground better than the enemy does, and having removed a number of things nobody will ever be told about. Fenris teaches hunting before it teaches anything else.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -53,6 +54,7 @@
     {
       "id": "wolf-scout-pack-leader",
       "name": "Wolf Scout Pack Leader",
+      "lore": "An old wolf who took the black carapace long ago and prefers it out here anyway. He teaches by not explaining.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -125,6 +127,7 @@
     {
       "id": "wolf-scout-fangbearer",
       "name": "Wolf Scout Fangbearer",
+      "lore": "He carries a relic of the pack's line and has been told what it cost. He fights accordingly.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -183,6 +186,7 @@
     {
       "id": "wolf-scout-frosteye",
       "name": "Wolf Scout Frosteye",
+      "lore": "The pack's long shot, lying in snow or mud for as long as it takes. Fenrisian patience is a specific and unpleasant skill.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -242,6 +246,7 @@
     {
       "id": "wolf-scout-gunner",
       "name": "Wolf Scout Gunner",
+      "lore": "The pack's heavier weapon, carried a very long way for one moment of use.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -311,6 +316,7 @@
     {
       "id": "wolf-scout-hunter",
       "name": "Wolf Scout Hunter",
+      "lore": "He works close with blade and pistol, and considers the boltgun a formality.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -380,6 +386,7 @@
     {
       "id": "wolf-scout-rune-priest-skjald",
       "name": "Wolf Scout Rune Priest Skjald",
+      "lore": "Part psyker, part storyteller. What he does to the enemy and what he says about it afterwards are both part of the weapon.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -478,6 +485,7 @@
     {
       "id": "wolf-scout-trapmaster",
       "name": "Wolf Scout Trapmaster",
+      "lore": "He leaves the ground behind the pack unsafe, as a matter of course, before anyone has asked him to.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -547,6 +555,7 @@
     {
       "id": "wolf-scout-fenrisian-wolf",
       "name": "Wolf Scout Fenrisian Wolf",
+      "lore": "Not a mascot. It hunts with the pack because it is the pack, and it reaches things first.",
       "role": "assault",
       "baseDiameter": 2.36,
       "stats": {

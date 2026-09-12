@@ -3,6 +3,7 @@
   "factionId": "exodites",
   "displayName": "Exodite Dragon Masters",
   "blurb": "The ceremonial positions at the heart of a Dragon Master kill team are bonded in a harmony of martial, spiritual and strategic skills. When bound together, these clan champions form a deadly trinary. Bolstered by the strength and speed of their ferocious drakesteeds, alongside the keen senses of their Drakolithes, no prey can long evade them.",
+  "lore": "The Exodites left the Aeldari empire before it fell and have been proved right for sixty million years, which has not made them any easier to talk to. They live on maiden worlds with the technology deliberately kept low and the world-spirit deliberately kept close, and they ride the great saurians their ancestors bred. A dragon master's authority comes from the beast agreeing, and the beast's agreement is not permanent.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -47,6 +48,7 @@
     {
       "id": "dragon-master-clanblade",
       "name": "Dragon Master Clanblade",
+      "lore": "The clan's fighting hand, mounted or afoot, carrying a laser lance that predates every human civilisation and has been maintained by hand throughout.",
       "role": "assault",
       "baseDiameter": 2.95,
       "stats": {
@@ -114,6 +116,7 @@
     {
       "id": "dragon-master-leystalker",
       "name": "Dragon Master Leystalker",
+      "lore": "She hunts along the world's ley-lines, where the land itself will tell her what has walked on it. Trespassers are a matter she takes personally.",
       "role": "assault",
       "baseDiameter": 2.95,
       "stats": {
@@ -198,6 +201,7 @@
     {
       "id": "dragon-master-stonesinger",
       "name": "Dragon Master Stonesinger",
+      "lore": "He shapes the megaliths that hold the world-spirit in place, singing stone into position the way his ancestors sang wraithbone. It is slow work and he is in no hurry.",
       "role": "assault",
       "baseDiameter": 2.95,
       "stats": {
@@ -293,6 +297,7 @@
     {
       "id": "drakolithe",
       "name": "Drakolithe",
+      "lore": "A bred saurian of the clan's herds — armoured, ill-tempered, and considerably faster over broken ground than anything wearing power armour.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

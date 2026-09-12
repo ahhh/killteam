@@ -3,6 +3,7 @@
   "factionId": "space-marines",
   "displayName": "Deathwatch",
   "blurb": "Deathwatch kill teams combat the xenos foes of the Imperium with adaptive expertise and specialist weaponry. They wield some of Humanity's most highly advanced weapons alongside more esoteric equipment. Besides their superhuman strength and speed, the Deathwatch bring to the battlefield their hatred of the xenos in all its forms.",
+  "lore": "Every man here is on secondment from a Chapter that expects him back, and most of them will not be. The Deathwatch takes one veteran from each and rebuilds him around a single question: what does it take to kill this particular xenos? The answer is usually a weapon nobody else carries, a round nobody else is issued, and a brother from four Chapters away who has learned to fight beside him in a fortnight.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -48,6 +49,7 @@
     {
       "id": "deathwatch-watch-sergeant",
       "name": "Deathwatch Watch Sergeant",
+      "lore": "He commands men whose home Chapters have wholly incompatible doctrines and makes it look straightforward. The trick is that he has read all of them.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -119,6 +121,7 @@
     {
       "id": "deathwatch-aegis-veteran",
       "name": "Deathwatch Aegis Veteran",
+      "lore": "Shield and storm bolter, planted in a doorway. Whatever the kill team is doing behind him happens because he is standing there.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -170,6 +173,7 @@
     {
       "id": "deathwatch-blademaster-veteran",
       "name": "Deathwatch Blademaster Veteran",
+      "lore": "A duellist among transhumans, which is a very short list. He fights the biggest thing on the field on purpose.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -240,6 +244,7 @@
     {
       "id": "deathwatch-bombard-veteran",
       "name": "Deathwatch Bombard Veteran",
+      "lore": "He carries the launcher and the fourteen specialist warheads that justify it, and he knows which one the target's biology dislikes.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -321,6 +326,7 @@
     {
       "id": "deathwatch-breacher-veteran",
       "name": "Deathwatch Breacher Veteran",
+      "lore": "Shield, hammer, and a professional interest in walls. He enters first, and the room reorganises around that.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -423,6 +429,7 @@
     {
       "id": "deathwatch-demolisher-veteran",
       "name": "Deathwatch Demolisher Veteran",
+      "lore": "Where the Breacher opens a door, he removes the reason for the door. His charges are cut for the specific structure.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -474,6 +481,7 @@
     {
       "id": "deathwatch-disruptor-veteran",
       "name": "Deathwatch Disruptor Veteran",
+      "lore": "His work is the enemy's cohesion — the vox, the synapse, the officer, the thing holding the swarm's shape. He is often the reason a battle ends early.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -524,6 +532,7 @@
     {
       "id": "deathwatch-gunner-veteran",
       "name": "Deathwatch Gunner Veteran",
+      "lore": "The team's heavy special weapon, chosen for this xenos and issued for this mission only. He has fired six different guns this year.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -606,6 +615,7 @@
     {
       "id": "deathwatch-headtaker-veteran",
       "name": "Deathwatch Headtaker Veteran",
+      "lore": "He takes the leader. There is very little else in his file, and the file is long.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -656,6 +666,7 @@
     {
       "id": "deathwatch-horde-slayer-veteran",
       "name": "Deathwatch Horde-Slayer Veteran",
+      "lore": "Trained for the days when the enemy arrives by the hundred and the arithmetic is the tactic. He does not tire in any way that shows.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -755,6 +766,7 @@
     {
       "id": "deathwatch-marksman-veteran",
       "name": "Deathwatch Marksman Veteran",
+      "lore": "Hellfire, kraken, vengeance — he selects the round before he selects the target, and the selection is the whole of the art.",
       "role": "sniper",
       "baseDiameter": 1.26,
       "stats": {

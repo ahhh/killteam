@@ -3,6 +3,7 @@
   "factionId": "craftworlds",
   "displayName": "Blades of Khaine",
   "blurb": "Athletic, graceful and utterly lethal, the Aeldari warriors that comprise Blades of Khaine kill teams come together to undertake missions of utmost importance on behalf of their craftworlds. They are dispatched to sever specific strands of fate, ensuring that terrible events they have foreseen never come to pass.",
+  "lore": "Three shrines, one war host. An Aspect Warrior gives themselves to a single facet of the Bloody-Handed God and trains until that facet is all that remains of them on the battlefield — the disciplined volley, the shriek and the blade, the silence and the claw. The Exarchs never come back out of the armour. The rest go home, mask their aspect, and hope.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -50,6 +51,7 @@
     {
       "id": "dire-avenger-exarch",
       "name": "Dire Avenger Exarch",
+      "lore": "He has worn the mask so long that the shrine's previous Exarchs speak through it, and he has stopped finding that strange. He holds the line and expects the line to be held.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -179,6 +181,7 @@
     {
       "id": "dire-avenger-warrior",
       "name": "Dire Avenger Warrior",
+      "lore": "The most balanced of the aspects, which is a polite way of saying the most survivable. He shoots in disciplined bursts and steps back into cover between them, because he still intends to take the mask off.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -230,6 +233,7 @@
     {
       "id": "howling-banshee-exarch",
       "name": "Howling Banshee Exarch",
+      "lore": "The wail that precedes her is a weapon the shrine has refined for millennia, and she deploys it like a gunner deploys a barrage — early, and at the one enemy whose nerve matters.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -347,6 +351,7 @@
     {
       "id": "howling-banshee-warrior",
       "name": "Howling Banshee Warrior",
+      "lore": "She crosses open ground faster than anything with a gun can adjust to, and arrives screaming. The power sword is almost an afterthought to the thirty yards before it.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -400,6 +405,7 @@
     {
       "id": "striking-scorpion-exarch",
       "name": "Striking Scorpion Exarch",
+      "lore": "Patient in a way the other shrines find unsettling. He has waited entire engagements in one position for a single opening, and taken it.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -503,6 +509,7 @@
     {
       "id": "striking-scorpion-warrior",
       "name": "Striking Scorpion Warrior",
+      "lore": "Heavily armoured for an Aeldari and content to be slow, because he never intends to be seen crossing anything. He fights at arm's length with chainsword and mandiblasters, and at that range he does not lose.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {

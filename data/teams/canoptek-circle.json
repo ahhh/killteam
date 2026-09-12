@@ -3,6 +3,7 @@
   "factionId": "necrons",
   "displayName": "Canoptek Circle",
   "blurb": "Canoptek Circle kill teams comprise sinister alien constructs in thrall to their Cryptek master. The emotionless and unliving Canoptek constructs overcome obstacles to a Cryptek's ambitions, whether rock and metal or the bodies of the living, while their master accesses nodes of power and data to charge the constructs' ancient abilities further.",
+  "lore": "No Necron lord ordered this. A tomb's maintenance stratum woke on schedule, found the dynasty above it still dormant and the site compromised, and began repairs — and repairs, to a canoptek intelligence, include the removal of everything that is not supposed to be there. The constructs are not hostile so much as tidy. There is no one to negotiate with and no one to kill that would stop it.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -52,6 +53,7 @@
     {
       "id": "geomancer",
       "name": "Geomancer",
+      "lore": "A cryptek of the tomb's geological stratum, woken to supervise and faintly irritated to have been. It regards the intruders as a soil condition.",
       "role": "ranged",
       "baseDiameter": 1.97,
       "stats": {
@@ -145,6 +147,7 @@
     {
       "id": "canoptek-macrocyte-accelerator",
       "name": "Canoptek Macrocyte Accelerator",
+      "lore": "It exists to make the others faster, feeding raw dimensional charge into their drive systems until they move in a way that hurts to watch.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -212,6 +215,7 @@
     {
       "id": "canoptek-macrocyte-reanimator",
       "name": "Canoptek Macrocyte Reanimator",
+      "lore": "It stitches its siblings back together mid-engagement with beams of self-repair protocol, and will keep doing so long after the thing it is repairing has stopped being a coherent shape.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -270,6 +274,7 @@
     {
       "id": "canoptek-macrocyte-warrior",
       "name": "Canoptek Macrocyte Warrior",
+      "lore": "The stratum's answer to something that will not leave. Heavier than a scarab swarm and far more deliberate, it walks a straight line to the problem.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -351,6 +356,7 @@
     {
       "id": "canoptek-tomb-crawler",
       "name": "Canoptek Tomb Crawler",
+      "lore": "It has spent sixty million years patrolling corridors that nothing has walked down. It does not know how to be surprised, and it does not stop.",
       "role": "ranged",
       "baseDiameter": 1.97,
       "stats": {

@@ -3,6 +3,7 @@
   "factionId": "sky-caste",
   "displayName": "Sky Caste Marksmen",
   "blurb": "Best gunline in the set, worst in a fistfight. Wins by never being reached.",
+  "lore": "A synthetic demo team written for this engine rather than transcribed from any published source. A disciplined long-range gunline, included as the opposite pole to the Scrap Raiders — and, as the README's balance note records, a useful demonstration of how far this engine's terrain and turning-point budget favour reach.",
   "edition": "synthetic-1",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -38,6 +39,7 @@
     {
       "id": "skycaste-shas",
       "name": "Caste Leader",
+      "lore": "The one who allocates targets. The team's fire is only as good as his priorities.",
       "role": "support",
       "baseDiameter": 1.25,
       "stats": {
@@ -85,6 +87,7 @@
     {
       "id": "skycaste-heavy",
       "name": "Caste Heavy Gunner",
+      "lore": "Sets up once, covers a lane, and does not move again unless the lane does.",
       "role": "ranged",
       "baseDiameter": 1.32,
       "stats": {
@@ -130,6 +133,7 @@
     {
       "id": "skycaste-marksman",
       "name": "Caste Marksman",
+      "lore": "One rifle, one lane, and the patience to wait for the range band he was trained for.",
       "role": "ranged",
       "baseDiameter": 1.25,
       "stats": {

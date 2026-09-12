@@ -3,6 +3,7 @@
   "factionId": "vanguard-compact",
   "displayName": "Vanguard Breachers",
   "blurb": "Close-assault specialists. Wants to be in your control range by Turning Point 2.",
+  "lore": "A synthetic demo team written for this engine rather than transcribed from any published source. Two profiles and nothing else: the minimum viable rule pack, kept in the bundle as the worked example the loader and validator documentation refers to.",
   "edition": "synthetic-1",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -34,6 +35,7 @@
     {
       "id": "breacher-champion",
       "name": "Breacher Champion",
+      "lore": "The larger of the pack's two profiles, and the one with a name worth printing.",
       "role": "assault",
       "baseDiameter": 1.32,
       "stats": {
@@ -83,6 +85,7 @@
     {
       "id": "breacher",
       "name": "Breacher",
+      "lore": "Armoured line infantry with a short weapon and a short distance to cross.",
       "role": "assault",
       "baseDiameter": 1.32,
       "stats": {

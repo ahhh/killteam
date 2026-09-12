@@ -3,6 +3,7 @@
   "factionId": "agents-of-the-imperium",
   "displayName": "Inquisitorial Agent",
   "blurb": "The reach of the Inquisition extends across the vastness of the Imperium. Inquisitorial kill teams bring together agents from all strata of Imperial society, from elite soldiers to zealous priests. Together, these disparate elements combine their skills to deadly effect, enabling them to root out and destroy heretics, aliens and the servants of Chaos.",
+  "lore": "An Inquisitor's retinue is assembled from whatever the investigation requires and whatever the Inquisitor can requisition, which are rarely the same list. The result is a warband with no common training, no common equipment and no common loyalty except to one person's writ: Militarum scions beside a psyker beside a convict beside a woman who cannot be touched by the warp at all. It works because the alternative is explaining to the Ordo why it did not.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -59,6 +60,7 @@
     {
       "id": "interrogator-agent",
       "name": "Interrogator Agent",
+      "lore": "One rung below the rosette and running this operation on the Inquisitor's behalf. He is aware that a mistake here is also a career decision.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -110,6 +112,7 @@
     {
       "id": "tome-skull",
       "name": "Tome-Skull",
+      "lore": "It carries the case file, reads the relevant precedent aloud on request, and has been present at more executions than anyone else in the retinue.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -130,6 +133,7 @@
     {
       "id": "autosavant-agent",
       "name": "Autosavant Agent",
+      "lore": "He remembers what the retinue cannot afford to write down. His recall is augmetic and the augmetic is sealed.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -164,6 +168,7 @@
     {
       "id": "death-world-veteran-agent",
       "name": "Death World Veteran Agent",
+      "lore": "Recruited out of a regiment that recruited him out of somewhere worse. He is the one who goes into the undergrowth.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -225,6 +230,7 @@
     {
       "id": "enlightener-agent",
       "name": "Enlightener Agent",
+      "lore": "His job is the crowd — turning a hostile district into a merely sullen one, in the hours before the shooting.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -276,6 +282,7 @@
     {
       "id": "hexorcist-agent",
       "name": "Hexorcist Agent",
+      "lore": "He deals with what is inside the possessed, and has a professional's low opinion of everyone who thinks that is the same as killing them.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -331,6 +338,7 @@
     {
       "id": "mystic-agent",
       "name": "Mystic Agent",
+      "lore": "He feels the warp the way others feel a draught, and tells the retinue which door not to open.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -389,6 +397,7 @@
     {
       "id": "penal-legionnaire-agent",
       "name": "Penal Legionnaire Agent",
+      "lore": "His sentence is being served one operation at a time. He is given the dangerous half and the promise of an eventual full stop.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -440,6 +449,7 @@
     {
       "id": "pistolier-agent",
       "name": "Pistolier Agent",
+      "lore": "A duellist on retainer, kept for the moments when the retinue needs something settled in a room rather than a firefight.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -531,6 +541,7 @@
     {
       "id": "questkeeper-agent",
       "name": "Questkeeper Agent",
+      "lore": "He guards the object, the witness or the sample the whole investigation exists to secure, and will not be drawn off it.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -581,6 +592,7 @@
     {
       "id": "requisitioned-gun-servitor",
       "name": "Requisitioned Gun Servitor",
+      "lore": "Signed out of a forge world's inventory against a warrant nobody dared query. It has one instruction and no opinion.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -706,6 +718,7 @@
     {
       "id": "sister-of-silence-prosecutor",
       "name": "Sister of Silence Prosecutor",
+      "lore": "Boltgun and an absence where her soul should register. Psykers near her find their gifts going out like a lamp.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -755,6 +768,7 @@
     {
       "id": "sister-of-silence-vigilator",
       "name": "Sister of Silence Vigilator",
+      "lore": "Executioner greatsword, and a silence that is louder the closer she gets. She is sent at the witch, not near it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -792,6 +806,7 @@
     {
       "id": "sister-of-silence-witchseeker",
       "name": "Sister of Silence Witchseeker",
+      "lore": "Flame and the null, together. She burns what the null has already made helpless.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -844,6 +859,7 @@
     {
       "id": "tempestus-scion-gunner",
       "name": "Tempestus Scion Gunner",
+      "lore": "Militarum Tempestus, seconded and not told why. He carries the hot-shot special weapon and asks nothing.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -1012,6 +1028,7 @@
     {
       "id": "tempestus-scion-medic",
       "name": "Tempestus Scion Medic",
+      "lore": "Trained to keep scions in the fight for the eleven minutes a Tempestus operation is supposed to last.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -1068,6 +1085,7 @@
     {
       "id": "tempestus-scion-trooper",
       "name": "Tempestus Scion Trooper",
+      "lore": "Drop-trained, hot-shot armed, and used to serving people who will not explain the objective.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -1117,6 +1135,7 @@
     {
       "id": "tempestus-scion-vox-operator",
       "name": "Tempestus Scion Vox-Operator",
+      "lore": "He keeps the retinue's line to the Inquisitor open, and knows that the last thing on it may be an order to withdraw without the others.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {

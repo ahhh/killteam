@@ -3,6 +3,7 @@
   "factionId": "agents-of-the-imperium",
   "displayName": "Imperial Navy Breacher",
   "blurb": "Counted amongst the complement of many Navis Imperialis vessels, Navy Breachers are elite Voidsmen who are outfitted, trained and endlessly drilled in boarding actions and void-based combat. Wielding a wide array of cutting gear, boarding shields and close-range weapons, they are well-suited to deadly combat in close confines.",
+  "lore": "Every Navy vessel carries armsmen for the day something gets aboard, and the day always comes. Breachers fight in corridors, in the dark, in atmospheres that are venting, against boarders who have exactly the same job. They are not soldiers and do not pretend to be — they are ship's crew with shotguns and a chart of every bulkhead between here and the reactor.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -73,6 +74,7 @@
     {
       "id": "navis-sergeant-at-arms",
       "name": "Navis Sergeant-At-Arms",
+      "lore": "He has held sections of his own ship against things that came out of the warp, and he plans a boarding action the way he plans a fire drill.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -193,6 +195,7 @@
     {
       "id": "navis-armsman",
       "name": "Navis Armsman",
+      "lore": "Shotgun, flak, and a working knowledge of which way the corridor bends. He fights at the range his ship was built at.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -254,6 +257,7 @@
     {
       "id": "navis-axejack",
       "name": "Navis Axejack",
+      "lore": "Boarding axe and the shoulders for it. In a space this narrow the axe is simply the better weapon and everyone knows it.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -303,6 +307,7 @@
     {
       "id": "navis-c-a-t-unit",
       "name": "Navis C.A.T. Unit",
+      "lore": "A tracking servo-construct that scuttles ahead through ducting and reports what is on the other side. Expendable, and treated so.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -329,6 +334,7 @@
     {
       "id": "navis-endurant",
       "name": "Navis Endurant",
+      "lore": "Armoured for the point of a boarding wedge and trained to keep walking into fire. He is the reason the wedge has a point.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -397,6 +403,7 @@
     {
       "id": "navis-gheistskull",
       "name": "Navis Gheistskull",
+      "lore": "A servo-skull with a floodlamp and a sensor package, sent down the dark half of the passage first.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -423,6 +430,7 @@
     {
       "id": "navis-grenadier",
       "name": "Navis Grenadier",
+      "lore": "In a corridor a grenade is a decision about everyone in it, including your own side. He has the judgement for that.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -504,6 +512,7 @@
     {
       "id": "navis-gunner",
       "name": "Navis Gunner",
+      "lore": "Heavy weapon in confined space — impractical, unsafe, and decisive. He gets one good angle per compartment.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -623,6 +632,7 @@
     {
       "id": "navis-hatchcutter",
       "name": "Navis Hatchcutter",
+      "lore": "He is the reason locked hatches are a delay rather than an obstacle, and he works fast because the boarding clock is real.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -686,6 +696,7 @@
     {
       "id": "navis-surveyor",
       "name": "Navis Surveyor",
+      "lore": "Auspex in a hull full of interference. He tells the sergeant where the enemy is, with appropriate error bars.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -760,6 +771,7 @@
     {
       "id": "navis-void-jammer",
       "name": "Navis Void-Jammer",
+      "lore": "He blinds the boarders' own sensors and cuts their vox, which in a dark corridor is worth more than another gun.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

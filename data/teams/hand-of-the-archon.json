@@ -3,6 +3,7 @@
   "factionId": "drukhari",
   "displayName": "Hand of the Archon",
   "blurb": "The Archons of the Drukhari Kabals are forever plotting to expand their sprawling criminal empires. Should their schemes require a subtle touch, they may turn to Hand of the Archon kill teams. These bands of assassins, thieves, torturers and worse wield an array of esoteric and macabre weapons to aid them in their diabolical missions.",
+  "lore": "An Archon does not send his Kabal's best on an errand. He sends the ones whose ambition has become legible — a duellist who has begun collecting admirers, a poisoner who has been paid by someone else, an assassin who is too good. The Hand is simultaneously an instrument and a purge, and every member of it knows which they are on any given raid. They fight magnificently, out of self-interest.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -65,6 +66,7 @@
     {
       "id": "kabalite-archsybarite",
       "name": "Kabalite Archsybarite",
+      "lore": "He commands on the Archon's sufferance and is aware that a successful raid is only marginally safer for him than a failed one.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -195,6 +197,7 @@
     {
       "id": "kabalite-agent",
       "name": "Kabalite Agent",
+      "lore": "Whatever the Kabal needs that day. His file has been rewritten four times and he has read none of the versions.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -245,6 +248,7 @@
     {
       "id": "kabalite-crimson-duellist",
       "name": "Kabalite Crimson Duellist",
+      "lore": "She fights for an audience that is not present and scores the exchange privately. The scoring is the point; the corpse is bookkeeping.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -298,6 +302,7 @@
     {
       "id": "kabalite-disciple-of-yaelindra",
       "name": "Kabalite Disciple of Yaelindra",
+      "lore": "Poison as a discipline rather than a tool. She has spent a century on the distinction and will explain it while you are dying.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -356,6 +361,7 @@
     {
       "id": "kabalite-elixicant",
       "name": "Kabalite Elixicant",
+      "lore": "He deals in the substances that keep Commorrite flesh from remembering its age, and he is never short of leverage.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -430,6 +436,7 @@
     {
       "id": "kabalite-flayer",
       "name": "Kabalite Flayer",
+      "lore": "The taking is slow by design. What the Kabal harvests from it is not the pain but what the pain is worth in the markets below.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -467,6 +474,7 @@
     {
       "id": "kabalite-gunner",
       "name": "Kabalite Gunner",
+      "lore": "A splinter weapon and the patience to wait for the toxin. He rarely needs a second burst.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -534,6 +542,7 @@
     {
       "id": "kabalite-heavy-gunner",
       "name": "Kabalite Heavy Gunner",
+      "lore": "He sets the Kabal's serious weapon somewhere high and makes the ground beneath it a decision nobody wants to make.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -620,6 +629,7 @@
     {
       "id": "kabalite-skysplinter-assassin",
       "name": "Kabalite Skysplinter Assassin",
+      "lore": "She arrives from above and leaves the same way, and the interval is measured in a single exhalation.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

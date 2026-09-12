@@ -3,6 +3,7 @@
   "factionId": "leagues-of-votann",
   "displayName": "Hernkyn Yaegir",
   "blurb": "Bands of Hernkyn serve the Leagues of Votann as scouts and rangers, plying the void and infiltrating worlds in search of raw resources to exploit. Yaegirs are the Hernykn's hardened commandos, responsible for securing and protecting the claims of the Leagues of Votann during the most dangerous missions.",
+  "lore": "Yaegirs range ahead of the League's interests on trikes and on foot, weeks out from any support, mapping what is there and removing what should not be. They are the Kin who are comfortable being alone, which among a people built around the Ancestral record is close to eccentric. What they bring back is intelligence, and occasionally a claim nobody else knew existed.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -61,6 +62,7 @@
     {
       "id": "yaegir-theyn",
       "name": "Yaegir Theyn",
+      "lore": "He has been out on his own long enough to have his own way of doing things, and the League tolerates it because the maps are good.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -139,6 +141,7 @@
     {
       "id": "yaegir-bladekyn",
       "name": "Yaegir Bladekyn",
+      "lore": "Close work in the kind of terrain a ranging party ends up in. He carries a blade because at that distance the ion weapon is a liability.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -193,6 +196,7 @@
     {
       "id": "yaegir-bombast",
       "name": "Yaegir Bombast",
+      "lore": "He solves terrain problems with explosives and considers most problems to be terrain problems.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -243,6 +247,7 @@
     {
       "id": "yaegir-gunner",
       "name": "Yaegir Gunner",
+      "lore": "The party's heavier weapon, carried a very long way by someone who has never complained about it on the record.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -330,6 +335,7 @@
     {
       "id": "yaegir-ironbraek",
       "name": "Yaegir Ironbraek",
+      "lore": "Armoured for the point position and content to be shot at first. The plate is old, personal and much repaired.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -377,6 +383,7 @@
     {
       "id": "yaegir-riflekyn",
       "name": "Yaegir Riflekyn",
+      "lore": "He takes the long shot when the ranging party cannot afford to be found, which is most of the time.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -465,6 +472,7 @@
     {
       "id": "yaegir-tracker",
       "name": "Yaegir Tracker",
+      "lore": "He reads a week-old trail and tells the party what made it, how many, and whether they are still hungry.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -532,6 +540,7 @@
     {
       "id": "yaegir-warrior",
       "name": "Yaegir Warrior",
+      "lore": "The ordinary Yaegir: self-reliant to a fault, and quietly of the view that the settled Kin have gone soft.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

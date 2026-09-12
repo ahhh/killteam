@@ -3,6 +3,7 @@
   "factionId": "t-au-empire",
   "displayName": "Farstalker Kinband",
   "blurb": "Farstalker Kinbands operate as scouts for the Kroot species. They range far and wide throughout the galaxy, seeking new and valuable genetic material to return to their Shapers. Farstalker Kinbands contain expert trackers, hunters and guerrilla fighters who are capable of matching far more technologically advanced foes.",
+  "lore": "Kroot fight for the T'au because the T'au pay, and because the Kroot have a long-standing interest in what their enemies are made of. A kinband is an extended family under a broker who negotiates the contract and takes his cut, and its tactics are the hunt scaled up: spread wide, find the prey, close from three directions at once. What they eat afterwards is their own business and a recurring diplomatic difficulty.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -73,6 +74,7 @@
     {
       "id": "kroot-kill-broker",
       "name": "Kroot Kill-Broker",
+      "lore": "He signs the contract, sets the price and decides when the price has been met. The kinband's loyalty to the T'au runs exactly as far as his signature.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -136,6 +138,7 @@
     {
       "id": "kroot-bow-hunter",
       "name": "Kroot Bow-Hunter",
+      "lore": "He uses a bow because it is silent and because the wounds it makes are the kind he can follow. Both reasons are practical.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -225,6 +228,7 @@
     {
       "id": "kroot-cold-blood",
       "name": "Kroot Cold-Blood",
+      "lore": "Unhurried to the point of seeming asleep, and then not. He has inherited something reptilian and made a virtue of it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -273,6 +277,7 @@
     {
       "id": "kroot-cut-skin",
       "name": "Kroot Cut-Skin",
+      "lore": "Scarred deliberately, each mark a hunt. He fights at arm's length and adds to the record.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -310,6 +315,7 @@
     {
       "id": "kroot-heavy-gunner",
       "name": "Kroot Heavy Gunner",
+      "lore": "He carries the kinband's one serious weapon, bought with a previous contract's fee and maintained better than anything else the kin owns.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -380,6 +386,7 @@
     {
       "id": "kroot-hound",
       "name": "Kroot Hound",
+      "lore": "Barely distinguishable from the kindred in the way it hunts, and considerably less inclined to stop when called.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -423,6 +430,7 @@
     {
       "id": "kroot-long-sight",
       "name": "Kroot Long-Sight",
+      "lore": "Perched, still, and watching a treeline for an hour at a time. The kinband moves when he says the ground is empty.",
       "role": "sniper",
       "baseDiameter": 1.1,
       "stats": {
@@ -514,6 +522,7 @@
     {
       "id": "kroot-pistolier",
       "name": "Kroot Pistolier",
+      "lore": "Two short weapons and a taste for the moment the prey turns. He fights where the range collapses.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -581,6 +590,7 @@
     {
       "id": "kroot-stalker",
       "name": "Kroot Stalker",
+      "lore": "He goes ahead and does not come back until he has something to report or something to carry.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -639,6 +649,7 @@
     {
       "id": "kroot-tracker",
       "name": "Kroot Tracker",
+      "lore": "He reads ground the T'au would need an auspex for, and reaches conclusions the auspex would not.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -700,6 +711,7 @@
     {
       "id": "kroot-warrior",
       "name": "Kroot Warrior",
+      "lore": "The kinband's ordinary hunter: rifle, blade at the muzzle, and a shape that closes the last twenty yards at unpleasant speed.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

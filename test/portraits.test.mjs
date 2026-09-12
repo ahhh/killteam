@@ -295,9 +295,61 @@ test('a variant draws its base team\'s art at all three sizes', async () => {
 test('a variant is not treated as an undrawn team', async () => {
   await withStubs(MANIFEST, async (_fetched, mod) => {
     await mod.loadManifest();
-    // The manifest lists `kommandos` and nothing else. Asking about the variant
-    // by its own id is exactly the bug this indirection exists to prevent.
-    assert.equal(mod.hasPortrait(VARIANT.id, PROFILE.id), false);
+    // The manifest lists `kommandos` and nothing else, so the variant's own id
+    // is not in it. artTeamId() is what keeps the lookup off that id in the
+    // first place, and every size resolves to the base team's folder.
+    assert.equal(mod.artTeamId(VARIANT), 'kommandos');
     assert.notEqual(mod.createOperativeToken(VARIANT, PROFILE, 'p2-op9'), null);
+    assert.equal(mod.operativePipUrl(VARIANT, PROFILE.id),
+      `./assets/pips/kommandos/${PROFILE.id}.webp`);
   });
+});
+
+test('a team the manifest has never heard of is drawn anyway', async () => {
+  // The regression behind the blank Freebooter and Crimson Spear bases: the
+  // manifest was fetched with `force-cache`, so a returning player kept a copy
+  // from before those teams were drawn, and every base fell back to a bare
+  // role glyph while the art sat on the server. Two things had to be wrong for
+  // that to reach the screen, and this covers the second — an absent TEAM now
+  // fails open, the same way an absent manifest already did.
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    assert.equal(mod.hasPortrait('freebooter-boardin-krew', 'freebooter-kaptin'), true);
+    assert.equal(mod.operativePipUrl({ id: 'freebooter-boardin-krew' }, 'freebooter-kaptin'),
+      './assets/pips/freebooter-boardin-krew/freebooter-kaptin.webp');
+  });
+});
+
+test('an operative missing from a team the manifest DOES list stays honest', async () => {
+  // The fail-open above must not swallow the real case it was written for: a
+  // team that is listed, with one operative still undrawn.
+  await withStubs(MANIFEST, async (_fetched, mod) => {
+    await mod.loadManifest();
+    const undrawn = PACK.operatives.find((p) => p.id !== PROFILE.id);
+    assert.equal(mod.hasPortrait('kommandos', undrawn.id), false);
+    assert.equal(mod.operativePipUrl(PACK, undrawn.id), null);
+  });
+});
+
+test('the manifest is revalidated, never served blind from cache', async () => {
+  // `force-cache` returns a cached response fresh OR stale and never asks the
+  // server again; this file names every operative that has been drawn, so it
+  // changes on exactly the deploys that add art. `no-cache` still uses the
+  // cached bytes — it just pays one 304 to find out they are current.
+  const modes = [];
+  const previousDoc = globalThis.document;
+  const previousFetch = globalThis.fetch;
+  globalThis.document = { createElement: (tag) => new StubNode(tag) };
+  globalThis.fetch = async (_url, init) => {
+    modes.push(init?.cache);
+    return { ok: true, status: 200, json: async () => MANIFEST };
+  };
+  try {
+    const mod = await freshModule();
+    await mod.loadManifest();
+  } finally {
+    globalThis.document = previousDoc;
+    globalThis.fetch = previousFetch;
+  }
+  assert.deepEqual(modes, ['no-cache']);
 });

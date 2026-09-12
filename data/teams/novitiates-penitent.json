@@ -3,6 +3,7 @@
   "factionId": "adepta-sororitas",
   "displayName": "Penitent Host",
   "blurb": "Eviscerators and zeal. The shooting is somebody else's problem.",
+  "lore": "The Schola will not put this in writing, but there is a second way to train a novitiate: give her nothing to shoot with, an eviscerator she can barely lift, and a conviction that dying well is a result. What the Order gets back is a host that closes on anything and does not stop when it is hit. What it does not get back is most of them.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -68,6 +69,7 @@
     {
       "id": "novitiate-superior",
       "name": "Novitiate Superior",
+      "lore": "The senior novitiate, and the one who will have to explain the casualties. She has already decided the explanation will be that the faith was sufficient.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -184,6 +186,7 @@
     {
       "id": "novitiate-condemnor",
       "name": "Novitiate Condemnor",
+      "lore": "She carries the stake-thrower for the witch the mission may or may not contain. She has been hoping.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -240,6 +243,7 @@
     {
       "id": "novitiate-dialogus",
       "name": "Novitiate Dialogus",
+      "lore": "She knows the right passage for every moment and deploys it like ammunition. The squad moves faster when she is speaking.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -303,6 +307,7 @@
     {
       "id": "novitiate-duellist",
       "name": "Novitiate Duellist",
+      "lore": "Sword and pistol, and an unbecoming amount of practice. Her instructors have noted the vanity and not corrected it.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -354,6 +359,7 @@
     {
       "id": "novitiate-exactor",
       "name": "Novitiate Exactor",
+      "lore": "Discipline within the squad is hers to enforce, and she has not yet learned to be sparing with it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -415,6 +421,7 @@
     {
       "id": "novitiate-hospitaller",
       "name": "Novitiate Hospitaller",
+      "lore": "Trained in the Order's medicae and its harder judgements. She is very young to be making the second kind.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -474,6 +481,7 @@
     {
       "id": "novitiate-militant",
       "name": "Novitiate Militant",
+      "lore": "The ordinary novitiate: autogun, faith, and an absolute conviction that the ground she is on is the Emperor's.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -549,6 +557,7 @@
     {
       "id": "novitiate-penitent",
       "name": "Novitiate Penitent",
+      "lore": "Chained, hooded, and working off something the Schola has not written down. She is released at the moment her restraint stops being useful.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -600,6 +609,7 @@
     {
       "id": "novitiate-preceptor",
       "name": "Novitiate Preceptor",
+      "lore": "Half instructor, half squad leader. She is here to be observed as much as to fight, and knows it.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -637,6 +647,7 @@
     {
       "id": "novitiate-pronatus",
       "name": "Novitiate Pronatus",
+      "lore": "She is responsible for the relic the mission was actually about, and will carry it out of a burning building rather than be parted from it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -685,6 +696,7 @@
     {
       "id": "novitiate-purgatus",
       "name": "Novitiate Purgatus",
+      "lore": "Flame, and a theology of it. She has never been asked to justify the amount she uses.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -736,6 +748,7 @@
     {
       "id": "novitiate-reliquarius",
       "name": "Novitiate Reliquarius",
+      "lore": "She bears the squad's sacred burden through the fight, which is both an honour and the reason the enemy shoots at her.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

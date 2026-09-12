@@ -3,6 +3,7 @@
   "factionId": "space-marines",
   "displayName": "Phobos Strike Team",
   "blurb": "Masters of stealth and subterfuge, Phobos Strike Teams consist of Space Marine Infiltrators, Incursors and Reivers. Possessed of transhuman strength and equipped with a range of explosives, communications equipment and precise weaponry, they are capable of outmanoeuvring and overwhelming enemy forces many times their own size.",
+  "lore": "Phobos armour was designed for the wars the Adeptus Astartes do not announce. An Infiltrator reads a position for days before anyone shoots; an Incursor goes through the wall of it; a Reiver arrives in the dark with the vox jammed and a skull mask that is entirely deliberate. They deploy before the campaign exists and are frequently the reason it is short.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -53,6 +54,7 @@
     {
       "id": "infiltrator-sergeant",
       "name": "Infiltrator Sergeant",
+      "lore": "He has been in position since before the fleet made orbit, and the invasion plan is largely his report written back at him.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -105,6 +107,7 @@
     {
       "id": "infiltrator-commsman",
       "name": "Infiltrator Commsman",
+      "lore": "He runs the omni-scrambler and the team's silent net, and the enemy's confusion is a product he manufactures.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -156,6 +159,7 @@
     {
       "id": "infiltrator-helix-adept",
       "name": "Infiltrator Helix Adept",
+      "lore": "Apothecary training in a scout's armour. He keeps the team operational deep inside somebody else's territory, alone.",
       "role": "support",
       "baseDiameter": 1.26,
       "stats": {
@@ -215,6 +219,7 @@
     {
       "id": "infiltrator-saboteur",
       "name": "Infiltrator Saboteur",
+      "lore": "He has been inside the facility for two days and has already decided which four charges will do it.",
       "role": "sniper",
       "baseDiameter": 1.26,
       "stats": {
@@ -286,6 +291,7 @@
     {
       "id": "infiltrator-veteran",
       "name": "Infiltrator Veteran",
+      "lore": "Long deployments, no support, no extraction date. He has stopped finding that remarkable.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -337,6 +343,7 @@
     {
       "id": "infiltrator-voxbreaker",
       "name": "Infiltrator Voxbreaker",
+      "lore": "He takes the enemy's communications apart from the inside and listens to what is left of them.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -395,6 +402,7 @@
     {
       "id": "infiltrator-warrior",
       "name": "Infiltrator Warrior",
+      "lore": "Marksman bolt carbine and a fieldcraft the Scouts would recognise. He has not been seen in a week.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -446,6 +454,7 @@
     {
       "id": "incursor-sergeant",
       "name": "Incursor Sergeant",
+      "lore": "He leads the entry, which means he picks the wall. The haywire mine is already placed by then.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -498,6 +507,7 @@
     {
       "id": "incursor-marksman",
       "name": "Incursor Marksman",
+      "lore": "Occulus targeting through smoke, dust and structure. He shoots people who believe they are behind something.",
       "role": "sniper",
       "baseDiameter": 1.26,
       "stats": {
@@ -550,6 +560,7 @@
     {
       "id": "incursor-minelayer",
       "name": "Incursor Minelayer",
+      "lore": "He leaves the team's exit covered before the team has entered, which is the sort of pessimism the doctrine encourages.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -601,6 +612,7 @@
     {
       "id": "incursor-warrior",
       "name": "Incursor Warrior",
+      "lore": "Close-quarters bolt carbine and a combat blade, at the range Phobos armour was actually designed for.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -652,6 +664,7 @@
     {
       "id": "reiver-sergeant",
       "name": "Reiver Sergeant",
+      "lore": "He chooses the hour and the sound, and both are weapons. The skull is issued, not affected.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -733,6 +746,7 @@
     {
       "id": "reiver-warrior",
       "name": "Reiver Warrior",
+      "lore": "Grapnel, shock grenade, heavy bolt pistol and a voice modulator. He arrives through the ceiling.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

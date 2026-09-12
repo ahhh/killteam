@@ -3,6 +3,7 @@
   "factionId": "vanguard-compact",
   "displayName": "Vanguard Wardens",
   "blurb": "Few, armoured and hard to shift. Wins by holding ground.",
+  "lore": "A synthetic demo team written for this engine rather than transcribed from any published source. The bundle's default opponent and the team most of the test fixtures are written against — deliberately unremarkable, so that a change in the numbers is a change in the engine rather than in the team.",
   "edition": "synthetic-1",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -38,6 +39,7 @@
     {
       "id": "warden-sergeant",
       "name": "Warden Sergeant",
+      "lore": "The pack's leader profile, with one more point of APL and a better save.",
       "role": "flexible",
       "baseDiameter": 1.32,
       "stats": {
@@ -87,6 +89,7 @@
     {
       "id": "warden-gunner",
       "name": "Warden Gunner",
+      "lore": "The pack's special weapon, and the fixture most weapon-rule tests are built on.",
       "role": "ranged",
       "baseDiameter": 1.32,
       "stats": {
@@ -132,6 +135,7 @@
     {
       "id": "warden-trooper",
       "name": "Warden Trooper",
+      "lore": "The baseline operative of the whole project: average in every stat, by design.",
       "role": "flexible",
       "baseDiameter": 1.32,
       "stats": {

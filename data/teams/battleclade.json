@@ -3,6 +3,7 @@
   "factionId": "adeptus-mechanicus",
   "displayName": "Battleclade",
   "blurb": "Battleclade kill teams disassemble the enemies of the Omnissiah in calibrated acts of aggression. Implanted with industrial tools, cybernetic systems and deadly augmented weapons, these servitors execute whatever acquisitive mission their zealous masters decree.",
+  "lore": "A Battleclade is an expedition, not a patrol. Some magos has identified a site worth opening and dispatched an adept with a work gang of servitors, a reconstruction budget, and no instruction to return. The servitors were people once; the paperwork recording which people was lost in transit, and nobody has requisitioned a copy.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -58,6 +59,7 @@
     {
       "id": "battleclade-technoarcheologist",
       "name": "Battleclade Technoarcheologist",
+      "lore": "He reads a ruin the way a surgeon reads a body — layer by layer, and with a clear idea of what is worth cutting out. The relic is the objective. The servitors, the site and his own limbs are consumables.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -121,6 +123,7 @@
     {
       "id": "battleclade-auto-proxy-servitor",
       "name": "Battleclade Auto-Proxy Servitor",
+      "lore": "A relay with legs. It stands where the signal reaches and repeats its master's will to the others, which is the entirety of its remaining purpose and requires nothing that was lost in the conversion.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -166,6 +169,7 @@
     {
       "id": "battleclade-breacher-servitor",
       "name": "Battleclade Breacher Servitor",
+      "lore": "Fitted with cutters sized for bulkheads rather than bone, though it does not distinguish. It walks at the obstacle until the obstacle is no longer there.",
       "role": "objective-runner",
       "baseDiameter": 0.98,
       "stats": {
@@ -243,6 +247,7 @@
     {
       "id": "battleclade-combat-servitor",
       "name": "Battleclade Combat Servitor",
+      "lore": "Given arms instead of tools and a directive short enough to fit in what is left of its cortex. It closes, it strikes, and it does not register being struck back.",
       "role": "objective-runner",
       "baseDiameter": 0.98,
       "stats": {
@@ -329,6 +334,7 @@
     {
       "id": "battleclade-gun-servitor",
       "name": "Battleclade Gun Servitor",
+      "lore": "Its weapon is bolted to the shoulder mount and its eyes are slaved to the targeting feed, so the aim is the machine's and the trigger is nobody's. It fires until told to stop or until it stops.",
       "role": "objective-runner",
       "baseDiameter": 1.26,
       "stats": {
@@ -419,6 +425,7 @@
     {
       "id": "battleclade-servitor-underseer",
       "name": "Battleclade Servitor Underseer",
+      "lore": "Part overseer, part vox-mast. It carries the priority queue for the whole work gang and reorders it faster than the adept could speak, which is the one decision it is still permitted to make.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -484,6 +491,7 @@
     {
       "id": "battleclade-technomedic-servitor",
       "name": "Battleclade Technomedic Servitor",
+      "lore": "It repairs the others with the indifference of a mechanic and the tooling of a surgeon. Flesh and augmetic get the same solder.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {

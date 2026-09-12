@@ -3,6 +3,7 @@
   "factionId": "leagues-of-votann",
   "displayName": "Hearthkyn Salvager",
   "blurb": "Highly adept warriors and explorers of wrecked voidships and abandoned space stations, Hearthkyn Salvagers are tasked with identifying valuable material and marking it for later retrieval. Heavily armed and utterly resolute, Hearthkyn Salvager kill teams seize and defend such claims with the steadfast determination typical of the Kin.",
+  "lore": "A League's claim on a world is a legal instrument, and a salvager team is how the instrument is exercised. They arrive with survey gear, a Kognitâar to log the find and a great deal of firepower, because a claim is only as good as the ability to hold it against whatever else came for the same wreck. The Kin do not fight for glory. They fight because the material has been valued and the valuation stands.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -69,6 +70,7 @@
     {
       "id": "hearthkyn-theyn",
       "name": "Hearthkyn Theyn",
+      "lore": "Squad leader, claim officer and arbiter of what gets carried out. Every decision he makes is logged against his Ancestral record.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -215,6 +217,7 @@
     {
       "id": "hearthkyn-dozr",
       "name": "Hearthkyn Dôzr",
+      "lore": "He clears the way with a tool designed for rock and used on whatever is in front of it. Obstruction is a category, not a distinction.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -275,6 +278,7 @@
     {
       "id": "hearthkyn-field-medic",
       "name": "Hearthkyn Field Medic",
+      "lore": "Kin are expensive to grow and expensive to lose. He is here to protect an investment and does not find that a cold way to put it.",
       "role": "support",
       "baseDiameter": 1.1,
       "stats": {
@@ -332,6 +336,7 @@
     {
       "id": "hearthkyn-grenadier",
       "name": "Hearthkyn Grenadier",
+      "lore": "He carries the launcher and a strong professional view about the correct standoff distance, which he enforces.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -408,6 +413,7 @@
     {
       "id": "hearthkyn-gunner",
       "name": "Hearthkyn Gunner",
+      "lore": "The team's specialist weapon, issued against a specific threat assessment and returned to the armoury afterwards.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -562,6 +568,7 @@
     {
       "id": "hearthkyn-jump-pack-warrior",
       "name": "Hearthkyn Jump Pack Warrior",
+      "lore": "He takes the high ground before anyone has finished arguing about the route, and holds it until the rest catch up.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {
@@ -614,6 +621,7 @@
     {
       "id": "hearthkyn-kinlynk",
       "name": "Hearthkyn Kinlynk",
+      "lore": "He keeps the team inside the League's network, which means the team's actions are witnessed, recorded and creditable.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -692,6 +700,7 @@
     {
       "id": "hearthkyn-kognitaar",
       "name": "Hearthkyn Kognitâar",
+      "lore": "He logs the find, values it and decides what the claim is worth. Everything the team does afterwards follows from his arithmetic.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -764,6 +773,7 @@
     {
       "id": "hearthkyn-lokatr",
       "name": "Hearthkyn Lokâtr",
+      "lore": "Auspex, survey scanner and an instinct for where the wreck's good material settled. He walks ahead reading the ground.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -842,6 +852,7 @@
     {
       "id": "hearthkyn-lugger",
       "name": "Hearthkyn Lugger",
+      "lore": "Someone has to carry it out. He does, and he does it under fire, which is why he is also the best-armoured Kin in the team.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {
@@ -907,6 +918,7 @@
     {
       "id": "hearthkyn-warrior",
       "name": "Hearthkyn Warrior",
+      "lore": "Ion weapon, heavy plate, and a calm that outsiders mistake for slowness. He has a stake in the claim and intends to collect it.",
       "role": "ranged",
       "baseDiameter": 1.1,
       "stats": {

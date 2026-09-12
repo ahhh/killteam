@@ -51,6 +51,7 @@ const VARIANTS = [
     base: 'kommandos',
     displayName: 'Dakka Kommandos',
     blurb: 'Every gun the mob owns, and nobody to carry them into melee.',
+    lore: 'Every mob argues about this. One half says a Kommando\'s job is to be where nobody expected and then use a choppa; the other half says that if you have gone to the trouble of not being seen, you should spend the advantage on something that reaches. This mob is the second half, and it left the first half at the camp complaining. They dig in on a firing line nobody found, and they are very hard to shift once they are in it.',
     note: 'A Kommando mob built round its guns: the choppa boys stay home, and '
       + 'the ones that are left hide rather than charge.',
     faction: 'orks',
@@ -83,6 +84,7 @@ const VARIANTS = [
     base: 'novitiates',
     displayName: 'Penitent Host',
     blurb: 'Eviscerators and zeal. The shooting is somebody else\'s problem.',
+    lore: 'The Schola will not put this in writing, but there is a second way to train a novitiate: give her nothing to shoot with, an eviscerator she can barely lift, and a conviction that dying well is a result. What the Order gets back is a host that closes on anything and does not stop when it is hit. What it does not get back is most of them.',
     note: 'Novitiates fielded as a melee host — blades and flame instead of '
       + 'autoguns — and they take somebody with them when they fall.',
     faction: 'adepta-sororitas',
@@ -117,6 +119,7 @@ const VARIANTS = [
     base: 'corsair-voidscarred',
     displayName: 'Voidscarred Coven',
     blurb: 'Specialists only. They shoot from the dark and step back into it.',
+    lore: 'Some felarchs take the whole band. Others take four people who have each been the best in the galaxy at one thing and leave the rank and file on the ship, on the theory that a raid does not need a crowd — it needs the right four. The share is better and the margin for error is nil, and the Coven has developed a taste for both.',
     note: 'The Voidscarred\'s rarest hands — a Way-Seeker, a sniper, a fusion '
       + 'duellist — fielded seven strong, and slipping back onto Conceal the '
       + 'moment each of them is done.',
@@ -147,6 +150,7 @@ const VARIANTS = [
     base: 'fellgor-ravager',
     displayName: 'Fellgor Warherd',
     blurb: 'No pistols worth the name. They arrive all at once and at speed.',
+    lore: 'The herd that has stopped pretending to be a raiding party. No stolen pistols worth the name, no patience, and no interest in the part of the plan that involves waiting: they come over the ground all at once, at speed, and the whole thing is decided in the minute after contact. It works more often than it has any right to.',
     note: 'The Ravagers stripped to their horns and cleavers: a pure charging '
       + 'herd that does damage by arriving, before a blow is struck.',
     faction: 'beastmen',
@@ -177,6 +181,7 @@ const VARIANTS = [
     base: 'death-korps',
     displayName: 'Krieg Veteran Cadre',
     blurb: 'Ten men where there were fourteen, and not a plain trooper among them.',
+    lore: 'Krieg fights with bodies, and this is the argument against that. A cadre is ten specialists with no plain troopers behind them — every man in it has a trade — and the regiment regards the experiment with polite suspicion. The cadre does more with each casualty and has far fewer to spend, which is the whole trade in one sentence.',
     note: 'The same regiment fielded as a cadre rather than a line: every '
       + 'specialist on the sheet, none of the rank and file, and no intention '
       + 'of giving ground.',
@@ -205,6 +210,7 @@ const VARIANTS = [
     base: 'legionary',
     displayName: 'Legionary Warband',
     blurb: 'No champions. Six of the rank and file, and a single Mark between them.',
+    lore: 'No Anointed, no Balefire Acolyte, no champions with a patron each and an argument about precedence. Six line legionaries under one Mark, which is the oldest way a Legion squad was ever organised and the way it has almost never fought since. They are worse at every special thing a warband does and better at the ordinary one.',
     note: 'The same six-strong squad with the champions traded for rank and '
       + 'file: no Chosen, no Shrivetalon, no Balefire Acolyte — one Mark rather '
       + 'than four, and none of the ploys the champions brought with them.',
@@ -302,6 +308,11 @@ for (const spec of VARIANTS) {
     id: spec.id,
     displayName: spec.displayName,
     blurb: spec.blurb,
+    // A variant inherits its base pack's operative lore — same datacards, same
+    // people — but never its TEAM lore: the whole point of a variant is that
+    // it is a different idea about how to use them, and the base team's
+    // paragraph describes the other idea.
+    lore: spec.lore,
     /** What this is a variant OF, and how it differs — shown in the picker. */
     variantOf: base.id,
     variantOfName: base.displayName,

@@ -3,6 +3,7 @@
   "factionId": "space-marines",
   "displayName": "Angel of Death",
   "blurb": "Genetically modified transhuman warriors, Space Marines are amongst Humanity's most elite fighting forces. Angels of Death kill teams are composed of elite specialists trained in myriad forms of combat, who are capable of overcoming almost any foe.",
+  "lore": "A Chapter does not assemble an Angels of Death kill team lightly. Each warrior is pulled from a different squad and a different specialism, and the roster that results is less a unit than an argument about how a particular war should be ended — a sergeant who has read the ground, a gunner who has been told which wall will not survive the hour, a sniper who has been given one name. They deploy from orbit, from a gunship's open ramp, or from a tunnel nobody thought wide enough, and they do not bring a second plan.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 3,
@@ -53,6 +54,7 @@
     {
       "id": "space-marine-captain",
       "name": "Space Marine Captain",
+      "lore": "A century of command has left him with the habit of arriving where the line is about to break, and the reputation that stops it breaking. His armour is a reliquary of other people's battles; the honours are welded on because there is no longer room to hang them.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -124,6 +126,7 @@
     {
       "id": "assault-intercessor-sergeant",
       "name": "Assault Intercessor Sergeant",
+      "lore": "He leads from the front of the charge because the charge is the order, and an order shouted from behind it carries badly. The chainsword is older than the squad and has been rebuilt twice, never replaced.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -273,6 +276,7 @@
     {
       "id": "intercessor-sergeant",
       "name": "Intercessor Sergeant",
+      "lore": "Calm to the point of coldness. He picks the firing position, tells four men where to stand, and spends the rest of the engagement making very small corrections to a plan that was right the first time.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -432,6 +436,7 @@
     {
       "id": "assault-intercessor-grenadier",
       "name": "Assault Intercessor Grenadier",
+      "lore": "He carries the grenades because he is the one who can be trusted to judge the room before he throws into it. That judgement takes perhaps a second and a half, and he has never been asked to explain it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -483,6 +488,7 @@
     {
       "id": "assault-intercessor-warrior",
       "name": "Assault Intercessor Warrior",
+      "lore": "The plain soldier of the assault squad, which is to say seven feet of ceramite that closes the distance at a dead run and does not slow down at the wall. He fights in the half-second after the pistol, and prefers it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -534,6 +540,7 @@
     {
       "id": "heavy-intercessor-gunner",
       "name": "Heavy Intercessor Gunner",
+      "lore": "Built heavier than his brothers and slower for it, which suits a man whose job is to stand in one place and make a corridor impassable. He counts belt links, not enemies.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -616,6 +623,7 @@
     {
       "id": "intercessor-gunner",
       "name": "Intercessor Gunner",
+      "lore": "The squad's answer to whatever the squad cannot solve with bolt rounds — armour, a barricade, a doorway that needs to stop being one. He is used sparingly and knows it.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -747,6 +755,7 @@
     {
       "id": "intercessor-warrior",
       "name": "Intercessor Warrior",
+      "lore": "Line infantry of the Adeptus Astartes: disciplined, unhurried, and lethal at a range most foes never reach. He has fired the same pattern of weapon for eighty years and can strip it in the dark, which he has had to do.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -846,6 +855,7 @@
     {
       "id": "eliminator-sniper",
       "name": "Eliminator Sniper",
+      "lore": "He is already in position when the rest of the team deploys, having spent the night getting there. The cameleoline reads the light around him; the rifle reads the wind. Neither has been wrong yet.",
       "role": "sniper",
       "baseDiameter": 1.57,
       "stats": {

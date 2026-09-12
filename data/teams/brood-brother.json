@@ -3,6 +3,7 @@
   "factionId": "genestealer-cults",
   "displayName": "Brood Brother",
   "blurb": "The soldiers known as Brood Brothers are xenos-infected turncoat soldiers who secretly serve the Genestealer Cults. Concealing themselves within Imperial military formations, they await the moment to rise up and use their combat experience and weapons training to aid the Cult's rise to power.",
+  "lore": "The planetary defence force is the cult, and has been for two generations. These are men and women with service records, requisition rights and keys to the armoury, who go home at shift's end to a family that has been praying to something under the hive since before they were born. When the uprising comes they will not have to seize the garrison. They are the garrison.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -82,6 +83,7 @@
     {
       "id": "brood-brother-commander",
       "name": "Brood Brother Commander",
+      "lore": "He signs the duty rosters and the ammunition returns and passes both up the chain, where they are approved. The chain has no idea. He has spent eleven years making sure of it.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -194,6 +196,7 @@
     {
       "id": "brood-brother-agitator",
       "name": "Brood Brother Agitator",
+      "lore": "Officially a morale officer. In practice he is the one who decides which grievance in the barracks becomes a conversation and which becomes a conversion.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -231,6 +234,7 @@
     {
       "id": "brood-brother-gunner",
       "name": "Brood Brother Gunner",
+      "lore": "A PDF trooper with an entirely legitimate heavy weapon and an entirely illegitimate set of orders. The ammunition was drawn against a real requisition number.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -366,6 +370,7 @@
     {
       "id": "brood-brother-iconward",
       "name": "Brood Brother Iconward",
+      "lore": "He carries the standard of a regiment that no longer exists as its paperwork describes it. The men rally to it anyway, which is the point.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -401,6 +406,7 @@
     {
       "id": "brood-brother-knife-fighter",
       "name": "Brood Brother Knife Fighter",
+      "lore": "Trained for trench clearance and now used for quieter work in the same tunnels. He prefers the knife because a shot in a hab-block brings the Arbites.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -439,6 +445,7 @@
     {
       "id": "brood-brother-medic",
       "name": "Brood Brother Medic",
+      "lore": "He treats the wounded with a tenderness that unnerves outsiders, because to him the brood is quite literally family. His casualty reports have been fiction for years.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -511,6 +518,7 @@
     {
       "id": "brood-brother-sapper",
       "name": "Brood Brother Sapper",
+      "lore": "He knows where the charges are, because he laid them during a certified structural survey and filed the certificate.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -573,6 +581,7 @@
     {
       "id": "brood-brother-sniper",
       "name": "Brood Brother Sniper",
+      "lore": "Regimental marksman, range qualified, commended twice. He has a second list of names that was never issued by the regiment.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -658,6 +667,7 @@
     {
       "id": "brood-brother-trooper",
       "name": "Brood Brother Trooper",
+      "lore": "Lasgun, flak, boots. Everything about him is correct to regulation except what he believes, and nothing in the regulations inspects that.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -707,6 +717,7 @@
     {
       "id": "brood-brother-veteran",
       "name": "Brood Brother Veteran",
+      "lore": "He has fought real wars for the Imperium and been decorated for them, and he will use every hour of that experience against it without a flicker of hesitation.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -772,6 +783,7 @@
     {
       "id": "brood-brother-vox-operator",
       "name": "Brood Brother Vox-Operator",
+      "lore": "He controls what the garrison hears and, more importantly, what the sector command hears about the garrison. Silence is his most-used transmission.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -834,6 +846,7 @@
     {
       "id": "psychic-familiar",
       "name": "Psychic Familiar",
+      "lore": "A small, hunched thing that has never been given a name and does not appear to want one. It repeats the Magus's will to anyone unlucky enough to be close.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -870,6 +883,7 @@
     {
       "id": "magus",
       "name": "Magus",
+      "lore": "The cult's mouth and its mesmerist. He rarely raises his voice; the suggestion is already inside the listener before he speaks, and it feels like their own idea.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -952,6 +966,7 @@
     {
       "id": "patriarch",
       "name": "Patriarch",
+      "lore": "The origin. It has been under the hive since the first infection and has not needed to move in decades, and when it moves it is faster than anything its size has any right to be.",
       "role": "assault",
       "baseDiameter": 1.97,
       "stats": {
@@ -1005,6 +1020,7 @@
     {
       "id": "primus",
       "name": "Primus",
+      "lore": "The war-planner of the brood, bred for it the way a hound is bred to a scent. He reads a battlefield in terms of where the cult will be standing in four hours.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

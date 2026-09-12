@@ -3,6 +3,7 @@
   "factionId": "ash-legion",
   "displayName": "Ash Legion Cultists",
   "blurb": "Numerous and expendable. Wins by drowning objectives in bodies.",
+  "lore": "The ash wastes make converts faster than any preacher. These are the people the hive spat out — tunnel scavengers, failed indentures, the second and third generations of families that were never registered — and somebody down there has finally given them a banner to die under. They own almost nothing and are unafraid of losing it, which makes them more dangerous than their equipment suggests.",
   "edition": "synthetic-1",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -38,6 +39,7 @@
     {
       "id": "cult-demagogue",
       "name": "Cult Demagogue",
+      "lore": "He was a foreman once, or claims he was, and the voice carries either way. What he promises is not salvation but a turn at the front of the queue, and in the ash that is enough.",
       "role": "support",
       "baseDiameter": 1.25,
       "stats": {
@@ -85,6 +87,7 @@
     {
       "id": "cult-gunner",
       "name": "Cult Gunner",
+      "lore": "The mob's one real weapon, carried by whoever was holding it when the last man went down. He fires it in long, unaimed bursts because nobody ever taught him otherwise.",
       "role": "ranged",
       "baseDiameter": 1.25,
       "stats": {
@@ -131,6 +134,7 @@
     {
       "id": "cultist",
       "name": "Cultist",
+      "lore": "Rags, a stolen blade, and a conviction that outlasts both. He goes where the crowd goes and stands on the ground he is pointed at until somebody removes him from it.",
       "role": "objective-runner",
       "baseDiameter": 1.25,
       "stats": {

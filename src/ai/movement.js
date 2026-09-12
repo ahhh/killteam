@@ -21,20 +21,28 @@ function key(p) {
 
 /**
  * @returns {{x,y,path,length}[]} legal destinations reachable within `allowance`.
+ *
+ * Candidates are proposed in PRIORITY ORDER, because the list is capped and
+ * the cap is reached: rings are thirty positions on their own, against a
+ * budget of twenty-six. They used to be proposed first, so on a typical board
+ * twenty-one of the twenty-six slots went to undifferentiated ring positions
+ * and the objective, closing and cover candidates were cut off before they
+ * were ever costed. An operative that needed to close simply had no closing
+ * move on its list of options: advancing was not judged to be a bad idea, it
+ * was never among the things the AI got to judge.
+ *
+ * Fixing it did NOT fix this engine's bias against close combat — that
+ * survived all of it, and the README says where it actually comes from — but
+ * a search that discards its best candidates before scoring them is wrong
+ * regardless of what the scoreboard says.
+ *
+ * So the purposeful destinations go in first — the ones that exist because
+ * something on the board is worth walking to — and the rings fill whatever
+ * budget is left over as the general-purpose fallback they were meant to be.
  */
 export function generateDestinations(state, op, allowance, { towardEnemies = true } = {}) {
   const raw = [];
   const enemies = liveOperatives(state).filter((o) => o.playerId !== op.playerId);
-
-  // Rings around the current position — general-purpose repositioning.
-  for (const frac of [0.45, 0.8, 1.0]) {
-    const r = allowance * frac;
-    if (r < 0.3) continue;
-    for (let i = 0; i < 10; i++) {
-      const a = (i / 10) * Math.PI * 2;
-      raw.push({ x: op.x + Math.cos(a) * r, y: op.y + Math.sin(a) * r, tag: 'ring' });
-    }
-  }
 
   // Straight at each objective marker.
   for (const objective of state.objectives) {
@@ -70,6 +78,40 @@ export function generateDestinations(state, op, allowance, { towardEnemies = tru
       if (dist(op.x, op.y, spot.x, spot.y) <= allowance * 1.5) {
         raw.push({ ...spot, tag: `cover:${piece.id}` });
       }
+      // ...and the SAME piece approached from our own side of it, which is a
+      // different place and a different idea: ground gained with something
+      // solid still between us and the guns.
+      //
+      // Only the first kind existed, and it is a retreat — it is defined as
+      // the far face of the terrain, measured from the enemy. So every covered
+      // destination the planner could see was behind it, every forward
+      // destination was in the open, and an operative that has to cross the
+      // board to fight was choosing between falling back into cover and
+      // walking into a gunline. Advancing along cover is the tabletop's answer
+      // to a gunline and was not among this AI's options at all.
+      //
+      // It is among them now and is still not chosen often enough to change
+      // the balance — a Goremonger warband against Pathfinders went from 0.8
+      // Fight actions per battle to 0.9. The option belongs here anyway; what
+      // is missing is further up, in what the score does with it.
+      if (towardEnemies) {
+        const near = { x: c.x - (dx / len) * 1.3, y: c.y - (dy / len) * 1.3 };
+        if (dist(op.x, op.y, near.x, near.y) <= allowance * 1.5) {
+          raw.push({ ...near, tag: `advance:${piece.id}` });
+        }
+      }
+    }
+  }
+
+  // Rings around the current position — general-purpose repositioning, and
+  // last in the queue: every one of these is a guess, and each one it displaces
+  // was a position something on the board gave a reason for.
+  for (const frac of [0.45, 0.8, 1.0]) {
+    const r = allowance * frac;
+    if (r < 0.3) continue;
+    for (let i = 0; i < 10; i++) {
+      const a = (i / 10) * Math.PI * 2;
+      raw.push({ x: op.x + Math.cos(a) * r, y: op.y + Math.sin(a) * r, tag: 'ring' });
     }
   }
 

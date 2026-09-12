@@ -3,6 +3,7 @@
   "factionId": "astra-militarum",
   "displayName": "Krieg Veteran Cadre",
   "blurb": "Ten men where there were fourteen, and not a plain trooper among them.",
+  "lore": "Krieg fights with bodies, and this is the argument against that. A cadre is ten specialists with no plain troopers behind them — every man in it has a trade — and the regiment regards the experiment with polite suspicion. The cadre does more with each casualty and has far fewer to spend, which is the whole trade in one sentence.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -69,6 +70,7 @@
     {
       "id": "death-korps-watchmaster",
       "name": "Death Korps Watchmaster",
+      "lore": "He has kept a section alive through engagements that consumed whole companies, and regards this as a scheduling achievement rather than a heroic one.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -210,6 +212,7 @@
     {
       "id": "death-korps-bruiser",
       "name": "Death Korps Bruiser",
+      "lore": "Entrenching tool and the weight to use it. Trench fighting on Krieg is a trade, and he learned it before he learned to shoot.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -260,6 +263,7 @@
     {
       "id": "death-korps-confidant",
       "name": "Death Korps Confidant",
+      "lore": "The Watchmaster's second, and the only man permitted to disagree with him. He does so rarely and in writing.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -365,6 +369,7 @@
     {
       "id": "death-korps-gunner",
       "name": "Death Korps Gunner",
+      "lore": "He sets the section's automatic weapon where the enemy will have to come, and then the enemy comes.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -499,6 +504,7 @@
     {
       "id": "death-korps-medic",
       "name": "Death Korps Medic",
+      "lore": "His task is to return men to the line, and the line is where they wish to be. He does not treat the ones who cannot be returned; he sits with them.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -554,6 +560,7 @@
     {
       "id": "death-korps-sapper",
       "name": "Death Korps Sapper",
+      "lore": "Krieg fights downwards as much as forwards. He has spent more of his service underground than above it and prefers it there.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -622,6 +629,7 @@
     {
       "id": "death-korps-sniper",
       "name": "Death Korps Sniper",
+      "lore": "One man, one loophole, one long day. He fires perhaps four times and the enemy's forward observation ceases to function.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -706,6 +714,7 @@
     {
       "id": "death-korps-spotter",
       "name": "Death Korps Spotter",
+      "lore": "He counts, he calls, and the shells land where he said. The gun crews he serves are eleven miles away and have never seen him.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -779,6 +788,7 @@
     {
       "id": "death-korps-trooper",
       "name": "Death Korps Trooper",
+      "lore": "The Death Korps entire, in one man: a mask, a lasgun, a fixed bayonet, and an absolute refusal to be the first to stop walking.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -827,6 +837,7 @@
     {
       "id": "death-korps-veteran",
       "name": "Death Korps Veteran",
+      "lore": "He has survived long enough to be an anomaly, which the regiment finds mildly embarrassing. He teaches the new grafts what the manual leaves out.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -875,6 +886,7 @@
     {
       "id": "death-korps-vox-operator",
       "name": "Death Korps Vox-Operator",
+      "lore": "He keeps the section attached to the artillery, and the artillery is the real war. The set weighs as much as his kit and he never sets it down.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -930,6 +942,7 @@
     {
       "id": "death-korps-zealot",
       "name": "Death Korps Zealot",
+      "lore": "He has decided that the atonement is personal as well as regimental, and advances accordingly. The Watchmaster uses him where that helps.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

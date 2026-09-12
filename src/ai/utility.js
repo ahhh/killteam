@@ -7,7 +7,9 @@
  */
 import { baseDistance } from '../maps/geometry.js';
 import { parseRule, DEFENCE_DICE } from '../rules/dice.js';
-import { traceSight, CONTROL_RANGE, QUICK_SAMPLES } from '../rules/visibility.js';
+import {
+  traceSight, coverForSelection, CONTROL_RANGE, QUICK_SAMPLES,
+} from '../rules/visibility.js';
 import { effectiveApl, isInjured } from '../rules/effects.js';
 
 function rules(weapon) {
@@ -85,13 +87,36 @@ export function threatValue(state, op) {
   return best * leader;
 }
 
-/** Enemies that could see and shoot a position — the cost of standing there. */
-export function exposureAt(state, op, x, y, enemies) {
-  const ghost = { ...op, x, y };
+/**
+ * Enemies that could see and shoot a position — the cost of standing there.
+ *
+ * `order` is the order the operative will be ON when it arrives, which is a
+ * property of the PLAN rather than of the operative's current state. It
+ * matters because a Concealed operative in cover cannot be selected as a
+ * target at all (see rules/visibility.js), so such a position is not merely
+ * safer — it is not shootable, and its exposure is zero.
+ *
+ * This used to be measured geometrically, ignoring the order entirely, and
+ * that single omission was most of the engine's bias against close combat.
+ * The AI could not see concealment as protection, so it never traded a poor
+ * shot for it, and a team that has to cross the board to fight was scored as
+ * being in equal danger whether it used the terrain or walked over it. A
+ * Goremonger warband managed 1.1 Fight actions per battle against Pathfinders
+ * while being shot at 21 times. The rule was always in the engine; the AI just
+ * wasn't allowed to know about it.
+ *
+ * The check mirrors canBeTargeted() rather than re-deriving it, so the plan is
+ * scored against the same predicate the shooting code will enforce. Seek is
+ * assumed absent: a weapon that ignores the terrain is the exception, and
+ * assuming the exception everywhere would put us straight back to geometry.
+ */
+export function exposureAt(state, op, x, y, enemies, { order = null } = {}) {
+  const ghost = { ...op, x, y, order: order ?? op.order };
   let exposure = 0;
   for (const enemy of enemies) {
     const sight = traceSight(enemy, ghost, state.map.terrain || [], [], { samples: QUICK_SAMPLES });
     if (!sight.visible) continue;
+    if (ghost.order === 'conceal' && coverForSelection(sight)) continue;
     const range = baseDistance(enemy, ghost);
     const profile = state.teamPacks[enemy.playerId].operatives.find((o) => o.id === enemy.profileId);
     const guns = (profile?.weapons || []).filter((w) => w.type === 'ranged' && (w.range ?? 99) >= range);

@@ -3,6 +3,7 @@
   "factionId": "scrap-horde",
   "displayName": "Scrap Horde Raiders",
   "blurb": "Slow to shoot, brutal in reach. Wins if it closes the distance.",
+  "lore": "A synthetic demo team written for this engine rather than transcribed from any published source. Brutal close-quarters fighters with almost no reach: they exist to give the simulator a pure melee profile to test the approach against, and they are deliberately simple.",
   "edition": "synthetic-1",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -34,6 +35,7 @@
     {
       "id": "scrap-boss",
       "name": "Scrap Boss",
+      "lore": "Bigger, louder, and in charge for as long as that remains true.",
       "role": "assault",
       "baseDiameter": 1.4,
       "stats": {
@@ -81,6 +83,7 @@
     {
       "id": "scrap-raider",
       "name": "Scrap Raider",
+      "lore": "Something heavy in both hands and no interest in the far end of the room.",
       "role": "assault",
       "baseDiameter": 1.32,
       "stats": {

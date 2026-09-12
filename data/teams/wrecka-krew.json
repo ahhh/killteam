@@ -3,6 +3,7 @@
   "factionId": "orks",
   "displayName": "Wrecka Krew",
   "blurb": "A Wrecka Krew is a kill team obsessed with one thing - destruction! Arguably the game's most aggressive team to date, these Orks like nothing better than an Engage order and an enemy operative in their sights.",
+  "lore": "Some Orks are drawn to fighting. These are drawn to the noise things make when they stop being one piece. A Wrecka Krew is Breaka Boyz and Tankbustas together — the ones who want to be close enough to feel it and the ones who would rather watch it from across the room — and the only thing they agree on is that the objective probably wants demolishing too.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -53,6 +54,7 @@
     {
       "id": "wrecka-boss-nob",
       "name": "Wrecka Boss Nob",
+      "lore": "He is the biggest and has the best wrecking gear, and among this krew those are the same qualification.",
       "role": "ranged",
       "baseDiameter": 1.57,
       "stats": {
@@ -152,6 +154,7 @@
     {
       "id": "wrecka-bomb-squig",
       "name": "Wrecka Bomb Squig",
+      "lore": "It has been fitted with something and pointed at something else. The boyz cheer either way.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -203,6 +206,7 @@
     {
       "id": "breaka-boy-demolisha",
       "name": "Breaka Boy Demolisha",
+      "lore": "He carries the charges and an unwarranted confidence about fuse lengths.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -237,6 +241,7 @@
     {
       "id": "breaka-boy-fighter",
       "name": "Breaka Boy Fighter",
+      "lore": "Shield and hammer, straight up the middle, because that is where the wall is.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -280,6 +285,7 @@
     {
       "id": "breaka-boy-krusha",
       "name": "Breaka Boy Krusha",
+      "lore": "The heaviest tool in the krew, swung by the boy least likely to be talked out of it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -318,6 +324,7 @@
     {
       "id": "tankbusta-gunner",
       "name": "Tankbusta Gunner",
+      "lore": "He has a rokkit launcha and a professional's contempt for anything that is merely infantry.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -385,6 +392,7 @@
     {
       "id": "tankbusta-rokkiteer",
       "name": "Tankbusta Rokkiteer",
+      "lore": "He fires more rokkits than he hits things with, and has never regarded that as an argument against firing more rokkits.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {

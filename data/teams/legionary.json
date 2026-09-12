@@ -3,6 +3,7 @@
   "factionId": "chaos-space-marines",
   "displayName": "Legionary",
   "blurb": "Legionary kill teams are bitter veterans who possess centuries of combat experience. Some are little more than ravening killers who desire only to reave, slaughter and despoil. Others are devoted worshippers of the Dark Gods, seeking to conduct fell rituals in the hope of pleasing their infernal patrons and attaining greater power.",
+  "lore": "Ten thousand years is a long time to stay angry, and they have managed it. A Legionary warband is what remains of a Traitor Legion squad after a hundred centuries of the Eye — still transhuman, still drilled to a standard the loyalists would recognise, and hollowed out around a devotion that has replaced whatever they used to be fighting for. They remember the Crusade. They remember being lied to. They are not open to correction.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -53,6 +54,7 @@
     {
       "id": "legionary-aspiring-champion",
       "name": "Legionary Aspiring Champion",
+      "lore": "He has survived every rival who has come for the position and expects to survive the next. Command in the Legion is a standing invitation.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -185,6 +187,7 @@
     {
       "id": "legionary-chosen",
       "name": "Legionary Chosen",
+      "lore": "Elevated for something he did that the warband still talks about. The gear is better and the expectations are worse.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -272,6 +275,7 @@
     {
       "id": "legionary-anointed",
       "name": "Legionary Anointed",
+      "lore": "Marked by a patron he did not choose and cannot refuse. The armour has begun to fuse and he has stopped resisting it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -322,6 +326,7 @@
     {
       "id": "legionary-balefire-acolyte",
       "name": "Legionary Balefire Acolyte",
+      "lore": "A sorcerer by the Legion's standards, which is to say self-taught, unstable, and extremely effective for as long as it lasts.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -412,6 +417,7 @@
     {
       "id": "legionary-butcher",
       "name": "Legionary Butcher",
+      "lore": "He fights with an eviscerator and no interest in leaving the fight. The warband uses him as a fixed point.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -462,6 +468,7 @@
     {
       "id": "legionary-gunner",
       "name": "Legionary Gunner",
+      "lore": "Flamer, melta or plasma, depending on what the warband needs the door to do. He has carried all three.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -578,6 +585,7 @@
     {
       "id": "legionary-heavy-gunner",
       "name": "Legionary Heavy Gunner",
+      "lore": "He sets up and the ground in front of him becomes an argument. The weapon is older than most Chapters.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -732,6 +740,7 @@
     {
       "id": "legionary-icon-bearer",
       "name": "Legionary Icon Bearer",
+      "lore": "The icon is not a morale device. It is an aerial, and something is listening on the other end of it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -807,6 +816,7 @@
     {
       "id": "legionary-shrivetalon",
       "name": "Legionary Shrivetalon",
+      "lore": "Flensing blades and a specialism in what the survivors will report. Terror is a munition and he is the delivery system.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -864,6 +874,7 @@
     {
       "id": "legionary-warrior",
       "name": "Legionary Warrior",
+      "lore": "A line legionary: bolter, drill, and ten thousand years of a grudge that has become the whole of his personality.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {

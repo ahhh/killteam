@@ -3,6 +3,7 @@
   "factionId": "genestealer-cults",
   "displayName": "Wyrmblade",
   "blurb": "Genestealer Cults are insidious broods of Human-xenos hybrids that spread unnoticed on Imperial worlds, sometimes for generations. They infiltrate the Imperium's social, industrial and military fabric, and their elite Wyrmblade kill teams squirm undetected into perfect ambush sites.",
+  "lore": "The Wyrmblade is the cult's blade rather than its body — the cell that operates while the uprising is still years away. They work in the maintenance levels and the shift changes, removing the people who have started asking questions and replacing them with people who will not. Above them a hive of several billion goes about its business, entirely unaware that the fourth generation has already been born.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -65,6 +66,7 @@
     {
       "id": "neophyte-leader",
       "name": "Neophyte Leader",
+      "lore": "He runs a work gang and a cell, and the two have the same membership list. Nobody upstairs has noticed the overlap.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -218,6 +220,7 @@
     {
       "id": "kelermorph",
       "name": "Kelermorph",
+      "lore": "Three liberator autostubs and a reputation the cult cultivates deliberately. He is a folk hero in the lower levels and an unsolved case in the precinct.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -307,6 +310,7 @@
     {
       "id": "locus",
       "name": "Locus",
+      "lore": "A bodyguard bred for the purpose, standing beside the cult's leadership and saying nothing at all.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -360,6 +364,7 @@
     {
       "id": "neophyte-gunner",
       "name": "Neophyte Gunner",
+      "lore": "Mining charges and a flamer, both drawn legitimately from a works store he has the keys to.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -461,6 +466,7 @@
     {
       "id": "neophyte-heavy-gunner",
       "name": "Neophyte Heavy Gunner",
+      "lore": "The cell's serious weapon, assembled over months from parts that each went missing separately.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -582,6 +588,7 @@
     {
       "id": "neophyte-icon-bearer",
       "name": "Neophyte Icon Bearer",
+      "lore": "He raises the sign at the moment the crowd needs somewhere to look, which is a job that has been rehearsed.",
       "role": "support",
       "baseDiameter": 0.98,
       "stats": {
@@ -645,6 +652,7 @@
     {
       "id": "sanctus-sniper",
       "name": "Sanctus Sniper",
+      "lore": "He hunts psykers on the cult's behalf, and the cult does not tell him why each name is on the list.",
       "role": "sniper",
       "baseDiameter": 1.26,
       "stats": {
@@ -726,6 +734,7 @@
     {
       "id": "sanctus-talon",
       "name": "Sanctus Talon",
+      "lore": "The same office, done close and quietly. He is sent when a body must be found somewhere specific.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -778,6 +787,7 @@
     {
       "id": "neophyte-warrior",
       "name": "Neophyte Warrior",
+      "lore": "A hive worker with a mining laser and a conviction he inherited. He has never questioned it and would not know how.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

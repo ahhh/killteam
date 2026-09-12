@@ -3,6 +3,7 @@
   "factionId": "agents-of-the-imperium",
   "displayName": "Sanctifiers",
   "blurb": "Sanctifiers draw their strength from an unshakeable faith in the Emperor. When they are grouped together, they gain miraculous power that elevates them far beyond what a mere Human civilian should be capable of in the 41st Millennium.",
+  "lore": "Where the Ecclesiarchy sends a preacher and the preacher does not come back, it sends a Sanctifier band. They are missionaries with firearms: a confessor with a following, a drill abbot who trains the faithful into something that can hold a line, and a relic carried at the front where everybody can see it. Their war is fought over the crowd as much as the ground, and the crowd is the objective.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 4,
@@ -74,6 +75,7 @@
     {
       "id": "sanctifier-confessor",
       "name": "Sanctifier Confessor",
+      "lore": "He preaches during the fighting, and the preaching is not decoration. Men who were going to break do not, and he watches to see which ones needed it.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -112,6 +114,7 @@
     {
       "id": "sanctifier-cherub",
       "name": "Sanctifier Cherub",
+      "lore": "A small winged construct, grown for the purpose, that carries a censer and a recorded blessing and is not aware of either.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -155,6 +158,7 @@
     {
       "id": "sanctifier-conflagrator",
       "name": "Sanctifier Conflagrator",
+      "lore": "Flame as sacrament. He works slowly and is entirely calm about it.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -226,6 +230,7 @@
     {
       "id": "sanctifier-death-cult-assassin",
       "name": "Sanctifier Death Cult Assassin",
+      "lore": "Attached from an order the Ecclesiarchy does not discuss. She does not preach and is not asked to.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -283,6 +288,7 @@
     {
       "id": "sanctifier-drill-abbot",
       "name": "Sanctifier Drill Abbot",
+      "lore": "He turns pilgrims into something that can hold a firing line in an afternoon, by a method that is half catechism and half parade ground.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -320,6 +326,7 @@
     {
       "id": "sanctifier-persecutor",
       "name": "Sanctifier Persecutor",
+      "lore": "He deals with those the Confessor has named, which is a different job from fighting and he is clear about the distinction.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {
@@ -374,6 +381,7 @@
     {
       "id": "sanctifier-miraculist",
       "name": "Sanctifier Miraculist",
+      "lore": "He interprets the battle as it happens and tells the faithful what they have just witnessed. They fight better afterwards.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -464,6 +472,7 @@
     {
       "id": "sanctifier-missionary",
       "name": "Sanctifier Missionary",
+      "lore": "He has walked to worlds nobody sent him to and converted them anyway. The autogun is a late addition to the method.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -614,6 +623,7 @@
     {
       "id": "sanctifier-preacher",
       "name": "Sanctifier Preacher",
+      "lore": "A shotgun and a voice that carries over it. He goes where the line is thinnest and makes noise until it thickens.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -666,6 +676,7 @@
     {
       "id": "sanctifier-reliquant",
       "name": "Sanctifier Reliquant",
+      "lore": "He carries the band's relic into the open on purpose, because a thing that cannot be seen cannot be rallied to.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -718,6 +729,7 @@
     {
       "id": "sanctifier-salvationist",
       "name": "Sanctifier Salvationist",
+      "lore": "He drags the wounded out and preaches to them while he does it. Both halves are sincere.",
       "role": "assault",
       "baseDiameter": 0.98,
       "stats": {

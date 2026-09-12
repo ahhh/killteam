@@ -16,6 +16,10 @@ export const LIMITS = {
   minBoard: 12,
   maxBoard: 60,
   maxTextLength: 400,
+  /** Flavour prose (`lore`) is displayed, never parsed, so it gets more room
+   *  than a rules string — but still a ceiling, because an imported pack is
+   *  untrusted input and the sheet has to stay readable. */
+  maxLoreLength: 1200,
 };
 
 export const STAT_RANGES = {

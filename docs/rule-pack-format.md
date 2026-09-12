@@ -16,6 +16,8 @@ provenance note in `README.md` for where their data came from.
   "factionId": "my-faction",       // required
   "displayName": "My Team",        // required
   "blurb": "One line of flavour.",
+  "lore": "A paragraph about who they are. Shown under the blurb on the setup
+            screen; never read by the engine. Max 1200 chars, sanitised on load.",
   "supportLevel": 1,               // 0-5, see below — must be honest
   "dataVersion": "2026-09-10",
   "source": {                      // required: where this data came from
@@ -39,6 +41,8 @@ provenance note in `README.md` for where their data came from.
     {
       "id": "trooper",
       "name": "Trooper",
+      "lore": "A sentence or two about this one. Shown on its character sheet
+                between the portrait and the stats. Same limit as team lore.",
       "role": "flexible",          // drives AI weighting, see below
       "baseDiameter": 1.25,        // inches
       "stats": { "move": 6, "apl": 2, "save": 3, "wounds": 12 },

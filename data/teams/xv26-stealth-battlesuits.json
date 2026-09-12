@@ -3,6 +3,7 @@
   "factionId": "t-au-empire",
   "displayName": "XV26 Stealth Battlesuits",
   "blurb": "Kill teams of XV26 Stealth Battlesuits provide the T'au Empire with experts in innovative tactics considered unconventional - at best - by Fire caste academies. They use infiltration to identify and eliminate key targets, penetrate hostile regions to conduct aggressive reconnaissance, and launch ambushes from within the enemy's own midst.",
+  "lore": "An XV26 team is the T'au admitting that some things cannot be solved by a firing line. They go in under a field that bends light around them, take the thing the cadre's guns cannot reach, and leave before the response arrives. Stealth cadre pilots are among the few T'au who routinely operate beyond the reach of an Ethereal's presence, and the caste notices.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -59,6 +60,7 @@
     {
       "id": "xv26-shas-vre",
       "name": "XV26 Shas'Vre",
+      "lore": "Veteran of enough covert deployments to be trusted alone, which for a T'au is an unusual amount of latitude. He uses it carefully.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -175,6 +177,7 @@
     {
       "id": "xv26-designator",
       "name": "XV26 Designator",
+      "lore": "He paints the target for the cadre's heavy weapons and holds the mark while the shell is in the air.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -281,6 +284,7 @@
     {
       "id": "xv26-infiltrator",
       "name": "XV26 Infiltrator",
+      "lore": "He goes deepest, alone, and the team's plan is built on what he reports back.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -380,6 +384,7 @@
     {
       "id": "xv26-liberator",
       "name": "XV26 Liberator",
+      "lore": "His task is the extraction — the prisoner, the device, the pilot who went down. The fighting is incidental to it.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -500,6 +505,7 @@
     {
       "id": "xv26-lodestar",
       "name": "XV26 Lodestar",
+      "lore": "The team's navigational and sensor anchor. Without him a stealth team in an unmapped structure is simply lost.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -599,6 +605,7 @@
     {
       "id": "xv26-neutraliser",
       "name": "XV26 Neutraliser",
+      "lore": "Fusion blaster, at the range a fusion blaster was actually designed for. He is the answer to armour.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -705,6 +712,7 @@
     {
       "id": "mv15-gun-drone",
       "name": "MV15 Gun Drone",
+      "lore": "It holds the field's edge and fires on anything that has worked out where the team is.",
       "role": "objective-runner",
       "baseDiameter": 1.1,
       "stats": {
@@ -762,6 +770,7 @@
     {
       "id": "mv75-marker-drone",
       "name": "MV75 Marker Drone",
+      "lore": "A markerlight small enough to go where the suits go, and the reason the cadre's fire can follow them in.",
       "role": "assault",
       "baseDiameter": 1.1,
       "stats": {

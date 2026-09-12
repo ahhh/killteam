@@ -3,6 +3,7 @@
   "factionId": "space-marines",
   "displayName": "Crimson Spear",
   "blurb": "A hand-picked Blood Angels assault force assembled for missions where speed, shock and individual martial excellence matter more than conventional battlefield strength. Their commander must balance the nobility expected of the sons of Sanguinius against the Red Thirst that lurks beneath.",
+  "lore": "A fan-made kill team of the Blood Angels: a strike force drawn tight around a single spear-point and thrown at the throat of an engagement. The Sons of Sanguinius fight beautifully and briefly, and every warrior here carries the same inheritance — a gene-memory of their primarch's death that grows louder the longer a fight lasts, and an understanding that the fight must therefore not be allowed to last.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-11",
   "supportLevel": 4,
@@ -56,6 +57,7 @@
     {
       "id": "sanguinary-captain",
       "name": "Sanguinary Captain",
+      "lore": "He commands from inside the assault rather than above it, and times the strike to the half-second. The discipline that makes him a captain is the same discipline keeping the Thirst at arm's length, and he can feel the cost of both.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -118,6 +120,7 @@
     {
       "id": "sanguinary-guard",
       "name": "Sanguinary Guard",
+      "lore": "Gold-armoured, jump-borne, and drawn from warriors the Chapter has already decided are exceptional. He fights as an honour guard for a primarch forty millennia dead, and it does not feel symbolic to him.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -179,6 +182,7 @@
     {
       "id": "sanguinary-priest",
       "name": "Sanguinary Priest",
+      "lore": "He carries the Chapter's blood and its diagnosis. Half his duty is keeping brothers alive; the other half is watching them for the first sign, and knowing what that obliges him to do.",
       "role": "support",
       "baseDiameter": 1.57,
       "stats": {
@@ -213,7 +217,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [
@@ -242,6 +246,7 @@
     {
       "id": "death-company-ravager",
       "name": "Death Company Ravager",
+      "lore": "The Rage took him and the Chapter did not waste him. He is pointed at the enemy and released, and the only mercy anyone can offer is to make sure he is pointed correctly.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -303,6 +308,7 @@
     {
       "id": "angelus-grenadier",
       "name": "Angelus Grenadier",
+      "lore": "He puts explosives through windows from thirty yards up, having already worked out where the room's occupants will run. The jump pack is half the weapon.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -339,7 +345,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         },
         {
           "id": "frag-grenade",
@@ -399,6 +405,7 @@
     {
       "id": "baal-flamebearer",
       "name": "Baal Flamebearer",
+      "lore": "Promethium and a slow, deliberate manner. He clears the ground the assault will land on, and he has a Baalite's patience with fire.",
       "role": "ranged",
       "baseDiameter": 1.26,
       "stats": {
@@ -450,7 +457,7 @@
             "critical": 4
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [],
@@ -465,6 +472,7 @@
     {
       "id": "assault-intercessor-warrior",
       "name": "Assault Intercessor Warrior",
+      "lore": "The strike force's line brother, and the one most likely to survive to be a veteran. He closes fast, swings hard, and counts the seconds the way he was taught.",
       "role": "assault",
       "baseDiameter": 1.26,
       "stats": {
@@ -501,7 +509,7 @@
             "critical": 5
           },
           "rules": [],
-          "rulesText": "\u2014"
+          "rulesText": "—"
         }
       ],
       "abilities": [],
@@ -575,7 +583,7 @@
         }
       },
       "partial": true,
-      "notes": "giving in is declared at the start of an activation on the tabletop; this engine has no declaration step, so the Charge action is what commits the operative \u2014 which is the only activation the offensive half can pay off in. Loss of Restraint is carried as a marker-control penalty that lapses as the operative next activates, as printed; the Pick Up Marker and mission-action ban has no action in this engine to forbid."
+      "notes": "giving in is declared at the start of an activation on the tabletop; this engine has no declaration step, so the Charge action is what commits the operative — which is the only activation the offensive half can pay off in. Loss of Restraint is carried as a marker-control penalty that lapses as the operative next activates, as printed; the Pick Up Marker and mission-action ban has no action in this engine to forbid."
     },
     {
       "id": "black-rage-given-in",
@@ -814,7 +822,7 @@
             "type": "allowChargeAfterFallBack"
           },
           "partial": true,
-          "notes": "the cost \u2014 no Shoot action during that activation \u2014 is not applied"
+          "notes": "the cost — no Shoot action during that activation — is not applied"
         }
       ]
     },

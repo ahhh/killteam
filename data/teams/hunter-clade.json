@@ -3,6 +3,7 @@
   "factionId": "adeptus-mechanicus",
   "displayName": "Hunter Clade",
   "blurb": "",
+  "lore": "A Hunter Clade is a Forge World's answer assembled from a parts catalogue: Skitarii rangers for the ground, vanguard for the radiation they carry with them, and Sicarians for the work that requires something faster than a man. Every member has been modified for a role and had the rest of them edited away. The doctrina imperatives arrive by transmission, and obedience is not a decision anyone here is still equipped to make.",
   "edition": "kill-team-3",
   "dataVersion": "2026-09-10",
   "supportLevel": 1,
@@ -69,6 +70,7 @@
     {
       "id": "sicarian-ruststalker-princeps",
       "name": "Sicarian Ruststalker Princeps",
+      "lore": "Blades on both arms and a command protocol that lets it direct the others mid-lunge. It has not spoken in years.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -109,6 +111,7 @@
     {
       "id": "sicarian-infiltrator-princeps",
       "name": "Sicarian Infiltrator Princeps",
+      "lore": "It leads by broadcasting a scrambling shriek that stops the enemy thinking, and then walks into the gap that creates.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -197,6 +200,7 @@
     {
       "id": "skitarii-ranger-alpha",
       "name": "Skitarii Ranger Alpha",
+      "lore": "He holds the clade's long-range doctrine and distributes targets by data-tether. His rank is a firmware level.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -348,6 +352,7 @@
     {
       "id": "skitarii-vanguard-alpha",
       "name": "Skitarii Vanguard Alpha",
+      "lore": "He leads from the front of the radiological envelope, where the enemy's equipment fails first.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -498,6 +503,7 @@
     {
       "id": "sicarian-infiltrator-warrior",
       "name": "Sicarian Infiltrator Warrior",
+      "lore": "Fast, loud and built for the moment before contact. The noise it makes is a weapon with a designation.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -585,6 +591,7 @@
     {
       "id": "sicarian-ruststalker-warrior",
       "name": "Sicarian Ruststalker Warrior",
+      "lore": "Silent where the infiltrator is loud, and considerably worse to meet. It works with transonic blades at conversational range.",
       "role": "assault",
       "baseDiameter": 1.57,
       "stats": {
@@ -638,6 +645,7 @@
     {
       "id": "skitarii-ranger-diktat",
       "name": "Skitarii Ranger Diktat",
+      "lore": "He relays the imperative down the line, unaltered and instantly. He is a repeater with a rifle.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -698,6 +706,7 @@
     {
       "id": "skitarii-ranger-gunner",
       "name": "Skitarii Ranger Gunner",
+      "lore": "The clade's specialist arc or plasma weapon, tended with more care than the hands holding it.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -822,6 +831,7 @@
     {
       "id": "skitarii-ranger-surveyor",
       "name": "Skitarii Ranger Surveyor",
+      "lore": "He walks the flank reading the spectrum, and the clade knows what is behind a wall before it reaches the wall.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -882,6 +892,7 @@
     {
       "id": "skitarii-ranger-warrior",
       "name": "Skitarii Ranger Warrior",
+      "lore": "A galvanic rifle and a very long reach. What was human about him has been pared back to the parts that improve the aim.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -935,6 +946,7 @@
     {
       "id": "skitarii-vanguard-diktat",
       "name": "Skitarii Vanguard Diktat",
+      "lore": "The same relay function, carried inside the radiation envelope, where it is measurably shortening him.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -994,6 +1006,7 @@
     {
       "id": "skitarii-vanguard-gunner",
       "name": "Skitarii Vanguard Gunner",
+      "lore": "He carries the heavier irradiated weapon and is not expected to carry it for many more campaigns.",
       "role": "sniper",
       "baseDiameter": 0.98,
       "stats": {
@@ -1118,6 +1131,7 @@
     {
       "id": "skitarii-vanguard-surveyor",
       "name": "Skitarii Vanguard Surveyor",
+      "lore": "Close-range detection in the murk the vanguard creates. He reads what the rad-saturation hides.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {
@@ -1177,6 +1191,7 @@
     {
       "id": "skitarii-vanguard-warrior",
       "name": "Skitarii Vanguard Warrior",
+      "lore": "A radium carbine and a body already failing from the ammunition. The Forge World budgeted for this.",
       "role": "ranged",
       "baseDiameter": 0.98,
       "stats": {

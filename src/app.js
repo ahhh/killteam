@@ -52,14 +52,16 @@ class App {
     this._applyPrefs();
 
     try {
-      // Boot fetches the index, never the packs. The picker needs a name and
+      // Boot fetches the indexes, never the packs. The pickers need a name and
       // a faction for every team (10KB) and a whole pack only for the two a
-      // player has selected, which the setup screen fetches on demand.
+      // player has selected; the same goes for the five maps, of which exactly
+      // one is ever on the board. Both are fetched on demand below.
       await Promise.all([
         this.repo.loadCatalogue(),
         this.repo.loadIndex(),
-        this.repo.loadReference(),
-        this.repo.loadMaps(MAPS),
+        // MAPS, not `knowsMap`: these arguments are evaluated before
+        // `loadIndex` above has resolved, so the index cannot be consulted yet.
+        this.repo.loadMaps([MAPS.includes(this.prefs.map) ? this.prefs.map : DEFAULT_MAP]),
         this.repo.loadMissions(MISSIONS),
       ]);
     } catch (err) {
@@ -108,6 +110,14 @@ class App {
     // it reports the change.
     await this.repo.loadTeams([p1, p2]);
     await this.setup.render();
+
+    // The reference list is the last thing in the setup overlay, below the
+    // team columns, the mission picker and the import box. Nobody is reading
+    // it in the first paint, so it is fetched alongside everything else and
+    // fills itself in whenever it lands rather than holding the screen up.
+    this.repo.loadReference()
+      .then(() => this.setup.renderReference())
+      .catch(() => {});
 
     this._populateMaps();
     this._populateMissions();
@@ -167,10 +177,17 @@ class App {
         return;
       }
     }
+    const map = this.repo.maps.get(mapId);
+    if (!map) {
+      this._fatal(new Error(
+        `The map "${mapId}" is not loaded, so no battle can start. Pick another map, or reload the page.`
+      ));
+      return;
+    }
 
     this.state = createBattleState({
       seed: useSeed,
-      map: this.repo.maps.get(mapId),
+      map,
       mission: this.repo.missions.get(missionId),
       teams: packs,
       engineVersion: ENGINE_VERSION,
@@ -391,16 +408,30 @@ class App {
   _populateMaps() {
     const select = $('mapSelect');
     select.replaceChildren();
-    for (const [id, map] of this.repo.maps) {
+    // MAPS, not `repo.maps`: only the map being played has been fetched, and
+    // the picker still has to offer the other four by name.
+    for (const id of MAPS) {
+      const entry = this.repo.mapEntry(id);
+      if (!entry) continue;
       const option = document.createElement('option');
       option.value = id;
-      option.textContent = map.name ?? id;
-      if (map.blurb) option.title = map.blurb;
+      option.textContent = entry.name ?? id;
+      if (entry.blurb) option.title = entry.blurb;
       select.append(option);
     }
     const saved = this.prefs.map;
-    select.value = this.repo.maps.has(saved) ? saved : DEFAULT_MAP;
-    select.addEventListener('change', () => this.newBattle());
+    select.value = this.repo.knowsMap(saved) ? saved : DEFAULT_MAP;
+    // Terrain is fetched on selection, so the new map has to be in hand before
+    // `newBattle` — which is synchronous — goes looking for it.
+    select.addEventListener('change', async () => {
+      try {
+        await this.repo.loadMaps([select.value]);
+      } catch (err) {
+        this._fatal(err);
+        return;
+      }
+      this.newBattle();
+    });
   }
 
   /**

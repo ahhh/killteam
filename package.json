@@ -12,7 +12,7 @@
     "batch": "node test/batch.mjs",
     "killzone": "node test/killzone.mjs",
     "test:manifest": "node tools/make-team-manifest.mjs",
-    "data:index": "node tools/make-team-index.mjs",
+    "data:index": "node tools/make-data-index.mjs",
     "melee": "node test/melee-ab.mjs"
   },
   "engines": {

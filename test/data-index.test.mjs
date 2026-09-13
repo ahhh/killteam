@@ -1,18 +1,21 @@
 /**
- * `data/team-index.json` is generated, and the picker is built from it, so a
- * forgotten `node tools/make-team-index.mjs` does not fail loudly — it just
- * quietly leaves a team out of the dropdown, or shows it under a stale name.
- * This is the check that turns that into a test failure.
+ * `data/team-index.json` and `data/map-index.json` are generated, and the
+ * pickers are built from them, so a forgotten `npm run data:index` does not
+ * fail loudly — it just quietly leaves a team or map out of a dropdown, or
+ * shows it under a stale name. This is the check that turns that into a test
+ * failure.
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { buildIndex, OUT } from '../tools/make-team-index.mjs';
+import { buildIndex, buildMapIndex, TEAM_OUT, MAP_OUT } from '../tools/make-data-index.mjs';
 import { ROOT, readJson } from './harness.mjs';
 
-const committed = readJson(OUT);
+const committed = readJson(TEAM_OUT);
 const fresh = buildIndex();
+const committedMaps = readJson(MAP_OUT);
+const freshMaps = buildMapIndex();
 
 test('the committed team index matches the packs on disk', () => {
   const stale = [];
@@ -27,7 +30,7 @@ test('the committed team index matches the packs on disk', () => {
     if (!fresh.teams[id]) stale.push(`${id}: in the index but has no pack`);
   }
   assert.deepEqual(stale, [],
-    `data/team-index.json is stale — run: node tools/make-team-index.mjs\n  ${stale.join('\n  ')}`);
+    `data/team-index.json is stale — run: npm run data:index\n  ${stale.join('\n  ')}`);
 });
 
 test('every team the catalogue offers is in the index', () => {
@@ -54,7 +57,7 @@ test('every pack on disk carries the fields the picker reads', () => {
 });
 
 test('the index is a fraction of the packs it stands in for', () => {
-  const indexBytes = fs.statSync(path.join(ROOT, OUT)).size;
+  const indexBytes = fs.statSync(path.join(ROOT, TEAM_OUT)).size;
   const dir = path.join(ROOT, 'data/teams');
   const packBytes = fs.readdirSync(dir)
     .reduce((n, f) => n + fs.statSync(path.join(dir, f)).size, 0);
@@ -63,4 +66,34 @@ test('the index is a fraction of the packs it stands in for', () => {
   // saving has gone with it.
   assert.ok(indexBytes * 20 < packBytes,
     `index is ${(indexBytes / 1024).toFixed(1)}KB against ${(packBytes / 1024).toFixed(0)}KB of packs`);
+});
+
+/* --- The map index ----------------------------------------------------- */
+
+test('the committed map index matches the maps on disk', () => {
+  assert.deepEqual(committedMaps.maps, freshMaps.maps,
+    'data/map-index.json is stale — run: npm run data:index');
+});
+
+test('every map the app offers is in the index', () => {
+  // The app's MAPS constant is the list the picker walks; an id missing from
+  // the index is a blank row in the dropdown.
+  const app = fs.readFileSync(path.join(ROOT, 'src/app.js'), 'utf8');
+  const block = app.match(/const MAPS = \[([^\]]*)\]/s);
+  assert.ok(block, 'could not find the MAPS constant in src/app.js');
+  const ids = [...block[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+  assert.ok(ids.length, 'MAPS should name at least one map');
+  for (const id of ids) {
+    assert.ok(committedMaps.maps[id], `${id} is offered by the app but absent from the map index`);
+    assert.ok(committedMaps.maps[id].name, `${id} has no name, so the picker would show a raw id`);
+  }
+});
+
+test('the map index is a fraction of the maps it stands in for', () => {
+  const indexBytes = fs.statSync(path.join(ROOT, MAP_OUT)).size;
+  const dir = path.join(ROOT, 'data/maps');
+  const mapBytes = fs.readdirSync(dir)
+    .reduce((n, f) => n + fs.statSync(path.join(dir, f)).size, 0);
+  assert.ok(indexBytes * 20 < mapBytes,
+    `index is ${(indexBytes / 1024).toFixed(1)}KB against ${(mapBytes / 1024).toFixed(0)}KB of maps`);
 });

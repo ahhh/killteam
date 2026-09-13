@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "maps": {
+    "cull-pit-001": {
+      "id": "cull-pit-001",
+      "name": "The Cull Pit",
+      "blurb": "The teams drop along the long edges, eleven inches apart, and every marker is on the centre line."
+    },
+    "hab-warren-001": {
+      "id": "hab-warren-001",
+      "name": "Warren of the Broken Hab",
+      "blurb": "Collapsed hab-stacks over a contested court. Nothing here can be shot at from far away."
+    },
+    "industrial-001": {
+      "id": "industrial-001",
+      "name": "Industrial Crossfire"
+    },
+    "jungle-temple-001": {
+      "id": "jungle-temple-001",
+      "name": "Temple of the Green Moon",
+      "blurb": "A stepped ziggurat drowning in canopy. The sanctum is worth holding and has only four ways in — and the jungle between is Light terrain, so a Seek Light weapon can pick you out of it."
+    },
+    "spacehulk-001": {
+      "id": "spacehulk-001",
+      "name": "Derelict Hulk",
+      "blurb": "A dead ship of welded wrecks. Five-inch corridors, blind junctions, and collapsed decking you shove through rather than shoot past."
+    }
+  }
+}

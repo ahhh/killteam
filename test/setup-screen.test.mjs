@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { SetupScreen } from '../src/ui/setup.js';
 import { readJson, loadTeam } from './harness.mjs';
 import { DataRepository } from '../src/data/loader.js';
-import { indexEntry } from '../tools/make-team-index.mjs';
+import { indexEntry } from '../tools/make-data-index.mjs';
 
 /* ------------------------------------------------------------------ */
 /* A DOM small enough to read, large enough for this screen            */

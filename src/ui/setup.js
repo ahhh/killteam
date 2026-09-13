@@ -339,6 +339,14 @@ export class SetupScreen {
     container.append(box);
   }
 
+  /**
+   * Re-render just the reference list. The catalogue is fetched off the
+   * critical path (`app.js`), so this is how it arrives once it lands.
+   */
+  renderReference() {
+    this._renderReference();
+  }
+
   _renderReference() {
     const root = this.referenceRoot;
     if (!root) return;

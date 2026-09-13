@@ -36,6 +36,7 @@ export class DataRepository {
     this.customTeams = new Set(); // ids the user supplied locally
     this.reference = null;
     this.teamIndex = new Map(); // id -> picker fields, without the whole pack
+    this.mapIndex = new Map();  // …and the same for maps
   }
 
   async loadCatalogue() {
@@ -53,11 +54,31 @@ export class DataRepository {
    * `tools/make-team-index.mjs`.
    */
   async loadIndex() {
-    const index = await fetchJson(`${this.baseUrl}/team-index.json`);
-    for (const [id, entry] of Object.entries(index?.teams ?? {})) {
+    const [teams, maps] = await Promise.all([
+      fetchJson(`${this.baseUrl}/team-index.json`),
+      fetchJson(`${this.baseUrl}/map-index.json`).catch(() => null),
+    ]);
+    for (const [id, entry] of Object.entries(teams?.teams ?? {})) {
       this.teamIndex.set(id, entry);
     }
+    for (const [id, entry] of Object.entries(maps?.maps ?? {})) {
+      this.mapIndex.set(id, entry);
+    }
     return this.teamIndex;
+  }
+
+  /**
+   * What the map picker knows about a map before its terrain is fetched.
+   * A loaded map answers for itself, so an imported one needs no index.
+   */
+  mapEntry(id) {
+    const map = this.maps.get(id);
+    if (map) return { id: map.id, name: map.name ?? map.id, blurb: map.blurb };
+    return this.mapIndex.get(id) ?? null;
+  }
+
+  knowsMap(id) {
+    return this.maps.has(id) || this.mapIndex.has(id);
   }
 
   /**

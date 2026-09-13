@@ -432,13 +432,20 @@ point of playing this team rather than another one:
 ```
 [ CLOSE COMBAT ]                  [ USE AN ABILITY ]           [ ADVANCE ]
 Charge Death Korps Trooper        GET IT DUN! on Bomb Squig    Push 9.0" toward the enemy
-~4.8 dmg · 7.3" move · 2/2 AP     ~5.4 value · 1/3 AP          9.0" move · 2/3 AP · ends Concealed
+~4.8 dmg · 7.3" move · 2/2 AP     ~5.4 value · 1/3 AP          9.0" move · 2/3 AP ·
+  · ends on Engage                  · ends on Conceal            ends on Conceal
 ```
 
 The AP on each card is the budget it is actually priced against — which is not
 always the AP the operative is holding, because a resource spend can buy a
 point and one of its own actions can have taken one off the top before you were
 asked anything.
+
+The last chip is the order the operative is **left** on, and it is printed on
+every card rather than only on the concealed ones. It is the half of the choice
+that is played out during the opponent's turn, and the only thing on the card a
+player cannot infer from the title — an option that trades concealment for a
+pistol shot used to look exactly like one that keeps it.
 
 What the AI would have done is marked ("their pick") but never pre-selected,
 and **Let them decide** hands any single activation back to the controller.

@@ -591,7 +591,10 @@ class App {
         return;
       }
       // The orders prompt owns the keyboard while it is up: its own number
-      // shortcuts are the only ones that should do anything.
+      // shortcuts are the only ones that should do anything. That holds while
+      // it is folded away too — the activation is still unanswered, so Play and
+      // Step have nothing to advance, and the prompt has muted its own number
+      // keys for as long as the cards are off screen.
       if (this.tactics?.open) return;
       if (e.target.matches('input, textarea, select')) return;
       if (e.key === ' ') { e.preventDefault(); $('playBtn').click(); }

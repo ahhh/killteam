@@ -20,7 +20,7 @@ import { bestShotFrom, bestMeleeTarget } from './targeting.js';
 import {
   objectiveValueAt, exposureAt, coverQualityAt, expectedDamage,
   killPressure, threatValue, sightLinesAt, splashOpportunityAt,
-  detonationOpportunityAt,
+  detonationOpportunityAt, endOrderOf,
 } from './utility.js';
 import { dispositionFor, unitTacticsFor, applyTactics } from './tactics.js';
 import {
@@ -51,20 +51,6 @@ export const ROLE_WEIGHTS = {
   support:            { damage: 2.2, objective: 4.0, cover: 2.2, exposure: 3.0, waste: 0.5, survival: 2.6, approach: 0.0 },
   'objective-runner': { damage: 1.8, objective: 6.0, cover: 1.6, exposure: 2.0, waste: 0.5, survival: 1.8, approach: 0.3 },
 };
-
-/**
- * The order an operative will be on once this plan has played out.
- *
- * Orders only change through a `change_order` action, so the last one in the
- * plan wins and an absent one means the operative keeps the order it has.
- */
-function endOrderOf(plan, op) {
-  let order = op.order;
-  for (const action of plan.actions || []) {
-    if (action.type === 'change_order' && action.order) order = action.order;
-  }
-  return order;
-}
 
 /** Distance at which "closing in" stops earning credit. */
 const APPROACH_HORIZON = 24;

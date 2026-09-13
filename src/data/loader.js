@@ -206,6 +206,14 @@ export class DataRepository {
     if (pack.lore) pack.lore = sanitizeText(pack.lore, LIMITS.maxLoreLength);
     for (const op of pack.operatives || []) {
       if (op.lore) op.lore = sanitizeText(op.lore, LIMITS.maxLoreLength);
+      // An ability's printed text is shown on the character sheet, so it is
+      // scrubbed on the same terms — on its own budget, because a transcribed
+      // rule is several times longer than any other rules string a pack has.
+      for (const ability of op.abilities || []) {
+        if (ability?.description) {
+          ability.description = sanitizeText(ability.description, LIMITS.maxRuleTextLength);
+        }
+      }
     }
     pack.origin = source;
     this.teams.set(pack.id, pack);

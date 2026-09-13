@@ -257,6 +257,7 @@ export function renderOperativeDetail(container, state, operativeId) {
   if (profile?.abilities?.length) {
     container.append(h('h3', null, 'Abilities'));
     const list = document.createElement('ul');
+    list.className = 'ability-list';
     for (const ability of profile.abilities) {
       if (typeof ability === 'string') {
         list.append(h('li', null, ability));
@@ -268,13 +269,20 @@ export function renderOperativeDetail(container, state, operativeId) {
       const cost = ability.action
         ? `${ability.action.ap ?? 1} AP`
         : (ability.cost && ability.cost !== '-' ? String(ability.cost) : null);
-      const item = h('li', ability.action ? 'performable' : null,
+      const item = h('li', ability.action ? 'performable' : null);
+      const head = h('div', 'ability-head',
         `${ability.name}${cost ? ` — ${cost}` : ''}`);
       if (!ability.action && cost) {
-        item.append(h('span', 'muted', ' (not performed by this engine)'));
+        head.append(h('span', 'muted', ' (not performed by this engine)'));
       } else if (ability.action?.notes) {
-        item.append(h('span', 'muted', ` (${ability.action.notes})`));
+        head.append(h('span', 'muted', ` (${ability.action.notes})`));
       }
+      item.append(head);
+      // And what it actually does. A name and a price is not a rule: "SIGNAL —
+      // 1 AP" tells a reader nothing about what the AP buys, and the pack has
+      // carried the printed text all along — the sheet simply never showed it.
+      const text = String(ability.description ?? ability.text ?? '').trim();
+      if (text) item.append(h('p', 'ability-text', text));
       list.append(item);
     }
     container.append(list);

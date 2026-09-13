@@ -12,6 +12,22 @@ import {
 } from '../rules/visibility.js';
 import { effectiveApl, isInjured } from '../rules/effects.js';
 
+/**
+ * The order an operative will be on once this plan has played out.
+ *
+ * Orders only change through a `change_order` action, so the last one in the
+ * plan wins and an absent one means the operative keeps the order it has.
+ * Both the scorer and the card the player reads have to agree on this, or the
+ * card describes an activation the engine is not about to run.
+ */
+export function endOrderOf(plan, op) {
+  let order = op.order;
+  for (const action of plan.actions || []) {
+    if (action.type === 'change_order' && action.order) order = action.order;
+  }
+  return order;
+}
+
 function rules(weapon) {
   const m = new Map();
   for (const r of weapon.rules || []) {

@@ -193,6 +193,12 @@
   Shown only while a semi-manual player has an activation suspended. It has no
   close button and Escape does not dismiss it: until the operative has its
   orders there is no battle underneath to go back to.
+
+  It does fold, though. The eye in its header drops it to a pill in the corner
+  so the board, the log and the character sheets can be read and clicked while
+  the activation stays suspended — see ui/tactics.js. The pill is appended to
+  this overlay at runtime rather than written here, because it names the
+  operative that is waiting.
 -->
 <div class="overlay" id="tacticsOverlay" hidden>
   <div class="modal tactics-modal" role="dialog" aria-modal="true" aria-labelledby="tacticsTitle">

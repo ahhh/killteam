@@ -341,11 +341,17 @@ class StubNode {
     this.style = {};
     this.classList = {
       add: (c) => { this.className = `${this.className} ${c}`.trim(); },
+      remove: (c) => {
+        this.className = this.className.split(' ').filter((x) => x && x !== c).join(' ');
+      },
       contains: (c) => this.className.split(' ').includes(c),
     };
   }
 
-  append(...nodes) { this.children.push(...nodes); }
+  append(...nodes) {
+    this.children.push(...nodes);
+    for (const node of nodes) node.parentElement = this;
+  }
   replaceChildren(...nodes) { this.children = [...nodes]; }
   setAttribute(k, v) { this.attributes[k] = v; }
   addEventListener(type, fn) { (this.listeners[type] ||= []).push(fn); }
@@ -364,6 +370,8 @@ function withStubDom(fn) {
   const keys = [];
   globalThis.document = {
     createElement: (tag) => new StubNode(tag),
+    // The eye on the prompt's header is drawn, not lettered (ui/tactics.js).
+    createElementNS: (_ns, tag) => new StubNode(tag),
     addEventListener: (type, fn) => keys.push({ type, fn }),
     removeEventListener: (type, fn) => {
       const i = keys.findIndex((k) => k.type === type && k.fn === fn);
@@ -455,5 +463,106 @@ test('“let them decide” is always available', () => {
     assert.ok(auto, 'there is no way out of a decision the player does not want to make');
     auto.dispatch('click');
     assert.deepEqual(picked, [AUTO_TACTIC]);
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* Folding the prompt away                                             */
+/* ------------------------------------------------------------------ */
+
+/** A prompt on a stub overlay, plus the handles the fold tests reach for. */
+function mounted(onChoose = () => {}) {
+  const pending = livePending();
+  const root = new StubNode('div');
+  const overlay = new StubNode('div');
+  const prompt = new TacticsPrompt({ root, overlay, onChoose });
+  prompt.show(pending);
+  const eye = () => root.findAll((n) => n.classList.contains('tactics-peek'))[0];
+  const pill = () => overlay.findAll((n) => n.classList.contains('tactics-pill'))[0];
+  return { pending, root, overlay, prompt, eye, pill };
+}
+
+test('the eye folds the prompt away without answering it', () => {
+  withStubDom(() => {
+    const picked = [];
+    const { overlay, prompt, eye, pill } = mounted((id) => picked.push(id));
+
+    assert.ok(eye(), 'the header has no way to get at the board behind it');
+    assert.equal(pill(), undefined, 'the pill is only there once it is folded');
+
+    eye().dispatch('click');
+
+    // Folded is not answered: the activation is still suspended, so the app
+    // still refuses to step and still knows what it is waiting for.
+    assert.deepEqual(picked, [], 'folding the prompt away chose an option');
+    assert.equal(prompt.open, true);
+    assert.equal(prompt.minimized, true);
+    // And the overlay is still mounted — it just stops being a wall.
+    assert.equal(overlay.hidden, false);
+    assert.ok(overlay.classList.contains('minimized'));
+  });
+});
+
+test('the pill names who is waiting, and puts the choice back', () => {
+  withStubDom(() => {
+    const { pending, overlay, prompt, eye, pill } = mounted();
+    eye().dispatch('click');
+
+    assert.ok(pill(), 'nothing was left on screen to fold it back open with');
+    assert.ok(pill().text.includes(pending.operativeName),
+      'the pill does not say whose activation is stopped');
+
+    pill().dispatch('click');
+    assert.equal(prompt.minimized, false);
+    assert.equal(prompt.open, true);
+    assert.equal(overlay.hidden, false);
+    assert.ok(!overlay.classList.contains('minimized'));
+    assert.equal(pill().hidden, true, 'the pill outstayed the fold');
+  });
+});
+
+test('the number keys go quiet while the cards are off screen', () => {
+  withStubDom(({ press }) => {
+    const picked = [];
+    const { pending, eye, pill } = mounted((id) => picked.push(id));
+
+    eye().dispatch('click');
+    press('1');
+    assert.deepEqual(picked, [],
+      'a keypress spent an activation on a card the player could not see');
+
+    pill().dispatch('click');
+    press('1');
+    assert.deepEqual(picked, [pending.options[0].id],
+      'the number keys did not come back with the cards');
+  });
+});
+
+test('the next operative is asked about face up, however the last one was left', () => {
+  withStubDom(() => {
+    const { overlay, prompt, eye, pill } = mounted();
+    eye().dispatch('click');
+    assert.equal(prompt.minimized, true);
+
+    // Answering clears the fold with everything else...
+    prompt.hide();
+    assert.equal(prompt.minimized, false);
+    assert.ok(!overlay.classList.contains('minimized'));
+    assert.equal(pill().hidden, true);
+
+    // ...and the next activation opens as a dialog, not as a pill.
+    prompt.show(livePending());
+    assert.equal(prompt.minimized, false);
+    assert.ok(!overlay.classList.contains('minimized'));
+  });
+});
+
+test('folding is a no-op when there is nothing to answer', () => {
+  withStubDom(() => {
+    const { prompt } = mounted();
+    prompt.hide();
+    prompt.minimize();
+    assert.equal(prompt.minimized, false, 'a dismissed prompt folded itself away');
+    assert.equal(prompt.open, false);
   });
 });

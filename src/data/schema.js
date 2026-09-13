@@ -20,6 +20,12 @@ export const LIMITS = {
    *  than a rules string — but still a ceiling, because an imported pack is
    *  untrusted input and the sheet has to stay readable. */
   maxLoreLength: 1200,
+  /** Printed ability text, which the character sheet shows in full. Longer
+   *  than `maxTextLength` because a transcribed ability really does run this
+   *  long — the longest in the bundle is about 1,160 characters — and half a
+   *  rule is worse to read than the whole one. Still capped: an imported pack
+   *  is untrusted. */
+  maxRuleTextLength: 1500,
 };
 
 export const STAT_RANGES = {

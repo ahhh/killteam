@@ -32,6 +32,7 @@ import { guardBlocker } from '../rules/guard.js';
 import { usableMoveAllowance } from '../rules/engine.js';
 import { DASH_DISTANCE } from '../rules/movement.js';
 import { withinControlRange } from '../rules/visibility.js';
+import { endOrderOf } from './utility.js';
 import { generateDestinations } from './movement.js';
 import { bestUniqueAction, guardValue } from './support.js';
 import { isLastTeamStanding } from '../rules/phases.js';
@@ -378,7 +379,18 @@ function chipsFor(state, op, plan, ap) {
   if (e.moved > 0.2) chips.push(`${e.moved.toFixed(1)}" move`);
   const used = Math.min(ap, e.apUsed || 0);
   chips.push(`${used}/${ap} AP`);
-  if (e.concealed) chips.push('ends Concealed');
+  // The order the operative is LEFT on, which is the half of the choice the
+  // opponent's turn is played against — and the one thing on the card the
+  // player cannot work out from the title.
+  //
+  // Both sides are printed, not just Conceal. Every card used to be silent
+  // about breaking cover, so an option that traded concealment for a pistol
+  // shot looked exactly like one that kept it, and the trade was invisible at
+  // the moment it was being made. Read off the plan's own actions rather than
+  // off `estimate.concealed`, which only some builders set — a chip that
+  // disagrees with the activation the engine is about to run is worse than no
+  // chip.
+  chips.push(endOrderOf(plan, op) === 'engage' ? 'ends on Engage' : 'ends on Conceal');
   return chips;
 }
 

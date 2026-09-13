@@ -53,10 +53,15 @@ class App {
 
     try {
       await this.repo.loadCatalogue();
-      await this.repo.loadReference();
-      for (const id of this.repo.catalogueTeamIds()) await this.repo.loadTeam(id);
-      for (const id of MAPS) await this.repo.loadMap(id);
-      for (const id of MISSIONS) await this.repo.loadMission(id);
+      // The catalogue names the teams, so it has to land first. Everything
+      // after it is independent, and overlapping the fetches is the difference
+      // between one round trip and seventy before the screen paints.
+      await Promise.all([
+        this.repo.loadReference(),
+        this.repo.loadTeams(this.repo.catalogueTeamIds()),
+        this.repo.loadMaps(MAPS),
+        this.repo.loadMissions(MISSIONS),
+      ]);
     } catch (err) {
       this._fatal(err);
       return;

@@ -79,6 +79,38 @@ export class DataRepository {
   }
 
   /**
+   * Load many ids of one kind at once.
+   *
+   * The fetches overlap; the registrations do not. Loading the bundled data
+   * one `await` at a time cost one round trip per file, which is most of the
+   * wait before the setup screen paints. But `this.maps` is iterated directly
+   * to build the map picker, so registering in *completion* order would
+   * reshuffle that dropdown from one page load to the next. Fetch together,
+   * register in the order asked for.
+   */
+  async _loadMany(ids, cache, urlFor, register) {
+    const wanted = ids.filter((id) => !cache.has(id));
+    const fetched = await Promise.all(wanted.map((id) => fetchJson(urlFor(id))));
+    for (const obj of fetched) register(obj);
+    return ids.map((id) => cache.get(id));
+  }
+
+  loadTeams(ids) {
+    return this._loadMany(ids, this.teams, (id) => `${this.baseUrl}/teams/${id}.json`,
+      (pack) => this.registerTeam(pack, { source: 'bundled' }));
+  }
+
+  loadMaps(ids) {
+    return this._loadMany(ids, this.maps, (id) => `${this.baseUrl}/maps/${id}.json`,
+      (map) => this.registerMap(map));
+  }
+
+  loadMissions(ids) {
+    return this._loadMany(ids, this.missions, (id) => `${this.baseUrl}/missions/${id}.json`,
+      (mission) => this.registerMission(mission));
+  }
+
+  /**
    * Register a team pack from any origin. Throws on invalid data so a broken
    * pack can never reach the engine.
    */

@@ -240,6 +240,7 @@ npm run smoke       # run one battle headlessly and print the result
 npm run batch 60 vanguard-wardens scrap-raiders   # batch balance harness
 npm run melee       # melee-leaning teams vs gunlines, both seats, three maps
 npm run test:manifest   # regenerate the team capability lock (read the diff!)
+npm run data:index      # regenerate the picker's team index after adding a team
 ```
 
 Everything runs on plain Node ≥ 20. There are no dependencies.
@@ -345,6 +346,37 @@ nothing in a pack is ever executed. See `docs/rule-pack-format.md`.
 
 `data/reference-teams.json` is the catalogue: it maps every team name to its
 bundled rule pack and its Wahapedia source URL. It carries no stats itself.
+
+**Adding a bundled team means regenerating the index** — `npm run data:index`.
+A team dropped into `data/teams/` and named in `data/factions.json` will not
+appear in the picker until `data/team-index.json` knows about it;
+`test/team-index.test.mjs` fails when that file is stale, so a forgotten run
+is caught by the suite rather than by a player. An *imported* pack needs
+nothing: it is registered in full at import time and the picker reads its
+fields off the pack itself.
+
+### The picker loads an index, not the packs
+
+The setup screen needs a name, a faction and a support level for all 64 teams,
+and the other 97% of a pack — operatives, weapons, rule hooks, ploys, lore —
+only for the team a player has actually selected. So boot fetches
+`data/team-index.json` (10.7KB, generated from the packs by
+`tools/make-team-index.mjs`) and the packs are fetched on selection.
+
+Boot used to load all 64 packs with a sequential `await`:
+
+| | requests | transferred | concurrency |
+|---|---|---|---|
+| before | 73 | 1977KB | 1 at a time |
+| after  | 12 |  178KB | overlapped |
+
+`newBattle()` is synchronous and reached from seven event handlers, so the
+invariant is that the two *selected* packs are always already loaded: boot
+loads the opening pair, and the setup screen loads any later choice before it
+reports the change. `DataRepository._loadMany` overlaps its fetches but
+registers in the order asked for — the map picker is built by iterating
+`repo.maps` directly, so completion order would reshuffle that dropdown
+between page loads.
 
 ### Every team and every operative carries lore
 

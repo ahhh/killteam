@@ -52,13 +52,13 @@ class App {
     this._applyPrefs();
 
     try {
-      await this.repo.loadCatalogue();
-      // The catalogue names the teams, so it has to land first. Everything
-      // after it is independent, and overlapping the fetches is the difference
-      // between one round trip and seventy before the screen paints.
+      // Boot fetches the index, never the packs. The picker needs a name and
+      // a faction for every team (10KB) and a whole pack only for the two a
+      // player has selected, which the setup screen fetches on demand.
       await Promise.all([
+        this.repo.loadCatalogue(),
+        this.repo.loadIndex(),
         this.repo.loadReference(),
-        this.repo.loadTeams(this.repo.catalogueTeamIds()),
         this.repo.loadMaps(MAPS),
         this.repo.loadMissions(MISSIONS),
       ]);
@@ -96,13 +96,17 @@ class App {
 
     const teams = this.prefs.teams ?? {};
     const ids = this.repo.catalogueTeamIds();
-    this.setup.setSelection(
-      this.repo.teams.has(teams.p1) ? teams.p1 : ids[0],
-      this.repo.teams.has(teams.p2) ? teams.p2 : ids[Math.min(3, ids.length - 1)]
-    );
+    const p1 = this.repo.knowsTeam(teams.p1) ? teams.p1 : ids[0];
+    const p2 = this.repo.knowsTeam(teams.p2) ? teams.p2 : ids[Math.min(3, ids.length - 1)];
+    this.setup.setSelection(p1, p2);
     this.setup.setMission(
       this.repo.missions.has(this.prefs.mission) ? this.prefs.mission : DEFAULT_MISSION
     );
+    // `newBattle` is synchronous and reached from seven event handlers, so the
+    // invariant is that the selected packs are always already loaded. Boot
+    // loads the opening pair; the setup screen loads any later choice before
+    // it reports the change.
+    await this.repo.loadTeams([p1, p2]);
     await this.setup.render();
 
     this._populateMaps();
@@ -149,14 +153,26 @@ class App {
     const mapId = $('mapSelect').value || DEFAULT_MAP;
     const missionId = $('missionSelect').value || DEFAULT_MISSION;
 
+    // Packs are fetched on selection rather than at boot, so a battle can only
+    // start once both are in hand. The setup screen loads a pack before it
+    // reports the change, which leaves one way to get here without one: that
+    // fetch failed, and the screen is already showing the reason.
+    const packs = { p1: this.repo.teams.get(selection.p1), p2: this.repo.teams.get(selection.p2) };
+    for (const playerId of ['p1', 'p2']) {
+      if (!packs[playerId]) {
+        this._fatal(new Error(
+          `The rule pack for "${selection[playerId] ?? playerId}" is not loaded, so no battle can start. ` +
+          'Pick a different kill team, or reload the page.'
+        ));
+        return;
+      }
+    }
+
     this.state = createBattleState({
       seed: useSeed,
       map: this.repo.maps.get(mapId),
       mission: this.repo.missions.get(missionId),
-      teams: {
-        p1: this.repo.teams.get(selection.p1),
-        p2: this.repo.teams.get(selection.p2),
-      },
+      teams: packs,
       engineVersion: ENGINE_VERSION,
       aiVersion: AI_VERSION,
     });

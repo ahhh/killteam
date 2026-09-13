@@ -109,8 +109,6 @@ export class SetupScreen {
     root.append(h('h3', null, playerId === 'p1' ? 'Player 1' : 'Player 2'));
 
     const factions = this.repo.factions?.factions ?? [];
-    const teamIds = new Set(this.repo.catalogueTeamIds());
-    for (const id of this.repo.customTeams) teamIds.add(id);
 
     const select = document.createElement('select');
     select.setAttribute('aria-label', `${playerId} kill team`);
@@ -124,15 +122,17 @@ export class SetupScreen {
     const bundled = new Set(this.repo.factions?.bundledGroups ?? []);
 
     const addOption = (group, teamId) => {
-      const pack = this.repo.teams.get(teamId);
+      // The index, not the pack: filling this dropdown is the whole reason a
+      // player used to wait for 1.9MB of operatives and rule hooks.
+      const entry = this.repo.teamEntry(teamId);
       const option = document.createElement('option');
       option.value = teamId;
       // A variant sits directly under the team it came from, and says so —
       // two entries called "Kommandos" and "Dakka Kommandos" are otherwise
       // indistinguishable until you have already picked one.
-      option.textContent = pack?.variantOfName
-        ? `${pack.displayName} — ${pack.variantOfName} variant`
-        : (pack?.displayName ?? teamId);
+      option.textContent = entry?.variantOfName
+        ? `${entry.displayName} — ${entry.variantOfName} variant`
+        : (entry?.displayName ?? teamId);
       group.append(option);
     };
 
@@ -166,10 +166,10 @@ export class SetupScreen {
       const group = document.createElement('optgroup');
       group.label = 'Imported';
       for (const teamId of this.repo.customTeams) {
-        const pack = this.repo.teams.get(teamId);
+        const entry = this.repo.teamEntry(teamId);
         const option = document.createElement('option');
         option.value = teamId;
-        option.textContent = `${pack?.displayName ?? teamId} (imported)`;
+        option.textContent = `${entry?.displayName ?? teamId} (imported)`;
         group.append(option);
       }
       select.append(group);
@@ -187,16 +187,56 @@ export class SetupScreen {
 
     const detail = h('div');
     root.append(detail);
-    this._renderTeamDetail(detail, this.selection[playerId]);
+    await this._renderTeamDetail(detail, this.selection[playerId]);
   }
 
-  _renderTeamDetail(container, teamId) {
-    container.replaceChildren();
-    const pack = this.repo.teams.get(teamId);
-    if (!pack) {
+  /**
+   * The pack behind the currently selected team, fetched if this is the first
+   * time it has been asked for.
+   *
+   * A stale render is not guarded against here because it cannot land:
+   * `_renderColumn` calls `replaceChildren()` and builds a fresh detail node
+   * before awaiting, so a slower in-flight fetch paints into a node that is
+   * already detached from the document.
+   */
+  async _pack(container, teamId) {
+    if (!teamId) return null;
+    const loaded = this.repo.teams.get(teamId);
+    if (loaded) return loaded;
+
+    if (!this.repo.knowsTeam(teamId)) {
       container.append(h('p', 'muted', 'Team data not loaded.'));
-      return;
+      return null;
     }
+    // Named, not spinning: the index already knows what this team is called,
+    // so the wait says which team it is waiting for.
+    const entry = this.repo.teamEntry(teamId);
+    container.append(h('p', 'muted', `Loading ${entry?.displayName ?? teamId}…`));
+    try {
+      const pack = await this.repo.loadTeam(teamId);
+      container.replaceChildren();
+      return pack;
+    } catch (err) {
+      container.replaceChildren();
+      const notice = h('div', 'notice');
+      notice.append(h('div', null, `Could not load ${entry?.displayName ?? teamId}.`));
+      for (const msg of String(err.message).split('\n')) {
+        if (msg.trim()) notice.append(h('div', 'muted', msg));
+      }
+      container.append(notice);
+      return null;
+    }
+  }
+
+  /**
+   * The detail panel is the first thing that needs a whole pack, so it is the
+   * thing that fetches one. Everything above it — the dropdown, the grouping,
+   * the names — is served from the index.
+   */
+  async _renderTeamDetail(container, teamId) {
+    container.replaceChildren();
+    const pack = await this._pack(container, teamId);
+    if (!pack) return;
 
     const badge = this.repo.badgeFor(teamId);
     if (badge) {

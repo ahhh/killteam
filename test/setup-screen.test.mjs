@@ -10,6 +10,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SetupScreen } from '../src/ui/setup.js';
 import { readJson, loadTeam } from './harness.mjs';
+import { DataRepository } from '../src/data/loader.js';
+import { indexEntry } from '../tools/make-team-index.mjs';
 
 /* ------------------------------------------------------------------ */
 /* A DOM small enough to read, large enough for this screen            */
@@ -75,21 +77,30 @@ function withStubDom(fn) {
   }
 }
 
-/** Just enough of DataRepository for the mission half of the screen. */
-function stubRepo({ teams = [] } = {}) {
-  const missions = new Map([
-    ['secure-and-hold', readJson('data/missions/secure-and-hold.json')],
-    ['annihilation', readJson('data/missions/annihilation.json')],
-  ]);
-  const packs = new Map(teams.map((id) => [id, loadTeam(id)]));
-  return {
-    missions,
-    teams: packs,
-    customTeams: new Set(),
-    factions: { factions: teams.length ? [{ name: 'Test', teams }] : [] },
-    catalogueTeamIds: () => teams,
-    badgeFor: () => null,
-  };
+/**
+ * A real `DataRepository`, seeded off the disk instead of over `fetch`.
+ *
+ * This used to be a hand-rolled object with the four methods the screen
+ * happened to call, which meant the screen could grow a fifth and the tests
+ * would still pass until someone opened a browser. Using the real class costs
+ * nothing here and makes the picker tests fail when the repository contract
+ * moves under them.
+ *
+ * `lazy` seeds only the index, leaving the packs to be fetched on demand —
+ * the state a player is actually in when the setup screen first paints.
+ */
+function stubRepo({ teams = [], lazy = false } = {}) {
+  const repo = new DataRepository();
+  for (const id of ['secure-and-hold', 'annihilation']) {
+    repo.registerMission(readJson(`data/missions/${id}.json`));
+  }
+  for (const id of teams) {
+    const pack = loadTeam(id);
+    repo.teamIndex.set(id, indexEntry(pack));
+    if (!lazy) repo.registerTeam(pack, { source: 'bundled' });
+  }
+  repo.factions = { factions: teams.length ? [{ name: 'Test', teams }] : [] };
+  return repo;
 }
 
 function makeScreen(overrides = {}) {
@@ -269,4 +280,79 @@ test('the bundled catalogue groups every faction and lists the alliances togethe
     assert.equal(groups.slice(groups.indexOf(f.group), groups.lastIndexOf(f.group) + 1)
       .every((g) => g === f.group), true, `"${f.group}" is split across the catalogue`);
   }
+});
+
+/* --- Lazy pack loading ------------------------------------------------- */
+//
+// The picker is built from `data/team-index.json` (10KB) and fetches a whole
+// pack (1.9MB across the bundled teams) only for the team a player selected.
+// These pin the half of that contract the screen owns: names come from the
+// index, and a pack is fetched once, on selection.
+
+test('the picker names every team with no pack loaded', async () => {
+  const catalogue = readJson('data/factions.json');
+  const ids = catalogue.factions.flatMap((f) => f.teams);
+
+  await withStubDom(async () => {
+    const repo = stubRepo({ teams: ids, lazy: true });
+    repo.factions = catalogue;
+    assert.equal(repo.teams.size, 0, 'no pack should be loaded yet');
+
+    const { screen } = makeScreen({ repo });
+    screen.setSelection(ids[0], ids[1]);
+    await screen.render();
+
+    const options = [];
+    for (const node of screen.roots.p1.walk()) {
+      if (node.tagName === 'OPTION') options.push(node.textContent);
+    }
+    assert.equal(options.length, ids.length, 'every catalogued team is offered');
+    for (const name of options) {
+      assert.ok(name && !/^[a-z0-9-]+$/.test(name),
+        `"${name}" fell back to a raw id, so the index did not supply a name`);
+    }
+  });
+});
+
+test('selecting a team loads that pack and no others', async () => {
+  const catalogue = readJson('data/factions.json');
+  const ids = catalogue.factions.flatMap((f) => f.teams);
+
+  await withStubDom(async () => {
+    const repo = stubRepo({ teams: ids, lazy: true });
+    repo.factions = catalogue;
+
+    // Serve the pack off the disk, counting what the screen asks for.
+    const fetched = [];
+    repo.loadTeam = async (id) => {
+      fetched.push(id);
+      return repo.registerTeam(loadTeam(id), { source: 'bundled' });
+    };
+
+    const { screen } = makeScreen({ repo });
+    screen.setSelection(ids[0], ids[1]);
+    await screen.render();
+
+    assert.deepEqual(fetched, [ids[0], ids[1]],
+      'exactly the two selected packs, in column order');
+    assert.equal(repo.teams.size, 2, `${ids.length - 2} packs should still be unfetched`);
+
+    // …and the panel really did render from the pack, not the index.
+    assert.match(screen.roots.p1.text, /Fights as|Command points/);
+  });
+});
+
+test('a pack that fails to load says so instead of rendering a blank panel', async () => {
+  await withStubDom(async () => {
+    const repo = stubRepo({ teams: ['blades-of-khaine'], lazy: true });
+    repo.loadTeam = async () => { throw new Error('Failed to load: 404 Not Found'); };
+
+    const { screen } = makeScreen({ repo });
+    screen.setSelection('blades-of-khaine', 'blades-of-khaine');
+    await screen.render();
+
+    const text = screen.roots.p1.text;
+    assert.match(text, /Could not load/, 'the player is told the pack is missing');
+    assert.match(text, /404/, 'and what went wrong');
+  });
 });

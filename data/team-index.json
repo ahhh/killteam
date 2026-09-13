@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "teams": {
+    "angel-of-death": {
+      "id": "angel-of-death",
+      "displayName": "Angel of Death",
+      "factionId": "space-marines",
+      "supportLevel": 3
+    },
+    "ash-cultists": {
+      "id": "ash-cultists",
+      "displayName": "Ash Legion Cultists",
+      "factionId": "ash-legion",
+      "supportLevel": 1
+    },
+    "battleclade": {
+      "id": "battleclade",
+      "displayName": "Battleclade",
+      "factionId": "adeptus-mechanicus",
+      "supportLevel": 4
+    },
+    "blades-of-khaine": {
+      "id": "blades-of-khaine",
+      "displayName": "Blades of Khaine",
+      "factionId": "craftworlds",
+      "supportLevel": 4
+    },
+    "blooded": {
+      "id": "blooded",
+      "displayName": "Blooded",
+      "factionId": "cultists",
+      "supportLevel": 3
+    },
+    "brood-brother": {
+      "id": "brood-brother",
+      "displayName": "Brood Brother",
+      "factionId": "genestealer-cults",
+      "supportLevel": 1
+    },
+    "canoptek-circle": {
+      "id": "canoptek-circle",
+      "displayName": "Canoptek Circle",
+      "factionId": "necrons",
+      "supportLevel": 1
+    },
+    "catachan-jungle-fighters": {
+      "id": "catachan-jungle-fighters",
+      "displayName": "Catachan Jungle Fighters",
+      "factionId": "astra-militarum",
+      "supportLevel": 3
+    },
+    "celestian-insidiants": {
+      "id": "celestian-insidiants",
+      "displayName": "Celestian Insidiants",
+      "factionId": "adepta-sororitas",
+      "supportLevel": 4
+    },
+    "chaos-cult": {
+      "id": "chaos-cult",
+      "displayName": "Chaos Cult",
+      "factionId": "cultists",
+      "supportLevel": 4
+    },
+    "corsair-skirmishers": {
+      "id": "corsair-skirmishers",
+      "displayName": "Kindred Skirmishers",
+      "factionId": "kindred-corsairs",
+      "supportLevel": 1
+    },
+    "corsair-voidscarred": {
+      "id": "corsair-voidscarred",
+      "displayName": "Corsair Voidscarred",
+      "factionId": "corsairs",
+      "supportLevel": 4
+    },
+    "corsair-voidscarred-coven": {
+      "id": "corsair-voidscarred-coven",
+      "displayName": "Voidscarred Coven",
+      "factionId": "corsairs",
+      "supportLevel": 4,
+      "variantOf": "corsair-voidscarred",
+      "variantOfName": "Corsair Voidscarred"
+    },
+    "covenant-of-the-hidden-word": {
+      "id": "covenant-of-the-hidden-word",
+      "displayName": "Covenant of the Hidden Word",
+      "factionId": "chaos-space-marines",
+      "supportLevel": 4
+    },
+    "crimson-spear": {
+      "id": "crimson-spear",
+      "displayName": "Crimson Spear",
+      "factionId": "space-marines",
+      "supportLevel": 4
+    },
+    "death-korps": {
+      "id": "death-korps",
+      "displayName": "Death Korps",
+      "factionId": "astra-militarum",
+      "supportLevel": 4
+    },
+    "death-korps-cadre": {
+      "id": "death-korps-cadre",
+      "displayName": "Krieg Veteran Cadre",
+      "factionId": "astra-militarum",
+      "supportLevel": 4,
+      "variantOf": "death-korps",
+      "variantOfName": "Death Korps"
+    },
+    "deathwatch": {
+      "id": "deathwatch",
+      "displayName": "Deathwatch",
+      "factionId": "space-marines",
+      "supportLevel": 3
+    },
+    "elucidian-starstrider": {
+      "id": "elucidian-starstrider",
+      "displayName": "Elucidian Starstrider",
+      "factionId": "agents-of-the-imperium",
+      "supportLevel": 4
+    },
+    "exaction-squad": {
+      "id": "exaction-squad",
+      "displayName": "Exaction Squad",
+      "factionId": "agents-of-the-imperium",
+      "supportLevel": 4
+    },
+    "exodite-dragon-masters": {
+      "id": "exodite-dragon-masters",
+      "displayName": "Exodite Dragon Masters",
+      "factionId": "exodites",
+      "supportLevel": 1
+    },
+    "farstalker-kinband": {
+      "id": "farstalker-kinband",
+      "displayName": "Farstalker Kinband",
+      "factionId": "t-au-empire",
+      "supportLevel": 4
+    },
+    "fellgor-ravager": {
+      "id": "fellgor-ravager",
+      "displayName": "Fellgor Ravager",
+      "factionId": "cultists",
+      "supportLevel": 4
+    },
+    "fellgor-ravager-warherd": {
+      "id": "fellgor-ravager-warherd",
+      "displayName": "Fellgor Warherd",
+      "factionId": "cultists",
+      "supportLevel": 4,
+      "variantOf": "fellgor-ravager",
+      "variantOfName": "Fellgor Ravager"
+    },
+    "freebooter-boardin-krew": {
+      "id": "freebooter-boardin-krew",
+      "displayName": "Freebooter Boardin' Krew",
+      "factionId": "orks",
+      "supportLevel": 4
+    },
+    "gellerpox-infected": {
+      "id": "gellerpox-infected",
+      "displayName": "Gellerpox Infected",
+      "factionId": "chaos-daemons",
+      "supportLevel": 4
+    },
+    "goremonger": {
+      "id": "goremonger",
+      "displayName": "Goremonger",
+      "factionId": "world-eaters",
+      "supportLevel": 4
+    },
+    "hand-of-the-archon": {
+      "id": "hand-of-the-archon",
+      "displayName": "Hand of the Archon",
+      "factionId": "drukhari",
+      "supportLevel": 4
+    },
+    "hearthkyn-salvager": {
+      "id": "hearthkyn-salvager",
+      "displayName": "Hearthkyn Salvager",
+      "factionId": "leagues-of-votann",
+      "supportLevel": 1
+    },
+    "hernkyn-yaegir": {
+      "id": "hernkyn-yaegir",
+      "displayName": "Hernkyn Yaegir",
+      "factionId": "leagues-of-votann",
+      "supportLevel": 1
+    },
+    "hierotek-circle": {
+      "id": "hierotek-circle",
+      "displayName": "Hierotek Circle",
+      "factionId": "necrons",
+      "supportLevel": 3
+    },
+    "hunter-clade": {
+      "id": "hunter-clade",
+      "displayName": "Hunter Clade",
+      "factionId": "adeptus-mechanicus",
+      "supportLevel": 1
+    },
+    "imperial-navy-breacher": {
+      "id": "imperial-navy-breacher",
+      "displayName": "Imperial Navy Breacher",
+      "factionId": "agents-of-the-imperium",
+      "supportLevel": 3
+    },
+    "inquisitorial-agent": {
+      "id": "inquisitorial-agent",
+      "displayName": "Inquisitorial Agent",
+      "factionId": "agents-of-the-imperium",
+      "supportLevel": 4
+    },
+    "kasrkin": {
+      "id": "kasrkin",
+      "displayName": "Kasrkin",
+      "factionId": "astra-militarum",
+      "supportLevel": 3
+    },
+    "kommandos": {
+      "id": "kommandos",
+      "displayName": "Kommandos",
+      "factionId": "orks",
+      "supportLevel": 4
+    },
+    "kommandos-dakka": {
+      "id": "kommandos-dakka",
+      "displayName": "Dakka Kommandos",
+      "factionId": "orks",
+      "supportLevel": 4,
+      "variantOf": "kommandos",
+      "variantOfName": "Kommandos"
+    },
+    "legionary": {
+      "id": "legionary",
+      "displayName": "Legionary",
+      "factionId": "chaos-space-marines",
+      "supportLevel": 4
+    },
+    "legionary-warband": {
+      "id": "legionary-warband",
+      "displayName": "Legionary Warband",
+      "factionId": "chaos-space-marines",
+      "supportLevel": 4,
+      "variantOf": "legionary",
+      "variantOfName": "Legionary"
+    },
+    "mandrakes": {
+      "id": "mandrakes",
+      "displayName": "Mandrakes",
+      "factionId": "drukhari",
+      "supportLevel": 3
+    },
+    "murderwing": {
+      "id": "murderwing",
+      "displayName": "Murderwing",
+      "factionId": "chaos-space-marines",
+      "supportLevel": 4
+    },
+    "nemesis-claw": {
+      "id": "nemesis-claw",
+      "displayName": "Nemesis Claw",
+      "factionId": "chaos-space-marines",
+      "supportLevel": 3
+    },
+    "novitiates": {
+      "id": "novitiates",
+      "displayName": "Novitiates",
+      "factionId": "adepta-sororitas",
+      "supportLevel": 4
+    },
+    "novitiates-penitent": {
+      "id": "novitiates-penitent",
+      "displayName": "Penitent Host",
+      "factionId": "adepta-sororitas",
+      "supportLevel": 4,
+      "variantOf": "novitiates",
+      "variantOfName": "Novitiates"
+    },
+    "pathfinders": {
+      "id": "pathfinders",
+      "displayName": "Pathfinders",
+      "factionId": "t-au-empire",
+      "supportLevel": 1
+    },
+    "phobos-strike-team": {
+      "id": "phobos-strike-team",
+      "displayName": "Phobos Strike Team",
+      "factionId": "space-marines",
+      "supportLevel": 1
+    },
+    "plague-marines": {
+      "id": "plague-marines",
+      "displayName": "Plague Marines",
+      "factionId": "death-guard",
+      "supportLevel": 1
+    },
+    "ratlings": {
+      "id": "ratlings",
+      "displayName": "Ratlings",
+      "factionId": "astra-militarum",
+      "supportLevel": 1
+    },
+    "raveners": {
+      "id": "raveners",
+      "displayName": "Raveners",
+      "factionId": "tyranids",
+      "supportLevel": 4
+    },
+    "sanctifiers": {
+      "id": "sanctifiers",
+      "displayName": "Sanctifiers",
+      "factionId": "agents-of-the-imperium",
+      "supportLevel": 4
+    },
+    "scout-squad": {
+      "id": "scout-squad",
+      "displayName": "Scout Squad",
+      "factionId": "space-marines",
+      "supportLevel": 1
+    },
+    "scrap-raiders": {
+      "id": "scrap-raiders",
+      "displayName": "Scrap Horde Raiders",
+      "factionId": "scrap-horde",
+      "supportLevel": 1
+    },
+    "skycaste-marksmen": {
+      "id": "skycaste-marksmen",
+      "displayName": "Sky Caste Marksmen",
+      "factionId": "sky-caste",
+      "supportLevel": 1
+    },
+    "spectre-squad": {
+      "id": "spectre-squad",
+      "displayName": "Spectre Squad",
+      "factionId": "astra-militarum",
+      "supportLevel": 1
+    },
+    "tempestus-aquilons": {
+      "id": "tempestus-aquilons",
+      "displayName": "Tempestus Aquilons",
+      "factionId": "astra-militarum",
+      "supportLevel": 1
+    },
+    "vanguard-breachers": {
+      "id": "vanguard-breachers",
+      "displayName": "Vanguard Breachers",
+      "factionId": "vanguard-compact",
+      "supportLevel": 1
+    },
+    "vanguard-wardens": {
+      "id": "vanguard-wardens",
+      "displayName": "Vanguard Wardens",
+      "factionId": "vanguard-compact",
+      "supportLevel": 1
+    },
+    "vespid-stingwings": {
+      "id": "vespid-stingwings",
+      "displayName": "Vespid Stingwings",
+      "factionId": "t-au-empire",
+      "supportLevel": 4
+    },
+    "void-dancer-troupe": {
+      "id": "void-dancer-troupe",
+      "displayName": "Void-dancer Troupe",
+      "factionId": "harlequins",
+      "supportLevel": 1
+    },
+    "warpcoven": {
+      "id": "warpcoven",
+      "displayName": "Warpcoven",
+      "factionId": "thousand-sons",
+      "supportLevel": 1
+    },
+    "wolf-scouts": {
+      "id": "wolf-scouts",
+      "displayName": "Wolf Scouts",
+      "factionId": "space-marines",
+      "supportLevel": 1
+    },
+    "wrecka-krew": {
+      "id": "wrecka-krew",
+      "displayName": "Wrecka Krew",
+      "factionId": "orks",
+      "supportLevel": 4
+    },
+    "wyrmblade": {
+      "id": "wyrmblade",
+      "displayName": "Wyrmblade",
+      "factionId": "genestealer-cults",
+      "supportLevel": 1
+    },
+    "xv26-stealth-battlesuits": {
+      "id": "xv26-stealth-battlesuits",
+      "displayName": "XV26 Stealth Battlesuits",
+      "factionId": "t-au-empire",
+      "supportLevel": 1
+    }
+  }
+}

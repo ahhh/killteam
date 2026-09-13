@@ -119,6 +119,47 @@ function makeScreen(overrides = {}) {
 
 /* ------------------------------------------------------------------ */
 
+test('each side picks who gives its kill team orders', () => {
+  withStubDom(() => {
+    const roots = { p1: new StubNode('div'), p2: new StubNode('div') };
+    const reported = [];
+    const screen = new SetupScreen({
+      repo: stubRepo({ teams: ['kommandos'] }),
+      roots,
+      referenceRoot: null,
+      importEls: {},
+      missionRoot: new StubNode('div'),
+      missionIds: ['secure-and-hold'],
+      onControlChange: (control) => reported.push(control),
+    });
+
+    return screen.render().then(() => {
+      // Automatic out of the box: the simulator has always played itself, and
+      // a mode that stops every activation is not a default anybody asked for.
+      assert.deepEqual(screen.getControl(), { p1: 'auto', p2: 'auto' });
+
+      const options = roots.p1.findAll((n) => n.classList.contains('control-option'));
+      assert.equal(options.length, 2);
+      assert.match(roots.p1.text, /Semi-manual/);
+      assert.match(roots.p1.text, /three tactics/);
+
+      // The picker is per side, so one player can play by hand against the AI.
+      const manual = options.find((o) => o.text.includes('Semi-manual'));
+      manual.children.find((c) => c.tagName === 'INPUT').dispatch('change');
+      assert.deepEqual(screen.getControl(), { p1: 'manual', p2: 'auto' });
+      assert.deepEqual(reported.at(-1), { p1: 'manual', p2: 'auto' });
+    });
+  });
+});
+
+test('a control mode restored from preferences survives a bad value', () => {
+  withStubDom(() => {
+    const { screen } = makeScreen();
+    screen.setControl('manual', 'nonsense');
+    assert.deepEqual(screen.getControl(), { p1: 'manual', p2: 'auto' });
+  });
+});
+
 test('the setup screen offers every mission, named and described', () => {
   withStubDom(() => {
     const { screen, missionRoot } = makeScreen();

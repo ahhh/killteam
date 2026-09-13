@@ -3,6 +3,10 @@
   "name": "Derelict Hulk",
   "version": 1,
   "blurb": "A dead ship of welded wrecks. Five-inch corridors, blind junctions, and collapsed decking you shove through rather than shoot past.",
+  "art": {
+    "href": "assets/maps/spacehulk-001.webp",
+    "showsZones": true
+  },
   "board": {
     "width": 30,
     "height": 22,

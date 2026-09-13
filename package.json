@@ -13,6 +13,7 @@
     "killzone": "node test/killzone.mjs",
     "test:manifest": "node tools/make-team-manifest.mjs",
     "data:index": "node tools/make-data-index.mjs",
+    "map:art": "node tools/make-map-art.mjs",
     "melee": "node test/melee-ab.mjs"
   },
   "engines": {

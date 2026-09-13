@@ -10,6 +10,7 @@ import { DataRepository } from './data/loader.js';
 import { createBattleState, PHASES } from './state.js';
 import {
   step as advanceBattle, turningPointLimit, isLastTeamStanding,
+  isAwaitingOrders, pendingOrders, resolveTactic,
 } from './rules/phases.js';
 import { createControllers, AI_VERSION } from './ai/controller.js';
 import { ENGINE_VERSION } from './rules/engine.js';
@@ -19,6 +20,7 @@ import { EffectsLayer } from './ui/effects.js';
 import { renderRosterPanel, renderOperativeDetail } from './ui/inspector.js';
 import { CombatLog } from './ui/combat-log.js';
 import { SetupScreen } from './ui/setup.js';
+import { TacticsPrompt } from './ui/tactics.js';
 import { PlaybackClock } from './ui/controls.js';
 
 const PREFS_KEY = 'ktsim.prefs.v1';
@@ -94,6 +96,18 @@ class App {
       },
       // The setup screen and the toolbar are two views of one choice.
       onMissionChange: (id) => { $('missionSelect').value = id; },
+      // Switching a side to semi-manual mid-battle would leave an activation
+      // half-played by somebody else, so the choice only takes effect on the
+      // next battle — which is the one the Start button is about to begin.
+      onControlChange: (control) => this._savePrefs({ control }),
+    });
+
+    // The orders prompt. It is shown by `stepBattle` whenever the engine
+    // suspends an activation, and it hands the answer straight back.
+    this.tactics = new TacticsPrompt({
+      root: $('tacticsBody'),
+      overlay: $('tacticsOverlay'),
+      onChoose: (optionId) => this.chooseTactic(optionId),
     });
 
     const teams = this.prefs.teams ?? {};
@@ -101,6 +115,7 @@ class App {
     const p1 = this.repo.knowsTeam(teams.p1) ? teams.p1 : ids[0];
     const p2 = this.repo.knowsTeam(teams.p2) ? teams.p2 : ids[Math.min(3, ids.length - 1)];
     this.setup.setSelection(p1, p2);
+    this.setup.setControl(this.prefs.control?.p1, this.prefs.control?.p2);
     this.setup.setMission(
       this.repo.missions.has(this.prefs.mission) ? this.prefs.mission : DEFAULT_MISSION
     );
@@ -193,7 +208,15 @@ class App {
       engineVersion: ENGINE_VERSION,
       aiVersion: AI_VERSION,
     });
-    this.controllers = createControllers();
+    const control = this.setup.getControl();
+    // The only thing the flag changes is that `rules/phases.js` stops and asks
+    // instead of taking the top plan; the controller thinks the same either
+    // way, so a semi-manual team still fights like itself.
+    this.controllers = createControllers({
+      p1: { manual: control.p1 === 'manual' },
+      p2: { manual: control.p2 === 'manual' },
+    });
+    this.tactics?.hide();
     this.selectedId = null;
     this.activeId = null;
     this.renderer.selectedId = null;
@@ -207,7 +230,9 @@ class App {
     this.effects.prepare(this.state.teamPacks);
     this._syncEffects();
 
-    this._savePrefs({ seed: useSeed, teams: selection, mission: missionId, map: mapId });
+    this._savePrefs({
+      seed: useSeed, teams: selection, mission: missionId, map: mapId, control,
+    });
     this.render();
     this._syncControls();
   }
@@ -215,9 +240,46 @@ class App {
   /** One engine step, then reflect whatever it produced. */
   stepBattle() {
     if (!this.state || this.state.phase === PHASES.COMPLETE) return { done: true };
+    if (this.tactics?.open) return { done: false, kind: 'await-orders' };
     const result = advanceBattle(this.state, this.controllers);
     this._reflect(result);
+    // The engine has opened an activation and stopped: a semi-manual player
+    // has to say what this operative does before anything else happens. The
+    // clock is stopped rather than the step being refused, so the board is
+    // showing the operative that is being asked about while the player reads.
+    if (isAwaitingOrders(this.state)) this._askForOrders();
     return result;
+  }
+
+  /**
+   * Put the suspended activation in front of the player.
+   *
+   * Whether the clock was running is remembered here rather than inferred
+   * later: answering should put playback back exactly as it was, and a player
+   * who had paused to think does not want Play pressed for them.
+   */
+  _askForOrders() {
+    this._resumeAfterOrders = this.clock.playing;
+    this.clock.pause();
+    this.tactics.show(pendingOrders(this.state), { colors: this.colors });
+  }
+
+  /**
+   * The player has chosen. The engine resolves it exactly as it resolves an
+   * AI plan — this method decides nothing about legality (#2).
+   */
+  chooseTactic(optionId) {
+    if (!this.state) return;
+    const result = resolveTactic(this.state, optionId, this.controllers);
+    this._reflect(result);
+    this._syncControls();
+
+    // One choice can lead straight into the next: the other side may have no
+    // ready operatives, so the same player is asked again for a counteraction.
+    if (isAwaitingOrders(this.state)) { this._askForOrders(); return; }
+
+    if (this.state.phase === PHASES.COMPLETE) { this.showResult(); return; }
+    if (this._resumeAfterOrders) this.clock.play();
   }
 
   /** Turn the events a step produced into log lines and board highlights. */
@@ -528,6 +590,9 @@ class App {
         }
         return;
       }
+      // The orders prompt owns the keyboard while it is up: its own number
+      // shortcuts are the only ones that should do anything.
+      if (this.tactics?.open) return;
       if (e.target.matches('input, textarea, select')) return;
       if (e.key === ' ') { e.preventDefault(); $('playBtn').click(); }
       if (e.key === 's') $('stepBtn').click();

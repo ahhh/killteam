@@ -31,6 +31,7 @@ import {
 } from './support.js';
 import { chooseStrategicPloys, firefightPloysFor } from './ploys.js';
 import { planCommandPoints } from './cp.js';
+import { buildTacticOptions } from './options.js';
 
 export const AI_VERSION = '0.4.0';
 
@@ -204,9 +205,16 @@ function tacticNote(state, op, disposition, tactics) {
 }
 
 export class UtilityController {
-  constructor(playerId, { personality = 'balanced' } = {}) {
+  /**
+   * `manual` does not change how this controller thinks. A semi-manual player
+   * still gets the same enumeration, the same scoring and the same team
+   * tactics — the flag only tells `rules/phases.js` to suspend the activation
+   * and ask, rather than to take the top plan and go.
+   */
+  constructor(playerId, { personality = 'balanced', manual = false } = {}) {
     this.playerId = playerId;
     this.personality = personality;
+    this.manual = manual === true;
     this.version = AI_VERSION;
     /** Positional estimates are re-asked constantly while ranking plans, and
      *  enemies cannot move during our own activation — so cache per activation. */
@@ -329,6 +337,48 @@ export class UtilityController {
    * @returns {{actions:Array, rationale:string[], considered:number, score:number}}
    */
   planActivation(state, operativeId, { counteract = false } = {}) {
+    const ctx = this._context(state, operativeId, { counteract });
+    const plans = this._enumerate(ctx);
+    return this._compose(ctx, this._choose(ctx, plans), plans.length);
+  }
+
+  /**
+   * Up to `count` tactics to put in front of a human player, each from a
+   * different branch of the plan space.
+   *
+   * The same enumeration the AI ranks for itself, re-cut: instead of "which
+   * plan scores highest", the question is "what are the genuinely different
+   * things this operative could do", and the best plan of each kind is the
+   * answer (see `ai/options.js`). Nothing here mutates state, and the actions
+   * a player picks are re-checked by the action layer exactly like the AI's
+   * (#3) — choosing is not the same as being allowed.
+   *
+   * `ap` is the budget the cards are priced against, which is not always the
+   * AP the operative is holding: a resource spend can buy a point, and one of
+   * its own printed actions can have taken one off the top before the player
+   * is asked anything.
+   *
+   * @returns {{ap:number, held:number, options:Array}}
+   */
+  offerTactics(state, operativeId, { count = 3, counteract = false } = {}) {
+    const ctx = this._context(state, operativeId, { counteract });
+    const plans = this._enumerate(ctx);
+    return {
+      ap: ctx.ap,
+      held: ctx.baseAp,
+      options: buildTacticOptions(this, ctx, plans, { count }),
+    };
+  }
+
+  /**
+   * Everything an activation is planned against, worked out once.
+   *
+   * Split out of `planActivation` because a human menu needs the identical
+   * footing: the same AP budget, the same resource and CP openings, the same
+   * per-team tactics. Two code paths deriving that separately is two places
+   * for them to disagree about what the operative can afford.
+   */
+  _context(state, operativeId, { counteract = false } = {}) {
     const op = state.operatives[operativeId];
     this._cache.clear();
     const baseAp = counteract ? 1 : (op.apRemaining || effectiveApl(op));
@@ -375,10 +425,20 @@ export class UtilityController {
     // with no caller at all.
     const shootBuffs = counteract ? null : shootingSpends(state, op);
 
+    return {
+      state, op, operativeId, counteract, baseAp, ap, enemies, engaged,
+      disposition, tactics, w, spending, ployOpening, support, buffs,
+      ployPlans, shootBuffs,
+    };
+  }
+
+  /** Every plan this operative could follow, scored and ranked. */
+  _enumerate(ctx) {
+    const { state, op, ap, enemies, engaged, tactics, w, buffs, ployPlans, shootBuffs, support } = ctx;
+
     const plans = engaged.length
       ? this._engagedPlans(state, op, ap, enemies, engaged, buffs)
       : this._freePlans(state, op, ap, enemies, tactics, buffs, ployPlans, shootBuffs);
-
 
     // Walking over to the operative that needs the medic. A short-ranged
     // support action has no target from where its carrier is standing, so it
@@ -392,6 +452,12 @@ export class UtilityController {
     for (const plan of plans) this._score(state, op, plan, enemies, w, ap, tactics);
 
     plans.sort((a, b) => b.score - a.score);
+    return plans;
+  }
+
+  /** The plan the AI would follow: highest-scoring, re-validated, ties broken. */
+  _choose(ctx, plans) {
+    const { state, op, enemies, tactics } = ctx;
 
     // The ranking pass traces sight lines cheaply; the engine will re-check at
     // full fidelity. Re-validate before committing so we never burn AP on a
@@ -410,6 +476,18 @@ export class UtilityController {
       const tieRng = new Rng(`${state.seed}:ai:${state.eventLog.length}:${op.id}`);
       chosen = tieRng.pick(tied);
     }
+    return chosen;
+  }
+
+  /**
+   * Turn a ranked plan into the intent the engine runs: the conditional tails
+   * it earns, and the 0-AP openings that paid for it.
+   */
+  _compose(ctx, chosen, considered) {
+    const {
+      state, op, operativeId, counteract, baseAp, ap, enemies,
+      disposition, tactics, spending, ployOpening, support,
+    } = ctx;
 
     // The opening spends go in front of the plan that was chosen with them in
     // mind. The conditional one — an extra point of AP — is only paid for if
@@ -453,7 +531,7 @@ export class UtilityController {
         tacticNote(state, op, disposition, tactics),
         this._explain(chosen),
       ],
-      considered: plans.length,
+      considered,
       score: Number(chosen.score.toFixed(2)),
     };
   }

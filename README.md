@@ -303,13 +303,15 @@ src/
     targeting.js      target selection from a hypothetical position
     movement.js       candidate destination generation
     tactics.js        faction disposition and per-unit tactics
+    options.js        the three tactics a semi-manual player is offered
     spending.js       when to spend a team resource, and on what
     ploys.js          pricing a ploy for a team, and for one activation
     cp.js             the Command Point doctrine each team plays to
   data/               schema, validators, loader
   maps/geometry.js    all geometry, in inches
   replay/             replay capture, verification, batch harness
-  ui/                 SVG battlefield, animation layer, panels, log, setup
+  ui/                 SVG battlefield, animation layer, panels, log, setup,
+                      the semi-manual orders prompt
   app.js              the only module that touches the DOM
 ```
 
@@ -336,6 +338,134 @@ never consumes dice, and breaks ties on a derived stream so tie-breaks can't
 disturb the battle sequence. A battle reproduces exactly given identical
 engine version, AI version, data versions, map and seed — verified by
 `test/determinism.test.mjs` and `test/replay.test.mjs`.
+
+A battle played by hand has one more input: the answers. Those are recorded on
+`state.tacticChoices` and in the event log, and the same seed plus the same
+answers reproduces the same battle — `test/semi-manual.test.mjs` checks both
+halves of that, including that different answers produce a different battle.
+
+## The killzones are painted
+
+Each bundled map ships a top-down render of its killzone, fetched when the map
+is selected and drawn under the board. It is decoration and nothing else — no
+battle reads it, the rules never see it, and a map without one renders as the
+geometric board it always had (invariant #9 is unchanged: the app is complete
+without art).
+
+**The rules geometry still sits on top of it.** The art is a second,
+hand-made description of the same killzone and it can drift from the data, so
+the terrain polygons the engine actually collides against are drawn over the
+picture as outlines rather than replaced by it. That also keeps the one cue the
+art cannot express:
+
+- **solid edge** — `blocking`: sight and movement both stop here
+- **dashed edge** — `traversable`: blocks sight, but is walked straight through
+
+The calibration lives in the asset, not the renderer: `tools/make-map-art.mjs`
+crops each source render to exactly the 30 × 22" playing surface, so the board
+places it at `0,0,30,22` with no per-map offsets to get wrong. Crop rectangles
+were derived from the painted deployment zones (whose board coordinates the map
+data already knows) or from the playable floor's own edges, then each was
+verified by overlaying the map's terrain on the crop.
+
+Where the art already paints the deployment zones and they agree with the data,
+the map says so with `art.showsZones` and the engine does not draw its own. The
+Temple of the Green Moon paints a narrower strip than it plays, so it keeps
+them. Backdrops are 159–295 KB each, one per battle, and are never preloaded —
+which map a player picks is a guess. Full detail, including the known
+mismatches, in `docs/map-art.md`.
+
+## Playing a kill team yourself
+
+By default both kill teams fight themselves and you watch. **Teams… →
+Semi-manual** puts one side (or both) under your control, and the setting is
+per player, so the usual arrangement is one of each.
+
+Under semi-manual control the turning-point machine stops in the middle of each
+activation — after the operative is on the clock, its tokens have burned and
+its AP is counted, but before anything is ordered — and offers **three
+tactics**. You pick one, it resolves, and play carries on to the next decision.
+Counteractions stop and ask in the same way.
+
+### The three options are the AI's own reasoning, re-cut
+
+The controller already enumerates every plan an operative could follow and
+ranks them (`ai/controller.js`). Showing the top three would be three versions
+of one idea, because the ranking is dominated by whichever branch happens to be
+good this turn — six ways to shoot the same trooper. So the question the menu
+asks is a different one: *what are the genuinely different things this operative
+could do*, and the answer is the best plan of each **kind**:
+
+| Branch | What it is |
+| --- | --- |
+| Close combat | charge into contact, or fight what is already there |
+| Use a spell | a Shoot action with a PSYCHIC weapon |
+| Move and shoot / Shoot | with or without breaking position first |
+| Use an ability | one of the operative's own printed actions |
+| Use a resource | patch up out of the team economy, and get off the skyline |
+| Prepare a reaction | Guard: hold the shot for the enemy's turn |
+| Advance / Take cover / Take ground | press the line, get behind something, or take the marker |
+| Disengage | Fall Back out of contact |
+
+The kinds are read off each plan's own actions (`branchOf`), not declared at
+the twenty-odd places a plan is built, so a new branch in the controller cannot
+forget to label itself.
+
+Only the economies that buy *wounds back* get a card of their own. The ones
+that buy attack dice or an extra swing are modifiers on an action, so they ride
+the shooting and melee cards, where the plan that wants them pays for them —
+and only two bundled teams declare a heal spend at all, so "Use a resource" is
+a rare card by design rather than by accident.
+
+Three of those branches never appear in the AI's enumeration at all, because it
+only ever reaches them as openings or as leftovers: the operative's own printed
+actions, a resource the team is offering, and Guard. A player should be able to
+choose them outright, so `ai/options.js` builds them as plans in their own
+right and scores them with the same function as everything else — an option you
+pick is not a cheaper one.
+
+### The cards are specific to the team
+
+Every option is named in the team's own vocabulary, because that is the whole
+point of playing this team rather than another one:
+
+```
+[ CLOSE COMBAT ]                  [ USE AN ABILITY ]           [ ADVANCE ]
+Charge Death Korps Trooper        GET IT DUN! on Bomb Squig    Push 9.0" toward the enemy
+~4.8 dmg · 7.3" move · 2/2 AP     ~5.4 value · 1/3 AP          9.0" move · 2/3 AP · ends Concealed
+```
+
+The AP on each card is the budget it is actually priced against — which is not
+always the AP the operative is holding, because a resource spend can buy a
+point and one of its own actions can have taken one off the top before you were
+asked anything.
+
+What the AI would have done is marked ("their pick") but never pre-selected,
+and **Let them decide** hands any single activation back to the controller.
+
+### It decides nothing
+
+The prompt is a set of buttons with the reasoning printed on them. The options
+were built against the state the engine had actually reached, and every action
+in the one you choose is re-validated by the action layer when it resolves —
+the same path an AI plan takes, and the same rejection. Invariants 2 and 3 hold
+unchanged: the UI never decides whether an action is legal, and choosing is not
+permission. `test/semi-manual.test.mjs` checks that directly by handing the
+resolver an impossible order and asserting it is refused and logged.
+
+### What is still automatic
+
+Deployment, initiative, the Command Point doctrine and the strategic ploys
+bought in the strategy phase are all still the controller's. Semi-manual is
+about what each operative does on its activation; the turning-point scaffolding
+around it is not offered as a choice.
+
+### Running headless
+
+`runToCompletion` has nobody to answer the question, so it returns at the first
+suspension with an `awaiting-orders` warning rather than burning its step limit.
+The batch harness and the sweep scripts are unaffected — they build automatic
+controllers.
 
 ## Loading your own data
 

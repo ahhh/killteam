@@ -1,6 +1,10 @@
 {
   "id": "industrial-001",
   "name": "Industrial Crossfire",
+  "art": {
+    "href": "assets/maps/industrial-001.webp",
+    "showsZones": true
+  },
   "version": 1,
   "seed": null,
   "board": {

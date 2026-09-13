@@ -344,16 +344,35 @@ export function tallyKills(state, fromSeq) {
  */
 function runActivation(state, op, controller) {
   const seqBefore = state.eventLog.length;
+  if (!beginActivation(state, op, seqBefore)) return;
+  runIntent(state, op, controller.planActivation(state, op.id), seqBefore);
+}
+
+/**
+ * Open the activation: tokens burn, hooks fire, AP is counted.
+ *
+ * Split from the rest because a semi-manual activation stops right here — the
+ * operative is on the clock and the player has not said what it does yet.
+ *
+ * @returns {boolean} false if a token burned the last wound off it first.
+ */
+function beginActivation(state, op, seqBefore) {
   const rng = Rng.fromState(state.rng);
   startActivation(state, op, rng);
   state.rng = rng.getState();
-  if (!op.alive) {
-    // A token burned the last wound off it before it could act.
-    tallyKills(state, seqBefore);
-    return;
-  }
+  if (op.alive) return true;
+  tallyKills(state, seqBefore);
+  return false;
+}
 
-  const intent = controller.planActivation(state, op.id);
+/**
+ * Carry out an intent, whoever produced it.
+ *
+ * The AI's plan and a human player's choice arrive here in the identical
+ * shape and are validated identically (#3): picking an option off a menu is
+ * not permission to do it, it is a proposal like any other.
+ */
+function runIntent(state, op, intent, seqBefore) {
   if (intent?.rationale?.length) {
     logEvent(state, EVENTS.AI_PLAN, {
       operativeId: op.id, operativeName: op.name, playerId: op.playerId,
@@ -399,13 +418,189 @@ function runActivation(state, op, controller) {
   tallyKills(state, seqBefore);
 }
 
+/* ------------------------------------------------------------------ */
+/* Semi-manual play                                                    */
+/* ------------------------------------------------------------------ */
+
+/** The option id that means "never mind, let the controller decide". */
+export const AUTO_TACTIC = 'auto';
+
+/** Is the battle stopped, waiting on a human player? */
+export function isAwaitingOrders(state) {
+  return state.pending?.kind === 'tactic';
+}
+
+/** The block the UI renders, or null when nobody is being asked anything. */
+export function pendingOrders(state) {
+  return isAwaitingOrders(state) ? state.pending : null;
+}
+
+/**
+ * Stop the activation and put the choice to the player.
+ *
+ * The operative is already on the clock — its tokens have burned, its hooks
+ * have fired, its AP is counted — and everything after that is suspended on
+ * `state.pending` until `resolveTactic` is called. Suspending here rather than
+ * before the activation is what makes the menu honest: the options are priced
+ * against the AP the operative actually has, not the AP its profile prints.
+ *
+ * @returns {object|null} a step result, or null if there was nothing to ask.
+ */
+function suspendForOrders(state, op, controller, { fromSeq, counteract = false, announce = null }) {
+  const offer = controller.offerTactics(state, op.id, { counteract });
+  const options = offer.options;
+  // An operative with one legal thing to do is not a decision, it is a delay.
+  if (options.length < 2) return null;
+  announce?.();
+
+  const team = state.players[op.playerId];
+  state.pending = {
+    kind: 'tactic',
+    playerId: op.playerId,
+    teamName: team.teamName,
+    operativeId: op.id,
+    operativeName: op.name,
+    counteract,
+    // The budget the cards are priced against, and what the operative is
+    // actually holding — a resource spend or one of its own actions can put
+    // the two apart before the player is asked anything.
+    ap: offer.ap,
+    held: offer.held,
+    // Where this activation's events begin, so the UI can replay the opening
+    // — the token burn, the activation itself — alongside the question.
+    fromSeq,
+    options: options.map((o) => ({
+      id: o.id, branch: o.branch, branchLabel: o.branchLabel, title: o.title,
+      detail: o.detail, chips: o.chips, score: o.score, recommended: o.recommended,
+      actions: o.actions,
+    })),
+  };
+  logEvent(state, EVENTS.TACTICS_OFFERED, {
+    operativeId: op.id, operativeName: op.name, playerId: op.playerId,
+    counteract,
+    options: options.map((o) => ({ id: o.id, branch: o.branch, title: o.title })),
+  });
+  // The opening of the activation is over and can be credited now; the rest of
+  // it is tallied when the choice comes back, so neither range is counted twice
+  // and the total matches what an uninterrupted activation would have credited.
+  // A counteraction is not an activation and never had an opening to credit —
+  // `commitCounteraction` owns its whole range — so it is left alone here, and
+  // the manual and automatic paths stay in step.
+  if (!counteract) tallyKills(state, fromSeq);
+
+  return {
+    done: false, kind: 'await-orders', fromSeq,
+    description: `${op.name} awaits orders.`,
+  };
+}
+
+/**
+ * Carry out the choice a player made, and let the battle go on.
+ *
+ * Called instead of `step()` while `isAwaitingOrders(state)`. `AUTO_TACTIC`
+ * hands the activation back to the controller, which is the escape hatch for a
+ * player who does not want to think about this one.
+ *
+ * @returns {{done:boolean, kind:string, description:string, fromSeq:number}}
+ */
+export function resolveTactic(state, optionId, controllers) {
+  const pending = state.pending;
+  if (!isAwaitingOrders(state)) {
+    return {
+      done: state.phase === PHASES.COMPLETE, kind: 'noop',
+      fromSeq: state.eventLog.length, description: 'Nothing is waiting on a choice.',
+    };
+  }
+
+  const op = state.operatives[pending.operativeId];
+  const controller = controllers?.[pending.playerId];
+  const option = pending.options.find((o) => o.id === optionId) || null;
+
+  const fromSeq = state.eventLog.length;
+  state.pending = null;
+
+  const intent = option
+    ? { operativeId: op.id, actions: option.actions, rationale: [`${pending.operativeName}: ${option.title}`] }
+    : controller.planActivation(state, op.id, { counteract: pending.counteract });
+
+  logEvent(state, EVENTS.TACTIC_CHOSEN, {
+    operativeId: op.id, operativeName: op.name, playerId: pending.playerId,
+    counteract: pending.counteract,
+    optionId: option ? option.id : AUTO_TACTIC,
+    branch: option?.branch ?? null,
+    title: option ? option.title : 'Left to the kill team’s own judgement',
+  });
+  // A hand-played battle is not reproducible from its seed alone. These are
+  // the other half of its inputs, in the order they were given.
+  state.tacticChoices.push({
+    seq: fromSeq, turningPoint: state.turningPoint,
+    playerId: pending.playerId, operativeId: op.id,
+    optionId: option ? option.id : AUTO_TACTIC, branch: option?.branch ?? null,
+  });
+
+  if (pending.counteract) {
+    const did = commitCounteraction(state, op, intent);
+    state.activePlayerId = opponentOf(pending.playerId);
+    return {
+      done: false, kind: 'counteract', fromSeq,
+      description: did === null
+        ? `${op.name} holds its counteraction.`
+        : `${state.players[pending.playerId].teamName} counteracts.`,
+    };
+  }
+
+  runIntent(state, op, intent, fromSeq);
+  const other = opponentOf(pending.playerId);
+  state.activePlayerId = readyOperatives(state, other).length ? other : pending.playerId;
+  return { done: false, kind: 'activation', fromSeq, description: `${op.name} activates.` };
+}
+
+/**
+ * The one action a counteraction gets.
+ *
+ * A ploy and a resource spend both cost 0 AP, so neither is "the action" —
+ * they pay for it.
+ */
+function counteractionAction(intent) {
+  return (intent?.actions || []).find(
+    (a) => !['pass', 'change_order', 'spend', 'ploy'].includes(a.type)) || null;
+}
+
+/**
+ * Resolve a counteraction that has already been announced: the invigorations
+ * that pay for it, then the single action itself.
+ *
+ * @returns {boolean|null} whether the action resolved, or null if the intent
+ *          carried no action to resolve.
+ */
+function commitCounteraction(state, op, intent) {
+  const action = counteractionAction(intent);
+  if (!action) { op.apRemaining = 0; op.inCounteraction = false; return null; }
+  const seqBefore = state.eventLog.length;
+  // A counteraction is one action, but the invigorations that go with it are
+  // not actions — Rejuvenate is legal here too.
+  for (const paid of (intent.actions || []).filter((a) => a.type === 'spend' || a.type === 'ploy')) {
+    resolveAction(state, { ...paid, operativeId: op.id });
+  }
+  const result = resolveAction(state, { ...action, operativeId: op.id });
+  op.counteracted = true;
+  op.apRemaining = 0;
+  op.inCounteraction = false;
+  tallyKills(state, seqBefore);
+  return result.ok;
+}
+
 /**
  * Counteract: a player with no ready operatives may still make one 1-AP
  * action with an already-activated operative, once per turning point.
+ *
+ * @returns {{did:boolean, suspended?:object}} `suspended` is a step result: a
+ *          semi-manual player has been asked what to counteract with, and the
+ *          turn does not pass until they answer.
  */
-function tryCounteract(state, playerId, controller) {
+function tryCounteract(state, playerId, controller, fromSeq) {
   const candidates = liveOperatives(state, playerId).filter((o) => !o.counteracted);
-  if (!candidates.length) return false;
+  if (!candidates.length) return { did: false };
 
   for (const op of candidates) {
     op.apRemaining = 1;
@@ -429,32 +624,34 @@ function tryCounteract(state, playerId, controller) {
     const legal = getLegalActions(state, op.id).filter((a) => a.type !== 'pass');
     if (!legal.length) { op.apRemaining = 0; op.inCounteraction = false; continue; }
 
+    // A counteraction is a real decision — which operative, and what it does
+    // with its one point — so a semi-manual player gets asked here too. The
+    // announcement rides along with the question rather than preceding it, so
+    // an operative with nothing worth choosing between falls through to the
+    // automatic path below without having been announced twice.
+    if (controller?.manual) {
+      const suspended = suspendForOrders(state, op, controller, {
+        fromSeq, counteract: true,
+        announce: () => logEvent(state, EVENTS.OPERATIVE_ACTIVATED, {
+          operativeId: op.id, operativeName: op.name, playerId,
+          counteract: true, ap: 1, order: op.order,
+        }),
+      });
+      if (suspended) return { did: false, suspended };
+    }
+
     const intent = controller.planActivation(state, op.id, { counteract: true });
-    const proposed = intent?.actions || [];
-    // A ploy and a resource spend both cost 0 AP, so neither is "the action"
-    // a counteraction gets — they pay for it.
-    const action = proposed.find(
-      (a) => !['pass', 'change_order', 'spend', 'ploy'].includes(a.type));
-    if (!action) { op.apRemaining = 0; op.inCounteraction = false; continue; }
+    if (!counteractionAction(intent)) {
+      op.apRemaining = 0; op.inCounteraction = false; continue;
+    }
 
     logEvent(state, EVENTS.OPERATIVE_ACTIVATED, {
       operativeId: op.id, operativeName: op.name, playerId,
       counteract: true, ap: 1, order: op.order,
     });
-    const seqBefore = state.eventLog.length;
-    // A counteraction is one action, but the invigorations that go with it are
-    // not actions — Rejuvenate is legal here too.
-    for (const paid of proposed.filter((a) => a.type === 'spend' || a.type === 'ploy')) {
-      resolveAction(state, { ...paid, operativeId: op.id });
-    }
-    const result = resolveAction(state, { ...action, operativeId: op.id });
-    op.counteracted = true;
-    op.apRemaining = 0;
-    op.inCounteraction = false;
-    tallyKills(state, seqBefore);
-    return result.ok;
+    return { did: commitCounteraction(state, op, intent) === true };
   }
-  return false;
+  return { did: false };
 }
 
 /* ------------------------------------------------------------------ */
@@ -475,6 +672,15 @@ export function step(state, controllers) {
 
   if (state.phase === PHASES.COMPLETE) {
     return { done: true, kind: 'complete', description: 'Battle already finished.', fromSeq };
+  }
+
+  // A suspended activation is not a state anything can step past: the answer
+  // comes through `resolveTactic`, not through another step.
+  if (isAwaitingOrders(state)) {
+    return {
+      done: false, kind: 'await-orders', fromSeq,
+      description: `${state.pending.operativeName} awaits orders.`,
+    };
   }
 
   if (state.phase === PHASES.SETUP) {
@@ -503,12 +709,15 @@ export function step(state, controllers) {
     }
 
     if (!mine.length) {
-      const did = tryCounteract(state, active, controllers[active]);
+      const outcome = tryCounteract(state, active, controllers[active], fromSeq);
+      // A semi-manual player has been asked which operative counteracts, and
+      // with what. Nothing else moves until they answer, so the turn stays put.
+      if (outcome.suspended) return outcome.suspended;
       state.activePlayerId = other;
       state.rng = rng.getState();
       return {
         done: false, kind: 'counteract', fromSeq,
-        description: did
+        description: outcome.did
           ? `${state.players[active].teamName} counteracts.`
           : `${state.players[active].teamName} has no ready operatives.`,
       };
@@ -518,6 +727,24 @@ export function step(state, controllers) {
     const chosen = controller.chooseActivation(state, mine.map((o) => o.id));
     const op = state.operatives[chosen] || mine[0];
     state.rng = rng.getState();
+
+    // Semi-manual: open the activation, then stop and ask. The operative is
+    // already on the clock when the question is put, so the options are priced
+    // against the AP it actually has (see `suspendForOrders`).
+    if (controller.manual) {
+      if (!beginActivation(state, op, fromSeq)) {
+        state.activePlayerId = readyOperatives(state, other).length ? other : active;
+        return { done: false, kind: 'activation', fromSeq, description: `${op.name} is down before it can act.` };
+      }
+      const suspended = suspendForOrders(state, op, controller, { fromSeq });
+      if (suspended) return suspended;
+      // Nothing worth asking about — carry on automatically from where the
+      // activation already stands, rather than starting it a second time.
+      runIntent(state, op, controller.planActivation(state, op.id), fromSeq);
+      state.activePlayerId = readyOperatives(state, other).length ? other : active;
+      return { done: false, kind: 'activation', fromSeq, description: `${op.name} activates.` };
+    }
+
     runActivation(state, op, controller);
     state.activePlayerId = readyOperatives(state, other).length ? other : active;
     return { done: false, kind: 'activation', fromSeq, description: `${op.name} activates.` };
@@ -634,11 +861,24 @@ function lastTeamStandingResult(state, survivors) {
   };
 }
 
-/** Run to completion (instant mode / batch harness). */
+/**
+ * Run to completion (instant mode / batch harness).
+ *
+ * A semi-manual controller stops this dead — there is nobody to answer the
+ * question in a batch run — so it returns at the first suspension rather than
+ * spinning until the step limit. The caller can see why in `state.pending`.
+ */
 export function runToCompletion(state, controllers, maxSteps = 2000) {
   let steps = 0;
   while (state.phase !== PHASES.COMPLETE && steps++ < maxSteps) {
     step(state, controllers);
+    if (isAwaitingOrders(state)) {
+      logEvent(state, EVENTS.WARNING, {
+        ruleId: 'awaiting-orders',
+        message: `Battle suspended: ${state.pending.operativeName} is waiting on a player's choice.`,
+      });
+      return state;
+    }
   }
   if (steps >= maxSteps) {
     logEvent(state, EVENTS.WARNING, {

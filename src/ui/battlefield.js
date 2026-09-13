@@ -139,8 +139,16 @@ export class BattlefieldRenderer {
     this._applyView();
 
     this._drawBoard(this.root, state);
-    this._drawDeploymentZones(this.root, state, colors);
-    this._drawTerrain(this.root, state);
+    const art = this._drawArt(this.root, state);
+    // The art already paints the zones on four of the five bundled killzones,
+    // and painting ours on top of them is two dashed rectangles saying the
+    // same thing. A map whose art does NOT show them (the temple draws a
+    // narrower strip than it plays) keeps the engine's own (#5: that is a
+    // property of the data, not of this module).
+    if (!(art && state.map.art?.showsZones)) {
+      this._drawDeploymentZones(this.root, state, colors);
+    }
+    this._drawTerrain(this.root, state, { art });
     this._drawObjectives(this.root, state, colors);
     this._drawHighlight(this.root, state);
     // Two animation layers, because an aura belongs under the figures and an
@@ -158,6 +166,41 @@ export class BattlefieldRenderer {
       patternTransform: 'rotate(45)',
     }, defs);
     el('line', { x1: 0, y1: 0, x2: 0, y2: 0.7, stroke, 'stroke-width': 0.09, opacity: 0.5 }, pattern);
+  }
+
+  /**
+   * The painted killzone, if the map ships one.
+   *
+   * The image is cropped to exactly the playing surface at build time, so it
+   * lands on the board rectangle with no per-map offsets to carry — the only
+   * calibration is in the crop, and it is done once (`tools/make-map-art.mjs`).
+   * `preserveAspectRatio="none"` because the art is not drawn to the board's
+   * 30:22 exactly and stretching a background by a couple of percent is
+   * invisible, whereas letterboxing it is not.
+   *
+   * Nothing here is load-bearing: the board underneath is drawn either way, a
+   * fetch that fails leaves the geometric map exactly as it was, and the rules
+   * never read it. High contrast turns it off outright — the whole point of
+   * that mode is that nothing competes with the tokens.
+   *
+   * @returns {boolean} whether art was drawn.
+   */
+  _drawArt(g, state) {
+    const art = state.map.art;
+    if (!art?.href) return false;
+    if (typeof document !== 'undefined' &&
+        document.body?.classList.contains('high-contrast')) return false;
+
+    const { width, height } = state.map.board;
+    const image = el('image', {
+      href: art.href, x: 0, y: 0, width, height,
+      preserveAspectRatio: 'none',
+      // Decoded off the main thread; the board is already on screen by then.
+      decoding: 'async',
+    }, g);
+    // SVG 1.1 user agents only know the namespaced attribute.
+    image.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', art.href);
+    return true;
   }
 
   _drawBoard(g, state) {
@@ -197,7 +240,22 @@ export class BattlefieldRenderer {
     }
   }
 
-  _drawTerrain(g, state) {
+  /**
+   * Terrain, as the RULES see it.
+   *
+   * Over painted art this is drawn as an outline only. The art is a second,
+   * hand-made description of the same killzone and it can disagree with the
+   * data — so the polygons the engine actually collides against stay visible
+   * on top of it rather than being replaced by a picture of them. It is also
+   * the only place the one distinction the art cannot express survives:
+   *
+   *   solid edge  — blocking: sight AND movement stop here
+   *   dashed edge — traversable: blocks sight, but is walked straight through
+   *
+   * Without art the polygons are filled as before, because then they are the
+   * only thing describing the board.
+   */
+  _drawTerrain(g, state, { art = false } = {}) {
     const layer = el('g', {}, g);
     for (const piece of state.map.terrain || []) {
       const points = piece.shape.points.map((p) => `${p.x},${p.y}`).join(' ');
@@ -206,10 +264,13 @@ export class BattlefieldRenderer {
 
       const shape = el('polygon', {
         points,
-        fill: obscuring ? 'var(--terrain)' : 'url(#hatch-terrain)',
-        'fill-opacity': obscuring ? 0.95 : 0.6,
+        fill: art ? 'none' : (obscuring ? 'var(--terrain)' : 'url(#hatch-terrain)'),
+        'fill-opacity': art ? 0 : (obscuring ? 0.95 : 0.6),
         stroke: 'var(--terrain-edge)',
-        'stroke-width': traversable ? 0.05 : 0.09,
+        // Heavier over art: a hairline that reads fine on the flat board
+        // disappears against a photograph of rubble.
+        'stroke-width': art ? (traversable ? 0.07 : 0.12) : (traversable ? 0.05 : 0.09),
+        'stroke-opacity': art ? 0.85 : 1,
         'stroke-dasharray': traversable ? '0.3 0.2' : null,
         'stroke-linejoin': 'round',
       }, layer);

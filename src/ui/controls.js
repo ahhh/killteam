@@ -55,6 +55,11 @@ export class PlaybackClock {
       if (!this.playing) return;
       const result = this.onStep();
       if (result?.done) { this._finish(); return; }
+      // A step may stop the clock from inside the handler — semi-manual play
+      // suspends an activation to ask the player what it does. Rescheduling
+      // regardless would leave a timer behind that fires as soon as playback
+      // resumes, and the battle would take two steps for one tick.
+      if (!this.playing) return;
       this._schedule();
     }, this.delay);
   }

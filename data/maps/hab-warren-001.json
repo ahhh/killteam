@@ -3,6 +3,10 @@
   "name": "Warren of the Broken Hab",
   "version": 1,
   "blurb": "Collapsed hab-stacks over a contested court. Nothing here can be shot at from far away.",
+  "art": {
+    "href": "assets/maps/hab-warren-001.webp",
+    "showsZones": true
+  },
   "seed": null,
   "board": {
     "width": 30,

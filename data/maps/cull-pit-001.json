@@ -3,6 +3,10 @@
   "name": "The Cull Pit",
   "version": 1,
   "blurb": "The teams drop along the long edges, eleven inches apart, and every marker is on the centre line.",
+  "art": {
+    "href": "assets/maps/cull-pit-001.webp",
+    "showsZones": true
+  },
   "seed": null,
   "board": {
     "width": 30,

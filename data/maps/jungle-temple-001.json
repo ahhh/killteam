@@ -2,7 +2,11 @@
   "id": "jungle-temple-001",
   "name": "Temple of the Green Moon",
   "version": 1,
-  "blurb": "A stepped ziggurat drowning in canopy. The sanctum is worth holding and has only four ways in — and the jungle between is Light terrain, so a Seek Light weapon can pick you out of it.",
+  "blurb": "A stepped ziggurat drowning in canopy. The sanctum is worth holding and has only four ways in \u2014 and the jungle between is Light terrain, so a Seek Light weapon can pick you out of it.",
+  "art": {
+    "href": "assets/maps/jungle-temple-001.webp",
+    "showsZones": false
+  },
   "board": {
     "width": 30,
     "height": 22,

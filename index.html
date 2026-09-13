@@ -52,6 +52,7 @@
 <link rel="modulepreload" href="src/ai/support.js">
 <link rel="modulepreload" href="src/ai/ploys.js">
 <link rel="modulepreload" href="src/ai/cp.js">
+<link rel="modulepreload" href="src/ai/options.js">
 <link rel="modulepreload" href="src/replay/recorder.js">
 <link rel="modulepreload" href="src/ui/battlefield.js">
 <link rel="modulepreload" href="src/ui/portraits.js">
@@ -60,6 +61,7 @@
 <link rel="modulepreload" href="src/ui/inspector.js">
 <link rel="modulepreload" href="src/ui/combat-log.js">
 <link rel="modulepreload" href="src/ui/setup.js">
+<link rel="modulepreload" href="src/ui/tactics.js">
 <link rel="modulepreload" href="src/ui/controls.js">
 <!-- END modulepreload -->
 
@@ -183,6 +185,19 @@
       <button id="setupCancelBtn">Cancel</button>
       <button id="setupStartBtn" class="primary">Start battle</button>
     </div>
+  </div>
+</div>
+
+<!-- Orders (semi-manual) ---------------------------------------------- -->
+<!--
+  Shown only while a semi-manual player has an activation suspended. It has no
+  close button and Escape does not dismiss it: until the operative has its
+  orders there is no battle underneath to go back to.
+-->
+<div class="overlay" id="tacticsOverlay" hidden>
+  <div class="modal tactics-modal" role="dialog" aria-modal="true" aria-labelledby="tacticsTitle">
+    <h2 id="tacticsTitle" class="sr-only">Choose orders</h2>
+    <div id="tacticsBody"></div>
   </div>
 </div>
 

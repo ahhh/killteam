@@ -28,7 +28,7 @@ export class SetupScreen {
    * @param {{repo:DataRepository, roots:{p1:HTMLElement,p2:HTMLElement},
    *          referenceRoot:HTMLElement, importEls:object}} deps
    */
-  constructor({ repo, roots, referenceRoot, importEls, missionRoot, missionIds = [], onChange, onMissionChange }) {
+  constructor({ repo, roots, referenceRoot, importEls, missionRoot, missionIds = [], onChange, onMissionChange, onControlChange }) {
     this.repo = repo;
     this.roots = roots;
     this.referenceRoot = referenceRoot;
@@ -37,7 +37,15 @@ export class SetupScreen {
     this.missionIds = missionIds;
     this.onChange = onChange;
     this.onMissionChange = onMissionChange;
+    this.onControlChange = onControlChange;
     this.selection = { p1: null, p2: null };
+    /**
+     * Who gives this kill team its orders. `auto` is the simulator as it has
+     * always been; `manual` stops each activation and asks (see
+     * `ui/tactics.js`). It is per side, so one player can play a team by hand
+     * against an AI opponent — which is the normal way to use it.
+     */
+    this.control = { p1: 'auto', p2: 'auto' };
     this.missionId = missionIds[0] ?? null;
     this._wireImport();
   }
@@ -49,6 +57,16 @@ export class SetupScreen {
 
   setSelection(p1, p2) {
     this.selection = { p1, p2 };
+  }
+
+  /** @returns {{p1:'auto'|'manual', p2:'auto'|'manual'}} */
+  getControl() {
+    return { ...this.control };
+  }
+
+  setControl(p1, p2) {
+    const clean = (v) => (v === 'manual' ? 'manual' : 'auto');
+    this.control = { p1: clean(p1), p2: clean(p2) };
   }
 
   getMission() {
@@ -185,9 +203,52 @@ export class SetupScreen {
     });
     root.append(select);
 
+    this._renderControl(root, playerId);
+
     const detail = h('div');
     root.append(detail);
     await this._renderTeamDetail(detail, this.selection[playerId]);
+  }
+
+  /**
+   * Automatic or semi-manual, per side.
+   *
+   * Sits under the team dropdown because it is a property of how this player
+   * is playing, not of the battle: the two sides can differ, and the usual
+   * case is one of each.
+   */
+  _renderControl(root, playerId) {
+    const box = h('div', 'control-choice');
+    box.setAttribute('role', 'radiogroup');
+    box.setAttribute('aria-label', `${playerId} control`);
+
+    const modes = [
+      { id: 'auto', name: 'Automatic', blurb: 'The kill team fights itself. Watch it play.' },
+      {
+        id: 'manual', name: 'Semi-manual',
+        blurb: 'Every activation stops and offers three tactics built from this team’s own weapons, abilities and rules. You pick; the engine resolves it.',
+      },
+    ];
+
+    for (const mode of modes) {
+      const label = h('label', 'control-option');
+      if (this.control[playerId] === mode.id) label.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = `control-${playerId}`;
+      input.value = mode.id;
+      input.checked = this.control[playerId] === mode.id;
+      input.addEventListener('change', () => {
+        this.control[playerId] = mode.id;
+        // Re-render the column so the selected styling follows the choice.
+        this._renderColumn(playerId);
+        this.onControlChange?.(this.getControl());
+      });
+      label.append(input, h('span', 'control-name', mode.name));
+      label.append(h('span', 'control-blurb', mode.blurb));
+      box.append(label);
+    }
+    root.append(box);
   }
 
   /**

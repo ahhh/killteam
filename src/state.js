@@ -178,6 +178,23 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
     eventLog: [],
     warnings: [],
     result: null,
+
+    /**
+     * A suspended activation, waiting on a human player's choice.
+     *
+     * Semi-manual mode stops the turning-point machine mid-activation: the
+     * operative has been activated, its tokens have burned and its AP is
+     * counted, but nothing has been ordered yet. The block is plain data like
+     * everything else here, so a suspended battle serializes and resumes
+     * (see `rules/phases.js`).
+     */
+    pending: null,
+    /**
+     * Every choice a human player has made, in order. A battle driven by hand
+     * is not reproducible from its seed alone — these are the other half of
+     * its inputs, and they ride with the replay.
+     */
+    tacticChoices: [],
   };
 }
 
@@ -238,6 +255,9 @@ export const EVENTS = {
   RULE_APPLIED: 'RULE_APPLIED',
   WARNING: 'WARNING',
   AI_PLAN: 'AI_PLAN',
+  /** Semi-manual mode: what a human player was asked, and what they chose. */
+  TACTICS_OFFERED: 'TACTICS_OFFERED',
+  TACTIC_CHOSEN: 'TACTIC_CHOSEN',
 };
 
 export function logEvent(state, type, payload = {}) {

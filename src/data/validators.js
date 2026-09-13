@@ -567,7 +567,36 @@ export function validateMap(map) {
     }
   }
 
+  validateMapArt(map, report);
+
   return report;
+}
+
+/**
+ * The optional painted backdrop.
+ *
+ * Art is decoration and never affects a battle, so everything here is a
+ * warning rather than an error: a map whose picture is missing or malformed
+ * still plays, it just plays on the geometric board it always had. The one
+ * thing worth being strict about is the href — it is written straight into an
+ * SVG <image>, so a remote URL would turn picking a map into a third-party
+ * request, which this project does not make (#8).
+ */
+function validateMapArt(map, report) {
+  const art = map.art;
+  if (art === undefined) return;
+  if (typeof art !== 'object' || art === null) {
+    report.warn('art must be an object — the map will render without a backdrop');
+    return;
+  }
+  if (typeof art.href !== 'string' || !art.href) {
+    report.warn('art.href is missing — the map will render without a backdrop');
+  } else if (/^[a-z]+:|^\/\//i.test(art.href)) {
+    report.error(`art.href "${art.href}" must be a path inside this project, not a URL`);
+  }
+  if (art.showsZones !== undefined && typeof art.showsZones !== 'boolean') {
+    report.warn('art.showsZones must be true or false — treating it as false');
+  }
 }
 
 /** Ways a mission can be won. Anything else is rejected rather than guessed. */

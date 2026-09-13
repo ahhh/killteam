@@ -65,6 +65,57 @@ export function buildIndex(root = ROOT) {
   return { schemaVersion: 1, teams };
 }
 
+/**
+ * Every module reachable from `src/app.js`, in the order the browser would
+ * discover them. The preload hints in index.html must name exactly this set:
+ * a stale entry is a 404 on every page load, a missing one restores the
+ * four-wave import waterfall those hints exist to flatten.
+ */
+export function moduleGraph(root = ROOT, entry = 'src/app.js') {
+  const seen = new Set();
+  const order = [];
+  const walk = (rel) => {
+    if (seen.has(rel)) return;
+    seen.add(rel);
+    order.push(rel);
+    const dir = path.dirname(rel);
+    const src = fs.readFileSync(path.join(root, rel), 'utf8');
+    for (const m of src.matchAll(/from\s+'(\.[^']+)'/g)) {
+      walk(path.normalize(path.join(dir, m[1])));
+    }
+  };
+  walk(entry);
+  return order;
+}
+
+/** The `<link rel="modulepreload">` block index.html should carry. */
+export function preloadTags(root = ROOT) {
+  return moduleGraph(root)
+    .filter((m) => m !== 'src/app.js')
+    .map((m) => `<link rel="modulepreload" href="${m}">`)
+    .join('\n');
+}
+
+// Explicit markers, not prose: the generated block used to be delimited by
+// the wording of the comment after it, which meant editing that comment broke
+// the generator.
+const PRELOAD_START = '<!-- BEGIN modulepreload (generated) -->';
+const PRELOAD_END = '<!-- END modulepreload -->';
+
+/** Rewrite the generated hint block in index.html, leaving the rest alone. */
+export function writePreloads(root = ROOT) {
+  const file = path.join(root, 'index.html');
+  const html = fs.readFileSync(file, 'utf8');
+  const from = html.indexOf(PRELOAD_START);
+  const to = html.indexOf(PRELOAD_END);
+  if (from === -1 || to === -1 || to < from) {
+    throw new Error('index.html preload block not found — did its comments change?');
+  }
+  const next = `${html.slice(0, from)}${PRELOAD_START}\n${preloadTags(root)}\n${html.slice(to)}`;
+  fs.writeFileSync(file, next);
+  return next;
+}
+
 export function buildMapIndex(root = ROOT) {
   const dir = path.join(root, 'data/maps');
   const maps = {};
@@ -90,4 +141,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(im
     console.log(`wrote ${Object.keys(index[count]).length} ${count} to ${out}`);
     console.log(`  index ${(bytes / 1024).toFixed(1)}KB vs ${(dirBytes(source) / 1024).toFixed(0)}KB of ${count}`);
   }
+
+  writePreloads();
+  console.log(`rewrote ${moduleGraph().length - 1} modulepreload hints in index.html`);
 }

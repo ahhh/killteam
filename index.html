@@ -6,6 +6,73 @@
 <title>Kill Team Battle Simulator</title>
 <meta name="description" content="An unofficial, deterministic skirmish battle simulator with a seeded rules engine and utility AI.">
 <link rel="stylesheet" href="styles.css">
+
+<!--
+  The engine is 43 ES modules deep in four discovery waves: the browser cannot
+  see rules/dice.js until it has parsed ai/controller.js, which it cannot see
+  until it has parsed app.js. Left alone that is four serial round trips before
+  boot() issues its first request for data.
+
+  These hints flatten that to one. The list is GENERATED, and
+  test/preload.test.mjs fails when it drifts from what app.js actually imports
+  — a stale entry is a 404 on every page load, and a missing one puts the
+  waterfall back. Regenerate with: npm run data:index
+-->
+<!-- BEGIN modulepreload (generated) -->
+<link rel="modulepreload" href="src/data/loader.js">
+<link rel="modulepreload" href="src/data/validators.js">
+<link rel="modulepreload" href="src/data/schema.js">
+<link rel="modulepreload" href="src/rules/dice.js">
+<link rel="modulepreload" href="src/state.js">
+<link rel="modulepreload" href="src/rules/team-rules.js">
+<link rel="modulepreload" href="src/rules/visibility.js">
+<link rel="modulepreload" href="src/maps/geometry.js">
+<link rel="modulepreload" href="src/rules/terrain.js">
+<link rel="modulepreload" href="src/rules/tokens.js">
+<link rel="modulepreload" href="src/rules/hooks.js">
+<link rel="modulepreload" href="src/rules/effects.js">
+<link rel="modulepreload" href="src/rules/ploys.js">
+<link rel="modulepreload" href="src/rng.js">
+<link rel="modulepreload" href="src/rules/resources.js">
+<link rel="modulepreload" href="src/rules/objectives.js">
+<link rel="modulepreload" href="src/rules/unique-actions.js">
+<link rel="modulepreload" href="src/rules/guard.js">
+<link rel="modulepreload" href="src/rules/shooting.js">
+<link rel="modulepreload" href="src/rules/weapon-rules.js">
+<link rel="modulepreload" href="src/rules/movement.js">
+<link rel="modulepreload" href="src/rules/fighting.js">
+<link rel="modulepreload" href="src/ai/tactics.js">
+<link rel="modulepreload" href="src/ai/spending.js">
+<link rel="modulepreload" href="src/rules/phases.js">
+<link rel="modulepreload" href="src/rules/engine.js">
+<link rel="modulepreload" href="src/ai/controller.js">
+<link rel="modulepreload" href="src/ai/movement.js">
+<link rel="modulepreload" href="src/ai/targeting.js">
+<link rel="modulepreload" href="src/ai/utility.js">
+<link rel="modulepreload" href="src/ai/support.js">
+<link rel="modulepreload" href="src/ai/ploys.js">
+<link rel="modulepreload" href="src/ai/cp.js">
+<link rel="modulepreload" href="src/replay/recorder.js">
+<link rel="modulepreload" href="src/ui/battlefield.js">
+<link rel="modulepreload" href="src/ui/portraits.js">
+<link rel="modulepreload" href="src/ui/effects.js">
+<link rel="modulepreload" href="src/ui/effect-map.js">
+<link rel="modulepreload" href="src/ui/inspector.js">
+<link rel="modulepreload" href="src/ui/combat-log.js">
+<link rel="modulepreload" href="src/ui/setup.js">
+<link rel="modulepreload" href="src/ui/controls.js">
+<!-- END modulepreload -->
+
+<!--
+  The boot JSON (factions.json and the two indexes) is deliberately NOT
+  preloaded with `as="fetch"`. `data/loader.js` fetches it with
+  `cache: 'no-cache'`, which forces a revalidation, and whether the browser
+  then uses the preloaded body or downloads it a second time depends on
+  preload-cache matching we have not measured. A hint that misses costs a
+  duplicate download of the very files it was meant to speed up, so it stays
+  out until someone has watched a real waterfall. The modulepreload hints
+  above already let boot() start far earlier, which was most of the win.
+-->
 </head>
 <body>
 <div id="app">

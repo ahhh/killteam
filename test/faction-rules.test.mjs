@@ -363,3 +363,60 @@ test("Let's Move! passes over an operative that has already gone", () => {
   fireActivationStart(s, leader);
   assert.equal(trooper.aplBonus ?? 0, 0, 'an expended operative cannot spend the AP');
 });
+
+/* --- Frenzy: the blow that does not land ------------------------------- */
+
+const frenzy = [{
+  id: 'frenzy', rule: 'Frenzy', trigger: 'onWouldBeIncapacitated',
+  condition: { keyword: 'fellgor-ravager' },
+  effect: { type: 'surviveIncapacitation', token: 'frenzy', wounds: 1, order: 'engage' },
+  partial: true, notes: 'the operative lingers on 1 wound rather than dying to the next crit',
+}];
+
+test('an operative with no such rule is incapacitated by a killing blow', () => {
+  const s = withHooks([], { keywords: ['fellgor-ravager'] });
+  const [a] = opsOf(s, 'p1');
+  applyDamage(s, a.id, a.wounds + 4, { kind: 'shoot' });
+  assert.equal(a.alive, false);
+});
+
+test('Frenzy leaves the operative standing on a sliver of wounds', () => {
+  const s = withHooks(frenzy, { keywords: ['fellgor-ravager'] });
+  const [a] = opsOf(s, 'p1');
+  applyDamage(s, a.id, a.wounds + 4, { kind: 'shoot' });
+  assert.equal(a.alive, true);
+  assert.equal(a.woundsRemaining, 1);
+});
+
+test('Frenzy fires once per operative — the token is what stops the second', () => {
+  const s = withHooks(frenzy, { keywords: ['fellgor-ravager'] });
+  const [a] = opsOf(s, 'p1');
+  applyDamage(s, a.id, a.wounds + 4, { kind: 'shoot' });
+  applyDamage(s, a.id, 3, { kind: 'shoot' });
+  assert.equal(a.alive, false, 'the second killing blow was shrugged off too');
+});
+
+test('Frenzy drags a Concealed operative out into the open', () => {
+  const s = withHooks(frenzy, {
+    keywords: ['fellgor-ravager'], p1: { at: [{ x: 5, y: 11, order: 'conceal' }] },
+  });
+  const [a] = opsOf(s, 'p1');
+  applyDamage(s, a.id, a.wounds + 4, { kind: 'shoot' });
+  assert.equal(a.order, 'engage');
+});
+
+test('Frenzy does not reach an operative the condition excludes', () => {
+  const s = withHooks(frenzy, { keywords: ['something-else'] });
+  const [a] = opsOf(s, 'p1');
+  applyDamage(s, a.id, a.wounds + 4, { kind: 'shoot' });
+  assert.equal(a.alive, false);
+});
+
+test('a survived killing blow is not reported as a kill', () => {
+  const s = withHooks(frenzy, { keywords: ['fellgor-ravager'] });
+  const [a] = opsOf(s, 'p1');
+  const result = applyDamage(s, a.id, a.wounds + 4, { kind: 'shoot' });
+  assert.equal(result.incapacitated, false);
+  assert.equal(
+    s.eventLog.some((e) => e.type === EVENTS.OPERATIVE_INCAPACITATED), false);
+});

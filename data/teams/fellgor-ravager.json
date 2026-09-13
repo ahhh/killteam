@@ -260,7 +260,18 @@
           "id": "cleaver-flurry",
           "name": "CLEAVER FLURRY",
           "cost": "2AP",
-          "description": "Perform a free Reposition action with this operative. During that action, it can move an additional 2\", and can move within control range of enemy operatives (it cannot begin or end the move there). Inflict D3+1 damage on each enemy operative it moved within control range of (roll separately for each after it's moved, in the order it moved within control range of them). This operative cannot perform this action while it has a Conceal order."
+          "description": "Perform a free Reposition action with this operative. During that action, it can move an additional 2\", and can move within control range of enemy operatives (it cannot begin or end the move there). Inflict D3+1 damage on each enemy operative it moved within control range of (roll separately for each after it's moved, in the order it moved within control range of them). This operative cannot perform this action while it has a Conceal order.",
+          "action": {
+            "ap": 2,
+            "target": {
+              "scope": "controlRange",
+              "side": "enemy"
+            },
+            "effect": {
+              "type": "inflictDamage",
+              "dice": "D3+1"
+            }
+          }
         }
       ],
       "keywords": [
@@ -317,7 +328,16 @@
           "id": "uncompromising-attack",
           "name": "UNCOMPROMISING ATTACK",
           "cost": "1AP",
-          "description": "Perform a free Fight action with this operative, then perform a free Shoot action with this operative (or vice versa). This operative can perform that Shoot action while within control range of an enemy operative, but if it does, it can and must target an enemy operative within its control range (even if other friendly operatives are within that enemy operative's control range). You can only select an autopistol for that Shoot action."
+          "description": "Perform a free Fight action with this operative, then perform a free Shoot action with this operative (or vice versa). This operative can perform that Shoot action while within control range of an enemy operative, but if it does, it can and must target an enemy operative within its control range (even if other friendly operatives are within that enemy operative's control range). You can only select an autopistol for that Shoot action.",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "extraAction",
+              "action": "fight",
+              "count": 1,
+              "free": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -692,7 +712,20 @@
           "id": "sweeping-blow",
           "name": "SWEEPING BLOW",
           "cost": "1AP",
-          "description": "Inflict D3+1 damage on each other operative visible to and within 2\" of this operative in an order of your choice (roll separately for each). This operative cannot perform this action while it has a Conceal order."
+          "description": "Inflict D3+1 damage on each other operative visible to and within 2\" of this operative in an order of your choice (roll separately for each). This operative cannot perform this action while it has a Conceal order.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "inches": 2,
+              "visible": true,
+              "side": "enemy"
+            },
+            "effect": {
+              "type": "inflictDamage",
+              "dice": "D3+1"
+            }
+          }
         }
       ],
       "keywords": [
@@ -939,7 +972,24 @@
       "description": "You can ignore any changes to the Move stat of friendly FELLGOR RAVAGER operatives from being injured."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "frenzy",
+      "rule": "Frenzy",
+      "trigger": "onWouldBeIncapacitated",
+      "condition": {
+        "keyword": "fellgor-ravager"
+      },
+      "effect": {
+        "type": "surviveIncapacitation",
+        "token": "frenzy",
+        "wounds": 1,
+        "order": "engage"
+      },
+      "partial": true,
+      "notes": "the reprieve, the Frenzy token that makes it once per operative, and the forced Engage order are wired. The printed rule then kills the operative on a critical strike, on a second normal strike, on Critical Dmg from a shot, or at the end of its own activation; this engine leaves it standing on 1 wound instead, which almost anything that reaches it will finish but which can survive a turning point that nothing does. The opponent also does not score the kill until the body actually drops, where the printed rule scores it the moment the token is gained"
+    }
+  ],
   "weaponRules": {
     "headtaker": {
       "rule": "Headtaker",

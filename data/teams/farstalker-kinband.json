@@ -941,7 +941,24 @@
       "description": "Once per battle, during a friendly FARSTALKER KINBAND operative's activation (excluding HOUND), before or after it performs an action, if it's not within control range of enemy operatives, you can use this rule. If you do, add 1 to that friendly operative's APL stat until the end of its activation."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "farstalker-ready-step-orders",
+      "rule": "Farstalker",
+      "trigger": "onTurningPointStart",
+      "condition": {
+        "keyword": "farstalker-kinband",
+        "awayFromEnemies": 1
+      },
+      "effect": {
+        "type": "changeOrder",
+        "order": "engage",
+        "count": 3
+      },
+      "partial": true,
+      "notes": "printed as a free choice of order for up to three operatives out of enemy control range; this engine has no player to ask in the Ready step, so the three are turned to Engage — the order a Kinband needs to shoot and charge from. The counteraction variant, which swaps an order instead of acting, is not wired"
+    }
+  ],
   "weaponRules": {
     "concealedposition": {
       "rule": "Concealed Position",

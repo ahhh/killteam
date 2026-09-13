@@ -136,7 +136,15 @@
           "id": "gather",
           "name": "GATHER",
           "cost": "1AP",
-          "description": "Perform a free Dash or Reposition action with this operative. During that move, it can perform a free Pick Up Marker or Place Marker action (you can determine control during that action to do so), and any remaining move distance it had from the Dash or Reposition action can be used after it does so."
+          "description": "Perform a free Dash or Reposition action with this operative. During that move, it can perform a free Pick Up Marker or Place Marker action (you can determine control during that action to do so), and any remaining move distance it had from the Dash or Reposition action can be used after it does so.",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "freeAction",
+              "action": "dash",
+              "unrestricted": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -426,7 +434,16 @@
           "id": "uncompromising-fire",
           "name": "UNCOMPROMISING FIRE",
           "cost": "1AP",
-          "description": "Perform two free Shoot actions with this operative (this takes precedence over action restrictions). You must select its relic laspistol for one action and its artificer shotgun (close range) for the other (in any order). This operative cannot perform this action while it has a Conceal order, or during an activation in which it performed the Shoot action (or vice versa)."
+          "description": "Perform two free Shoot actions with this operative (this takes precedence over action restrictions). You must select its relic laspistol for one action and its artificer shotgun (close range) for the other (in any order). This operative cannot perform this action while it has a Conceal order, or during an activation in which it performed the Shoot action (or vice versa).",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "extraAction",
+              "action": "shoot",
+              "count": 1,
+              "free": true
+            }
+          }
         }
       ],
       "keywords": [

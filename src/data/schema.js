@@ -63,6 +63,7 @@ export const KNOWN_HOOK_TRIGGERS = [
   'onActivationEnd',
   'onTurningPointStart',
   'onDamageApplied',
+  'onWouldBeIncapacitated',
   'afterAction',
   'afterRetaliation',
   'onIncapacitated',

@@ -91,6 +91,9 @@ export const HOOK_EFFECTS = {
   inflictToken: 'Hang a token on enemies around this operative.',
   changeOrder: 'Set this operative\'s order.',
   denyTargeting: 'This operative cannot be selected as a valid target.',
+  surviveIncapacitation:
+    'The blow that would incapacitate this operative leaves it standing on a '
+    + 'sliver of wounds instead, once, marked by a token.',
 };
 
 /** Triggers, in the order the engine fires them. */
@@ -105,6 +108,7 @@ export const HOOK_TRIGGERS = [
   'beforeDefenceRoll',
   'beforeDamageApplied',
   'onDamageApplied',
+  'onWouldBeIncapacitated',
   'afterRetaliation',
   'afterAction',
   'onIncapacitated',
@@ -956,6 +960,66 @@ function applyAreaEffect(state, rng, hook, op, ctx) {
     }
   }
   return did;
+}
+
+/* ------------------------------------------------------------------ */
+/* Trigger: onWouldBeIncapacitated                                     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The rules that fire one step EARLIER than a death throe: the ones where the
+ * operative does not die at all.
+ *
+ * FELLGOR RAVAGER Frenzy is the case this exists for — "whenever a friendly
+ * operative that doesn't have one of your Frenzy tokens would be
+ * incapacitated, it's not incapacitated and it gains one of your Frenzy
+ * tokens" — and it is the whole identity of a melee horde that otherwise
+ * arrives at the enemy with half a team. There was no window for it:
+ * `beforeDamageApplied` cannot see that the wounds ran out, and
+ * `onIncapacitated` is already too late.
+ *
+ * The token is what bounds it. A hook that names one refuses to fire for an
+ * operative already holding it, so the reprieve is once per operative per
+ * battle and not a loop, and `clearTokens` on a real death takes it away with
+ * the body.
+ *
+ * @param {object} op the operative whose wounds have just run out
+ * @returns {boolean} true if it is still standing
+ */
+export function fireWouldBeIncapacitated(state, op, ctx = {}) {
+  for (const hook of activeHooks(state, op, 'onWouldBeIncapacitated', ctx)) {
+    const effect = hook.effect || {};
+    if (effect.type !== 'surviveIncapacitation') { unknownEffect(state, hook); continue; }
+    // "…that doesn't have one of your Frenzy tokens". Ownership is the
+    // operative's own team, because the token is its team's rule, not
+    // something an opponent hung on it.
+    const kind = effect.token || `last-stand:${hook.id}`;
+    if (hasToken(op, kind, op.playerId)) continue;
+    notePartial(state, hook);
+
+    const granted = grantToken(state, op, {
+      kind,
+      label: hook.rule || hook.id,
+      whileHeld: effect.whileHeld || null,
+    }, { owner: op.playerId, rule: hook.rule || hook.id });
+    if (!granted) continue;
+
+    // A sliver, not a reset: the printed rule keeps the operative upright but
+    // makes it die to the next critical strike, the next pair of normal ones
+    // or the end of its own activation. One wound is this engine's nearest
+    // equivalent — almost anything that reaches it now finishes it.
+    op.woundsRemaining = Math.max(1, Number(effect.wounds) || 1);
+    if (effect.order) setOrder(state, hook, op, effect.order);
+    noteEffect(state, hook, op, 'is not incapacitated — it goes berserk instead');
+    logEvent(state, EVENTS.RULE_APPLIED, {
+      ruleId: `${hook.id}:survived`,
+      rule: hook.rule || hook.id,
+      operativeId: op.id, operativeName: op.name, playerId: op.playerId,
+      detail: `stays standing on ${op.woundsRemaining} wound(s)`,
+    });
+    return true;
+  }
+  return false;
 }
 
 /* ------------------------------------------------------------------ */

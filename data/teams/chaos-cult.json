@@ -24,7 +24,8 @@
       "2 BLESSED BLADE operatives",
       "9 CHAOS DEVOTEE operatives",
       "1 ICONARCH operative",
-      "1 MINDWITCH operative"
+      "1 MINDWITCH operative",
+      "Engine note: two of the nine DEVOTEES are fielded as MUTANT operatives. Mutation turns two DEVOTEES into MUTANTS as a STRATEGIC GAMBIT in the first turning point, and this engine cannot swap one operative type for another mid-battle, so the cult starts with the pair it would have turned. Nothing else mutates: the roster can never reach the printed five MUTANTS or three TORMENTS."
     ],
     "operatives": [
       {
@@ -37,7 +38,7 @@
       },
       {
         "profileId": "chaos-devotee",
-        "count": 9
+        "count": 7
       },
       {
         "profileId": "iconarch",
@@ -46,6 +47,10 @@
       {
         "profileId": "mindwitch",
         "count": 1
+      },
+      {
+        "profileId": "chaos-mutant",
+        "count": 2
       }
     ]
   },
@@ -668,5 +673,68 @@
       "description": "Once per battle, when an attack dice inflicts Normal Dmg on a friendly CHAOS CULT operative (excluding DEVOTEE), you can ignore that inflicted damage. If that friendly operative is a MUTANT or TORMENT operative, you cannot roll for the Unnatural Regeneration rule for that attack dice then decide to use this rule on the same dice - you must use one or the other."
     }
   ],
-  "ruleHooks": []
+  "ruleHooks": [
+    {
+      "id": "accursed-gift-horned-mutant",
+      "rule": "Accursed Gifts (Horned)",
+      "trigger": "afterAction",
+      "condition": {
+        "keyword": "mutant",
+        "actionIs": "charge"
+      },
+      "effect": {
+        "type": "inflictDamage",
+        "dice": "1",
+        "controlRangeOnly": true
+      },
+      "partial": true,
+      "notes": "the primary ACCURSED GIFT is chosen the first time a DEVOTEE mutates, and this engine has no Mutation step to choose it in, so Horned is fixed as the primary gift — the one that pays a cult for closing. It reaches MUTANT and TORMENT operatives as printed, but only those fielded as such from the start"
+    },
+    {
+      "id": "accursed-gift-horned-torment",
+      "rule": "Accursed Gifts (Horned)",
+      "trigger": "afterAction",
+      "condition": {
+        "keyword": "torment",
+        "actionIs": "charge"
+      },
+      "effect": {
+        "type": "inflictDamage",
+        "dice": "D3",
+        "controlRangeOnly": true
+      },
+      "partial": true,
+      "notes": "the TORMENT's heavier D3 version of the gore, per the printed wording"
+    },
+    {
+      "id": "accursed-gift-sinewed-brutal",
+      "rule": "Accursed Gifts (Sinewed)",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "torment",
+        "weaponType": "melee"
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "brutal"
+        ]
+      },
+      "partial": true,
+      "notes": "Sinewed is fixed as the secondary gift, which the printed rule gives to TORMENT operatives only. See accursed-gift-horned-mutant for why the two gifts are fixed rather than chosen"
+    },
+    {
+      "id": "accursed-gift-sinewed-unflinching",
+      "rule": "Accursed Gifts (Sinewed)",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "torment"
+      },
+      "effect": {
+        "type": "ignoreInjured"
+      },
+      "partial": true,
+      "notes": "printed as ignoring the Hit penalty from being injured on melee weapons only; this engine's allowance waives every effect of being injured, so a wounded TORMENT also keeps its APL and its Move"
+    }
+  ]
 }

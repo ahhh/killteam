@@ -1022,7 +1022,26 @@
       "description": "Once per turning point, when an operative is shooting a friendly SANCTIFIER operative that's benefitting from the SERMON, when you collect your defence dice, you can use this rule. If you do, change one of the attacker's retained critical successes to a normal success (any weapon rules they've already resolved aren't affected, e.g. Piercing Crits)."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "ministorum-sermon-confessor",
+      "rule": "Ministorum Sermon",
+      "trigger": "beforeDamageApplied",
+      "condition": {
+        "keyword": "sanctifier",
+        "friendlyWithin": {
+          "inches": 6,
+          "keyword": "confessor"
+        }
+      },
+      "effect": {
+        "type": "reduceDamage",
+        "amount": 1
+      },
+      "partial": true,
+      "notes": "the ORATOR keyword is placed by a STRATEGIC GAMBIT each turning point, and the printed rule says the CONFESSOR must be chosen while it lives — so the Confessor is treated as the permanent ORATOR and its 6\" leash is the one measured. The printed reduction applies only to Normal or Critical Dmg of 4 or more; this engine sees an action's total damage rather than its dice, so it subtracts 1 from every action that reaches an operative inside the leash"
+    }
+  ],
   "weaponRules": {
     "blaze": {
       "rule": "Blaze",

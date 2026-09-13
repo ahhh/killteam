@@ -954,7 +954,23 @@
           "id": "optics",
           "name": "OPTICS",
           "cost": "1AP",
-          "description": "Until the start of this operative's next activation, whenever it's shooting, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "Until the start of this operative's next activation, whenever it's shooting, enemy operatives cannot be obscured. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "weaponBoost",
+              "weaponType": "ranged",
+              "rules": [
+                "seek"
+              ],
+              "appliesTo": [
+                "shoot"
+              ]
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

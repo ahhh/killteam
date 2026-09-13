@@ -1065,5 +1065,46 @@
         ]
       }
     }
+  },
+  "resources": {
+    "faith": {
+      "name": "Faith point",
+      "rule": "Acts of Faith",
+      "text": "In the Ready step of each Strategy phase, you gain a number of Faith points equal to half the number of friendly NOVITIATE operatives that haven't been incapacitated (rounding up). Whenever a friendly NOVITIATE operative is shooting, fighting or retaliating, or an operative is shooting it, in the Roll Attack Dice (or Roll Defence Dice step if an operative is shooting it), you can spend your Faith points to use one ACT OF FAITH. You cannot use more than one ACT OF FAITH per sequence, and their costs and effects are as follows:GUIDANCE1 FAITH POINTYou can re-roll one of your dice.BLESSING2 FAITH POINTSYou can retain one of your normal successes as a critical success instead.INTERVENTION3 FAITH POINTSYou can retain one of your fails as a normal success instead of discarding it.",
+      "scope": "player",
+      "keyword": "novitiate",
+      "start": 0,
+      "max": 12,
+      "gains": [
+        {
+          "trigger": "readyStep",
+          "amount": 3
+        }
+      ],
+      "spends": [
+        {
+          "id": "guidance-attack",
+          "name": "Guidance",
+          "text": "GUIDANCE, 1 FAITH POINT: You can re-roll one of your dice.",
+          "window": "attackDice",
+          "cost": 1,
+          "effect": {
+            "type": "rerollDice",
+            "mode": "oneResult"
+          }
+        },
+        {
+          "id": "guidance-defence",
+          "name": "Guidance",
+          "text": "GUIDANCE, 1 FAITH POINT: You can re-roll one of your dice.",
+          "window": "defenceDice",
+          "cost": 1,
+          "effect": {
+            "type": "rerollDice",
+            "mode": "oneResult"
+          }
+        }
+      ]
+    }
   }
 }

@@ -171,7 +171,20 @@
           "id": "toxic-lunge",
           "name": "TOXIC LUNGE",
           "cost": "1AP",
-          "description": "Select one enemy operative visible to and within 2\" of this operative. If enemy operatives are within control range of this operative, you cannot select an enemy operative that isn't. Alternatively, if this operative is underground, select one enemy operative on your TUNNEL. Inflict D3+2 damage on that enemy operative and it gains one of your Poison tokens (if it doesn't already have one). This operative can perform this action while underground (this takes precedence over the normal Burrow rules)."
+          "description": "Select one enemy operative visible to and within 2\" of this operative. If enemy operatives are within control range of this operative, you cannot select an enemy operative that isn't. Alternatively, if this operative is underground, select one enemy operative on your TUNNEL. Inflict D3+2 damage on that enemy operative and it gains one of your Poison tokens (if it doesn't already have one). This operative can perform this action while underground (this takes precedence over the normal Burrow rules).",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "inches": 2,
+              "visible": true,
+              "side": "enemy"
+            },
+            "effect": {
+              "type": "inflictDamage",
+              "dice": "D3+2"
+            }
+          }
         }
       ],
       "keywords": [
@@ -316,7 +329,21 @@
           "id": "distend-dorsal-sac",
           "name": "DISTEND DORSAL SAC",
           "cost": "1AP",
-          "description": "Until this operative has shot with its venom bolt, until it performs this action again or until it performs the Burrow action (whichever comes first), all profiles of its venom bolt have the Lethal 5+ weapon rule, have 1 added to their Atk stat and the Range 8\" weapon rule removed."
+          "description": "Until this operative has shot with its venom bolt, until it performs this action again or until it performs the Burrow action (whichever comes first), all profiles of its venom bolt have the Lethal 5+ weapon rule, have 1 added to their Atk stat and the Range 8\" weapon rule removed.",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "weaponBoost",
+              "weaponType": "ranged",
+              "atkBonus": 1,
+              "rules": [
+                "lethal5"
+              ],
+              "appliesTo": [
+                "shoot"
+              ]
+            }
+          }
         }
       ],
       "keywords": [
@@ -620,7 +647,23 @@
       "description": "Once per battle, after rolling off to decide initiative, if a friendly RAVENER operative is underground and an enemy operative is within 5\" of your TUNNEL, you can re-roll your dice."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "predatory-instincts-fight",
+      "rule": "Predatory Instincts",
+      "trigger": "onActionLegality",
+      "condition": {
+        "keyword": "ravener"
+      },
+      "effect": {
+        "type": "extraAction",
+        "action": "fight",
+        "count": 1
+      },
+      "partial": true,
+      "notes": "the two Fight actions are the whole of what is wired. Counteracting regardless of order already holds in this engine, and the free Burrow during a counteraction does not, because there is no underground state or TUNNEL marker to burrow to (see the Burrow and Tunnel faction rules)"
+    }
+  ],
   "weaponRules": {
     "poison": {
       "rule": "Poison",

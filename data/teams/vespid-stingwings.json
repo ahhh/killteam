@@ -139,7 +139,29 @@
           "id": "aerial-guidance",
           "name": "AERIAL GUIDANCE",
           "cost": "1AP",
-          "description": "SUPPORT. Until the start of this operative's next activation, whenever another friendly VESPID STINGWING operative within 6\" of this operative is shooting an enemy operative visible to this operative, that friendly operative's ranged weapons have the Lethal 5+ and Saturate weapon rules. This has no effect while this operative is within control range of an enemy operative. This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Until the start of this operative's next activation, whenever another friendly VESPID STINGWING operative within 6\" of this operative is shooting an enemy operative visible to this operative, that friendly operative's ranged weapons have the Lethal 5+ and Saturate weapon rules. This has no effect while this operative is within control range of an enemy operative. This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "inches": 6,
+              "visible": true,
+              "side": "friendly",
+              "keyword": "vespid-stingwing"
+            },
+            "effect": {
+              "type": "weaponBoost",
+              "weaponType": "ranged",
+              "rules": [
+                "lethal5",
+                "saturate"
+              ],
+              "token": "aerial-guidance"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -659,7 +681,74 @@
       "description": "Whenever a friendly VESPID STINGWING operative (excluding OVERSIGHT DRONE) is fighting, its melee weapons have the Ceaseless weapon rule."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "neutron-charge-reposition",
+      "rule": "Neutron Charge",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "vespid-stingwing",
+        "weaponNameContains": [
+          "neutron"
+        ],
+        "performedThisActivation": [
+          "reposition"
+        ]
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "piercing1"
+        ]
+      },
+      "partial": true,
+      "notes": "Neutron Charge triggers on any action in which the operative moved, and a hook condition can only ask about one action at a time, so it is written as one hook per move action. The printed rule holds until the end of the turning point; here it holds for the activation the move happened in"
+    },
+    {
+      "id": "neutron-charge-charge",
+      "rule": "Neutron Charge",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "vespid-stingwing",
+        "weaponNameContains": [
+          "neutron"
+        ],
+        "performedThisActivation": [
+          "charge"
+        ]
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "piercing1"
+        ]
+      },
+      "partial": true,
+      "notes": "Neutron Charge triggers on any action in which the operative moved, and a hook condition can only ask about one action at a time, so it is written as one hook per move action. The printed rule holds until the end of the turning point; here it holds for the activation the move happened in"
+    },
+    {
+      "id": "neutron-charge-dash",
+      "rule": "Neutron Charge",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "vespid-stingwing",
+        "weaponNameContains": [
+          "neutron"
+        ],
+        "performedThisActivation": [
+          "dash"
+        ]
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "piercing1"
+        ]
+      },
+      "partial": true,
+      "notes": "Neutron Charge triggers on any action in which the operative moved, and a hook condition can only ask about one action at a time, so it is written as one hook per move action. The printed rule holds until the end of the turning point; here it holds for the activation the move happened in"
+    }
+  ],
   "weaponRules": {
     "skytorch": {
       "rule": "Skytorch",

@@ -1,0 +1,1525 @@
+{
+  "teams": {
+    "angel-of-death": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "eliminator-sniper/optics|weaponBoost"
+      ],
+      "ployHooks": [
+        "and-they-shall-know-no-fear|onActivationStart|ignoreInjured",
+        "combat-doctrine|beforeAttackRoll|grantWeaponRule",
+        "indomitus|beforeDefenceRoll|rerollDefenceDice",
+        "shock-assault|beforeAttackRoll|grantWeaponRule",
+        "transhuman-physiology|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "ash-cultists": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "endless-numbers|onActivationStart|ignoreInjured",
+        "fanatic-surge|onActivationStart|freeAction",
+        "frenzied-rush|onActivationStart|addApl",
+        "press-of-bodies|beforeDamageApplied|reduceDamage"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "battleclade": {
+      "supportLevel": 4,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "battleclade-auto-proxy-servitor/gaze-of-the-omnissiah|mark",
+        "battleclade-technomedic-servitor/expedient-repair|healWounds"
+      ],
+      "ployHooks": [
+        "auto-ferric-supplication|beforeDefenceRoll|ignoreWeaponRules",
+        "noospheric-possession|beforeAttackRoll|grantWeaponRule",
+        "prioritised-acquisition|beforeAttackRoll|modifyWeapon",
+        "system-exorcism|onActivationStart|clearTokens"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "blades-of-khaine": {
+      "supportLevel": 4,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "bladewind1cp|onActionLegality|extraAction",
+        "contempt1cp|onIncomingAttack|ignoreWeaponRules",
+        "fading-light1cp|onActivationStart|discountAction",
+        "forewarned|beforeDefenceRoll|rerollDefenceDice",
+        "khaine-s-vengeance|beforeAttackRoll|grantWeaponRule",
+        "ruthless-poise|beforeAttackRoll|grantWeaponRule",
+        "starfall1cp|onActionLegality|extraAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "blooded": {
+      "supportLevel": 3,
+      "ruleHooks": [],
+      "resources": [
+        "blooded"
+      ],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "traitor-commsman/signal|addApl"
+      ],
+      "ployHooks": [
+        "bitter-demise|onIncapacitated|inflictDamage",
+        "glory-kill|beforeAttackRoll|grantWeaponRule",
+        "malevolent-grit|beforeDefenceRoll|rerollDefenceDice",
+        "moment-of-repute|onActivationStart|addApl"
+      ],
+      "weaponRules": [
+        "bloodoffering|gainResource",
+        "shield|meleeModifier",
+        "stalk|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "brood-brother": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "brood-brother-medic/medikit|healWounds",
+        "brood-brother-vox-operator/signal|addApl",
+        "magus/telepathic-overload|subtractApl",
+        "patriarch/into-shadow|changeOrder"
+      ],
+      "ployHooks": [
+        "cult-devotion|onIncapacitated|inflictDamage",
+        "embedded|beforeDefenceRoll|modifyDefenceDice",
+        "idolisation|beforeAttackRoll|grantWeaponRule",
+        "insidious|onActivationStart|freeAction"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly"
+      ],
+      "controlModifiers": []
+    },
+    "canoptek-circle": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "canoptek-macrocyte-accelerator/cranial-overload|subtractApl",
+        "canoptek-macrocyte-accelerator/overcharge|addApl",
+        "canoptek-macrocyte-reanimator/nanoscarab-beam|healWounds"
+      ],
+      "ployHooks": [
+        "hypershielding|beforeDefenceRoll|rerollDefenceDice",
+        "shield-flare|beforeDamageApplied|reduceDamage",
+        "souldrain|onIncomingAttack|modifyWeapon",
+        "transdynamic-amplification|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "dimensionalbanishment|executeRoll"
+      ],
+      "controlModifiers": []
+    },
+    "catachan-jungle-fighters": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "green-vipers|onActivationStart|allowChargeWhileConceal",
+        "lets-move|onActivationStart|grantAllyApl"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "feed-the-fang|beforeAttackRoll|grantWeaponRule",
+        "infiltrate|onActivationStart|freeAction",
+        "jungle-warrior|onActivationStart|freeAction",
+        "just-a-scratch|beforeDamageApplied|reduceDamage",
+        "stealth-operator|beforeDefenceRoll|modifyDefenceDice",
+        "suppressive-fire|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "detonate|selfPrimaryTarget",
+        "firstblood|retaliationRoll",
+        "getsome|grantRuleIf",
+        "hammerup|grantRuleIf",
+        "splash|recognised",
+        "targetacquired|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "celestian-insidiants": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "inspiration-charge|beforeAttackRoll|grantWeaponRule",
+        "weapons-of-the-witch-hunters-ranged|onIncomingAttack|modifyWeapon"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "insidiant-denuncia/speak-of-her-deeds|healWounds",
+        "insidiant-superior/spiritual-mentor|weaponBoost"
+      ],
+      "ployHooks": [
+        "fervent-hate|beforeAttackRoll|grantWeaponRule",
+        "glory-to-the-martyrs|onIncapacitated|inflictDamage",
+        "holy-resilience|beforeDamageApplied|reduceDamage",
+        "suffering-sacrifice|beforeAttackRoll|grantWeaponRule",
+        "suspect-eliminate|beforeAttackRoll|grantWeaponRule",
+        "unshakeable-pursuit|onActivationStart|modifyMove",
+        "wrathful-determination|beforeDefenceRoll|rerollDefenceDice"
+      ],
+      "weaponRules": [
+        "antipsyker|grantRuleIf",
+        "shield|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "chaos-cult": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "accursed-gift-horned-mutant|afterAction|inflictDamage",
+        "accursed-gift-horned-torment|afterAction|inflictDamage",
+        "accursed-gift-sinewed-brutal|beforeAttackRoll|grantWeaponRule",
+        "accursed-gift-sinewed-unflinching|onActivationStart|ignoreInjured"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "cult-demagogue/incite-slaughter|freeAction",
+        "mindwitch/heinous-deluge|subtractApl"
+      ],
+      "ployHooks": [
+        "exaltation-in-pain|beforeDefenceRoll|rerollDefenceDice",
+        "fervent-onslaught|beforeAttackRoll|grantWeaponRule",
+        "frenzied-demise|onIncapacitated|inflictDamage",
+        "frenzied-demise|onIncapacitated|inflictDamage",
+        "sickening-aura|onIncomingAttack|modifyWeapon",
+        "unleash-the-daemon|onActionLegality|extraAction",
+        "unleash-the-daemon|onActionLegality|extraAction",
+        "unleash-the-daemon|onActivationStart|freeAction",
+        "unleash-the-daemon|onActivationStart|freeAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "corsair-skirmishers": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "hit-and-run|onActivationStart|discountAction",
+        "precision-volley|onActionLegality|extraAction",
+        "shadow-step|onActivationStart|freeAction",
+        "tempo-strike|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "corsair-voidscarred": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "aeldari-raiders|onActivationStart|freeAction",
+        "rifles-accurate|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "voidscarred-soul-weaver/soul-channel|addApl",
+        "voidscarred-soul-weaver/soul-heal|healWounds"
+      ],
+      "ployHooks": [
+        "capricious-flight|onActivationStart|discountAction",
+        "contemptuous-adventurer|beforeAttackRoll|grantWeaponRule",
+        "mobile-engagement|beforeDefenceRoll|rerollDefenceDice",
+        "outcasts|beforeAttackRoll|grantWeaponRule",
+        "piratical-profiteers|beforeAttackRoll|grantWeaponRule",
+        "plunderers|onActivationStart|freeAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "corsair-voidscarred-coven": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "aeldari-raiders|onActivationStart|freeAction",
+        "rifles-accurate|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "voidscarred-soul-weaver/soul-channel|addApl",
+        "voidscarred-soul-weaver/soul-heal|healWounds"
+      ],
+      "ployHooks": [
+        "capricious-flight|onActivationStart|discountAction",
+        "contemptuous-adventurer|beforeAttackRoll|grantWeaponRule",
+        "mobile-engagement|beforeDefenceRoll|rerollDefenceDice",
+        "outcasts|beforeAttackRoll|grantWeaponRule",
+        "piratical-profiteers|beforeAttackRoll|grantWeaponRule",
+        "step-into-shadow|onActivationEnd|changeOrder"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "covenant-of-the-hidden-word": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "burn-the-unbeliever|beforeAttackRoll|grantWeaponRule",
+        "discipline-through-fear|onActivationStart|ignoreInjured",
+        "heretic-astartes-double-action|onActionLegality|extraAction",
+        "hidden-armoury|beforeAttackRoll|grantWeaponRule",
+        "icon-of-the-eightfold-path|beforeAttackRoll|grantWeaponRule",
+        "master-of-the-congregation|onActivationStart|grantAllyApl",
+        "old-drills-die-hard|beforeAttackRoll|grantWeaponRule",
+        "perfectly-ordinary-citizen|onTargetSelection|denyTargeting",
+        "profane-shrine-resolve|onActivationStart|ignoreInjured",
+        "profane-shrine-ward|beforeDefenceRoll|rerollDefenceDice",
+        "subverted-vox-node|onActivationStart|changeOrder"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "creed-of-hatred|beforeAttackRoll|grantWeaponRule",
+        "creed-of-insurrection|onActivationStart|modifyMove",
+        "creed-of-martyrdom|onActivationStart|ignoreInjured",
+        "creed-of-martyrdom|onActivationStart|inflictToken",
+        "daemonic-investiture|beforeAttackRoll|grantWeaponRule",
+        "daemonic-investiture|beforeAttackRoll|modifyWeapon",
+        "daemonic-investiture|onActivationStart|addApl",
+        "fanatic-zealotry|beforeAttackRoll|grantWeaponRule",
+        "hidden-among-the-faithful|beforeDefenceRoll|rerollDefenceDice"
+      ],
+      "weaponRules": [],
+      "controlModifiers": [
+        "the-word-made-flesh"
+      ]
+    },
+    "crimson-spear": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction",
+        "black-rage-ceaseless|beforeAttackRoll|grantWeaponRule",
+        "black-rage-given-in|onActivationStart|inflictToken",
+        "blood-chalice|onActivationStart|ignoreInjured",
+        "narthecium|onTurningPointStart|healWounds",
+        "red-thirst-blood-maddened|beforeAttackRoll|modifyWeapon",
+        "red-thirst-give-in|afterAction|inflictToken"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "forlorn-fury|onActivationStart|freeAction",
+        "red-rampage|beforeAttackRoll|grantWeaponRule",
+        "relentless-assault|onActionLegality|allowChargeAfterFallBack",
+        "savage-echoes|beforeAttackRoll|grantWeaponRule",
+        "the-angels-grace|beforeDefenceRoll|rerollDefenceDice",
+        "wings-of-sanguinius|onActivationStart|modifyMove"
+      ],
+      "weaponRules": [
+        "bandolier|recognised"
+      ],
+      "controlModifiers": [
+        "heir-of-azkaellon",
+        "master-of-the-red-thirst"
+      ]
+    },
+    "death-korps": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "guardsman-order-fix-bayonets|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "death-korps-medic/medikit|healWounds",
+        "death-korps-spotter/spot|mark",
+        "death-korps-vox-operator/signal|addApl"
+      ],
+      "ployHooks": [
+        "clear-the-line|beforeAttackRoll|grantWeaponRule",
+        "combined-arms|beforeAttackRoll|grantWeaponRule",
+        "regroup|onActivationStart|freeAction",
+        "siege-warfare|beforeAttackRoll|grantWeaponRule",
+        "take-cover|beforeDefenceRoll|modifySave"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "detonate|unusable"
+      ],
+      "controlModifiers": []
+    },
+    "death-korps-cadre": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "unflinching|onActivationStart|ignoreInjured"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "death-korps-medic/medikit|healWounds",
+        "death-korps-spotter/spot|mark",
+        "death-korps-vox-operator/signal|addApl"
+      ],
+      "ployHooks": [
+        "clear-the-line|beforeAttackRoll|grantWeaponRule",
+        "combined-arms|beforeAttackRoll|grantWeaponRule",
+        "regroup|onActivationStart|freeAction",
+        "siege-warfare|beforeAttackRoll|grantWeaponRule",
+        "take-cover|beforeDefenceRoll|modifySave"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "detonate|unusable"
+      ],
+      "controlModifiers": []
+    },
+    "deathwatch": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "advanced-auspex-scan|beforeAttackRoll|grantWeaponRule",
+        "and-they-shall-know-no-fear|onActivationStart|ignoreInjured",
+        "auspicator-tracking|onActivationStart|changeOrder",
+        "mission-tactics|beforeAttackRoll|grantWeaponRule",
+        "suffer-not-the-alien|beforeAttackRoll|grantWeaponRule",
+        "the-long-vigil|beforeDefenceRoll|rerollDefenceDice",
+        "the-shield-that-slays|beforeDamageApplied|reduceDamage",
+        "transhuman-physiology|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [
+        "phasesweep|meleeModifier",
+        "shield|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "elucidian-starstrider": {
+      "supportLevel": 4,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "canid/gather|freeAction",
+        "death-cult-executioner/trained-assassin|changeOrder",
+        "rejuvenat-adept/healing-serum|healWounds",
+        "voidmaster/uncompromising-fire|extraAction"
+      ],
+      "ployHooks": [
+        "combined-arms|beforeAttackRoll|grantWeaponRule",
+        "great-endurance|onActivationStart|addApl",
+        "lethal-proximity|beforeAttackRoll|grantWeaponRule",
+        "quick-march|onActivationStart|modifyMove",
+        "stake-claim|beforeAttackRoll|grantWeaponRule",
+        "survivalist|onActivationStart|healWounds",
+        "undaunted-explorers|beforeDamageApplied|reduceDamage"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "exaction-squad": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "marked-for-justice|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "arbites-chirurgant/medikit|healWounds",
+        "arbites-revelatum/spot|mark",
+        "arbites-vox-signifier/signal|addApl"
+      ],
+      "ployHooks": [
+        "brutal-backup|onActivationStart|freeAction",
+        "dispense-justice|beforeAttackRoll|grantWeaponRule",
+        "guilt-reveals-itself|beforeAttackRoll|grantWeaponRule",
+        "inviolate-jurisdiction|beforeDefenceRoll|rerollDefenceDice",
+        "terminal-decree|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "repress|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "exodite-dragon-masters": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "dragon-master-stonesinger/song-of-renewal|healWounds"
+      ],
+      "ployHooks": [
+        "draconic-fury|beforeAttackRoll|grantWeaponRule",
+        "feral-hunger|beforeAttackRoll|grantWeaponRule",
+        "sinuous-flux|onIncomingAttack|ignoreWeaponRules",
+        "survivalist-spirit|onActivationStart|ignoreInjured",
+        "wind-swift-precision|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "aimed|moveLimit"
+      ],
+      "controlModifiers": []
+    },
+    "farstalker-kinband": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "farstalker-ready-step-orders|onTurningPointStart|changeOrder"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "kroot-tracker/from-the-eye-above|addApl"
+      ],
+      "ployHooks": [
+        "cut-throats|beforeAttackRoll|modifyWeapon",
+        "prey|beforeAttackRoll|grantWeaponRule",
+        "rogue|beforeDefenceRoll|ignoreWeaponRules",
+        "slip-away|onActivationStart|discountAction",
+        "vengeance-for-the-kinband|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "salvo|extraPrimaryTargets"
+      ],
+      "controlModifiers": []
+    },
+    "fellgor-ravager": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "frenzy|onWouldBeIncapacitated|surviveIncapacitation"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "fellgor-fluxbray/cleaver-flurry|inflictDamage",
+        "fellgor-gnarlscar/uncompromising-attack|extraAction",
+        "fellgor-herd-goad/incite-fury|addApl",
+        "fellgor-shaman/apoplectic-rejuvenation|healWounds",
+        "fellgor-vandal/sweeping-blow|inflictDamage"
+      ],
+      "ployHooks": [
+        "ambush|beforeAttackRoll|grantWeaponRule",
+        "animalistic-fury|beforeAttackRoll|modifyWeapon",
+        "pelting-firepower|beforeAttackRoll|grantWeaponRule",
+        "reckless-determination|beforeDefenceRoll|modifyDefenceDice",
+        "ruthless-rampage|onActivationStart|freeAction",
+        "violent-temperament|beforeAttackRoll|grantWeaponRule",
+        "wild-rage|onActivationStart|modifyMove"
+      ],
+      "weaponRules": [
+        "headtaker|onIncapacitate",
+        "tactualhunter|meleeModifier",
+        "viciousblows|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "fellgor-ravager-warherd": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "death-bellow|afterAction|inflictDamage",
+        "frenzy|onWouldBeIncapacitated|surviveIncapacitation"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "fellgor-fluxbray/cleaver-flurry|inflictDamage",
+        "fellgor-gnarlscar/uncompromising-attack|extraAction",
+        "fellgor-herd-goad/incite-fury|addApl",
+        "fellgor-shaman/apoplectic-rejuvenation|healWounds",
+        "fellgor-vandal/sweeping-blow|inflictDamage"
+      ],
+      "ployHooks": [
+        "ambush|beforeAttackRoll|grantWeaponRule",
+        "animalistic-fury|beforeAttackRoll|modifyWeapon",
+        "reckless-determination|beforeDefenceRoll|modifyDefenceDice",
+        "ruthless-rampage|onActivationStart|freeAction",
+        "violent-temperament|beforeAttackRoll|grantWeaponRule",
+        "wild-rage|onActivationStart|modifyMove"
+      ],
+      "weaponRules": [
+        "headtaker|onIncapacitate",
+        "tactualhunter|meleeModifier",
+        "viciousblows|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "freebooter-boardin-krew": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "boarding-shield|beforeDefenceRoll|rerollDefenceDice",
+        "clear-da-room|onActivationStart|freeAction",
+        "get-behind-da-big-lad|beforeDefenceRoll|rerollDefenceDice",
+        "kaptins-orders|onActivationStart|grantAllyApl",
+        "patch-im-up|onTurningPointStart|healWounds",
+        "sumfin-fer-da-pain|onActivationStart|ignoreInjured"
+      ],
+      "resources": [
+        "loot"
+      ],
+      "resourceSpends": [
+        "loot/more-dakka|activation|weaponBoost",
+        "loot/too-much-juice|activation|weaponBoost"
+      ],
+      "uniqueActions": [],
+      "ployHooks": [
+        "bash-and-grab|beforeAttackRoll|grantWeaponRule",
+        "boardin-rush|onActivationStart|modifyMove",
+        "deck-fraggers|beforeAttackRoll|grantWeaponRule",
+        "dis-decks-ours|beforeDefenceRoll|rerollDefenceDice",
+        "grab-it-an-go|onActivationStart|freeAction",
+        "safety-off|beforeAttackRoll|grantWeaponRule",
+        "safety-off|beforeAttackRoll|modifyWeapon"
+      ],
+      "weaponRules": [
+        "looted|recognised"
+      ],
+      "controlModifiers": []
+    },
+    "gellerpox-infected": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "mutoid-vermin-scuttle|onActivationStart|discountAction",
+        "revoltingly-resilient-hulk|beforeDamageApplied|reduceDamage",
+        "revoltingly-resilient-mutant|beforeDamageApplied|reduceDamage",
+        "techno-curse-barrelwarp|onIncomingAttack|modifyWeapon"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "blessings-of-infection|beforeAttackRoll|grantWeaponRule",
+        "drawn-to-the-hum|onActivationStart|modifyMove",
+        "frightening-onslaught|onActionLegality|extraAction",
+        "frightening-onslaught|onActivationStart|freeAction",
+        "plagueridden-determination|beforeDefenceRoll|rerollDefenceDice",
+        "putrescent-demise|onIncapacitated|inflictDamage",
+        "putrescent-demise|onIncapacitated|inflictDamage",
+        "revolting-technology|onIncomingAttack|grantWeaponRule",
+        "rust-emanations|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "engineered|fixedUpgrade",
+        "feast|grantRuleIf",
+        "swipe|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "goremonger": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "runes-of-khorne|beforeDamageApplied|capDamage"
+      ],
+      "resources": [
+        "gore-tank"
+      ],
+      "resourceSpends": [
+        "gore-tank/fury|activation|extraAction",
+        "gore-tank/mania|activation|addApl",
+        "gore-tank/rage|activation|weaponBoost",
+        "gore-tank/rake|activation|inflictDamage",
+        "gore-tank/rejuvenate|activation|healWounds",
+        "gore-tank/surge|activation|moveBonus"
+      ],
+      "uniqueActions": [
+        "goremonger-bloodtaker/transfusion-ritual|gainResource",
+        "goremonger-impaler/gore-fuel|weaponBoost",
+        "goremonger-inciter/dash-and-spray|freeAction"
+      ],
+      "ployHooks": [
+        "augmented-endurance|beforeDefenceRoll|rerollDefenceDice",
+        "destructive-demise|onIncapacitated|inflictDamage",
+        "enhanced-violence|beforeAttackRoll|grantWeaponRule",
+        "gory-tenacity|beforeDamageApplied|reduceDamage",
+        "hunt-for-blood|onActivationStart|allowChargeWhileConceal",
+        "hunt-for-blood|onActivationStart|freeAction",
+        "unbridled-aggression|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "drag|dragTarget",
+        "ritual|gainResource"
+      ],
+      "controlModifiers": []
+    },
+    "hand-of-the-archon": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "rifles-accurate|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [
+        "pain"
+      ],
+      "resourceSpends": [
+        "pain/accelerated-rejuvenation|activation|healWounds",
+        "pain/dark-animus|activation|addApl",
+        "pain/stimulated-senses-attack|attackDice|rerollDice",
+        "pain/stimulated-senses-defence|defenceDice|rerollDice",
+        "pain/vitalised-surge|activation|freeAction"
+      ],
+      "uniqueActions": [
+        "kabalite-elixicant/administer-drug|healWounds"
+      ],
+      "ployHooks": [
+        "blade-artists|beforeAttackRoll|grantWeaponRule",
+        "cruel-deception|onActivationStart|discountAction",
+        "denizens-of-night|beforeDefenceRoll|rerollDefenceDice",
+        "from-darkness-death|beforeAttackRoll|grantWeaponRule",
+        "merciless-sadists|beforeAttackRoll|grantWeaponRule",
+        "prey-on-the-wounded|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "flay|gainResource",
+        "stinger|chainOnIncapacitate",
+        "tangle|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "hearthkyn-salvager": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "hearthkyn-dozr/knux-smash|inflictDamage",
+        "hearthkyn-field-medic/medikit|healWounds",
+        "hearthkyn-lokatr/spot|mark"
+      ],
+      "ployHooks": [
+        "engage-to-acquire|beforeAttackRoll|grantWeaponRule",
+        "need-keeps|beforeAttackRoll|modifyWeapon",
+        "proximate-firepower|beforeAttackRoll|modifyWeapon",
+        "sturdy|onIncomingAttack|modifyWeapon",
+        "the-ancestors-are-watching|onActivationStart|freeAction",
+        "wrought-defence|beforeDefenceRoll|rerollDefenceDice"
+      ],
+      "weaponRules": [
+        "beam|beamLine",
+        "forceimpact|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "hernkyn-yaegir": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "hidden-engagement|beforeAttackRoll|grantWeaponRule",
+        "in-position|onTargetSelection|denyTargeting",
+        "masterful-bladework|beforeAttackRoll|grantWeaponRule",
+        "masterful-bladework|beforeAttackRoll|modifyWeapon",
+        "stalwart-defence|onActivationStart|freeAction",
+        "sturdy|onIncomingAttack|modifyWeapon",
+        "tough-survivalists|beforeDamageApplied|reduceDamage"
+      ],
+      "weaponRules": [
+        "bipod|grantRuleIf",
+        "concealedposition|firstShootActionOnly"
+      ],
+      "controlModifiers": []
+    },
+    "hierotek-circle": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "living-metal|onTurningPointStart|healWounds"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "plasmacyte-accelerator/accelerate|addApl",
+        "technomancer/canoptek-repair|healWounds"
+      ],
+      "ployHooks": [
+        "command-underlings|onActivationStart|freeAction",
+        "living-lightning|beforeAttackRoll|grantWeaponRule",
+        "methodical-elimination|beforeAttackRoll|grantWeaponRule",
+        "relentless-onslaught|beforeAttackRoll|grantWeaponRule",
+        "undying-androids|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [
+        "magnify|spotterTargeting"
+      ],
+      "controlModifiers": []
+    },
+    "hunter-clade": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "skitarii-ranger-diktat/signal|addApl",
+        "skitarii-ranger-surveyor/spot|mark",
+        "skitarii-vanguard-diktat/signal|addApl",
+        "skitarii-vanguard-surveyor/spot|mark"
+      ],
+      "ployHooks": [
+        "accelerant-agents|onActionLegality|extraAction",
+        "accelerant-agents|onActivationStart|freeAction",
+        "command-override|beforeAttackRoll|grantWeaponRule",
+        "debilitating-irradiation|onIncomingAttack|modifyWeapon",
+        "neurostatic-interference|onIncomingAttack|ignoreWeaponRules",
+        "omnissiah-s-imperative|beforeDefenceRoll|modifyDefenceDice",
+        "omnissiah-s-imperative|beforeDefenceRoll|modifySave",
+        "scouting-protocol|onActivationStart|freeAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "imperial-navy-breacher": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "void-armour-grenadier|beforeDefenceRoll|rerollDefenceDice",
+        "void-armour|beforeDefenceRoll|rerollDefenceDice"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "navis-c-a-t-unit/spot|mark",
+        "navis-gheistskull/boost|moveBonus"
+      ],
+      "ployHooks": [
+        "attack-order|beforeAttackRoll|grantWeaponRule",
+        "blitz|beforeAttackRoll|grantWeaponRule",
+        "brace-for-counterattack|beforeDamageApplied|reduceDamage",
+        "close-assault|beforeAttackRoll|modifyWeapon",
+        "defence-order|beforeDefenceRoll|rerollDefenceDice",
+        "overwhelm-target|onActivationStart|addApl"
+      ],
+      "weaponRules": [
+        "detonate|friendlyPrimaryTarget",
+        "shield|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "inquisitorial-agent": {
+      "supportLevel": 4,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "pistolier-agent/pistol-barrage|extraAction",
+        "tempestus-scion-medic/medikit|healWounds",
+        "tempestus-scion-vox-operator/signal|addApl"
+      ],
+      "ployHooks": [
+        "intense-scrutiny|beforeAttackRoll|grantWeaponRule",
+        "irrefutable-jurisdiction|beforeDefenceRoll|rerollDefenceDice",
+        "quarry|beforeAttackRoll|grantWeaponRule",
+        "relentless-in-pursuit1cp|onActivationStart|freeAction",
+        "the-emperor-s-will1cp|onActivationStart|ignoreInjured"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "kasrkin": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "rapid-fire|onActionLegality|extraAction"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "kasrkin-combat-medic/medikit|healWounds"
+      ],
+      "ployHooks": [
+        "clearance-sweep|beforeAttackRoll|grantWeaponRule",
+        "elimination-pattern|beforeAttackRoll|grantWeaponRule",
+        "engage-from-cover|beforeDefenceRoll|rerollDefenceDice",
+        "neutralise-target|beforeAttackRoll|grantWeaponRule",
+        "relocate|onActivationStart|freeAction",
+        "seize-the-initiative|onActivationStart|freeAction"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly"
+      ],
+      "controlModifiers": []
+    },
+    "kommandos": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "throat-slittas|onActivationStart|allowChargeWhileConceal"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "kommando-boss-nob/get-it-dun|addApl",
+        "kommando-comms-boy/listen-in|addApl"
+      ],
+      "ployHooks": [
+        "dakka-dakka-dakka|beforeAttackRoll|grantWeaponRule",
+        "just-a-scratch|beforeDamageApplied|reduceDamage",
+        "krump-em|onActivationStart|freeAction",
+        "kunnin-but-brutal|beforeAttackRoll|grantWeaponRule",
+        "shake-it-off|onActivationStart|ignoreInjured",
+        "skulk-about|beforeDefenceRoll|modifyDefenceDice",
+        "sssshhhh|onActivationStart|freeAction",
+        "waaagh|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "explosive|selfPrimaryTarget"
+      ],
+      "controlModifiers": []
+    },
+    "kommandos-dakka": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "more-dakka|beforeAttackRoll|grantWeaponRule",
+        "throat-slittas|onActivationStart|allowChargeWhileConceal"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "kommando-boss-nob/get-it-dun|addApl",
+        "kommando-comms-boy/listen-in|addApl"
+      ],
+      "ployHooks": [
+        "dakka-dakka-dakka|beforeAttackRoll|grantWeaponRule",
+        "just-a-scratch|beforeDamageApplied|reduceDamage",
+        "kunnin-but-brutal|beforeAttackRoll|grantWeaponRule",
+        "shake-it-off|onActivationStart|ignoreInjured",
+        "skulk-about|beforeDefenceRoll|modifyDefenceDice",
+        "sssshhhh|onActivationStart|freeAction"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "explosive|selfPrimaryTarget"
+      ],
+      "controlModifiers": []
+    },
+    "legionary": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction",
+        "mark-khorne-wrathful-onslaught|beforeAttackRoll|grantWeaponRule",
+        "mark-nurgle-disgusting-vigour|beforeDamageApplied|reduceDamage",
+        "mark-slaanesh-unnatural-agility|onActivationStart|modifyMove",
+        "mark-tzeentch-empyreal-guidance|beforeAttackRoll|grantWeaponRule",
+        "mark-undivided-vicious-reavers|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "blood-for-the-blood-god|beforeAttackRoll|modifyWeapon",
+        "fickle-fates|beforeAttackRoll|grantWeaponRule",
+        "implacable|beforeDefenceRoll|ignoreWeaponRules",
+        "malignant-aura|beforeAttackRoll|grantWeaponRule",
+        "mutability-and-change|onActivationStart|addApl",
+        "quicksilver-speed|onIncomingAttack|modifyWeapon",
+        "sickening-captivation|onActivationStart|inflictToken",
+        "unending-bloodshed|onIncapacitated|inflictDamage"
+      ],
+      "weaponRules": [
+        "siphonlife|healOnDamage"
+      ],
+      "controlModifiers": []
+    },
+    "legionary-warband": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction",
+        "mark-khorne-wrathful-onslaught|beforeAttackRoll|grantWeaponRule",
+        "mark-nurgle-disgusting-vigour|beforeDamageApplied|reduceDamage",
+        "mark-slaanesh-unnatural-agility|onActivationStart|modifyMove",
+        "mark-tzeentch-empyreal-guidance|beforeAttackRoll|grantWeaponRule",
+        "mark-undivided-vicious-reavers|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "blood-for-the-blood-god|beforeAttackRoll|modifyWeapon",
+        "hateful-recompense|afterRetaliation|inflictDamage",
+        "implacable|beforeDefenceRoll|ignoreWeaponRules",
+        "malignant-aura|beforeAttackRoll|grantWeaponRule",
+        "mutability-and-change|onActivationStart|addApl",
+        "sickening-captivation|onActivationStart|inflictToken",
+        "unending-bloodshed|onIncapacitated|inflictDamage"
+      ],
+      "weaponRules": [
+        "siphonlife|healOnDamage"
+      ],
+      "controlModifiers": []
+    },
+    "mandrakes": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "umbral-entities-piercing|beforeDefenceRoll|ignoreWeaponRules",
+        "umbral-entities-shadow-save|beforeDefenceRoll|modifySave"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "mandrake-dirgemaw/pareidolic-projection|moveBonus"
+      ],
+      "ployHooks": [
+        "blade-in-the-dark|onActivationStart|allowChargeWhileConceal",
+        "creeping-horror|onActivationStart|freeAction",
+        "gloaming-shroud|beforeDefenceRoll|modifyDefenceDice",
+        "inescapable-nightmare|beforeAttackRoll|grantWeaponRule",
+        "slither-out-of-sight|onActivationEnd|changeOrder",
+        "soul-feast|onActivationStart|healWounds"
+      ],
+      "weaponRules": [
+        "soulstrike|aplDefence"
+      ],
+      "controlModifiers": []
+    },
+    "murderwing": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "murderwing-shrieker/shriek|subtractApl"
+      ],
+      "ployHooks": [
+        "cull-the-weak|beforeAttackRoll|grantWeaponRule",
+        "instil-fear|beforeDamageApplied|reduceDamage",
+        "nightmare-on-high|beforeDefenceRoll|rerollDefenceDice",
+        "predators-above|beforeAttackRoll|grantWeaponRule",
+        "wings-of-darkness|onActivationStart|modifyMove"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "nemesis-claw": {
+      "supportLevel": 3,
+      "ruleHooks": [
+        "astartes-double-action|onActionLegality|extraAction"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "night-lord-ventrilokar/disconcerting-mimicry|subtractApl"
+      ],
+      "ployHooks": [
+        "death-to-the-false-emperor|beforeAttackRoll|grantWeaponRule",
+        "preysight|beforeAttackRoll|grantWeaponRule",
+        "proclivity-for-murder|onActivationStart|freeAction",
+        "return-to-darkness|onActivationStart|freeAction",
+        "the-black-hunt|beforeAttackRoll|grantWeaponRule",
+        "we-have-come-for-you|afterAction|inflictDamage"
+      ],
+      "weaponRules": [
+        "terrorchem|inflictToken"
+      ],
+      "controlModifiers": []
+    },
+    "novitiates": {
+      "supportLevel": 4,
+      "ruleHooks": [],
+      "resources": [
+        "faith"
+      ],
+      "resourceSpends": [
+        "faith/guidance-attack|attackDice|rerollDice",
+        "faith/guidance-defence|defenceDice|rerollDice"
+      ],
+      "uniqueActions": [
+        "novitiate-dialogus/stirring-rhetoric|addApl",
+        "novitiate-exactor/whip-into-frenzy|addApl",
+        "novitiate-hospitaller/chirurgeon-s-tools|healWounds"
+      ],
+      "ployHooks": [
+        "ardent-vengeance|beforeAttackRoll|grantWeaponRule",
+        "blinding-aura|onIncomingAttack|modifyWeapon",
+        "defenders-of-the-faith|beforeDamageApplied|reduceDamage",
+        "glorious-martyrdom|onIncapacitated|inflictDamage",
+        "guided-by-faith|beforeAttackRoll|grantWeaponRule",
+        "righteous-advance|onActivationStart|freeAction"
+      ],
+      "weaponRules": [
+        "antipsyker|grantRuleIf",
+        "riposte|meleeModifier",
+        "zealousrage|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "novitiates-penitent": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "the-pyre-of-the-faithful|onIncapacitated|inflictDamage"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "novitiate-dialogus/stirring-rhetoric|addApl",
+        "novitiate-exactor/whip-into-frenzy|addApl",
+        "novitiate-hospitaller/chirurgeon-s-tools|healWounds"
+      ],
+      "ployHooks": [
+        "ardent-vengeance|beforeAttackRoll|grantWeaponRule",
+        "blinding-aura|onIncomingAttack|modifyWeapon",
+        "defenders-of-the-faith|beforeDamageApplied|reduceDamage",
+        "guided-by-faith|beforeAttackRoll|grantWeaponRule",
+        "righteous-advance|onActivationStart|freeAction"
+      ],
+      "weaponRules": [
+        "antipsyker|grantRuleIf",
+        "riposte|meleeModifier",
+        "zealousrage|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "pathfinders": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "comms-specialist-pathfinder/signal|addApl",
+        "medical-technician-pathfinder/medikit|healWounds",
+        "transpectral-interference-pathfinder/system-jam|subtractApl"
+      ],
+      "ployHooks": [
+        "bonded|beforeAttackRoll|grantWeaponRule",
+        "recon-sweep|onActivationStart|freeAction",
+        "saviour-protocols|beforeDamageApplied|reduceDamage",
+        "suppressing-fire|onIncomingAttack|ignoreWeaponRules",
+        "take-cover|beforeDefenceRoll|modifySave"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "phobos-strike-team": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "infiltrator-helix-adept/helix-gauntlet|healWounds"
+      ],
+      "ployHooks": [
+        "and-they-shall-know-no-fear|onActivationStart|ignoreInjured",
+        "critical-shot|beforeAttackRoll|modifyWeapon",
+        "deadly-shots|beforeAttackRoll|grantWeaponRule",
+        "lethal-assaults|beforeAttackRoll|grantWeaponRule",
+        "lethal-assaults|beforeAttackRoll|grantWeaponRule",
+        "stealth-assault|beforeAttackRoll|grantWeaponRule",
+        "transhuman-physiology|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [
+        "custom|fixedUpgrade",
+        "detonate|unusable"
+      ],
+      "controlModifiers": []
+    },
+    "plague-marines": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "cloud-of-flies|beforeDefenceRoll|modifyDefenceDice",
+        "contagion|onIncomingAttack|modifyWeapon",
+        "curse-of-rot|beforeAttackRoll|grantWeaponRule",
+        "lumbering-death|beforeAttackRoll|grantWeaponRule",
+        "nurglings|onTurningPointStart|inflictToken",
+        "poisonous-demise|onIncapacitated|inflictToken",
+        "sickening-resilience|beforeDamageApplied|reduceDamage"
+      ],
+      "weaponRules": [
+        "poison|inflictToken",
+        "toxic|damageBonusVsToken"
+      ],
+      "controlModifiers": []
+    },
+    "ratlings": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "ratling-spotter/spot|mark",
+        "ratling-vox-thief/intercept-communications|addApl"
+      ],
+      "ployHooks": [
+        "crack-shots|beforeAttackRoll|grantWeaponRule",
+        "frontline-assault|beforeAttackRoll|grantWeaponRule",
+        "shifty|onTargetSelection|denyTargeting",
+        "shoot-and-hide|beforeDefenceRoll|modifyDefenceDice",
+        "sniper-positions|beforeAttackRoll|grantWeaponRule",
+        "survival-instincts|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "raveners": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "predatory-instincts-fight|onActionLegality|extraAction"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "ravener-felltalon/toxic-lunge|inflictDamage",
+        "ravener-venomspitter/distend-dorsal-sac|weaponBoost"
+      ],
+      "ployHooks": [
+        "burrowing-strike|beforeAttackRoll|modifyWeapon",
+        "death-frenzy|onIncapacitated|inflictDamage",
+        "death-from-below|beforeAttackRoll|grantWeaponRule",
+        "slithering-evasion|onActivationStart|discountAction",
+        "tunnel-lurkers|beforeDefenceRoll|modifyDefenceDice",
+        "whipcord-emergence|beforeDefenceRoll|rerollDefenceDice",
+        "writhe-out-of-sight|onActivationStart|freeAction"
+      ],
+      "weaponRules": [
+        "crush|meleeModifier",
+        "poison|inflictToken"
+      ],
+      "controlModifiers": []
+    },
+    "sanctifiers": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "ministorum-sermon-confessor|beforeDamageApplied|reduceDamage"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "sanctifier-cherub/incentivise|addApl",
+        "sanctifier-death-cult-assassin/trained-assassin|changeOrder",
+        "sanctifier-salvationist/medikit|healWounds"
+      ],
+      "ployHooks": [
+        "ardent-eradication|beforeAttackRoll|grantWeaponRule",
+        "fervent-brawl|beforeAttackRoll|grantWeaponRule",
+        "rally-the-flock|onActivationStart|freeAction",
+        "redeemed-through-fire|onIncapacitated|inflictToken",
+        "rosarius|beforeDamageApplied|reduceDamage",
+        "the-emperor-protects|beforeDefenceRoll|rerollDefenceDice",
+        "zealous-persecution|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "blaze|inflictToken",
+        "twintorrent|extraPrimaryTargets",
+        "wreathed|selfPrimaryTarget"
+      ],
+      "controlModifiers": []
+    },
+    "scout-squad": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "scout-tracker/track-enemy|mark"
+      ],
+      "ployHooks": [
+        "adaptable-training|onTurningPointStart|changeOrder",
+        "ambush|beforeAttackRoll|grantWeaponRule",
+        "astartes-training|onActionLegality|extraAction",
+        "covert-position|onActivationStart|changeOrder",
+        "covert-position|onTargetSelection|denyTargeting",
+        "emboldened-aspirant|beforeAttackRoll|grantWeaponRule",
+        "guerrilla-engagement|beforeDefenceRoll|rerollDefenceDice",
+        "raw-physiology|onActivationStart|ignoreInjured",
+        "raw-physiology|onActivationStart|modifyMove",
+        "stealth-relocation|onActivationStart|freeAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "scrap-raiders": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "ere-we-go|onActivationStart|allowChargeWhileConceal",
+        "ere-we-go|onActivationStart|modifyMove",
+        "krunch|onActionLegality|extraAction",
+        "scrap-frenzy|beforeAttackRoll|grantWeaponRule",
+        "too-angry-to-die|beforeDamageApplied|reduceDamage"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "skycaste-marksmen": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "marked-targets|beforeAttackRoll|grantWeaponRule",
+        "overlapping-fields|beforeAttackRoll|grantWeaponRule",
+        "recalibrate|onActionLegality|extraAction",
+        "shield-screen|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "spectre-squad": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "spectre-field-medicae/medikit|healWounds",
+        "spectre-loader/load-weapon|freeAction",
+        "spectre-vox-operator/signal|addApl",
+        "spectre-vox-relay-beacon/signal|addApl"
+      ],
+      "ployHooks": [
+        "ambushing-volley|beforeAttackRoll|grantWeaponRule",
+        "disappear|onActivationStart|freeAction",
+        "dodge|onActivationStart|discountAction",
+        "hidden-engagement|beforeAttackRoll|grantWeaponRule",
+        "patience|beforeAttackRoll|grantWeaponRule",
+        "prepared-defence|beforeDefenceRoll|modifyDefenceDice",
+        "silent-killers|beforeAttackRoll|modifyWeapon",
+        "silent-killers|onActivationStart|allowChargeWhileConceal"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly"
+      ],
+      "controlModifiers": []
+    },
+    "tempestus-aquilons": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "aquilon-tempestor/command|addApl"
+      ],
+      "ployHooks": [
+        "drop-and-secure|beforeAttackRoll|modifyWeapon",
+        "eye-above|beforeDefenceRoll|rerollDefenceDice",
+        "hot-drop|beforeAttackRoll|grantWeaponRule",
+        "maintain-momentum|beforeAttackRoll|grantWeaponRule",
+        "progena|onActivationStart|healWounds",
+        "sudden-offensive|beforeAttackRoll|grantWeaponRule",
+        "tempestus-exemplars|onActivationStart|discountAction"
+      ],
+      "weaponRules": [
+        "concealedposition|firstShootActionOnly",
+        "salvo|extraPrimaryTargets"
+      ],
+      "controlModifiers": []
+    },
+    "vanguard-breachers": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "breach-doctrine|beforeAttackRoll|grantWeaponRule",
+        "forward-momentum|onActivationStart|modifyMove",
+        "kick-in-the-door|beforeAttackRoll|modifyWeapon",
+        "overwhelm|onActionLegality|extraAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "vanguard-wardens": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "ceramite-shell|beforeDefenceRoll|modifySave",
+        "covering-fire|onActionLegality|extraAction",
+        "hold-the-line|beforeDefenceRoll|modifyDefenceDice",
+        "measured-volley|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "vespid-stingwings": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "neutron-charge-charge|beforeAttackRoll|grantWeaponRule",
+        "neutron-charge-dash|beforeAttackRoll|grantWeaponRule",
+        "neutron-charge-reposition|beforeAttackRoll|grantWeaponRule"
+      ],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "oversight-drone/aerial-guidance|weaponBoost"
+      ],
+      "ployHooks": [
+        "aerial-agility|beforeDefenceRoll|modifyDefenceDice",
+        "airborne-predators|beforeAttackRoll|grantWeaponRule",
+        "darting-flight|onActivationStart|modifyMove",
+        "hardened-exoskeleton|beforeDamageApplied|reduceDamage",
+        "neutron-overload|beforeAttackRoll|modifyWeapon",
+        "sting|beforeAttackRoll|grantWeaponRule",
+        "vicious-venom|beforeAttackRoll|modifyWeapon"
+      ],
+      "weaponRules": [
+        "neutronbombardment|recognised",
+        "neutronfragment|inflictToken",
+        "skytorch|unusable"
+      ],
+      "controlModifiers": []
+    },
+    "void-dancer-troupe": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "cegorach-s-jest|beforeDamageApplied|reduceDamage",
+        "domino-field|beforeDefenceRoll|modifyDefenceDice",
+        "elusive-target|beforeDefenceRoll|modifyDefenceDice",
+        "murderous-entrance|beforeAttackRoll|grantWeaponRule",
+        "prismatic-blur|beforeDefenceRoll|rerollDefenceDice",
+        "rising-crescendo|onActionLegality|extraAction"
+      ],
+      "weaponRules": [
+        "humblingcruelty|inflictToken"
+      ],
+      "controlModifiers": []
+    },
+    "warpcoven": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "sorcerer-of-tempyrion/reconstitution-ritual|healWounds"
+      ],
+      "ployHooks": [
+        "aetherial-warding|beforeDefenceRoll|ignoreWeaponRules",
+        "all-is-dust|beforeDamageApplied|reduceDamage",
+        "brotherhood-of-sorcerers|beforeAttackRoll|grantWeaponRule",
+        "capricious-plan|onActivationStart|freeAction",
+        "savage-herd|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "mindburn|inflictToken",
+        "shield|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "wolf-scouts": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "wolf-scout-fangbearer/healing-balms|healWounds"
+      ],
+      "ployHooks": [
+        "acute-senses|beforeAttackRoll|grantWeaponRule",
+        "cloaked-by-the-storm|beforeDefenceRoll|rerollDefenceDice",
+        "counterattack|onActivationStart|freeAction",
+        "savage-fighters|afterRetaliation|inflictDamage",
+        "storm-s-bite|onIncomingAttack|modifyWeapon",
+        "tempestuous-wrath|beforeAttackRoll|grantWeaponRule",
+        "touched-by-lokyar|beforeAttackRoll|grantWeaponRule",
+        "transhuman-physiology|beforeDefenceRoll|modifyDefenceDice"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    },
+    "wrecka-krew": {
+      "supportLevel": 4,
+      "ruleHooks": [
+        "tanked-up|onActivationStart|addApl"
+      ],
+      "resources": [
+        "wrecka"
+      ],
+      "resourceSpends": [
+        "wrecka/wrecka-rampage-attack|attackDice|rerollDice",
+        "wrecka/wrecka-rampage-defence|defenceDice|rerollDice"
+      ],
+      "uniqueActions": [],
+      "ployHooks": [
+        "amped-up|onTurningPointStart|healWounds",
+        "destruction|beforeAttackRoll|grantWeaponRule",
+        "just-a-scratch|beforeDamageApplied|reduceDamage",
+        "kaboom|beforeAttackRoll|grantWeaponRule",
+        "proppa-scrap|onActionLegality|extraAction",
+        "proppa-scrap|onActionLegality|extraAction",
+        "tuff-gitz|beforeDefenceRoll|rerollDefenceDice",
+        "waaagh|beforeAttackRoll|grantWeaponRule"
+      ],
+      "weaponRules": [
+        "explosive|selfPrimaryTarget",
+        "salvo|extraPrimaryTargets",
+        "smash|meleeModifier"
+      ],
+      "controlModifiers": []
+    },
+    "wyrmblade": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [],
+      "ployHooks": [
+        "coiled-serpent|beforeAttackRoll|grantWeaponRule",
+        "crossfire|beforeAttackRoll|grantWeaponRule",
+        "divert-and-disappear|onActivationStart|freeAction",
+        "one-with-the-shadows|beforeDefenceRoll|modifyDefenceDice",
+        "slink-into-darkness|beforeDefenceRoll|modifyDefenceDice",
+        "the-day-is-at-hand|beforeAttackRoll|grantWeaponRule",
+        "the-day-is-at-hand|beforeAttackRoll|modifyWeapon"
+      ],
+      "weaponRules": [
+        "hypersense|grantRuleIf"
+      ],
+      "controlModifiers": []
+    },
+    "xv26-stealth-battlesuits": {
+      "supportLevel": 1,
+      "ruleHooks": [],
+      "resources": [],
+      "resourceSpends": [],
+      "uniqueActions": [
+        "xv26-neutraliser/system-jam|subtractApl"
+      ],
+      "ployHooks": [
+        "bonds-of-unity|onActivationStart|ignoreInjured",
+        "ghostshroud|beforeDefenceRoll|modifyDefenceDice",
+        "holowave-countermeasures|onIncomingAttack|modifyWeapon",
+        "patient-hunters|beforeAttackRoll|grantWeaponRule",
+        "patient-hunters|beforeAttackRoll|grantWeaponRule",
+        "prepare-ambush|beforeAttackRoll|grantWeaponRule",
+        "vectored-retro-thrusters|onActivationStart|freeAction"
+      ],
+      "weaponRules": [],
+      "controlModifiers": []
+    }
+  }
+}

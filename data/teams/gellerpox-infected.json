@@ -758,7 +758,69 @@
       "description": "Whenever an operative is shooting a friendly GELLERPOX INFECTED NIGHTMARE HULK operative that's more than 6\" from it, you can retain one of your defence dice results of 3 as a normal success instead of discarding it."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "techno-curse-barrelwarp",
+      "rule": "Techno-Curse (Barrelwarp)",
+      "trigger": "onIncomingAttack",
+      "condition": {
+        "notKeyword": [
+          "mutoid-vermin"
+        ],
+        "weaponType": "ranged",
+        "targetWithin": 2
+      },
+      "effect": {
+        "type": "modifyWeapon",
+        "atkBonus": -1
+      },
+      "partial": true,
+      "notes": "one of three TECHNO-CURSEs, chosen in the Select Operatives step. This engine has no selection step, so Barrelwarp is fixed for the battle — it is the curse that bites a gunline, which is what this team needs to survive its approach. Infection range is measured from the operative being shot rather than from any friendly GELLERPOX operative, and the GLITCHLING's longer 3\" range is not modelled"
+    },
+    {
+      "id": "revoltingly-resilient-hulk",
+      "rule": "Revoltingly Resilient",
+      "trigger": "beforeDamageApplied",
+      "condition": {
+        "keyword": "nightmare-hulk"
+      },
+      "effect": {
+        "type": "reduceDamage",
+        "amount": 1
+      },
+      "partial": true,
+      "notes": "printed as a D6 rolled for each attack dice that inflicts 3 or more damage, subtracting 1 on a 4+. This engine hands the defender an action's total damage rather than the individual dice, so it subtracts 1 once per action and does not roll for it"
+    },
+    {
+      "id": "revoltingly-resilient-mutant",
+      "rule": "Revoltingly Resilient",
+      "trigger": "beforeDamageApplied",
+      "condition": {
+        "keyword": "mutant"
+      },
+      "effect": {
+        "type": "reduceDamage",
+        "amount": 1
+      },
+      "partial": true,
+      "notes": "the MUTANT half of the same rule; see revoltingly-resilient-hulk for what the single subtraction stands in for"
+    },
+    {
+      "id": "mutoid-vermin-scuttle",
+      "rule": "Mutoid Vermin",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "mutoid-vermin"
+      },
+      "effect": {
+        "type": "discountAction",
+        "action": "fall_back",
+        "amount": 1
+      },
+      "partial": true,
+      "notes": "only the cheaper Fall Back is wired. The marker and VP exemptions, and the free passage enemies have through vermin, need marker and control-range rules this engine applies uniformly to every operative"
+    }
+  ],
   "weaponRules": {
     "engineered": {
       "rule": "Engineered",

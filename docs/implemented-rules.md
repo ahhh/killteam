@@ -235,7 +235,7 @@ change what happens the moment it activates.
 
 ### Team resource economies
 
-Three teams live on an economy: they earn a countable thing from what their
+Six teams live on an economy: they earn a countable thing from what their
 operatives do, and spend it again on a menu of effects with their own windows
 and limits. A pack declares all of it as data in a `resources` block (see
 `docs/rule-pack-format.md`); the engine owns the counting, the limits and the
@@ -246,6 +246,9 @@ spending, and `src/ai/spending.js` owns the decision.
 | Hand of the Archon | Power From Pain | An action that leaves an enemy Injured, or kills one — two Pain tokens for a Wounds 12+ kill; Flay hands one to a friend within 6" | **Dark Animus** (+1 APL, and the AP now), **Accelerated Rejuvenation** (D3+1 wounds back), **Vitalised Surge** (a free Dash after a kill, even after an action that forbids one), **Stimulated Senses** (re-roll one result, attack or defence) |
 | Goremonger | Gore Tanks / Sanguavitae | Killing something in control range or within 2"; Ritual's first damage in a sequence. Starts at half, capped at full | **Rejuvenate**, **Mania** (+1 APL), **Fury** (a second, free Fight), **Rake** (D3 on contact after a charge), **Surge** (+1" Move), **Rage** (+1 Atk in melee) |
 | Blooded | Blooded tokens | The Ready step, the first enemy killed each turning point, the first friendly lost within 6" of an enemy, and Blood Offering | Assigned to operatives as a STRATEGIC GAMBIT: a held token gives that operative's weapons Accurate 1, and four or more assigned puts one under the **Gaze of the Gods** (its Accurate retention is a critical success) until the end of the turning point |
+| Wrecka Krew | Wrecka Rampage | An action that leaves an enemy Injured, or kills one. Pooled for the whole krew, capped at 6 | A re-roll of every failed attack or defence die. *Printed as a point per attack dice result of 6 retained, spent to turn a fail into a normal success; neither the per-die earning nor the retention is in the dice layer's vocabulary, so the nearest supported effect stands in. The BOMB SQUIG's bar on spending is not enforced* |
+| Novitiates | Acts of Faith | 3 Faith points in the Ready step of every Strategy phase | **Guidance** — a re-roll of one attack or defence result. *Printed as half the surviving roster rounded up, rather than a flat 3, and BLESSING and INTERVENTION both promote a retained die, which the dice layer cannot do from outside a roll* |
+| Freebooter Boardin' Krew | Loot | See the pack | See the pack |
 
 How the limits work: "no more than one invigoration per activation or
 counteraction, except Stimulated Senses" and "no more than two SANGUAVITAE
@@ -369,8 +372,10 @@ spend AP on.
 ### Faction rules
 
 Faction rules reach the engine as declarative `ruleHooks` on a team pack (see
-`docs/rule-pack-format.md`), or — for the three teams whose faction rule is an
-economy — as a `resources` block. Eighteen are implemented across fifteen teams:
+`docs/rule-pack-format.md`), or — for the six teams whose faction rule is an
+economy — as a `resources` block. Fifty-one are implemented across thirty-four
+teams. The table below lists the ones worth explaining; the full inventory is
+`test/fixtures/team-capabilities.json`, which the regression suite locks:
 
 | Team | Rule | Simulated | Not simulated |
 |---|---|---|---|
@@ -391,15 +396,39 @@ economy — as a `resources` block. Eighteen are implemented across fifteen team
 | Blooded | Blooded | Tokens earned, assigned, and the Gaze of the Gods | the player's choice of who to assign them to |
 | Catachan Jungle Fighters | Green Vipers | Charge while Concealed | — |
 | Catachan Jungle Fighters | Let's Move! | The leader hands 1 APL to a friend within range and sight | the player's choice of who receives it |
+| Raveners | Predatory Instincts | Two Fight actions per activation | the free Burrow during a counteraction, which needs the underground state and TUNNEL markers |
+| Fellgor Ravagers | Frenzy | The blow that would incapacitate leaves the Beastman standing on 1 wound with a Frenzy token, Engage forced; once per operative | the four printed ways a Frenzied operative then dies (it lingers on 1 wound instead), and the opponent scoring the kill the moment the token is gained |
+| Wrecka Krew | Tanked Up | +1 APL to an Ork on an Engage order, Bomb Squig excluded | the point is handed over at activation start, not on the first Charge/Shoot/Fight |
+| Gellerpox Infected | Techno-Curse | Barrelwarp: −1 Atk on a gun fired from within 2" | the choice between three curses, and the GLITCHLING's longer range. Range is measured from the target, not from any friendly |
+| Gellerpox Infected | Revoltingly Resilient | −1 damage per action to a NIGHTMARE HULK or MUTANT | the D6 per attack dice of 3+ damage; this is one flat subtraction per action |
+| Gellerpox Infected | Mutoid Vermin | Fall Back for 1 less AP | the marker and VP exemptions, and enemies' free passage through vermin |
+| Chaos Cult | Accursed Gifts | Horned (1 damage on a charge into contact, D3 for a TORMENT) and Sinewed (Brutal melee, injury ignored, TORMENT only) | the gifts are fixed rather than chosen, because Mutation — the step that chooses them — is not simulated |
+| Celestian Insidiants | Inspiration | Severe on the blow a Charge bought | INSPIRING as a lasting status, and the route to it through killing a Wounds 6+ operative |
+| Celestian Insidiants | Weapons of the Witch Hunters | PSYCHIC ranged weapons inflict no damage on them | the 3" null aura against PSYCHIC actions and melee weapons |
+| Legionary, Legionary Warband | Marks of Chaos | All five marks: Khorne (Severe melee), Tzeentch (Severe ranged), Undivided (Ceaseless within 6"), Nurgle (−1 damage), Slaanesh (+1" Move) | each profile carries a fixed mark, because there is no Select Operatives step to choose one in |
+| Death Korps | Guardsmen Orders | Fix Bayonets!: Ceaseless melee within 6" of the Watchmaster | the other three orders, and the gambit that re-chooses one each turning point |
+| Sanctifiers | Ministorum Sermon | −1 damage within 6" of the Confessor | the ORATOR gambit, and the printed "Dmg of 4 or more" threshold |
+| Exaction Squad | Marked for Justice | Punishing against an enemy the squad has already wounded | the gambit that names one mark; here every wounded enemy carries it |
+| Farstalker Kinband | Farstalker | Up to three operatives out of enemy control range turn to Engage in the Ready step | the player's choice of order, and the counteraction variant |
+| Vespid Stingwings | Neutron Charge | Piercing 1 on a neutron weapon in an activation the operative moved in | it lapses at the end of the activation, not the turning point |
 
 Rules marked "not simulated" are declared `partial` in the pack and reported
 once per battle in the warnings, so the log never implies more fidelity than
 there is.
 
-The other 40 teams' faction rules are carried as reference text only — they
+The other 24 teams' faction rules are carried as reference text only — they
 need engine subsystems that do not exist yet (markers, operative
 transformation, area effects, order manipulation, terrain concepts such as
 WITHIN SHADOW). Those packs stay at `supportLevel: 1`.
+
+Four packs at `supportLevel` 3 or above still wire nothing, and the reason is
+recorded in `test/team-capabilities.test.mjs` so the list can only shrink:
+**Battleclade** (NETWORK COUNTERACT is a second counteraction the phase loop
+has no room for), **Blades of Khaine** (the ASPECT TECHNIQUEs are not
+transcribed into the pack at all, so there is nothing yet to wire),
+**Elucidian Starstriders** (Warrant of Trade and the Privateer Support Assets
+are pre-battle picks) and **Inquisitorial Agents** (Inquisitorial Requisition
+is a roster-composition rule with no runtime behaviour).
 
 ### Objectives and scoring
 - Control by total APL within an objective's control range; equal totals are contested
@@ -586,8 +615,17 @@ These are recognised and reported, not simulated:
   machinery as Blast plus a damage-only variant of it.
 - Markers and the actions that place them (Mine, Explosives, Neutron Fallout,
   Skytorch), which is why three weapons refuse to fire rather than guessing.
-- The Frenzy token, the "obscured" state as distinct from cover, and the
-  pre-battle loadout choices `Engineered` and `Custom` offer.
+- The "obscured" state as distinct from cover, and the pre-battle loadout
+  choices `Engineered` and `Custom` offer.
+- CHAOS CULT **Mutation** — turning one operative into another operative type
+  mid-battle. The pack fields two MUTANTs from the start instead, which is the
+  pair the first turning point's gambit would have turned, and says so in its
+  roster notes.
+- RAVENER **Burrow** and **Tunnel** — an off-board state and a chain of
+  player-placed markers.
+- GOREMONGER **Gore Tanks** as a *cost*: a unique action can gain a resource
+  but cannot spend one to pay for itself, so TRANSFUSION RITUAL and GORE-FUEL
+  give without taking.
 - The rest of the Blooded gambit's shape — tokens are assigned automatically in
   the Ready step, nearest the enemy first, rather than being placed by a player.
 

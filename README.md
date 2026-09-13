@@ -234,13 +234,45 @@ npm start           # python3 -m http.server 8000
 ## Develop
 
 ```bash
-npm test            # 348 unit, fixture, determinism, AI, replay and UI tests
+npm test            # 655 unit, fixture, determinism, AI, replay, UI and team tests
 npm run test:data   # validate every bundled team, map and mission
 npm run smoke       # run one battle headlessly and print the result
 npm run batch 60 vanguard-wardens scrap-raiders   # batch balance harness
+npm run melee       # melee-leaning teams vs gunlines, both seats, three maps
+npm run test:manifest   # regenerate the team capability lock (read the diff!)
 ```
 
 Everything runs on plain Node ≥ 20. There are no dependencies.
+
+### The team regression suite
+
+Three files exist so a team's rules cannot quietly stop working.
+
+`test/fixtures/team-capabilities.json` is an inventory of every playable thing
+all 64 packs declare — rule hooks, resource economies and their spends,
+performable unique actions, ploys carrying hooks, team weapon rules with an
+implemented effect, marker-control modifiers, and each pack's support level.
+`test/team-capabilities.test.mjs` asserts the live packs are a **superset** of
+it. That asymmetry is the point: wiring a new rule is free (regenerate with
+`npm run test:manifest` and commit the diff), while deleting a hook, renaming
+it, retyping its effect, dropping an `action` block back to reference text or
+lowering a support level fails loudly and names the team. The same file also
+checks every declaration against the engine's own vocabulary, so a rule that
+survives the manifest but whose effect the engine has stopped implementing
+fails too — and it pins the four packs that wire nothing and the six whose
+printed unique actions are all reference text, each with its reason, so those
+lists can only shrink.
+
+`test/team-faction-rules.test.mjs` drives the interesting rules against the
+real packs: it fields the operative the printed rule names and asserts the rule
+fires — and, just as importantly, that it does not fire for the operative the
+printed wording excludes.
+
+`test/team-battles.test.mjs` plays one complete battle for each of the 36 packs
+that carry faction rules. It fails on a crash, on the AI proposing an action
+the rules layer then rejects, and on any warning meaning "this pack declared
+something the engine cannot read". A `hook-partial` warning is expected and
+welcome — that is a pack being honest — and is deliberately not counted.
 
 ## How it fits together
 
@@ -391,18 +423,29 @@ Gellerpox bursting, a Khorne Legionary's last swing), `afterAction`,
 `timing: "demise"`, bought as its own operative goes down out of the same
 reserve a reaction uses.
 
-Faction rules now run through a declarative `ruleHooks` layer — 16 rules across
-14 teams, which declare `supportLevel: 3`. The other 40 transcribed teams carry
-their faction rules, ploys, equipment and unique actions as reference data only
-and stay at `supportLevel: 1`.
+Faction rules now run through a declarative `ruleHooks` layer — 51 rules across
+34 teams. The other 24 transcribed teams carry their faction rules, ploys,
+equipment and unique actions as reference data only and stay at
+`supportLevel: 1`.
 
-Three of those teams live on a **resource economy** rather than a hook, so
+Six of those teams live on a **resource economy** rather than a hook, so
 packs declare that as data too, in a `resources` block: Hand of the Archon earn
 and spend Pain tokens on all four invigorations, Goremongers fill and drain a
-three-level GORE TANK to pay for the six SANGUAVITAE rules, and the Blooded
-earn tokens, assign them, and hand one operative the Gaze of the Gods. Earning
-is the engine's; deciding when to spend is the AI's (`src/ai/spending.js`), and
-a spend is a 0-AP action the rules layer validates like any other.
+three-level GORE TANK to pay for the six SANGUAVITAE rules, the Blooded
+earn tokens, assign them, and hand one operative the Gaze of the Gods, the
+Wrecka Krew pool Wrecka points off a bloodied enemy, and the Novitiates draw
+Faith points in the Ready step. Earning is the engine's; deciding when to spend
+is the AI's (`src/ai/spending.js`), and a spend is a 0-AP action the rules
+layer validates like any other.
+
+One trigger was added for the largest of them. `onWouldBeIncapacitated` fires
+in `applyDamage` at the moment an operative's wounds run out and before it is
+marked down, and its one effect — `surviveIncapacitation` — is the window
+FELLGOR RAVAGER **Frenzy** needs and nothing else had: "it's not incapacitated
+and it gains one of your Frenzy tokens". The token is what bounds it. A hook
+that names one refuses to fire for an operative already holding it, so the
+reprieve is once per operative per battle, and a real death clears it with
+everything else the body was carrying.
 
 Weapon rules resolve in two layers. Every **universal** rule from the appendix
 is the engine's own, because those mean the same thing on every datasheet. The
@@ -585,6 +628,32 @@ being shot by a gunline that gets to fire every activation. Across 12 battles
 the warband averaged **0.9 Fight actions per game** against 21 enemy Shoot
 actions, and out-moved by two to one, because the side with guns is also the
 side free to reposition.
+
+#### What did move it: giving the melee teams their faction rules back
+
+The four fixes above were all about the approach. The next pass was about what
+the melee teams are *supposed to have* and did not: fourteen packs declared
+`supportLevel` 3 or 4 — "faction rules and core operative abilities" — and
+wired no `ruleHooks` and no `resources` at all, so their defining rule did
+nothing. Raveners had no second Fight action. The Wrecka Krew had no Tanked Up.
+The Fellgor Ravagers, a horde whose entire identity is *not dying to the first
+hit*, had no Frenzy. Chaos Cult had no Accursed Gifts, Gellerpox no
+Techno-Curse, Legionaries no Marks of Chaos.
+
+Measured the same way both times — the six melee-leaning packs against three
+gunlines, both seats, all three original maps, 432 games:
+
+| | melee win rate | average VP | melee survivors |
+|---|---|---|---|
+| before | 16.9% | 8.25 – 16.12 | 0.79 |
+| after | **26.9%** | 9.63 – 14.68 | **1.35** |
+
+Ten points, and the survivor figure says where they came from: a melee warband
+now arrives with something left. Frenzy alone fires about nine times a game for
+an eleven-body Fellgor roster. This is still a gunline's engine — 26.9% is a
+long way from even — but it is the first change in this section that moved the
+number at all, and it did so by implementing printed rules rather than by
+tuning anything.
 
 No stat line was changed, and neither was any of the three maps: every figure
 recorded above is measured on them and stands as measured. The killzone lever

@@ -168,7 +168,8 @@
         "chaos",
         "heretic-astartes",
         "leader",
-        "aspiring-champion"
+        "aspiring-champion",
+        "khorne"
       ]
     },
     {
@@ -256,7 +257,8 @@
         "chaos",
         "heretic-astartes",
         "leader",
-        "chosen"
+        "chosen",
+        "undivided"
       ]
     },
     {
@@ -307,7 +309,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "anointed"
+        "anointed",
+        "nurgle"
       ]
     },
     {
@@ -398,7 +401,8 @@
         "chaos",
         "heretic-astartes",
         "psyker",
-        "balefire-acolyte"
+        "balefire-acolyte",
+        "tzeentch"
       ]
     },
     {
@@ -449,7 +453,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "butcher"
+        "butcher",
+        "khorne"
       ]
     },
     {
@@ -566,7 +571,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "gunner"
+        "gunner",
+        "tzeentch"
       ]
     },
     {
@@ -721,7 +727,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "heavy-gunner"
+        "heavy-gunner",
+        "tzeentch"
       ]
     },
     {
@@ -797,7 +804,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "icon-bearer"
+        "icon-bearer",
+        "undivided"
       ]
     },
     {
@@ -855,7 +863,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "shrivetalon"
+        "shrivetalon",
+        "slaanesh"
       ]
     },
     {
@@ -931,7 +940,8 @@
         "legionary",
         "chaos",
         "heretic-astartes",
-        "warrior"
+        "warrior",
+        "undivided"
       ]
     }
   ],
@@ -1143,6 +1153,85 @@
       },
       "partial": true,
       "notes": "the requirement that a bolt weapon be selected for one of two Shoot actions is not enforced"
+    },
+    {
+      "id": "mark-khorne-wrathful-onslaught",
+      "rule": "Marks of Chaos (Khorne)",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "khorne",
+        "weaponType": "melee"
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "severe"
+        ]
+      },
+      "partial": true,
+      "notes": "a mark is chosen for each operative when the kill team is selected and this engine has no selection step to choose in, so each profile carries a fixed mark: the close-quarters operatives KHORNE, the gunners TZEENTCH, the Shrivetalon SLAANESH, the Anointed NURGLE and the rest UNDIVIDED. The BALEFIRE ACOLYTE's bar on KHORNE is respected"
+    },
+    {
+      "id": "mark-tzeentch-empyreal-guidance",
+      "rule": "Marks of Chaos (Tzeentch)",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "tzeentch",
+        "weaponType": "ranged"
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "severe"
+        ]
+      },
+      "partial": true,
+      "notes": "a mark is chosen for each operative when the kill team is selected and this engine has no selection step to choose in, so each profile carries a fixed mark: the close-quarters operatives KHORNE, the gunners TZEENTCH, the Shrivetalon SLAANESH, the Anointed NURGLE and the rest UNDIVIDED. The BALEFIRE ACOLYTE's bar on KHORNE is respected"
+    },
+    {
+      "id": "mark-undivided-vicious-reavers",
+      "rule": "Marks of Chaos (Undivided)",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "undivided",
+        "targetWithin": 6
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "ceaseless"
+        ]
+      },
+      "partial": true,
+      "notes": "a mark is chosen for each operative when the kill team is selected and this engine has no selection step to choose in, so each profile carries a fixed mark: the close-quarters operatives KHORNE, the gunners TZEENTCH, the Shrivetalon SLAANESH, the Anointed NURGLE and the rest UNDIVIDED. The BALEFIRE ACOLYTE's bar on KHORNE is respected"
+    },
+    {
+      "id": "mark-nurgle-disgusting-vigour",
+      "rule": "Marks of Chaos (Nurgle)",
+      "trigger": "beforeDamageApplied",
+      "condition": {
+        "keyword": "nurgle"
+      },
+      "effect": {
+        "type": "reduceDamage",
+        "amount": 1
+      },
+      "partial": true,
+      "notes": "a mark is chosen for each operative when the kill team is selected and this engine has no selection step to choose in, so each profile carries a fixed mark: the close-quarters operatives KHORNE, the gunners TZEENTCH, the Shrivetalon SLAANESH, the Anointed NURGLE and the rest UNDIVIDED. The BALEFIRE ACOLYTE's bar on KHORNE is respected. Printed as a D6 rolled for each attack dice inflicting 3 or more Normal Dmg, subtracting 1 on a 5+; this engine sees an action's total damage rather than its dice, so it subtracts 1 once per action and does not roll"
+    },
+    {
+      "id": "mark-slaanesh-unnatural-agility",
+      "rule": "Marks of Chaos (Slaanesh)",
+      "trigger": "onActivationStart",
+      "condition": {
+        "keyword": "slaanesh"
+      },
+      "effect": {
+        "type": "modifyMove",
+        "inches": 1
+      },
+      "partial": true,
+      "notes": "a mark is chosen for each operative when the kill team is selected and this engine has no selection step to choose in, so each profile carries a fixed mark: the close-quarters operatives KHORNE, the gunners TZEENTCH, the Shrivetalon SLAANESH, the Anointed NURGLE and the rest UNDIVIDED. The BALEFIRE ACOLYTE's bar on KHORNE is respected"
     }
   ],
   "weaponRules": {

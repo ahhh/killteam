@@ -307,7 +307,22 @@
           "id": "pareidolic-projection",
           "name": "PAREIDOLIC PROJECTION",
           "cost": "1AP",
-          "description": "Select one enemy operative that's a valid target for this operative or is WITHIN SHADOW. Until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first), worsen the Hit stat of that enemy operative's weapons by 1 and subtract 2\" from its Move stat (these aren't cumulative with being injured). This operative cannot perform this action while within control range of an enemy operative, unless the only enemy operative it's within control range of is selected for this action."
+          "description": "Select one enemy operative that's a valid target for this operative or is WITHIN SHADOW. Until the start of this operative's next activation, until it's incapacitated or until it performs this action again (whichever comes first), worsen the Hit stat of that enemy operative's weapons by 1 and subtract 2\" from its Move stat (these aren't cumulative with being injured). This operative cannot perform this action while within control range of an enemy operative, unless the only enemy operative it's within control range of is selected for this action.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "validTarget",
+              "side": "enemy"
+            },
+            "effect": {
+              "type": "moveBonus",
+              "inches": -2,
+              "token": "pareidolic"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

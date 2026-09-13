@@ -655,7 +655,25 @@
       "description": "When this item of equipment is selected, also select the Waaagh! or Destruction strategy ploy. The first time you would use that ploy during the battle, it costs you 0CP; whenever you would use it thereafter, it costs you 0CP if you have any Wrecka points."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "tanked-up",
+      "rule": "Tanked Up",
+      "trigger": "onActivationStart",
+      "condition": {
+        "orderIs": "engage",
+        "notKeyword": [
+          "bomb-squig"
+        ]
+      },
+      "effect": {
+        "type": "addApl",
+        "amount": 1
+      },
+      "partial": true,
+      "notes": "printed as granted the first time the operative Charges, Shoots or Fights during the activation. An operative's AP is fixed when its activation starts, so the point is handed over up front to anything on an Engage order — which means an Ork that spends the whole activation walking keeps a point it would not have earned"
+    }
+  ],
   "weaponRules": {
     "salvo": {
       "rule": "Salvo",
@@ -683,6 +701,51 @@
           "distance": 1
         }
       }
+    }
+  },
+  "resources": {
+    "wrecka": {
+      "name": "Wrecka point",
+      "rule": "Wrecka Rampage",
+      "text": "Whenever a friendly WRECKA KREW operative is shooting, fighting or retaliating, in the Roll Attack Dice step: For each attack dice result of 6 you retain, you gain one Wrecka point.You can spend up to 2 of your Wrecka points (unless it's a BOMB SQUIG, then you cannot spend any). For each point you spend this way, retain one of your fails as a normal success instead of discarding it.You cannot have more than 6 Wrecka points at once. You can gain and spend Wrecka points during the same action and can do so in an order of your choice, unless you started the action with 6, in which case you can only spend them.",
+      "scope": "player",
+      "keyword": "wrecka-krew",
+      "start": 0,
+      "max": 6,
+      "gains": [
+        {
+          "trigger": "enemyInjured",
+          "amount": 1
+        },
+        {
+          "trigger": "enemyIncapacitated",
+          "amount": 1
+        }
+      ],
+      "spends": [
+        {
+          "id": "wrecka-rampage-attack",
+          "name": "Wrecka Rampage",
+          "text": "You can spend up to 2 of your Wrecka points. For each point you spend this way, retain one of your fails as a normal success instead of discarding it.",
+          "window": "attackDice",
+          "cost": 1,
+          "effect": {
+            "type": "rerollDice",
+            "mode": "all"
+          }
+        },
+        {
+          "id": "wrecka-rampage-defence",
+          "name": "Wrecka Rampage",
+          "text": "You can spend up to 2 of your Wrecka points. For each point you spend this way, retain one of your fails as a normal success instead of discarding it.",
+          "window": "defenceDice",
+          "cost": 1,
+          "effect": {
+            "type": "rerollDice",
+            "mode": "all"
+          }
+        }
+      ]
     }
   }
 }

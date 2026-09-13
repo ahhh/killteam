@@ -147,7 +147,28 @@
           "id": "spiritual-mentor",
           "name": "SPIRITUAL MENTOR",
           "cost": "1AP",
-          "description": "SUPPORT. Select one friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. That operative becomes INSPIRING. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point."
+          "description": "SUPPORT. Select one friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. That operative becomes INSPIRING. This operative cannot perform this action while within control range of an enemy operative, or more than once per turning point.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "inches": 6,
+              "visible": true,
+              "side": "friendly",
+              "keyword": "celestian-insidiant"
+            },
+            "effect": {
+              "type": "weaponBoost",
+              "rules": [
+                "severe"
+              ],
+              "token": "inspiring"
+            },
+            "limits": {
+              "notEngaged": true,
+              "perTurningPoint": 1
+            }
+          }
         }
       ],
       "keywords": [
@@ -380,7 +401,25 @@
           "id": "speak-of-her-deeds",
           "name": "SPEAK OF HER DEEDS",
           "cost": "1AP",
-          "description": "SUPPORT. Select an INSPIRING friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. That operative is no longer INSPIRING. Then, select another friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. Resolve one BENEDICTION from the Martyrdom faction rule on that operative (excluding Exigence). This operative cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select an INSPIRING friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. That operative is no longer INSPIRING. Then, select another friendly CELESTIAN INSIDIANT operative visible to and within 6\" of this operative. Resolve one BENEDICTION from the Martyrdom faction rule on that operative (excluding Exigence). This operative cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "inches": 6,
+              "visible": true,
+              "side": "friendly",
+              "keyword": "celestian-insidiant",
+              "wounded": true
+            },
+            "effect": {
+              "type": "healWounds",
+              "dice": "D3+2"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -762,7 +801,46 @@
       "description": "Whenever a friendly CELESTIAN INSIDIANT operative is activated, you can use this rule. If you do, roll one D6 and inflict damage on that operative equal to half the result (rounding up); on a 4+, that operative also becomes INSPIRING. You cannot make more than one friendly operative INSPIRING using this rule per turning point."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "inspiration-charge",
+      "rule": "Inspiration",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "celestian-insidiant",
+        "performedThisActivation": [
+          "charge"
+        ]
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "severe"
+        ]
+      },
+      "partial": true,
+      "notes": "INSPIRING is a status the printed rule hangs on the operative until it is spent, gained either by charging or by killing something with 6 or more wounds. This engine reads it only from the Charge in the same activation, so the Severe lasts for the blow the charge bought and no longer, and the kill route to INSPIRING is not wired"
+    },
+    {
+      "id": "weapons-of-the-witch-hunters-ranged",
+      "rule": "Weapons of the Witch Hunters",
+      "trigger": "onIncomingAttack",
+      "condition": {
+        "keyword": "celestian-insidiant",
+        "weaponType": "ranged",
+        "weaponHasAnyRule": [
+          "psychic"
+        ]
+      },
+      "effect": {
+        "type": "modifyWeapon",
+        "damageNormal": -99,
+        "damageCritical": -99
+      },
+      "partial": true,
+      "notes": "\"PSYCHIC ranged weapons cannot inflict damage on friendly CELESTIAN INSIDIANT operatives\", written as a profile with both damage values floored at zero. The nullification of PSYCHIC actions and melee weapons within 3\" needs a null-range aura this engine has no vocabulary for"
+    }
+  ],
   "weaponRules": {
     "shield": {
       "rule": "Shield",

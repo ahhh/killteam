@@ -206,7 +206,25 @@
           "id": "transfusion-ritual",
           "name": "TRANSFUSION RITUAL",
           "cost": "1AP",
-          "description": "Decrease this operative's GORE TANK. Instead of using a SANGUAVITAE rule, you can increase the GORE TANK of one other friendly GOREMONGER operative within 8\" of this operative. This operative cannot perform this action while within control range of an enemy operative, or if its GORE TANK is empty."
+          "description": "Decrease this operative's GORE TANK. Instead of using a SANGUAVITAE rule, you can increase the GORE TANK of one other friendly GOREMONGER operative within 8\" of this operative. This operative cannot perform this action while within control range of an enemy operative, or if its GORE TANK is empty.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "within",
+              "inches": 8,
+              "side": "friendly",
+              "keyword": "goremonger"
+            },
+            "effect": {
+              "type": "gainResource",
+              "resource": "gore-tank",
+              "amount": 1
+            },
+            "limits": {
+              "notEngaged": true,
+              "requiresResource": "gore-tank"
+            }
+          }
         }
       ],
       "keywords": [
@@ -279,7 +297,24 @@
           "id": "gore-fuel",
           "name": "GORE-FUEL",
           "cost": "1AP",
-          "description": "Decrease this operative's GORE TANK. Until this operative uses any profile of its fleshskewer, all profiles of it have the Severe weapon rule. This operative cannot perform this action while within control range of an enemy operative, or if its GORE TANK is empty."
+          "description": "Decrease this operative's GORE TANK. Until this operative uses any profile of its fleshskewer, all profiles of it have the Severe weapon rule. This operative cannot perform this action while within control range of an enemy operative, or if its GORE TANK is empty.",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "weaponBoost",
+              "rules": [
+                "severe"
+              ],
+              "appliesTo": [
+                "shoot",
+                "fight"
+              ]
+            },
+            "limits": {
+              "notEngaged": true,
+              "requiresResource": "gore-tank"
+            }
+          }
         }
       ],
       "keywords": [
@@ -341,7 +376,15 @@
           "id": "dash-and-spray",
           "name": "DASH AND SPRAY",
           "cost": "1AP",
-          "description": "Perform a free Dash action and a free Shoot action with this operative in any order. You can only select dual autopistols (focused) for that Shoot action. This operative cannot perform this action while it has a Conceal order, or while within control range of an enemy operative.Incite the Hunt: Whenever this operative incapacitates an enemy operative from more than 2\" away, before that enemy operative is removed from the killzone, you can increase the GORE TANK of one friendly GOREMONGER operative within 8\" of that enemy operative. Whenever this operative inflicts damage on an enemy operative with either profile of its dual autopistols but doesn't incapacitate it, that enemy operative gains one of your Bleeding tokens (if it doesn't already have one). During a friendly GOREMONGER operative's activation or counteraction, before or after it performs an action, if it's within 8\" of an enemy operative that has one of your Bleeding tokens, you can remove that token and increase that friendly operative's GORE TANK."
+          "description": "Perform a free Dash action and a free Shoot action with this operative in any order. You can only select dual autopistols (focused) for that Shoot action. This operative cannot perform this action while it has a Conceal order, or while within control range of an enemy operative.Incite the Hunt: Whenever this operative incapacitates an enemy operative from more than 2\" away, before that enemy operative is removed from the killzone, you can increase the GORE TANK of one friendly GOREMONGER operative within 8\" of that enemy operative. Whenever this operative inflicts damage on an enemy operative with either profile of its dual autopistols but doesn't incapacitate it, that enemy operative gains one of your Bleeding tokens (if it doesn't already have one). During a friendly GOREMONGER operative's activation or counteraction, before or after it performs an action, if it's within 8\" of an enemy operative that has one of your Bleeding tokens, you can remove that token and increase that friendly operative's GORE TANK.",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "freeAction",
+              "action": "dash",
+              "unrestricted": true
+            }
+          }
         }
       ],
       "keywords": [

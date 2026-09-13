@@ -3,7 +3,7 @@
  * Everything that can remove an operative from play funnels through here.
  */
 import { EVENTS, logEvent } from '../state.js';
-import { applyDamageHooks, fireIncapacitated } from './hooks.js';
+import { applyDamageHooks, fireIncapacitated, fireWouldBeIncapacitated } from './hooks.js';
 import {
   clearTokens, tokenHitPenalty, tokenHitPenaltyIsCapped, tokenMoveDelta, tokenAplDelta,
 } from './tokens.js';
@@ -30,6 +30,15 @@ export function applyDamage(state, operativeId, amount, source = {}) {
 
   if (op.woundsRemaining <= 0) {
     op.woundsRemaining = 0;
+    // One window earlier than the death throes: the rules where the operative
+    // does not go down at all. Frenzy is the one this is for.
+    if (fireWouldBeIncapacitated(state, op, {
+      attacker: source.attackerId ? state.operatives[source.attackerId] : null,
+      action: source.kind === 'fight' || source.kind === 'shoot' ? source.kind : null,
+      source,
+    })) {
+      return { incapacitated: false, dealt };
+    }
     op.alive = false;
     op.ready = false;
     clearTokens(op); // an incapacitated operative takes its tokens with it

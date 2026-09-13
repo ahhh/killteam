@@ -1179,7 +1179,25 @@
       "description": "Up to twice per turning point, when a friendly EXACTION SQUAD operative is performing the Shoot action and you select a combat shotgun, executioner shotgun, scoped shotpistol or shotpistol, you can use this rule. If you do, select one of the following weapon rules for that weapon to have until the end of that action: Saturate.Piercing 1, but only if the target has a Save stat of 3+ or better.Torrent 1\", but you cannot select more than one secondary target."
     }
   ],
-  "ruleHooks": [],
+  "ruleHooks": [
+    {
+      "id": "marked-for-justice",
+      "rule": "Marked for Justice",
+      "trigger": "beforeAttackRoll",
+      "condition": {
+        "keyword": "exaction-squad",
+        "targetWounded": true
+      },
+      "effect": {
+        "type": "grantWeaponRule",
+        "rules": [
+          "punishing"
+        ]
+      },
+      "partial": true,
+      "notes": "the mark is a STRATEGIC GAMBIT naming one enemy operative for the turning point, and this engine has no gambit step that names one. An enemy the squad has already wounded stands in for it: it is the operative a marked squad has committed to and the one it re-marks on a kill, but it means a fresh mark on an untouched target is never made, and every wounded enemy carries the mark at once"
+    }
+  ],
   "weaponRules": {
     "concealedposition": {
       "rule": "Concealed Position",

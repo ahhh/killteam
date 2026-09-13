@@ -528,7 +528,16 @@
           "id": "pistol-barrage",
           "name": "PISTOL BARRAGE",
           "cost": "1AP",
-          "description": "Perform two free Shoot actions with this operative (this takes precedence over action restrictions). You must select a profile of its scoped plasma pistol for one action and its suppressed autopistol for the other (in any order). This operative cannot perform this action while it has a Conceal order, or during an activation in which it performed the Shoot action (or vice versa)."
+          "description": "Perform two free Shoot actions with this operative (this takes precedence over action restrictions). You must select a profile of its scoped plasma pistol for one action and its suppressed autopistol for the other (in any order). This operative cannot perform this action while it has a Conceal order, or during an activation in which it performed the Shoot action (or vice versa).",
+          "action": {
+            "ap": 1,
+            "effect": {
+              "type": "extraAction",
+              "action": "shoot",
+              "count": 1,
+              "free": true
+            }
+          }
         }
       ],
       "keywords": [
@@ -1194,7 +1203,23 @@
           "id": "signal",
           "name": "SIGNAL",
           "cost": "1AP",
-          "description": "SUPPORT. Select one other friendly INQUISITORIAL AGENT operative in the killzone. Until the end of that operative's next activation, add 1 to its APL stat. This operative can perform this action twice during its activation, but cannot perform this action while within control range of an enemy operative."
+          "description": "SUPPORT. Select one other friendly INQUISITORIAL AGENT operative in the killzone. Until the end of that operative's next activation, add 1 to its APL stat. This operative can perform this action twice during its activation, but cannot perform this action while within control range of an enemy operative.",
+          "action": {
+            "ap": 1,
+            "target": {
+              "scope": "visible",
+              "side": "friendly",
+              "keyword": "inquisitorial-agent"
+            },
+            "effect": {
+              "type": "addApl",
+              "amount": 1,
+              "token": "signal"
+            },
+            "limits": {
+              "notEngaged": true
+            }
+          }
         }
       ],
       "keywords": [

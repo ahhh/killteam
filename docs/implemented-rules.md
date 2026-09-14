@@ -16,7 +16,15 @@ the battle log as an unsupported rule — never silently guessed (invariant #7).
 - +1 CP per player per turning point (CP is tracked; spending is not yet implemented)
 
 ### Orders and actions
-- Engage / Conceal orders, chosen freely at the start of an activation
+- Engage / Conceal orders, chosen freely at the start of an activation — and
+  **only** there. The order is picked before the operative acts and once per
+  activation: it may not be flipped back between a Shoot and the end of the
+  activation, and a counteraction chooses no order at all (a counteraction is
+  not an activation). Naming the order it already has is a no-op and always
+  allowed, because a plan states the order it wants rather than checking
+  first. The printed exceptions — the `changeOrder` hooks nine packs spend a
+  faction rule on, and the unique actions that flip an order — go through
+  `rules/hooks.js` and are unaffected
 - Action points from APL, reduced by 1 while Injured (minimum 1)
 - Each action once per activation
 - **Reposition** — move up to Move
@@ -511,6 +519,18 @@ The AI scores candidate plans with per-role weights, then two layers on top
   weapons (Explosive — the bomb squigs) walk into a crowd and detonate, and
   psykers value getting a `psychic` weapon off over a safer sidearm shot.
 
+- a **character** read off the profile's keywords and printed actions
+  (`src/ai/characters.js`, and `aiCharacter` in the rule-pack format). Ten
+  archetypes, matched by the keywords the packs already carry, cover 251 of the
+  581 bundled profiles: a leader expects to survive to give the next order, a
+  champion walks past the easier target to reach the enemy leader, a marksman
+  picks casters and medics out of a line, a medic values its Medikit above the
+  point of AP it costs. Two things come out of it beyond the weight multipliers
+  — `hunts`, which steers target selection without changing what a plan claims,
+  and `signature`, what the operative's OWN printed actions are worth. An
+  action whose text opens `PSYCHIC` counts as a spell wherever a `psychic`
+  weapon would.
+
 - **resource spending** (`src/ai/spending.js`), for the teams that run an
   economy. It scales no weights — an invigoration is a decision, not a
   disposition — but it prefixes the plan with what it wants to buy: wounds back
@@ -518,7 +538,7 @@ The AI scores candidate plans with per-role weights, then two layers on top
   has a target in reach, and the melee upgrades that only pay off in a charge.
   The extra AP is only paid for if the plan it enabled actually spends it.
 
-All three show up in the combat log's plan rationale, alongside the score
+All four show up in the combat log's plan rationale, alongside the score
 breakdown.
 
 ## Ploys and CP

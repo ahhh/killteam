@@ -477,8 +477,8 @@ function mounted(onChoose = () => {}) {
   const overlay = new StubNode('div');
   const prompt = new TacticsPrompt({ root, overlay, onChoose });
   prompt.show(pending);
-  const eye = () => root.findAll((n) => n.classList.contains('tactics-peek'))[0];
-  const pill = () => overlay.findAll((n) => n.classList.contains('tactics-pill'))[0];
+  const eye = () => root.findAll((n) => n.classList.contains('fold-peek'))[0];
+  const pill = () => overlay.findAll((n) => n.classList.contains('fold-pill'))[0];
   return { pending, root, overlay, prompt, eye, pill };
 }
 

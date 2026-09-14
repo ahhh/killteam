@@ -15,8 +15,12 @@
  *  - **unit tactics** read off the profile's own weapons: area weapons hunt for
  *    crowds, Explosive weapons hunt for a crowd to stand inside, psykers value
  *    getting the big spell off over plinking with a sidearm.
+ *  - a **character** read off the profile's own keywords and printed actions
+ *    (`ai/characters.js`): a leader expects to survive to give the next order,
+ *    a champion goes looking for the enemy's best, a medic values the Medikit
+ *    over the point of AP it costs.
  *
- * A third layer, the team resource economies, does not scale weights at all —
+ * A fourth layer, the team resource economies, does not scale weights at all —
  * an invigoration is a decision rather than a disposition — so it lives in
  * `spending.js` and only reports here, in the plan rationale.
  *
@@ -29,6 +33,7 @@
 import { getProfile, selfDirectedWeapon } from '../rules/shooting.js';
 import { blastRadius, torrentRadius } from '../rules/weapon-rules.js';
 import { spendLabels } from './spending.js';
+import { characterFor } from './characters.js';
 
 /**
  * Multipliers over the role weights. `approachFloor` is the exception: it
@@ -156,9 +161,16 @@ function areaRadius(weapon) {
 /**
  * What makes this operative special, read off its own profile.
  *
+ * Two things are folded together here: what its **weapons** want (a Blast
+ * hunting a crowd, a demolition charge hunting a crowd to stand inside), and
+ * what the **operative** is (`ai/characters.js` — a leader, a champion, a
+ * medic). The weapons came first and for a long time were the whole of it,
+ * which is why a Boss Nob and the Ork Boy next to it planned identically.
+ *
  * @returns {{labels:string[], mods:object, multiHit:number|null,
  *            detonator:number|null, psyker:boolean, spellBonus:number,
- *            splashWeight:number}}
+ *            splashWeight:number, hunts:object, signature:number,
+ *            spells:Set<string>, character:object}}
  */
 export function unitTacticsFor(state, op) {
   const profile = getProfile(state, op);
@@ -219,12 +231,31 @@ export function unitTacticsFor(state, op) {
     mods.damage = (mods.damage ?? 1) * 1.15;
   }
 
+  // Who this is, as opposed to what it carries. Folded last so a character
+  // multiplier compounds over whatever its guns already asked for, and so an
+  // archetype cannot silently overwrite a weapon's claim on the same weight.
+  const character = characterFor(state, op);
+  for (const [key, value] of Object.entries(character.mods)) {
+    mods[key] = key === 'approachFloor'
+      ? Math.max(mods[key] ?? 0, value)
+      : (mods[key] ?? 1) * value;
+  }
+  labels.push(...character.labels);
+  // A caster whose spells are printed *actions* rather than weapons — a Magus'
+  // TELEPATHIC OVERLOAD — is still a caster, and `spells` above only ever
+  // looked at the weapon list.
+  if (character.spells.size && spellBonus === 0) spellBonus = 1.4;
+
   // What the team's resource economy is offering this operative right now.
   // It changes no weight — the spends are chosen in `spending.js`, plan by
   // plan — but the log should say what was on the table when it chose.
   labels.push(...spendLabels(state, op));
 
-  return { labels, mods, multiHit, detonator, psyker, spellBonus, splashWeight };
+  return {
+    labels, mods, multiHit, detonator, psyker, spellBonus, splashWeight,
+    hunts: character.hunts, signature: character.signature,
+    spells: character.spells, character,
+  };
 }
 
 /**

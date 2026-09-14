@@ -399,17 +399,38 @@ could do*, and the answer is the best plan of each **kind**:
 | Branch | What it is |
 | --- | --- |
 | Close combat | charge into contact, or fight what is already there |
-| Use a spell | a Shoot action with a PSYCHIC weapon |
+| Use a spell | a Shoot action with a PSYCHIC weapon, or a printed action whose text opens PSYCHIC |
 | Move and shoot / Shoot | with or without breaking position first |
 | Use an ability | one of the operative's own printed actions |
 | Use a resource | patch up out of the team economy, and get off the skyline |
 | Prepare a reaction | Guard: hold the shot for the enemy's turn |
-| Advance / Take cover / Take ground | press the line, get behind something, or take the marker |
+| Advance / Take cover / Take ground | press the line, work forward under cover, or take the marker |
 | Disengage | Fall Back out of contact |
 
 The kinds are read off each plan's own actions (`branchOf`), not declared at
 the twenty-odd places a plan is built, so a new branch in the controller cannot
 forget to label itself.
+
+**A repertoire is not one card.** Every branch shows its best plan and no more,
+which is right for shooting — six ways to shoot the same trooper is one card —
+and wrong for the thing that makes an operative worth fielding. A Sorcerer of
+Destiny prints two spells and a Magus prints two more, and the rule threw the
+second one away every time. So a spell and a printed action each get a slot of
+their own (`branchKeyOf`), and still have to out-rank everything else to reach
+a card.
+
+**"Take cover" is a covered advance.** Scored on cover alone, the best covered
+square in reach is the far face of the nearest terrain *measured from the
+enemy* — which is, by construction, backwards. So the menu's two walking
+options were "press into the open" and "retreat behind something", and a player
+who wanted to cross the board the way the tabletop crosses it had neither. The
+candidates are now filtered to the ones that close the distance or hold it —
+a ring around the enemy, within an inch and a half — and the card only appears
+if the destination has cover worth the name. Across three matchups played by
+hand, the cover card went from 58 offers (30 gaining ground, 18 retreating) to
+106 (95 gaining ground, none retreating). If the board offers nothing covered
+on the enemy's side, it falls back to the best cover anywhere and says so on
+the card: a card that disappears is worse than a card that gives ground.
 
 Only the economies that buy *wounds back* get a card of their own. The ones
 that buy attack dice or an extra swing are modifiers on an action, so they ride
@@ -459,6 +480,34 @@ the same path an AI plan takes, and the same rejection. Invariants 2 and 3 hold
 unchanged: the UI never decides whether an action is legal, and choosing is not
 permission. `test/semi-manual.test.mjs` checks that directly by handing the
 resolver an impossible order and asserting it is refused and logged.
+
+### Both dialogs fold away
+
+Half of what a player needs in order to choose is on the board the orders
+prompt is covering — who is where, what the log just said, what that
+operative's sheet reads. The eye in its header drops the dialog to a pill in
+the corner and leaves the battle underneath live and clickable. It is not an
+answer and not a dismissal: the activation stays suspended, the number keys go
+quiet while the cards are off screen, and the pill says who is still waiting.
+
+The **result screen** folds the same way, and for the same reason turned round:
+the moment the winner is announced is the moment the final board is worth
+looking at — where everyone finished, who is left standing, which markers were
+held when the clock ran out. A modal that covers that and offers only "new
+battle" throws away the last thing worth seeing. Escape folds the scoreboard
+rather than closing it, so it is always one tap from coming back. Both use
+`src/ui/foldaway.js`.
+
+### The battle log folds too
+
+On a phone the log was a fixed 130px strip: too short to follow a turning point
+in, and taking that room permanently out of the only thing on the screen that
+has to be legible. It now starts as its header alone there, and the chevron
+raises it into a sheet over the board — the same minimise-and-restore gesture
+as the two dialogs, on the one panel that could not do it. On a desktop it
+starts as the usual strip and the chevron raises it further, capped so the
+board never disappears. `L` is the keyboard shortcut, and whether it is up is
+remembered between sessions.
 
 ### What is still automatic
 
@@ -595,7 +644,9 @@ Milestones 0–6 of `plan.md` are implemented and tested:
 - ✅ Battlefield animations: shots, area effects, melee, ploys, persistent buffs
 
 Not yet built: procedural map generation (Milestone 6's generator), the
-Mapforge adapter (Milestone 7), equipment, and operative unique actions.
+Mapforge adapter (Milestone 7), and equipment. (Operative unique actions were
+listed here until they were built; 97 of them are wired, and
+`docs/implemented-rules.md` has the inventory.)
 
 **Command Points are a real economy.** A team spends CP three ways — strategic
 ploys in the strategy phase, firefight ploys bought mid-activation as a 0-AP
@@ -613,6 +664,40 @@ Gellerpox bursting, a Khorne Legionary's last swing), `afterAction`,
 `afterRetaliation` and `onTargetSelection`. A firefight ploy may declare
 `timing: "demise"`, bought as its own operative goes down out of the same
 reserve a reaction uses.
+
+**Operatives play as themselves.** Above the role weights and the team
+disposition there is now a **character** layer (`src/ai/characters.js`): ten
+archetypes matched off the keywords the packs already print, covering 251 of
+the 581 bundled profiles. It is derived rather than hand-maintained, exactly
+as the dispositions are — nothing in it names an operative, and adding a team
+adds no code — and a pack that disagrees says so on the profile with
+`aiCharacter`. What it changes: a leader values surviving to give the next
+order and its own printed actions are worth more than a generic one; a champion
+walks past the easier target to reach the enemy leader; a marksman picks
+casters, medics and heavy gunners out of a line; a medic values its Medikit
+above the point of AP it costs. Two things come out beyond the weight
+multipliers — `hunts`, which steers target selection without inflating what a
+plan claims it will do, and `signature`, what an operative's own actions are
+worth. An action whose text opens `PSYCHIC` is treated as a spell wherever a
+`psychic` weapon would be, which is half the casters in the bundle: they cast
+by printed action, and only the shot version had ever been recognised.
+
+The measurable effect is deliberately narrow. Across six matchups at forty
+games each, five moved by 2.5 points of win rate or less; Warpcoven against
+Pathfinders moved ten, from 92.5% to 82.5%, which is the one bundled team that
+is three casters in a trench coat and the one where the layer bites hardest.
+
+**Orders are chosen at the start of an activation, and once.** `change_order`
+cost 0 AP, was not booked as once-per-activation, and had no gate, so anything
+holding an action list could break cover, shoot, and slip back into Conceal
+before the opponent's turn — for free, repeatedly. Nine packs spend a faction
+rule on a `changeOrder` hook to buy exactly that privilege, which is the tell.
+The AI never exploited it (0 of 1,766 activations flipped after acting), so
+closing it costs the automatic game nothing; what it closes is the door a
+hand-played activation could have walked straight through. A plan states the
+order it wants rather than checking first, so naming the order it already has
+stays a no-op, 0-AP choices (a resource spend, a firefight ploy) do not start
+the activation, and the printed `changeOrder` hooks are untouched.
 
 Faction rules now run through a declarative `ruleHooks` layer — 51 rules across
 34 teams. The other 24 transcribed teams carry their faction rules, ploys,
@@ -845,6 +930,20 @@ an eleven-body Fellgor roster. This is still a gunline's engine — 26.9% is a
 long way from even — but it is the first change in this section that moved the
 number at all, and it did so by implementing printed rules rather than by
 tuning anything.
+
+The **character layer** later added three more points on the same harness,
+432 games, nothing else changed:
+
+| | melee win rate | average VP | melee survivors |
+|---|---|---|---|
+| faction rules only | 26.9% | 9.63 – 14.68 | 1.35 |
+| plus characters | **29.9%** | 9.75 – 14.62 | **1.41** |
+
+Small, and in the same direction for the same reason as the pass above: the
+`champion` archetype is concentrated in exactly these six packs, and it does
+two things a melee warband wants — raises the drive to close, and points the
+one operative that can win a duel at the enemy leader instead of at whatever
+is nearest. It is not a fix for the geometry described above; nothing here is.
 
 No stat line was changed, and neither was any of the three maps: every figure
 recorded above is measured on them and stands as measured. The killzone lever

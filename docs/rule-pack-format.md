@@ -116,6 +116,48 @@ Blast and Torrent make an operative hunt for clustered targets, a
 and a `psychic` weapon makes it value getting the cast off. See
 `src/ai/tactics.js`.
 
+### Character (`operatives[].aiCharacter`, optional)
+
+A disposition says how the kill team plays; a **character** says how one
+operative on it plays, which for a specialist is most of what it is. It needs
+no data either: it is read off the keywords the profile already prints.
+
+| Archetype | Keywords that select it | What changes |
+| --- | --- | --- |
+| `leader` | `leader` | values surviving to give the next order; its own actions are worth more |
+| `champion` | `champion`, `boss-nob`, `exarch`, `butcher`, `superior`, `sergeant`, `aspirant`, `assault-intercessor` | closes hard, and goes for the enemy leader |
+| `adept` | `psyker`, `sorcerer`, `cryptek`, `magus`, `primaris-psyker` | its printed spells are the repertoire; hunts enemy casters |
+| `medic` | `medic`, `apothecary`, `reliquarius`, `chirurgeon` | stays behind the line; the Medikit beats the point it costs |
+| `marksman` | `sniper`, `marksman`, `sharpshooter` | holds a lane; picks leaders, casters, medics and heavy gunners |
+| `herald` | `vox-operator`, `spotter`, `surveyor`, `icon-bearer`, `horn-bearer`, `comms`, `standard-bearer`, `tracker` | the printed action *is* the contribution |
+| `gunner` | `heavy-gunner`, `gunner`, `grenadier` | finds a firing position and stays in it |
+| `infiltrator` | `infiltrator`, `scout`, `ranger`, `incursor`, `sicarian`, `mandrake`, `stalker` | works the flanks, stays off the skyline |
+| `outrider` | `jump-pack`, `mounted`, `grav-chute`, `wings` | covers ground nobody else can |
+| `expendable` | `servitor`, `drone`, `mutoid-vermin`, `bomb-squig`, `canoptek` | worth more used than preserved |
+
+An operative takes up to three, in the order its keywords are printed, and
+their multipliers compound. A pack that disagrees says so on the profile:
+
+```jsonc
+"aiCharacter": "champion"                      // one archetype by name
+"aiCharacter": ["medic", "herald"]             // several
+"aiCharacter": {                               // or spelled out
+  "label": "Warlord",                          // shown in the combat log
+  "note": "leads from the front",
+  "mods":  { "approach": 2.0 },                // as `aiDisposition`, above
+  "hunts": { "leader": 1.6 },                  // enemy keywords to go for
+  "signature": 1.5                             // what its own actions are worth
+}
+```
+
+`hunts` scales how much this operative wants a given enemy dead; it steers
+target selection without changing what a plan claims it will do. `signature`
+scales what the operative's own printed actions are worth against a point of
+its AP. An action whose `description` opens with `PSYCHIC` is treated as a
+spell wherever a `psychic` weapon would be — including on the semi-manual
+menu, where it is offered under "Use a spell" and gets a card of its own.
+See `src/ai/characters.js`.
+
 ### Rule hooks
 
 `factionRules` is prose for a reader. `ruleHooks` is the machine-readable half:

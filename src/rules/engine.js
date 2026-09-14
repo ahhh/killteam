@@ -90,6 +90,51 @@ const ONCE_PER_ACTIVATION = new Set([
 ]);
 
 /**
+ * Why this operative may not pick an order right now.
+ *
+ * An order is chosen "at the start of an activation", before the operative has
+ * done anything with it, and it is one choice rather than a running toggle.
+ * Neither of those was enforced: `change_order` cost 0 AP, was absent from
+ * ONCE_PER_ACTIVATION, and had no gate at all — so anything holding the action
+ * list could shoot from Engage and then slip back into Conceal before the
+ * opponent's turn, for free, as many times as it liked. Nine bundled packs
+ * spend a faction rule on a `changeOrder` hook to buy exactly that privilege,
+ * which is the tell: it is not supposed to be free.
+ *
+ * The AI never exploited it (0 of 1,766 activations flipped after acting), so
+ * closing it costs the automatic game nothing; what it closes is the door a
+ * hand-played activation could have walked straight through.
+ *
+ * Three things are deliberately still allowed through:
+ *
+ *  - a **repeat of the order it already has**, which changes nothing and is
+ *    how most plans open — they name the order they want rather than checking
+ *    whether they already have it;
+ *  - anything after a **0-AP choice**: a resource spend and a firefight ploy
+ *    are made "before or after it performs an action" and are not actions, so
+ *    neither has started the activation proper;
+ *  - the **hooks** that flip an order mid-activation (`rules/hooks.js`), which
+ *    are the printed exceptions this gate exists to make meaningful.
+ *
+ * @returns {string|null}
+ */
+export function orderChangeBlocker(state, op, order = null) {
+  // Asking for the order it is already on is a no-op, and a plan is allowed to
+  // be explicit about the order it wants.
+  if (order !== null && op.order === order) return null;
+  // A counteraction is not an activation and has no order step: an operative
+  // that went to ground stays there, and counteracts from Conceal or not at
+  // all. (`commitCounteraction` already drops the action; this is the rule
+  // saying so rather than the plumbing happening to.)
+  if (op.inCounteraction) return 'a counteraction does not choose orders';
+  if (op.orderChosenThisActivation) return 'orders are chosen once per activation';
+  if ((op.usedThisActivation || []).length) {
+    return 'orders are chosen at the start of an activation, before it acts';
+  }
+  return null;
+}
+
+/**
  * The once-per-activation key for an action.
  *
  * Unique actions are limited one *ability* at a time, not one between them: a
@@ -280,6 +325,14 @@ export function getLegalActions(state, operativeId) {
     actions.push({ type: 'guard', cost: actionCost(state, op, 'guard') });
   }
 
+  // --- Orders -------------------------------------------------------
+  // Free, but only while the activation has not started (see
+  // `orderChangeBlocker`), which is why it is listed rather than assumed.
+  const flipped = op.order === ORDERS.ENGAGE ? ORDERS.CONCEAL : ORDERS.ENGAGE;
+  if (!orderChangeBlocker(state, op, flipped)) {
+    actions.push({ type: 'change_order', cost: 0, order: flipped });
+  }
+
   actions.push({ type: 'pass', cost: 0 });
   return actions
     .map((a) => (hasFreeAction(op, a.type) && a.cost > op.apRemaining)
@@ -376,8 +429,13 @@ function resolvePloyAction(state, op, action) {
 
 function doChangeOrder(state, op, action) {
   const order = action.order === ORDERS.ENGAGE ? ORDERS.ENGAGE : ORDERS.CONCEAL;
+  const blocked = orderChangeBlocker(state, op, order);
+  if (blocked) return { ok: false, reason: blocked };
   const changed = op.order !== order;
   op.order = order;
+  // Booked whether or not the order moved, so "Conceal, then Conceal, then
+  // Engage" cannot launder a second choice through a no-op first one.
+  op.orderChosenThisActivation = true;
   if (changed) {
     logEvent(state, EVENTS.ORDER_SELECTED, {
       operativeId: op.id, operativeName: op.name, playerId: op.playerId, order,

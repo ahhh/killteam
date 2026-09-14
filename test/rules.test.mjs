@@ -221,3 +221,81 @@ test('unknown actions are rejected and recorded as unsupported', () => {
   assert.equal(r.ok, false);
   assert.ok(s.warnings.some((w) => w.ruleId === 'action:teleport'));
 });
+
+/* ------------------------------------------------------------------ */
+/* Orders                                                              */
+/* ------------------------------------------------------------------ */
+
+/**
+ * An order is chosen at the start of an activation and once only. Before
+ * `orderChangeBlocker` existed, `change_order` cost nothing, was not booked,
+ * and had no gate — so an operative could break cover, shoot, and drop back
+ * into Conceal before the opponent's turn, for free and repeatedly.
+ */
+test('an order may be chosen at the start of an activation', () => {
+  const s = makeState({
+    p1: { at: [{ x: 5, y: 11, order: 'conceal' }] }, p2: { at: [{ x: 15, y: 11 }] },
+  });
+  const [a] = opsOf(s, 'p1');
+  const r = resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'engage' });
+  assert.equal(r.ok, true);
+  assert.equal(a.order, 'engage');
+  assert.ok(getLegalActions(s, a.id).every((x) => x.type !== 'change_order'),
+    'and is off the menu once taken');
+});
+
+test('the order cannot be changed twice in one activation', () => {
+  const s = makeState({
+    p1: { at: [{ x: 5, y: 11, order: 'conceal' }] }, p2: { at: [{ x: 15, y: 11 }] },
+  });
+  const [a] = opsOf(s, 'p1');
+  assert.equal(resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'engage' }).ok, true);
+  const back = resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'conceal' });
+  assert.equal(back.ok, false);
+  assert.match(back.reason, /once per activation/);
+  assert.equal(a.order, 'engage');
+});
+
+test('the order cannot be changed once the operative has acted', () => {
+  const s = makeState({
+    p1: { at: [{ x: 5, y: 11 }] }, p2: { at: [{ x: 15, y: 11 }] },
+  });
+  const [a] = opsOf(s, 'p1');
+  assert.equal(resolveAction(s, {
+    operativeId: a.id, type: 'reposition', destination: { x: 7, y: 11 },
+  }).ok, true);
+  const hide = resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'conceal' });
+  assert.equal(hide.ok, false);
+  assert.match(hide.reason, /start of an activation/);
+  assert.equal(a.order, 'engage');
+});
+
+test('naming the order it already has is always allowed', () => {
+  const s = makeState({ p1: { at: [{ x: 5, y: 11 }] }, p2: { at: [{ x: 15, y: 11 }] } });
+  const [a] = opsOf(s, 'p1');
+  resolveAction(s, { operativeId: a.id, type: 'reposition', destination: { x: 7, y: 11 } });
+  // A plan states the order it wants rather than checking first, and a
+  // statement that changes nothing must not be refused as a second choice.
+  const same = resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'engage' });
+  assert.equal(same.ok, true);
+  assert.equal(a.order, 'engage');
+});
+
+test('a resource spend does not start the activation', () => {
+  const s = makeState({ p1: { at: [{ x: 5, y: 11, order: 'conceal' }] }, p2: { at: [{ x: 15, y: 11 }] } });
+  const [a] = opsOf(s, 'p1');
+  // Spends and ploys are made "before or after it performs an action" and are
+  // not actions, so the order step is still open behind them.
+  a.usedThisActivation = [];
+  assert.equal(resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'engage' }).ok, true);
+});
+
+test('a counteraction does not choose orders', () => {
+  const s = makeState({ p1: { at: [{ x: 5, y: 11, order: 'conceal' }] }, p2: { at: [{ x: 15, y: 11 }] } });
+  const [a] = opsOf(s, 'p1');
+  a.inCounteraction = true;
+  const r = resolveAction(s, { operativeId: a.id, type: 'change_order', order: 'engage' });
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /counteraction/);
+  assert.equal(a.order, 'conceal');
+});

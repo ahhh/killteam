@@ -12,6 +12,8 @@ import {
 } from '../rules/weapon-rules.js';
 import { teamRuleBlocker, weaponMoveLimit } from '../rules/team-rules.js';
 import { liveOperatives } from '../state.js';
+import { profileOf } from '../rules/hooks.js';
+import { huntBonus } from './characters.js';
 
 /** Blast catches friends as readily as enemies; weight that heavily. */
 const FRIENDLY_FIRE_WEIGHT = 3;
@@ -83,10 +85,16 @@ export function bestShotFrom(state, op, position, enemies,
       const inCover = targeting.sight.cover;
       const expected = expectedDamage(op, weapon, enemy, { inCover });
       const splash = splashEstimate(state, op, weapon, enemy, inCover);
-      const score =
+      // A marksman picks the enemy leader out of a line of troopers; without
+      // this the choice is made on expected damage, and the trooper wins it
+      // because a trooper is easier to hurt. It scales the SCORE and not the
+      // estimate, so the plan still claims only the damage it will do.
+      const wanted = huntBonus(tactics?.hunts, profileOf(state, enemy));
+      const score = (
         expected + splash.enemy * 0.9 * (tactics?.splashWeight ?? 1) +
         killPressure(expected, enemy) * threatValue(state, enemy) * 0.8 -
-        splash.friendly * FRIENDLY_FIRE_WEIGHT +
+        splash.friendly * FRIENDLY_FIRE_WEIGHT
+      ) * wanted +
         (isPsychic(weapon) ? (tactics?.spellBonus ?? 0) : 0);
       if (!best || score > best.score) {
         best = {
@@ -178,14 +186,21 @@ export function splashEstimate(state, op, weapon, target, inCover) {
   return { enemy, friendly, radius };
 }
 
-/** Best melee target among enemies already within control range. */
-export function bestMeleeTarget(state, op, enemies, meleeWeapon) {
+/**
+ * Best melee target among enemies already within control range.
+ *
+ * `tactics` carries what this operative hunts (see `ai/characters.js`): a
+ * champion in contact with a leader and a trooper at once is on the board to
+ * swing at the leader, and the damage numbers alone say otherwise.
+ */
+export function bestMeleeTarget(state, op, enemies, meleeWeapon, tactics = null) {
   let best = null;
   for (const enemy of enemies) {
     if (!withinControlRange(op, enemy)) continue;
     const expected = expectedDamage(op, meleeWeapon, enemy, { inCover: false });
     // Melee is a two-way exchange; discount by what they hit back with.
-    const score = expected + killPressure(expected, enemy) * threatValue(state, enemy) * 0.8;
+    const score = (expected + killPressure(expected, enemy) * threatValue(state, enemy) * 0.8) *
+      huntBonus(tactics?.hunts, profileOf(state, enemy));
     if (!best || score > best.score) {
       best = { targetId: enemy.id, targetName: enemy.name, expected, score };
     }

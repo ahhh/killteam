@@ -19,49 +19,17 @@
  * that operative's sheet actually reads — so the eye button drops the dialog to
  * a pill in the corner and lets the battle underneath be read and clicked. It
  * is NOT an answer and not a dismissal: `pending` survives, `open` stays true,
- * and the engine is still stopped mid-activation until a card is picked.
+ * and the engine is still stopped mid-activation until a card is picked. The
+ * folding itself is `ui/foldaway.js`, shared with the result screen, which
+ * covers the board at the other moment a player most wants to see it.
  */
+import { Foldaway, peekButton } from './foldaway.js';
 
 function h(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
   if (text !== undefined) node.textContent = text;
   return node;
-}
-
-const SVG_NS = 'http://www.w3.org/2000/svg';
-
-/**
- * The eye, open or struck through.
- *
- * Drawn rather than fetched or lettered: it sits on a button that is 28px
- * square in a dialog that already loads no images, and an emoji renders as a
- * different picture on every platform this runs on.
- */
-function eyeIcon(open) {
-  const svg = document.createElementNS(SVG_NS, 'svg');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('width', '17');
-  svg.setAttribute('height', '17');
-  svg.setAttribute('aria-hidden', 'true');
-  svg.setAttribute('fill', 'none');
-  svg.setAttribute('stroke', 'currentColor');
-  svg.setAttribute('stroke-width', '1.8');
-  svg.setAttribute('stroke-linecap', 'round');
-  const path = document.createElementNS(SVG_NS, 'path');
-  path.setAttribute('d', 'M1.8 12S5.6 5.2 12 5.2 22.2 12 22.2 12 18.4 18.8 12 18.8 1.8 12 1.8 12Z');
-  svg.append(path);
-  const pupil = document.createElementNS(SVG_NS, 'circle');
-  pupil.setAttribute('cx', '12');
-  pupil.setAttribute('cy', '12');
-  pupil.setAttribute('r', '3.1');
-  svg.append(pupil);
-  if (!open) {
-    const slash = document.createElementNS(SVG_NS, 'path');
-    slash.setAttribute('d', 'M3.5 3.5 20.5 20.5');
-    svg.append(slash);
-  }
-  return svg;
 }
 
 export class TacticsPrompt {
@@ -74,10 +42,23 @@ export class TacticsPrompt {
     this.overlay = overlay;
     this.onChoose = onChoose;
     this.pending = null;
-    this.minimized = false;
-    this.pill = null;
+    this.fold = new Foldaway({
+      overlay,
+      // The dialog is whatever `root` was put inside, not "the overlay's first
+      // child" — the pill is a child of the overlay too, and a folded prompt
+      // must not end up marking the pill as the dialog.
+      dialog: () => this.root.parentElement ?? null,
+      caption: () => `${this.pending?.operativeName ?? 'this operative'} is waiting for orders`,
+      restoreLabel: () => `Show the orders for ${this.pending?.operativeName ?? 'this operative'} again`,
+    });
     this._onKey = (e) => this._key(e);
   }
+
+  /** Folded away, with the activation still suspended underneath. */
+  get minimized() { return this.fold.minimized; }
+
+  /** The pill the fold leaves behind; null until the prompt has been folded. */
+  get pill() { return this.fold.pill; }
 
   /** There is an unanswered activation. True while folded away, too. */
   get open() {
@@ -88,9 +69,10 @@ export class TacticsPrompt {
   show(pending, { colors = {} } = {}) {
     this.pending = pending;
     this.accent = colors[pending.playerId] ?? null;
+    this.fold.accent = this.accent;
     // A new operative is being asked about, so the fold from the last one does
     // not carry over: the player folded away a question that has been answered.
-    this._setMinimized(false);
+    this.fold.set(false);
     this.root.replaceChildren();
 
     const head = h('div', 'tactics-head');
@@ -117,7 +99,7 @@ export class TacticsPrompt {
       ? 'Counteraction — one action only'
       : `${budget} · choose this operative’s orders`;
     text.append(h('div', 'tactics-sub', sub));
-    head.append(text, this._peekButton());
+    head.append(text, peekButton(() => this.minimize()));
     this.root.append(head);
 
     const list = h('div', 'tactics-options');
@@ -141,7 +123,7 @@ export class TacticsPrompt {
 
   hide() {
     this.pending = null;
-    this._setMinimized(false);
+    this.fold.set(false);
     this.overlay.hidden = true;
     this.root.replaceChildren();
     document.removeEventListener('keydown', this._onKey, true);
@@ -149,84 +131,16 @@ export class TacticsPrompt {
 
   /** Fold the dialog down to its pill, leaving the battle underneath live. */
   minimize() {
-    if (this.pending) this._setMinimized(true);
+    if (this.pending) this.fold.set(true);
   }
 
   /** Put the unanswered choice back in front of the player. */
   restore() {
-    if (this.pending) this._setMinimized(false);
+    if (this.pending) this.fold.set(false);
   }
 
   toggleMinimized() {
-    if (this.pending) this._setMinimized(!this.minimized);
-  }
-
-  /**
-   * The eye, on the dialog's own header.
-   *
-   * A rebuilt button per prompt rather than a kept one, because everything
-   * else in `show` is rebuilt and a header that is half fresh and half reused
-   * is the kind of thing that goes stale without anyone noticing.
-   */
-  _peekButton() {
-    const peek = h('button', 'tactics-peek');
-    peek.type = 'button';
-    peek.append(eyeIcon(false));
-    const label = 'Hide this and look at the battlefield';
-    peek.title = label;
-    peek.setAttribute('aria-label', label);
-    peek.addEventListener('click', () => this.minimize());
-    return peek;
-  }
-
-  /**
-   * The pill the folded dialog leaves behind, built once and reused.
-   *
-   * It lives on the overlay rather than in `root`, which `show` empties — the
-   * pill has to outlive a re-render and be the one thing on a pass-through
-   * overlay that still takes a click.
-   */
-  _restorePill() {
-    if (!this.pill) {
-      this.pill = h('button', 'tactics-pill');
-      this.pill.type = 'button';
-      this.pill.append(eyeIcon(true), h('span', 'tactics-pill-text'));
-      this.pill.addEventListener('click', () => this.restore());
-      this.overlay.append(this.pill);
-    }
-    const who = this.pending?.operativeName ?? 'this operative';
-    const caption = this.pill.children[this.pill.children.length - 1];
-    caption.textContent = `${who} is waiting for orders`;
-    this.pill.title = 'Show the orders again';
-    this.pill.setAttribute('aria-label', `Show the orders for ${who} again`);
-    if (this.accent) this.pill.style.borderLeftColor = this.accent;
-    return this.pill;
-  }
-
-  /**
-   * Folded or not, in one place.
-   *
-   * The overlay keeps its `hidden = false` either way. Folding is a CSS state
-   * on the overlay — no backdrop, no pointer target — rather than a hidden
-   * dialog, so the answer is always one click away and the dialog never has to
-   * be rebuilt to come back.
-   */
-  _setMinimized(value) {
-    this.minimized = value;
-    // The dialog is whatever `root` was put inside, not "the overlay's first
-    // child" — the pill is a child of the overlay too, and a folded prompt
-    // must not end up marking the pill as the dialog.
-    const dialog = this.root.parentElement ?? null;
-    if (value) {
-      this.overlay.classList.add('minimized');
-      dialog?.setAttribute('aria-modal', 'false');
-      this._restorePill().hidden = false;
-      this.pill.focus();
-    } else {
-      this.overlay.classList.remove('minimized');
-      dialog?.setAttribute('aria-modal', 'true');
-      if (this.pill) this.pill.hidden = true;
-    }
+    if (this.pending) this.fold.toggle();
   }
 
   _card(option, i) {

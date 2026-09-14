@@ -21,6 +21,7 @@ import { renderRosterPanel, renderOperativeDetail } from './ui/inspector.js';
 import { CombatLog } from './ui/combat-log.js';
 import { SetupScreen } from './ui/setup.js';
 import { TacticsPrompt } from './ui/tactics.js';
+import { ResultScreen } from './ui/result.js';
 import { PlaybackClock } from './ui/controls.js';
 
 const PREFS_KEY = 'ktsim.prefs.v1';
@@ -108,6 +109,15 @@ class App {
       root: $('tacticsBody'),
       overlay: $('tacticsOverlay'),
       onChoose: (optionId) => this.chooseTactic(optionId),
+    });
+
+    // …and the scoreboard at the end of it, which folds away the same way so
+    // the final positions can be read.
+    this.result = new ResultScreen({
+      root: $('resultBody'),
+      overlay: $('resultOverlay'),
+      isDeathmatch: isLastTeamStanding,
+      digest: digestEvents,
     });
 
     const teams = this.prefs.teams ?? {};
@@ -357,82 +367,7 @@ class App {
   }
 
   showResult() {
-    const state = this.state;
-    if (!state?.result) return;
-    const body = $('inspectBody') && $('resultBody');
-    body.replaceChildren();
-
-    const head = document.createElement('div');
-    head.className = 'result-head';
-    const title = document.createElement('h2');
-    title.id = 'resultTitle';
-    title.textContent = 'Battle complete';
-    const winner = document.createElement('div');
-    winner.className = 'winner';
-    winner.textContent = state.result.winner
-      ? `${state.players[state.result.winner].teamName} wins`
-      : 'Draw';
-    const score = document.createElement('div');
-    score.className = 'score';
-    // A deathmatch is decided by who is left standing, not by VP, so the big
-    // number is the survivor count — showing VP there would be misleading.
-    const deathmatch = isLastTeamStanding(state);
-    score.textContent = deathmatch
-      ? `${state.result.survivors.p1} – ${state.result.survivors.p2}`
-      : `${state.result.victoryPoints.p1} – ${state.result.victoryPoints.p2}`;
-    head.append(title, winner, score);
-    body.append(head);
-
-    const summary = document.createElement('p');
-    summary.textContent = state.result.summary;
-    body.append(summary);
-
-    const table = document.createElement('div');
-    table.className = 'vp-table';
-    const addRow = (label, a, b, cls = '') => {
-      const l = document.createElement('div'); l.className = cls; l.textContent = label;
-      const x = document.createElement('div'); x.className = cls; x.textContent = String(a);
-      const y = document.createElement('div'); y.className = cls; y.textContent = String(b);
-      table.append(l, x, y);
-    };
-    addRow('', state.players.p1.teamName, state.players.p2.teamName, 'hdr');
-    const reasons = new Set([
-      ...Object.keys(state.result.vpBreakdown.p1),
-      ...Object.keys(state.result.vpBreakdown.p2),
-    ]);
-    for (const reason of reasons) {
-      addRow(reason, state.result.vpBreakdown.p1[reason] ?? 0, state.result.vpBreakdown.p2[reason] ?? 0);
-    }
-    addRow('Survivors', state.result.survivors.p1, state.result.survivors.p2);
-    if (deathmatch && state.result.woundsLeft) {
-      addRow('Wounds left', state.result.woundsLeft.p1, state.result.woundsLeft.p2);
-    }
-    body.append(table);
-
-    const meta = document.createElement('p');
-    meta.className = 'muted mono';
-    meta.textContent =
-      `seed ${state.seed} · engine ${state.engineVersion} · AI ${state.aiVersion} · ` +
-      `map ${state.map.id} · mission ${state.mission.id} · digest ${digestEvents(state.eventLog)}`;
-    body.append(meta);
-
-    if (state.warnings.length) {
-      const notice = document.createElement('div');
-      notice.className = 'notice';
-      const head2 = document.createElement('div');
-      head2.textContent = 'Unsupported rules encountered during this battle:';
-      notice.append(head2);
-      const ul = document.createElement('ul');
-      for (const w of state.warnings) {
-        const li = document.createElement('li');
-        li.textContent = `${w.ruleId} (×${w.count}) — ${w.detail}`;
-        ul.append(li);
-      }
-      notice.append(ul);
-      body.append(notice);
-    }
-
-    this._openOverlay('resultOverlay');
+    this.result.show(this.state);
   }
 
   /* ---------------------------------------------------------------- */
@@ -546,6 +481,7 @@ class App {
 
     $('devLogToggle').addEventListener('change', () => this.log.rebuild(this.state.eventLog));
     $('clearLogBtn').addEventListener('click', () => this.log.clear());
+    $('logToggleBtn').addEventListener('click', () => this._toggleLog());
 
     $('setupBtn').addEventListener('click', () => this._openOverlay('setupOverlay'));
     $('setupCancelBtn').addEventListener('click', () => this._closeOverlay('setupOverlay'));
@@ -558,12 +494,12 @@ class App {
     $('inspectCloseBtn').addEventListener('click', () => this._closeOverlay('inspectOverlay'));
     $('resultLogBtn').addEventListener('click', () => this.exportLog());
     $('resultReplayBtn').addEventListener('click', () => {
-      this._closeOverlay('resultOverlay');
+      this.result.hide();
       this.newBattle();
       this.clock.play();
     });
     $('resultNewBtn').addEventListener('click', () => {
-      this._closeOverlay('resultOverlay');
+      this.result.hide();
       this._openOverlay('setupOverlay');
     });
 
@@ -585,7 +521,14 @@ class App {
     // Close any overlay with Escape; keyboard shortcuts for playback (§32).
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        for (const id of ['inspectOverlay', 'resultOverlay', 'aboutOverlay', 'setupOverlay']) {
+        // The result FOLDS rather than closing. Dismissing it used to throw
+        // the scoreboard away with no way back to it, and the board it was
+        // covering is the last thing worth looking at.
+        if (this.result?.open && !this.result.minimized) {
+          this.result.minimize();
+          return;
+        }
+        for (const id of ['inspectOverlay', 'aboutOverlay', 'setupOverlay']) {
           this._closeOverlay(id);
         }
         return;
@@ -600,7 +543,29 @@ class App {
       if (e.key === ' ') { e.preventDefault(); $('playBtn').click(); }
       if (e.key === 's') $('stepBtn').click();
       if (e.key === 'r') $('resetBtn').click();
+      if (e.key === 'l') $('logToggleBtn').click();
     });
+  }
+
+  /**
+   * Raise the battle log, or drop it back.
+   *
+   * One class on the body, because the two ends of it are different sizes on
+   * a phone and on a desktop and CSS is where that belongs. Raised, the log
+   * covers most of the board; dropped, it is the strip it always was — except
+   * on a phone, where dropped means the header alone, because a 130px strip
+   * of scrollback is neither readable nor worth the board it costs.
+   *
+   * Remembered, like the speed and the theme: a player who wants the log up
+   * wants it up next time too.
+   */
+  _toggleLog(open = !document.body.classList.contains('log-open')) {
+    document.body.classList.toggle('log-open', open);
+    $('logToggleBtn').setAttribute('aria-expanded', String(open));
+    // Newly revealed scrollback starts at the top otherwise, which on a phone
+    // is four turning points behind whatever just happened.
+    if (open) $('logBody').scrollTop = $('logBody').scrollHeight;
+    this._savePrefs({ logOpen: open });
   }
 
   _syncControls() {
@@ -669,6 +634,10 @@ class App {
   }
 
   _applyPrefs() {
+    if (this.prefs.logOpen) {
+      document.body.classList.add('log-open');
+      $('logToggleBtn')?.setAttribute('aria-expanded', 'true');
+    }
     if (this.prefs.highContrast) {
       document.body.classList.add('high-contrast');
       const box = $('contrastToggle');

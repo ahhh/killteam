@@ -84,6 +84,9 @@ export function makeState(spec) {
       op.x = pos.x; op.y = pos.y; op.placed = true;
       op.order = pos.order ?? 'engage';
       op.apRemaining = op.apl;
+      // A fixture stands its operatives at the top of an activation, which is
+      // the only moment an order may be chosen (see `orderChangeBlocker`).
+      op.orderChosenThisActivation = false;
     });
   }
   state.phase = 'firefight';

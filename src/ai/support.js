@@ -22,6 +22,7 @@ import { canShoot, usableRangedWeapons, meleeWeapons } from '../rules/shooting.j
 import { effectiveMove, isInjured } from '../rules/effects.js';
 import { withinControlRange } from '../rules/visibility.js';
 import { expectedDamage, threatValue } from './utility.js';
+import { characterFor, isPsychicAbility } from './characters.js';
 
 /**
  * A point of AP in the hands of a given operative, in expected wounds.
@@ -43,11 +44,41 @@ function patientValue(state, target) {
 /**
  * What this unique action, on this target, is worth right now.
  *
+ * The effect is priced first, in expected wounds, and then weighted by whose
+ * action it is. A Medikit in a medic's hands and a Medikit bolted to a servo
+ * skull are the same effect and not the same decision: the medic is on the
+ * board to perform it, and pricing them identically is what had specialists
+ * spending their activations Dashing (see `ai/characters.js`).
+ *
+ * Two weights ride on top of the effect:
+ *
+ *  - `signature`, how much this operative's OWN printed actions are worth
+ *    beyond a generic one — a leader's order, a herald's Spot;
+ *  - the spell bonus, for an action whose text opens PSYCHIC. A spell an
+ *    operative performs is as much its repertoire as one it shoots, and only
+ *    the shot version was ever recognised.
+ *
  * An effect the engine can't price returns 0.25 rather than 0: performing it
  * is still better than letting the AP evaporate, but it will lose to anything
  * with a real number behind it.
  */
 export function uniqueActionValue(state, op, entry, target) {
+  const base = effectValue(state, op, entry, target);
+  if (base <= 0) return 0;
+  const character = characterFor(state, op);
+  return base * character.signature +
+    (isPsychicAbility(entry.ability) ? SPELL_BONUS : 0);
+}
+
+/**
+ * What casting is worth over and above what the spell does, in expected
+ * wounds. The same figure `unitTacticsFor` gives a PSYCHIC weapon, for the
+ * same reason: a caster that never casts is a badly-played caster.
+ */
+const SPELL_BONUS = 1.4;
+
+/** The effect alone, before whose hands it is in. */
+function effectValue(state, op, entry, target) {
   const effect = entry.def.effect || {};
   switch (effect.type) {
     case 'healWounds': {
@@ -156,6 +187,10 @@ export function bestUniqueAction(state, op, { exclude = new Set(), from = null }
         ap: entry.ap,
         name: entry.ability.name || entry.ability.id,
         targetName: target.id === op.id ? 'itself' : target.name,
+        // So the menu can file a spell under "Use a spell" rather than under
+        // "Use an ability", which is the difference between a Sorcerer's card
+        // and a Medikit's.
+        psychic: isPsychicAbility(entry.ability),
         action: {
           type: 'unique', abilityId: entry.ability.id, targetId: target.id,
         },

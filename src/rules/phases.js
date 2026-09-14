@@ -237,6 +237,9 @@ function buyStrategicPloys(state, controllers) {
  */
 function resetActivationFlags(op) {
   op.usedThisActivation = [];
+  // The order step of the new activation has not happened yet (see
+  // `orderChangeBlocker` in rules/engine.js).
+  op.orderChosenThisActivation = false;
   resetSpendLimits(op);
   op.heavyUsed = false;
   op.heavyMoveAllowed = null;
@@ -607,6 +610,10 @@ function tryCounteract(state, playerId, controller, fromSeq) {
     // A counteraction is not an activation, so Stun is not spent by it — but
     // Heavy applies to "an activation or counteraction", so those flags reset.
     op.usedThisActivation = [];
+    // A counteraction never gets an order step at all, so this stays true for
+    // its whole length; `orderChangeBlocker` refuses on `inCounteraction`
+    // regardless, and this keeps the two from disagreeing.
+    op.orderChosenThisActivation = true;
     op.heavyUsed = false;
     op.heavyMoveAllowed = null;
     op.distanceMovedThisActivation = 0;

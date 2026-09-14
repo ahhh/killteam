@@ -7,6 +7,7 @@
  */
 import { Rng } from '../rng.js';
 import { liveOperatives, ORDERS } from '../state.js';
+import { profileOf } from '../rules/hooks.js';
 import { baseDistance } from '../maps/geometry.js';
 import { enemiesInControlRange, withinControlRange, CONTROL_RANGE } from '../rules/visibility.js';
 import { effectiveApl, isInjured, effectiveMove } from '../rules/effects.js';
@@ -17,6 +18,7 @@ import { timesAllowed, hasFreeAction } from '../rules/hooks.js';
 import { DASH_DISTANCE, CHARGE_BONUS } from '../rules/movement.js';
 import { generateDestinations, chargeDestination } from './movement.js';
 import { bestShotFrom, bestMeleeTarget } from './targeting.js';
+import { huntBonus } from './characters.js';
 import {
   objectiveValueAt, exposureAt, coverQualityAt, expectedDamage,
   killPressure, threatValue, sightLinesAt, splashOpportunityAt,
@@ -180,6 +182,25 @@ function withPloys(spendBuffs, ployBuffs) {
     damageMultiplier: ployBuffs.damageMultiplier,
     rationale: [...(base.rationale || []), ...ployBuffs.rationale],
   };
+}
+
+/**
+ * Put the order at the very front of the intent, where the rules want it.
+ *
+ * An order is chosen at the start of an activation, before the operative acts
+ * (`orderChangeBlocker`), and the composed intent does not naturally arrive in
+ * that shape: `_compose` prepends the openings, and one of them — the
+ * operative's own printed action — is a real action that costs AP. So a plan
+ * that reads "Signal, then break cover and shoot" would have asked to break
+ * cover after it had already acted, and been refused for it.
+ *
+ * Only the first is kept. Two orders in one intent is a planner disagreeing
+ * with itself, and the engine would refuse the second anyway.
+ */
+function hoistOrder(actions) {
+  const order = actions.find((a) => a.type === 'change_order');
+  if (!order || actions[0] === order) return actions;
+  return [order, ...actions.filter((a) => a.type !== 'change_order')];
 }
 
 /** What the log says about why this operative plays the way it does. */
@@ -423,7 +444,7 @@ export class UtilityController {
     const { state, op, ap, enemies, engaged, tactics, w, buffs, ployPlans, shootBuffs, support } = ctx;
 
     const plans = engaged.length
-      ? this._engagedPlans(state, op, ap, enemies, engaged, buffs)
+      ? this._engagedPlans(state, op, ap, enemies, engaged, buffs, tactics)
       : this._freePlans(state, op, ap, enemies, tactics, buffs, ployPlans, shootBuffs);
 
     // Walking over to the operative that needs the medic. A short-ranged
@@ -507,6 +528,7 @@ export class UtilityController {
       ...support.rationale,
     ];
     if (opening.length) chosen.actions = [...opening, ...chosen.actions];
+    chosen.actions = hoistOrder(chosen.actions);
 
     return {
       operativeId,
@@ -698,12 +720,12 @@ export class UtilityController {
   /* Plan enumeration                                                 */
   /* --------------------------------------------------------------- */
 
-  _engagedPlans(state, op, ap, enemies, engaged, buffs = null) {
+  _engagedPlans(state, op, ap, enemies, engaged, buffs = null, tactics = null) {
     const plans = [];
     const melee = meleeWeapons(state, op)[0];
 
     if (melee) {
-      const target = bestMeleeTarget(state, op, engaged, buffed(melee, buffs));
+      const target = bestMeleeTarget(state, op, engaged, buffed(melee, buffs), tactics);
       if (target) {
         // Rage buys attack dice and Fury a second swing, so the plan that pays
         // for them is a different plan from the plain Fight — worth ranking as
@@ -1122,8 +1144,14 @@ export class UtilityController {
     const splash = e.splash?.enemy || 0;
     const friendlyFire = e.splash?.friendly || 0;
     const target = e.target ? state.operatives[e.target] : null;
+    // Who this operative in particular came for (`ai/characters.js`). Applied
+    // to the kill bonus rather than to the damage, because wanting a target
+    // dead does not make the weapon hit any harder — but it does decide which
+    // of two reachable enemies gets charged, and whether crossing the board
+    // for the enemy leader beats shooting the trooper in front of you.
+    const wanted = target ? huntBonus(tactics?.hunts, profileOf(state, target)) : 1;
     const killBonus = target
-      ? killPressure(damage, target) * threatValue(state, target) * 1.2
+      ? killPressure(damage, target) * threatValue(state, target) * 1.2 * wanted
       : 0;
 
     const objective = objectiveValueAt(state, op, at.x, at.y);

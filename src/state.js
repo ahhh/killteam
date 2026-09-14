@@ -108,6 +108,13 @@ export function createBattleState({ seed, map, mission, teams, engineVersion, ai
           /** Concealed Position: how many Shoot actions this operative has made. */
           shootActionsTaken: 0,
           usedThisActivation: [],
+          /**
+           * Orders are chosen at the start of an activation and once only, so
+           * the choice is booked rather than inferred (see
+           * `orderChangeBlocker` in rules/engine.js). True before the first
+           * activation, because deployment already set the opening order.
+           */
+          orderChosenThisActivation: true,
           /** Aimed: inches walked this activation, and the budget left by a shot. */
           distanceMovedThisActivation: 0,
           moveLimitThisActivation: null,

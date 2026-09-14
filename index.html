@@ -43,6 +43,7 @@
 <link rel="modulepreload" href="src/rules/fighting.js">
 <link rel="modulepreload" href="src/ai/tactics.js">
 <link rel="modulepreload" href="src/ai/spending.js">
+<link rel="modulepreload" href="src/ai/characters.js">
 <link rel="modulepreload" href="src/rules/phases.js">
 <link rel="modulepreload" href="src/rules/engine.js">
 <link rel="modulepreload" href="src/ai/controller.js">
@@ -62,6 +63,8 @@
 <link rel="modulepreload" href="src/ui/combat-log.js">
 <link rel="modulepreload" href="src/ui/setup.js">
 <link rel="modulepreload" href="src/ui/tactics.js">
+<link rel="modulepreload" href="src/ui/foldaway.js">
+<link rel="modulepreload" href="src/ui/result.js">
 <link rel="modulepreload" href="src/ui/controls.js">
 <!-- END modulepreload -->
 
@@ -128,9 +131,21 @@
           <title id="boardTitle">Battlefield</title>
         </svg>
       </div>
+      <!--
+        The log bar folds. On a phone it starts as its header alone so the
+        board gets the screen, and the chevron raises it into a tall sheet; on
+        a desktop it starts as the usual strip and the chevron raises it
+        further. The label rides inside the button rather than beside it, so
+        the tap target is "Battle log" and not a 10px triangle.
+      -->
       <div class="logbar">
         <div class="log-head">
-          <span class="title">Battle log</span>
+          <button id="logToggleBtn" class="log-toggle" type="button"
+                  aria-expanded="false" aria-controls="logBody"
+                  title="Show or hide the battle log">
+            <span class="log-chevron" aria-hidden="true"></span>
+            <span class="title">Battle log</span>
+          </button>
           <span id="phaseLabel" class="muted"></span>
           <span class="spacer" style="flex:1"></span>
           <label class="muted"><input type="checkbox" id="devLogToggle"> Developer log</label>
